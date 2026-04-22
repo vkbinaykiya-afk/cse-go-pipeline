@@ -96,8 +96,8 @@ Check this question against the three criteria and return your JSON verdict.\
 
 def find_latest_batch(questions_dir):
     """Returns the path to the most recently modified batch JSON file."""
-    pattern = os.path.join(questions_dir, "batch_*.json")
-    files   = glob.glob(pattern)
+    files = glob.glob(os.path.join(questions_dir, "batch_*.json"))
+    files += glob.glob(os.path.join(questions_dir, "agent_batch_*.json"))
     if not files:
         return None
     return max(files, key=os.path.getmtime)

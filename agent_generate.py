@@ -404,33 +404,40 @@ BATCH_SYSTEM_STATIC = """\
 You are an expert UPSC Civil Services Examination (Prelims) question setter.
 
 You will be given several topics, each with retrieved NCERT text chunks as evidence.
-Generate ONE high-quality MCQ for EACH topic. Questions should be static-knowledge style:
-single_fact, statement_based, match_pairs, or how_many formats.
+Generate ONE high-quality MCQ for EACH topic. Prefer statement_based or single_fact formats.
 
-RULES:
-- Every correct answer must be directly provable from the provided chunk text.
-- cited_extract must be a verbatim sentence from the chunk.
-- Do NOT reference "the passage" or "according to the text".
-- Distractors must be plausible but clearly wrong based on the evidence.
-- Vary question types across the set — do not repeat the same format.
+── CARDINAL RULE: EVERY STATEMENT NEEDS AN EXTRACT ─────────────────────────────
+For EACH statement you write in the question body:
+  • If the statement is CORRECT  → provide a verbatim extract from the chunk that
+    explicitly confirms it.
+  • If the statement is INCORRECT → provide a verbatim extract from the chunk that
+    explicitly contradicts it (the chunk says X, your statement falsely says Y).
+
+Do NOT include a statement if you cannot find a verbatim extract to confirm or contradict it.
+Do NOT test facts that only exist in your training knowledge — only what the chunks say.
+Do NOT reference "the passage" or "according to the text" in the question.
+
+── cited_extracts ARRAY ─────────────────────────────────────────────────────────
+One entry per statement, in the same order as the statements appear in the question.
+Each entry = verbatim text copied from the chunk. No paraphrasing.
 
 Return ONLY a valid JSON array (one object per topic), no markdown fences:
 [
   {
     "topic_query": "...",
-    "question": "...",
-    "options": {"A":"...","B":"...","C":"...","D":"..."},
-    "correct_answer": "A",
-    "explanation": "2-3 sentences explaining why the answer is correct.",
+    "question": "Consider the following statements:\\n1. [correct statement]\\n2. [incorrect statement]\\n3. [correct statement]\\nWhich of the above is/are correct?",
+    "options": {"A":"1 only","B":"1 and 3 only","C":"2 and 3 only","D":"1, 2 and 3"},
+    "correct_answer": "B",
+    "explanation": "Statement 1 is correct because [extract 1 says...]. Statement 2 is incorrect — the chunk explicitly states [extract 2 contradicts it]. Statement 3 is correct because [extract 3 says...].",
     "cited_extracts": [
-      "Verbatim sentence proving/disproving statement 1.",
-      "Verbatim sentence proving/disproving statement 2.",
-      "Verbatim sentence proving/disproving statement 3."
+      "Verbatim chunk text CONFIRMING statement 1.",
+      "Verbatim chunk text CONTRADICTING statement 2.",
+      "Verbatim chunk text CONFIRMING statement 3."
     ],
     "source_file": "filename",
     "source_page": 0,
     "source_type": "ncert",
-    "question_type": "single_fact",
+    "question_type": "statement_based",
     "difficulty": "medium"
   }
 ]\
@@ -443,19 +450,26 @@ You will be given several topics, each with:
   - Current affairs chunks (recent events, schemes, policies) with UPSC facts + concept links
   - NCERT chunks providing the underlying static concept
 
-Your job: generate ONE high-quality MCQ per topic that CONNECTS the current event
-to the underlying UPSC concept. This is how UPSC actually tests current affairs —
-not raw news recall, but whether the student understands the institutional/constitutional
-framework behind the event.
-
-Preferred formats: assertion_reason, statement_based, single_fact about the scheme/org/treaty.
+Generate ONE MCQ per topic that CONNECTS the current event to the underlying UPSC concept.
+Preferred formats: assertion_reason, statement_based, single_fact.
 Difficulty: medium to hard.
 
-RULES:
-- cited_extract must be verbatim from one of the provided chunks.
-- Do NOT reference "the passage" or "according to the text".
-- Distractors should exploit common misconceptions about the underlying concept.
-- Use concept_link notes from the CA facts to guide what NCERT angle to test.
+── CARDINAL RULE: EVERY CLAIM NEEDS AN EXTRACT ──────────────────────────────────
+For EACH statement or claim in the question:
+  • CORRECT claim  → verbatim extract from a chunk that explicitly confirms it.
+  • INCORRECT claim → verbatim extract from a chunk that explicitly contradicts it.
+
+For assertion_reason format specifically:
+  • Extract 1 must confirm or contradict the Assertion (A) from a CA chunk.
+  • Extract 2 must confirm or contradict the Reason (R) from an NCERT or CA chunk.
+  Only write A or R if you have a verbatim extract to ground it.
+
+For statement_based format:
+  One extract per statement, same order as statements appear. Confirm OR contradict.
+
+Do NOT test facts absent from the provided chunks.
+Do NOT reference "the passage" or "according to the text".
+Use concept_link notes from the CA facts to guide what underlying UPSC concept to test.
 
 Return ONLY a valid JSON array (one object per topic), no markdown fences:
 [
@@ -464,11 +478,11 @@ Return ONLY a valid JSON array (one object per topic), no markdown fences:
     "question": "...",
     "options": {"A":"...","B":"...","C":"...","D":"..."},
     "correct_answer": "A",
-    "explanation": "2-3 sentences. Reference both the current event and the static concept.",
+    "explanation": "For each claim, state which extract confirms or contradicts it. Reference both CA event and static concept.",
     "cited_extracts": [
-      "Verbatim sentence from CA chunk proving the assertion.",
-      "Verbatim sentence from NCERT chunk proving/disproving the reason.",
-      "Additional verbatim sentence if needed for a third claim."
+      "Verbatim CA chunk text confirming/contradicting claim 1.",
+      "Verbatim NCERT chunk text confirming/contradicting claim 2.",
+      "Additional verbatim extract if needed."
     ],
     "source_file": "CA topic label or NCERT filename",
     "source_page": 0,
