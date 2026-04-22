@@ -53,7 +53,7 @@ TOP_K_PYQ       = 2
 TOP_K_CA        = 3
 
 # Batch mode: CA distance threshold — below this = CA hit → use Sonnet
-CA_HIT_THRESHOLD = 0.75
+CA_HIT_THRESHOLD = 0.55
 # Batch mode: chunks retrieved per topic
 BATCH_NCERT_K = 5
 BATCH_CA_K    = 3
