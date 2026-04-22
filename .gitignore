@@ -1,0 +1,16 @@
+# Data and generated files — too large for git
+source-docs/
+chroma-db/
+questions/
+pyq_questions.json
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.venv/
+venv/
+*.egg-info/
+
+# OS
+.DS_Store
