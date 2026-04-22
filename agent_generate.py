@@ -40,13 +40,15 @@ from chromadb.utils.embedding_functions import SentenceTransformerEmbeddingFunct
 CHROMA_DIR    = "./chroma-db"
 NCERT_COL     = "cse_knowledge_base"
 PYQ_COL       = "pyq_questions"
+CA_COL        = "current_affairs"
 EMBED_MODEL   = "all-MiniLM-L6-v2"
 OUTPUT_DIR    = "./questions"
 CLAUDE_MODEL  = "claude-sonnet-4-6"
 
-MAX_AGENT_TURNS = 12    # safety cap on tool calls per question
+MAX_AGENT_TURNS = 14    # safety cap on tool calls per question
 TOP_K_NCERT     = 3
 TOP_K_PYQ       = 2
+TOP_K_CA        = 3
 
 
 # ── TOOL DEFINITIONS ──────────────────────────────────────────────────────────
@@ -102,6 +104,32 @@ TOOLS = [
         }
     },
     {
+        "name": "search_ca",
+        "description": (
+            "Search the current affairs knowledge base for recent events, government schemes, "
+            "organizations, treaties, species, and policies relevant to a topic. "
+            "Each result includes a reworded synthesis and structured UPSC-testable facts with "
+            "concept links — use these to write questions that connect current events to static "
+            "UPSC concepts. Call this when the topic has a current affairs dimension. "
+            "You can combine CA evidence with NCERT evidence in a single question."
+        ),
+        "input_schema": {
+            "type": "object",
+            "properties": {
+                "query": {
+                    "type": "string",
+                    "description": "Topic or event to search for in current affairs."
+                },
+                "n_results": {
+                    "type": "integer",
+                    "description": "Number of CA chunks to retrieve (default 3, max 5).",
+                    "default": 3
+                }
+            },
+            "required": ["query"]
+        }
+    },
+    {
         "name": "save_question",
         "description": (
             "Save a finalized question to the output set. "
@@ -129,9 +157,14 @@ TOOLS = [
                 },
                 "correct_answer": {"type": "string", "enum": ["A", "B", "C", "D"]},
                 "explanation":    {"type": "string", "description": "2-3 sentence explanation of why the answer is correct."},
-                "cited_extract":  {"type": "string", "description": "Verbatim sentence(s) from the NCERT chunk that prove the answer."},
-                "source_file":    {"type": "string", "description": "The NCERT filename the chunk came from."},
-                "source_page":    {"type": "integer", "description": "Page number in the source file."},
+                "cited_extract":  {"type": "string", "description": "Verbatim sentence(s) from the source chunk that prove the answer."},
+                "source_file":    {"type": "string", "description": "The source filename or CA topic label."},
+                "source_page":    {"type": "integer", "description": "Page number in the source file (use 0 for CA sources)."},
+                "source_type":    {
+                    "type": "string",
+                    "enum": ["ncert", "ca", "both"],
+                    "description": "Whether evidence came from NCERT, current affairs, or both."
+                },
                 "question_type":  {
                     "type": "string",
                     "enum": ["statement_based", "match_pairs", "single_fact", "assertion_reason", "how_many"],
@@ -144,7 +177,8 @@ TOOLS = [
                 }
             },
             "required": ["question", "options", "correct_answer", "explanation",
-                         "cited_extract", "source_file", "source_page", "question_type", "difficulty"]
+                         "cited_extract", "source_file", "source_page", "source_type",
+                         "question_type", "difficulty"]
         }
     }
 ]
@@ -157,19 +191,33 @@ You are an expert UPSC Civil Services Examination (Prelims) question setter with
 
 Your task is to generate ONE high-quality UPSC Prelims MCQ question on the given topic.
 
-YOUR PROCESS — follow this order:
-1. Use search_ncert to find relevant evidence. Try 2-3 different queries if the first doesn't give a clean factual chunk.
-2. Use search_pyq to see how UPSC has framed questions on this topic — adopt that style.
-3. Draft a question mentally. Check: can the correct answer be directly quoted from the chunk?
+YOU HAVE THREE KNOWLEDGE SOURCES — use them strategically:
+  search_ncert  → foundational concepts, definitions, classifications, processes (NCERT Class 6-12)
+  search_ca     → current affairs: recent schemes, organizations, treaties, species, policies
+  search_pyq    → real UPSC questions (2011-2025) — use ONLY for style/framing reference
+
+THE BEST UPSC QUESTIONS connect a current event to a static concept:
+  e.g. "A new Ramsar site was declared in 2025" → question on Ramsar Convention criteria (NCERT/static)
+  e.g. "Government launched PM-Surya Ghar scheme" → question on solar energy / ministry / beneficiary
+If the topic has a current affairs angle, call search_ca first to find the event/scheme, then
+call search_ncert to find the underlying concept that makes it UPSC-worthy.
+
+YOUR PROCESS:
+1. If topic sounds current-affairs-related → search_ca first, then search_ncert for the concept layer.
+   If topic sounds purely conceptual → search_ncert first (2-3 queries if needed).
+2. Use search_pyq to see how UPSC frames questions on this topic — adopt that style.
+3. Draft a question mentally. Check: can the correct answer be directly proven from the evidence?
 4. If yes → call save_question. If no → search again with a different query.
 
 STRICT RULES for the question you save:
-- The correct answer must be explicitly and unambiguously stated in cited_extract.
-- cited_extract must be VERBATIM text from the chunk — no paraphrasing.
+- The correct answer must be explicitly supported by cited_extract.
+- cited_extract must be VERBATIM text from the retrieved chunk — no paraphrasing.
+  (For CA sources the chunk is already a synthesis — quote it as-is.)
 - Do NOT write "According to the passage" or reference the source.
-- Distractors must be plausible but clearly wrong based on the chunk.
-- Match the question style (statement-based, match pairs, etc.) to what UPSC actually uses for this topic.
-- Do not duplicate a question that already exists in the PYQ search results.
+- Distractors must be plausible but clearly wrong based on the evidence.
+- Match question style (statement-based, match pairs, etc.) to what UPSC uses for this topic.
+- Do not duplicate a question already in the PYQ search results.
+- Set source_type = "ncert" / "ca" / "both" to reflect where evidence came from.
 
 DIFFICULTY GUIDE:
 - easy: single direct fact, no inference needed
@@ -212,13 +260,45 @@ def execute_search_pyq(pyq_col, query, n_results=2):
     return questions
 
 
-def dispatch_tool(tool_name, tool_input, ncert_col, pyq_col, saved_questions):
+def execute_search_ca(ca_col, query, n_results=3):
+    n = min(int(n_results), 5)
+    results = ca_col.query(query_texts=[query], n_results=n)
+    chunks = []
+    for i in range(len(results["documents"][0])):
+        meta = results["metadatas"][0][i]
+        facts_raw = meta.get("upsc_facts", "[]")
+        try:
+            facts = json.loads(facts_raw)
+        except (json.JSONDecodeError, TypeError):
+            facts = []
+        chunks.append({
+            "text":     results["documents"][0][i],
+            "topic":    meta.get("topic", ""),
+            "category": meta.get("category", ""),
+            "date":     meta.get("date", ""),
+            "upsc_facts": facts,
+            "distance": round(results["distances"][0][i], 4)
+        })
+    return chunks
+
+
+def dispatch_tool(tool_name, tool_input, ncert_col, pyq_col, ca_col, saved_questions):
     """Execute the tool and return a JSON-serialisable result dict."""
     if tool_name == "search_ncert":
         results = execute_search_ncert(
             ncert_col,
             tool_input["query"],
             tool_input.get("n_results", TOP_K_NCERT)
+        )
+        return {"chunks": results, "count": len(results)}
+
+    elif tool_name == "search_ca":
+        if ca_col is None:
+            return {"error": "Current affairs collection not available. Use search_ncert instead."}
+        results = execute_search_ca(
+            ca_col,
+            tool_input["query"],
+            tool_input.get("n_results", TOP_K_CA)
         )
         return {"chunks": results, "count": len(results)}
 
@@ -239,7 +319,7 @@ def dispatch_tool(tool_name, tool_input, ncert_col, pyq_col, saved_questions):
 
 # ── AGENT LOOP ────────────────────────────────────────────────────────────────
 
-def run_agent(client, topic, ncert_col, pyq_col, context_note=""):
+def run_agent(client, topic, ncert_col, pyq_col, ca_col=None, context_note=""):
     """
     Runs the agent loop for a single topic.
     Returns the saved question dict, or None if the agent couldn't produce one.
@@ -283,7 +363,7 @@ def run_agent(client, topic, ncert_col, pyq_col, context_note=""):
         # Execute all tool calls and build the tool_result message
         tool_results = []
         for tc in tool_calls:
-            result = dispatch_tool(tc.name, tc.input, ncert_col, pyq_col, saved_questions)
+            result = dispatch_tool(tc.name, tc.input, ncert_col, pyq_col, ca_col, saved_questions)
             tool_results.append({
                 "type":        "tool_result",
                 "tool_use_id": tc.id,
@@ -397,8 +477,17 @@ def main():
     ncert_col = client_chroma.get_or_create_collection(NCERT_COL, embedding_function=embed_fn)
     pyq_col   = client_chroma.get_or_create_collection(PYQ_COL,   embedding_function=embed_fn)
 
-    print(f"NCERT chunks : {ncert_col.count()}")
-    print(f"PYQ questions: {pyq_col.count()}")
+    # CA collection is optional — only available after running ingest_ca.py
+    try:
+        ca_col = client_chroma.get_collection(CA_COL, embedding_function=embed_fn)
+        ca_count = ca_col.count()
+    except Exception:
+        ca_col   = None
+        ca_count = 0
+
+    print(f"NCERT chunks   : {ncert_col.count()}")
+    print(f"PYQ questions  : {pyq_col.count()}")
+    print(f"CA chunks      : {ca_count}" + ("" if ca_count else "  (run ingest_ca.py to add)"))
 
     anthropic_client = anthropic.Anthropic()
 
@@ -420,7 +509,7 @@ def main():
 
     for i, topic in enumerate(topics):
         print(f"[{i+1}/{len(topics)}] Topic: '{topic}'")
-        q = run_agent(anthropic_client, topic, ncert_col, pyq_col)
+        q = run_agent(anthropic_client, topic, ncert_col, pyq_col, ca_col)
 
         if q:
             q["topic_query"] = topic
