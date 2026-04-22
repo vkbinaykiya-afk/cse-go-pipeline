@@ -165,7 +165,11 @@ TOOLS = [
                 },
                 "correct_answer": {"type": "string", "enum": ["A", "B", "C", "D"]},
                 "explanation":    {"type": "string", "description": "2-3 sentence explanation of why the answer is correct."},
-                "cited_extract":  {"type": "string", "description": "Verbatim sentence(s) from the source chunk that prove the answer."},
+                "cited_extracts": {
+                    "type": "array",
+                    "items": {"type": "string"},
+                    "description": "Array of verbatim sentences from source chunks — one per statement or claim in the question. For a 3-statement question, provide 3 extracts, one proving or disproving each statement."
+                },
                 "source_file":    {"type": "string", "description": "The source filename or CA topic label."},
                 "source_page":    {"type": "integer", "description": "Page number in the source file (use 0 for CA sources)."},
                 "source_type":    {
@@ -185,7 +189,7 @@ TOOLS = [
                 }
             },
             "required": ["question", "options", "correct_answer", "explanation",
-                         "cited_extract", "source_file", "source_page", "source_type",
+                         "cited_extracts", "source_file", "source_page", "source_type",
                          "question_type", "difficulty"]
         }
     }
@@ -218,9 +222,11 @@ YOUR PROCESS:
 4. If yes → call save_question. If no → search again with a different query.
 
 STRICT RULES for the question you save:
-- The correct answer must be explicitly supported by cited_extract.
-- cited_extract must be VERBATIM text from the retrieved chunk — no paraphrasing.
+- cited_extracts is an ARRAY — one verbatim sentence per statement/claim in the question.
+  For a 3-statement question, provide 3 extracts. For a single-fact question, provide 1.
+  Each extract must be VERBATIM text from the retrieved chunk — no paraphrasing.
   (For CA sources the chunk is already a synthesis — quote it as-is.)
+- Every statement marked correct/incorrect must be provable from its cited extract.
 - Do NOT write "According to the passage" or reference the source.
 - Distractors must be plausible but clearly wrong based on the evidence.
 - Match question style (statement-based, match pairs, etc.) to what UPSC uses for this topic.
@@ -416,7 +422,11 @@ Return ONLY a valid JSON array (one object per topic), no markdown fences:
     "options": {"A":"...","B":"...","C":"...","D":"..."},
     "correct_answer": "A",
     "explanation": "2-3 sentences explaining why the answer is correct.",
-    "cited_extract": "Verbatim sentence from the chunk.",
+    "cited_extracts": [
+      "Verbatim sentence proving/disproving statement 1.",
+      "Verbatim sentence proving/disproving statement 2.",
+      "Verbatim sentence proving/disproving statement 3."
+    ],
     "source_file": "filename",
     "source_page": 0,
     "source_type": "ncert",
@@ -455,7 +465,11 @@ Return ONLY a valid JSON array (one object per topic), no markdown fences:
     "options": {"A":"...","B":"...","C":"...","D":"..."},
     "correct_answer": "A",
     "explanation": "2-3 sentences. Reference both the current event and the static concept.",
-    "cited_extract": "Verbatim sentence from the chunk.",
+    "cited_extracts": [
+      "Verbatim sentence from CA chunk proving the assertion.",
+      "Verbatim sentence from NCERT chunk proving/disproving the reason.",
+      "Additional verbatim sentence if needed for a third claim."
+    ],
     "source_file": "CA topic label or NCERT filename",
     "source_page": 0,
     "source_type": "both",
@@ -556,25 +570,54 @@ def batch_generate(client, tier_items, tier):
         f"{topic_blocks}"
     )
 
+    # Split large batches to avoid context/token limits
+    BATCH_CHUNK = 5
+    if len(tier_items) > BATCH_CHUNK:
+        all_questions = []
+        for i in range(0, len(tier_items), BATCH_CHUNK):
+            all_questions.extend(
+                batch_generate(client, tier_items[i:i + BATCH_CHUNK], tier)
+            )
+        return all_questions
+
     response = client.messages.create(
         model      = model,
-        max_tokens = 300 * len(tier_items) + 512,
+        max_tokens = 600 * len(tier_items) + 512,
         system     = [{"type": "text", "text": system,
                        "cache_control": {"type": "ephemeral"}}],
         messages   = [{"role": "user", "content": user_msg}]
     )
 
     raw = response.content[0].text.strip()
-    try:
-        questions = json.loads(raw)
-    except json.JSONDecodeError:
-        import re
-        cleaned = re.sub(r'^```json|^```|```$', '', raw, flags=re.MULTILINE).strip()
+    import re
+
+    def _extract_json_array(text):
+        """Try progressively looser JSON extraction."""
+        # Direct parse
         try:
-            questions = json.loads(cleaned)
-        except Exception:
-            print(f"\n  WARNING: Could not parse {tier} batch response.")
-            return []
+            return json.loads(text)
+        except json.JSONDecodeError:
+            pass
+        # Strip markdown fences
+        cleaned = re.sub(r'^```json\s*|^```\s*|```\s*$', '', text, flags=re.MULTILINE).strip()
+        try:
+            return json.loads(cleaned)
+        except json.JSONDecodeError:
+            pass
+        # Extract first [...] block
+        m = re.search(r'(\[.*\])', cleaned, re.DOTALL)
+        if m:
+            try:
+                return json.loads(m.group(1))
+            except json.JSONDecodeError:
+                pass
+        return None
+
+    questions = _extract_json_array(raw)
+    if questions is None:
+        print(f"\n  WARNING: Could not parse {tier} batch response. Raw output:")
+        print(raw[:500])
+        return []
 
     # Tag each question with tier and status
     for q, item in zip(questions, tier_items):
@@ -649,7 +692,9 @@ def print_question(q, index):
         print(f"    {marker} {k}) {opts.get(k,'')}")
     print(f"\n  Explanation: {q.get('explanation','')[:150]}…")
     print(f"  Source: {q.get('source_file','')}  p.{q.get('source_page','')}")
-    print(f"  Extract: \"{q.get('cited_extract','')[:100]}…\"")
+    extracts = q.get('cited_extracts') or ([q.get('cited_extract','')] if q.get('cited_extract') else [])
+    for ex in extracts[:3]:
+        print(f"  Extract: \"{str(ex)[:100]}…\"")
 
 
 # ── MAIN ──────────────────────────────────────────────────────────────────────

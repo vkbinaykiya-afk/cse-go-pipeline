@@ -45,18 +45,22 @@ Your job is to find flaws in MCQ questions that another AI has generated.
 You will receive:
   - A question with four options (A/B/C/D)
   - The claimed correct answer
-  - The cited_extract: the exact sentence(s) from the source that supposedly prove the answer
+  - cited_extracts: an array of verbatim sentences from the source — one per statement or
+    claim in the question (e.g. a 3-statement question should have 3 extracts)
 
 You must check THREE things and output ONLY valid JSON — no preamble, no markdown fences:
 
-1. GROUNDING: Does the cited_extract directly and explicitly state the fact that makes the correct answer right?
-   FAIL if: the extract only implies it, requires inference, or does not mention the key fact at all.
+1. GROUNDING: Does each cited extract directly and explicitly support or refute the
+   statement it corresponds to?
+   FAIL if: any extract only implies the fact, requires inference, or does not contain
+   the key fact needed to evaluate that statement.
 
-2. AMBIGUITY: Based on the cited_extract alone (no outside knowledge), is the correct answer the ONLY defensible choice?
-   FAIL if: another option could reasonably be chosen using only the extract.
+2. AMBIGUITY: Based on the cited extracts alone (no outside knowledge), is the correct
+   answer the ONLY defensible choice?
+   FAIL if: another option could reasonably be chosen using only the extracts.
 
-3. DISTRACTOR CLEANLINESS: Are the wrong options clearly wrong based on the extract?
-   FAIL if: a distractor contains a factual claim that the extract does not contradict,
+3. DISTRACTOR CLEANLINESS: Are the wrong options clearly wrong based on the extracts?
+   FAIL if: a distractor contains a factual claim that the extracts do not contradict,
    making it look plausible in a way that could confuse a well-prepared student.
 
 Output format — exactly these keys:
@@ -81,8 +85,8 @@ D) {opt_D}
 
 CLAIMED CORRECT ANSWER: {correct}
 
-CITED EXTRACT (verbatim from source):
-\"{cited_extract}\"
+CITED EXTRACTS (verbatim from source, one per statement/claim):
+{cited_extracts}
 
 Check this question against the three criteria and return your JSON verdict.\
 """
@@ -106,14 +110,21 @@ def check_one_question(client, record):
     """
     options = record.get("options") or {}
 
+    # Support both old (cited_extract string) and new (cited_extracts array) formats
+    extracts = record.get("cited_extracts")
+    if not extracts:
+        old = record.get("cited_extract", "")
+        extracts = [old] if old else []
+    extracts_str = "\n".join(f'{i+1}. "{e}"' for i, e in enumerate(extracts))
+
     user_message = CHECKER_USER_TEMPLATE.format(
-        question       = record.get("question", ""),
-        opt_A          = options.get("A", ""),
-        opt_B          = options.get("B", ""),
-        opt_C          = options.get("C", ""),
-        opt_D          = options.get("D", ""),
-        correct        = record.get("correct_answer", ""),
-        cited_extract  = record.get("cited_extract", "")
+        question        = record.get("question", ""),
+        opt_A           = options.get("A", ""),
+        opt_B           = options.get("B", ""),
+        opt_C           = options.get("C", ""),
+        opt_D           = options.get("D", ""),
+        correct         = record.get("correct_answer", ""),
+        cited_extracts  = extracts_str
     )
 
     response = client.messages.create(
@@ -158,7 +169,10 @@ def check_one_question(client, record):
 def print_result(record, index):
     verdict = record.get("status", "unknown").upper()
     marker  = "✓ PASS" if verdict == "PASS" else "✗ FLAG"
-    print(f"\n  Q{index+1}. {marker}  [{record['source']['filename']}  p.{record['source']['page']}]")
+    src = record.get("source") or {}
+    fname = src.get("filename") or record.get("source_file", "")
+    page  = src.get("page")    or record.get("source_page", "")
+    print(f"\n  Q{index+1}. {marker}  [{fname}  p.{page}]")
     print(f"       {record.get('question', '')[:90]}{'…' if len(record.get('question','')) > 90 else ''}")
     if record.get("flag_reason"):
         print(f"       Reason: {record['flag_reason']}")

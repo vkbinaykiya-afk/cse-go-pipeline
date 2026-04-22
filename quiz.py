@@ -177,8 +177,10 @@ def print_answer(q, user_answer=None):
         if line.strip():
             print(line)
 
-    if q.get("cited_extract"):
-        print(f"\n  {DIM}Source: \"{q['cited_extract'][:100]}…\"{RESET}")
+    extracts = q.get("cited_extracts") or ([q["cited_extract"]] if q.get("cited_extract") else [])
+    if extracts:
+        for ex in extracts[:3]:
+            print(f"\n  {DIM}Extract: \"{str(ex)[:100]}…\"{RESET}")
     elif q.get("source_file"):
         print(f"\n  {DIM}Source: {q['source_file']}  p.{q['source_page']}{RESET}")
 
