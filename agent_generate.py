@@ -43,12 +43,20 @@ PYQ_COL       = "pyq_questions"
 CA_COL        = "current_affairs"
 EMBED_MODEL   = "all-MiniLM-L6-v2"
 OUTPUT_DIR    = "./questions"
-CLAUDE_MODEL  = "claude-sonnet-4-6"
+CLAUDE_MODEL  = "claude-sonnet-4-6"          # agentic mode default
+SONNET_MODEL  = "claude-sonnet-4-6"          # CA + inference questions
+HAIKU_MODEL   = "claude-haiku-4-5-20251001"  # static + PYQ-style questions
 
 MAX_AGENT_TURNS = 14    # safety cap on tool calls per question
 TOP_K_NCERT     = 3
 TOP_K_PYQ       = 2
 TOP_K_CA        = 3
+
+# Batch mode: CA distance threshold — below this = CA hit → use Sonnet
+CA_HIT_THRESHOLD = 0.75
+# Batch mode: chunks retrieved per topic
+BATCH_NCERT_K = 5
+BATCH_CA_K    = 3
 
 
 # ── TOOL DEFINITIONS ──────────────────────────────────────────────────────────
@@ -381,6 +389,202 @@ def run_agent(client, topic, ncert_col, pyq_col, ca_col=None, context_note=""):
     return saved_questions[0] if saved_questions else None
 
 
+# ── BATCH MODE ────────────────────────────────────────────────────────────────
+# Batch generation: retrieve chunks locally (free), then one LLM call per tier.
+# Sonnet tier: topics with a CA hit or requiring inference/synthesis.
+# Haiku tier:  static NCERT topics (single-fact, statement-based, PYQ-style).
+
+BATCH_SYSTEM_STATIC = """\
+You are an expert UPSC Civil Services Examination (Prelims) question setter.
+
+You will be given several topics, each with retrieved NCERT text chunks as evidence.
+Generate ONE high-quality MCQ for EACH topic. Questions should be static-knowledge style:
+single_fact, statement_based, match_pairs, or how_many formats.
+
+RULES:
+- Every correct answer must be directly provable from the provided chunk text.
+- cited_extract must be a verbatim sentence from the chunk.
+- Do NOT reference "the passage" or "according to the text".
+- Distractors must be plausible but clearly wrong based on the evidence.
+- Vary question types across the set — do not repeat the same format.
+
+Return ONLY a valid JSON array (one object per topic), no markdown fences:
+[
+  {
+    "topic_query": "...",
+    "question": "...",
+    "options": {"A":"...","B":"...","C":"...","D":"..."},
+    "correct_answer": "A",
+    "explanation": "2-3 sentences explaining why the answer is correct.",
+    "cited_extract": "Verbatim sentence from the chunk.",
+    "source_file": "filename",
+    "source_page": 0,
+    "source_type": "ncert",
+    "question_type": "single_fact",
+    "difficulty": "medium"
+  }
+]\
+"""
+
+BATCH_SYSTEM_CA = """\
+You are an expert UPSC Civil Services Examination (Prelims) question setter.
+
+You will be given several topics, each with:
+  - Current affairs chunks (recent events, schemes, policies) with UPSC facts + concept links
+  - NCERT chunks providing the underlying static concept
+
+Your job: generate ONE high-quality MCQ per topic that CONNECTS the current event
+to the underlying UPSC concept. This is how UPSC actually tests current affairs —
+not raw news recall, but whether the student understands the institutional/constitutional
+framework behind the event.
+
+Preferred formats: assertion_reason, statement_based, single_fact about the scheme/org/treaty.
+Difficulty: medium to hard.
+
+RULES:
+- cited_extract must be verbatim from one of the provided chunks.
+- Do NOT reference "the passage" or "according to the text".
+- Distractors should exploit common misconceptions about the underlying concept.
+- Use concept_link notes from the CA facts to guide what NCERT angle to test.
+
+Return ONLY a valid JSON array (one object per topic), no markdown fences:
+[
+  {
+    "topic_query": "...",
+    "question": "...",
+    "options": {"A":"...","B":"...","C":"...","D":"..."},
+    "correct_answer": "A",
+    "explanation": "2-3 sentences. Reference both the current event and the static concept.",
+    "cited_extract": "Verbatim sentence from the chunk.",
+    "source_file": "CA topic label or NCERT filename",
+    "source_page": 0,
+    "source_type": "both",
+    "question_type": "assertion_reason",
+    "difficulty": "hard"
+  }
+]\
+"""
+
+
+def batch_retrieve(topics, ncert_col, ca_col):
+    """
+    For each topic, retrieve NCERT and CA chunks locally (no LLM call).
+    Returns list of {topic, ncert_chunks, ca_chunks, tier} dicts.
+    Tier = 'sonnet' if CA hit is strong, else 'haiku'.
+    """
+    results = []
+    for topic in topics:
+        ncert_res = ncert_col.query(query_texts=[topic], n_results=BATCH_NCERT_K)
+        ncert_chunks = []
+        for i in range(len(ncert_res["documents"][0])):
+            ncert_chunks.append({
+                "text":     ncert_res["documents"][0][i],
+                "source":   ncert_res["metadatas"][0][i].get("source", ""),
+                "page":     ncert_res["metadatas"][0][i].get("page", 0),
+                "distance": round(ncert_res["distances"][0][i], 4),
+            })
+
+        ca_chunks = []
+        tier = "haiku"
+        if ca_col:
+            ca_res = ca_col.query(query_texts=[topic], n_results=BATCH_CA_K)
+            for i in range(len(ca_res["documents"][0])):
+                dist = ca_res["distances"][0][i]
+                meta = ca_res["metadatas"][0][i]
+                try:
+                    facts = json.loads(meta.get("upsc_facts", "[]"))
+                except (json.JSONDecodeError, TypeError):
+                    facts = []
+                ca_chunks.append({
+                    "text":       ca_res["documents"][0][i],
+                    "topic":      meta.get("topic", ""),
+                    "category":   meta.get("category", ""),
+                    "upsc_facts": facts,
+                    "distance":   round(dist, 4),
+                })
+            if ca_chunks and ca_chunks[0]["distance"] < CA_HIT_THRESHOLD:
+                tier = "sonnet"
+
+        results.append({
+            "topic":        topic,
+            "ncert_chunks": ncert_chunks,
+            "ca_chunks":    ca_chunks,
+            "tier":         tier,
+        })
+    return results
+
+
+def _format_topic_block(item):
+    """Format one topic's retrieved chunks into a text block for the batch prompt."""
+    lines = [f"TOPIC: {item['topic']}"]
+
+    if item["ca_chunks"]:
+        lines.append("\nCURRENT AFFAIRS EVIDENCE:")
+        for c in item["ca_chunks"]:
+            lines.append(f"  [CA | {c['topic']} | {c['category']}]")
+            lines.append(f"  {c['text'][:600]}")
+            if c["upsc_facts"]:
+                lines.append("  UPSC Facts:")
+                for f in c["upsc_facts"][:3]:
+                    if isinstance(f, dict):
+                        lines.append(f"    • {f.get('fact','')} → {f.get('concept_link','')}")
+                    else:
+                        lines.append(f"    • {f}")
+
+    lines.append("\nNCERT EVIDENCE:")
+    for c in item["ncert_chunks"][:3]:
+        lines.append(f"  [NCERT | {c['source']} | p.{c['page']}]")
+        lines.append(f"  {c['text'][:500]}")
+
+    return "\n".join(lines)
+
+
+def batch_generate(client, tier_items, tier):
+    """
+    Single LLM call to generate one question per topic in tier_items.
+    tier = 'sonnet' | 'haiku'
+    Returns list of question dicts.
+    """
+    model  = SONNET_MODEL if tier == "sonnet" else HAIKU_MODEL
+    system = BATCH_SYSTEM_CA if tier == "sonnet" else BATCH_SYSTEM_STATIC
+
+    topic_blocks = "\n\n" + ("═" * 60) + "\n\n"
+    topic_blocks = topic_blocks.join(_format_topic_block(item) for item in tier_items)
+
+    user_msg = (
+        f"Generate exactly {len(tier_items)} MCQ question(s), one per topic.\n\n"
+        f"{topic_blocks}"
+    )
+
+    response = client.messages.create(
+        model      = model,
+        max_tokens = 300 * len(tier_items) + 512,
+        system     = [{"type": "text", "text": system,
+                       "cache_control": {"type": "ephemeral"}}],
+        messages   = [{"role": "user", "content": user_msg}]
+    )
+
+    raw = response.content[0].text.strip()
+    try:
+        questions = json.loads(raw)
+    except json.JSONDecodeError:
+        import re
+        cleaned = re.sub(r'^```json|^```|```$', '', raw, flags=re.MULTILINE).strip()
+        try:
+            questions = json.loads(cleaned)
+        except Exception:
+            print(f"\n  WARNING: Could not parse {tier} batch response.")
+            return []
+
+    # Tag each question with tier and status
+    for q, item in zip(questions, tier_items):
+        q["topic_query"] = item["topic"]
+        q["model_tier"]  = tier
+        q["status"]      = "pending_check"
+
+    return questions
+
+
 # ── QUESTION SET PLANNER ──────────────────────────────────────────────────────
 
 PLANNER_SYSTEM = """\
@@ -457,6 +661,9 @@ def main():
     group.add_argument("--subject", help="Subject name — agent plans coverage automatically")
     parser.add_argument("--count", type=int, default=5,
                         help="Number of questions to generate (used with --subject, default 5)")
+    parser.add_argument("--batch", action="store_true",
+                        help="Batch mode: retrieve locally then one LLM call per tier (cheaper). "
+                             "Sonnet for CA/inference topics, Haiku for static NCERT topics.")
     args = parser.parse_args()
 
     # ── Check API key ─────────────────────────────────────────────────────────
@@ -505,25 +712,52 @@ def main():
     records = []
     ok = 0
 
-    print(f"\nGenerating {len(topics)} question(s) ...\n")
+    if args.batch:
+        print(f"\nBatch mode — retrieving chunks for {len(topics)} topic(s) ...")
+        retrieved = batch_retrieve(topics, ncert_col, ca_col)
 
-    for i, topic in enumerate(topics):
-        print(f"[{i+1}/{len(topics)}] Topic: '{topic}'")
-        q = run_agent(anthropic_client, topic, ncert_col, pyq_col, ca_col)
+        sonnet_items = [r for r in retrieved if r["tier"] == "sonnet"]
+        haiku_items  = [r for r in retrieved if r["tier"] == "haiku"]
 
-        if q:
-            q["topic_query"] = topic
-            q["status"]      = "pending_check"
-            records.append(q)
-            print_question(q, i)
-            ok += 1
-        else:
-            print(f"    ✗ Agent could not produce a question for this topic.")
-            records.append({
-                "topic_query": topic,
-                "status":      "agent_failed",
-                "question":    None
-            })
+        print(f"  Sonnet tier (CA/inference): {len(sonnet_items)} topics")
+        print(f"  Haiku tier  (static NCERT): {len(haiku_items)} topics")
+
+        if haiku_items:
+            print(f"\nGenerating {len(haiku_items)} static question(s) with Haiku ...")
+            haiku_qs = batch_generate(anthropic_client, haiku_items, "haiku")
+            for i, q in enumerate(haiku_qs):
+                records.append(q)
+                print_question(q, len(records) - 1)
+                ok += 1
+
+        if sonnet_items:
+            print(f"\nGenerating {len(sonnet_items)} CA/inference question(s) with Sonnet ...")
+            sonnet_qs = batch_generate(anthropic_client, sonnet_items, "sonnet")
+            for i, q in enumerate(sonnet_qs):
+                records.append(q)
+                print_question(q, len(records) - 1)
+                ok += 1
+
+    else:
+        print(f"\nGenerating {len(topics)} question(s) (agentic mode) ...\n")
+
+        for i, topic in enumerate(topics):
+            print(f"[{i+1}/{len(topics)}] Topic: '{topic}'")
+            q = run_agent(anthropic_client, topic, ncert_col, pyq_col, ca_col)
+
+            if q:
+                q["topic_query"] = topic
+                q["status"]      = "pending_check"
+                records.append(q)
+                print_question(q, i)
+                ok += 1
+            else:
+                print(f"    ✗ Agent could not produce a question for this topic.")
+                records.append({
+                    "topic_query": topic,
+                    "status":      "agent_failed",
+                    "question":    None
+                })
 
     # ── Save ──────────────────────────────────────────────────────────────────
     output_file = save_batch(records, OUTPUT_DIR)
