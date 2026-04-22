@@ -88,10 +88,27 @@ can CONNECT a current event to an underlying concept, constitutional provision, 
 institutional framework, or historical pattern. Every fact you extract must carry that \
 connection angle.
 
+── STEP 0 — SUBSTANCE CHECK ─────────────────────────────────────────────────────
+First, decide if the chunk is substantive prose. Skip it if it is:
+  • A table of contents, index, or list of topic headings
+  • A page of bullet labels without explanatory sentences (e.g. "X vs Y", "A: ..., B: ...")
+  • A glossary, bibliography, or question-answer list with no context
+  • Fewer than 4 complete declarative sentences
+
+If the chunk fails the substance check, return ONLY:
+  {"skip": true, "reason": "one-line explanation"}
+
 ── STEP 1 — REWRITE ─────────────────────────────────────────────────────────────
 Rewrite the text ENTIRELY in your own words. Change sentence structure, vocabulary, \
 and phrasing. Do not copy any phrase of 5+ consecutive words from the source. \
 Preserve every factual claim exactly (names, numbers, dates, provisions).
+
+OUTPUT STYLE RULES for reworded_text — violations will cause the chunk to be discarded:
+  • Every sentence must be a complete declarative statement (subject + verb + object).
+  • NO headings, NO bullet labels, NO "X vs Y" constructs, NO numbered lists.
+  • NO sentences that are just topic names or category labels.
+  • If you cannot write 2+ full paragraphs of declarative prose from this chunk, \
+return {"skip": true, "reason": "insufficient substantive content"}.
 
 ── STEP 2 — EXTRACT UPSC-TESTABLE FACTS ─────────────────────────────────────────
 Extract 3-6 facts. For each fact, identify:
@@ -137,12 +154,41 @@ briefing note, not a news article.",
 }\
 """
 
+def _is_substantive(text):
+    """
+    Local pre-filter before hitting the API.
+    Returns False if the chunk looks like an index, TOC, or heading list.
+    """
+    sentences = [s.strip() for s in re.split(r'[.!?]', text) if len(s.strip()) > 20]
+    if len(sentences) < 3:
+        return False
+
+    words = text.split()
+    # High ratio of short lines = heading/bullet list
+    lines = [l.strip() for l in text.splitlines() if l.strip()]
+    if lines:
+        short_lines = sum(1 for l in lines if len(l.split()) < 6)
+        if short_lines / len(lines) > 0.6:
+            return False
+
+    # Mostly dots/ellipses = TOC page
+    if text.count('...') + text.count('….') > 5:
+        return False
+
+    return True
+
+
 def reword_chunk(client, raw_text, source_label):
     """
     Send a raw text chunk through the reword agent.
-    Returns a dict with reworded_text, topic, upsc_facts, verification_status.
+    Returns a dict with reworded_text, topic, upsc_facts, verification_status,
+    or None if the chunk should be skipped (non-substantive).
     Falls back to storing raw text if API fails.
     """
+    # Local pre-filter — skip obvious TOC/index pages without an API call
+    if not _is_substantive(raw_text):
+        return None
+
     try:
         response = client.messages.create(
             model      = REWORD_MODEL,
@@ -159,6 +205,15 @@ def reword_chunk(client, raw_text, source_label):
         except json.JSONDecodeError:
             cleaned = re.sub(r'^```json|^```|```$', '', raw, flags=re.MULTILINE).strip()
             result  = json.loads(cleaned)
+
+        # Honour model's own skip signal
+        if result.get("skip"):
+            return None
+
+        # Reject if reworded_text looks like headings (no real sentences)
+        reworded = result.get("reworded_text", "")
+        if not _is_substantive(reworded):
+            return None
 
         return result
 
@@ -434,20 +489,28 @@ def main():
         print(f"Running reword agent ({REWORD_MODEL}) on {len(raw_items)} chunks ...")
         print("(Each dot = 1 chunk processed)\n", end="", flush=True)
 
+        skipped = 0
         for i, item in enumerate(raw_items):
             result = reword_chunk(ai_client, item["text"], item["source"])
-            result["source"] = item["source"]
-            result["date"]   = item["date"]
-            reworded.append(result)
 
-            print(".", end="", flush=True)
+            if result is None:
+                skipped += 1
+                print("s", end="", flush=True)  # 's' = skipped (non-substantive)
+            else:
+                result["source"] = item["source"]
+                result["date"]   = item["date"]
+                reworded.append(result)
+                print(".", end="", flush=True)
+
             if (i + 1) % 50 == 0:
                 print(f" {i+1}/{len(raw_items)}")
 
             time.sleep(0.1)   # rate limit courtesy pause
 
         print(f"\n\nReword complete.")
-        failed = sum(1 for r in reworded if r["verification_status"] == "reword_failed")
+        if skipped:
+            print(f"  {skipped} chunks skipped (non-substantive: TOC, index, headings).")
+        failed = sum(1 for r in reworded if r.get("verification_status") == "reword_failed")
         if failed:
             print(f"  {failed} chunks fell back to raw text (reword_failed).")
 
