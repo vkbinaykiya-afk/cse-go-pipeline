@@ -1,0 +1,303 @@
+pkill -f "uvicorn" && sleep 1 && uvicorn api:app --reload --port 8000[
+  {
+    "topic_query": "fundamental rights article 19 freedoms",
+    "question": "Which of the following best describes the nature of the right to freedom of expression under Article 19(1)(a) of the Indian Constitution?",
+    "options": {
+      "A": "Article 19(1)(a) provides absolute freedom of expression without any restrictions whatsoever",
+      "B": "Article 19(1)(a) guarantees freedom of expression but is subject to reasonable restrictions under Article 19(2), and cannot override other constitutionally protected rights",
+      "C": "Article 19(1)(a) applies only to print media and does not extend to digital platforms or AI-generated content",
+      "D": "Article 19(1)(a) exempts all forms of creative expression from legal liability to promote democratic participation"
+    },
+    "correct_answer": "B",
+    "explanation": "Article 19(1)(a) guarantees freedom of speech and expression, but this right is not absolute. Article 19(2) permits the state to impose reasonable restrictions on grounds such as sovereignty, public order, decency, and morality. As noted in NCERT Political Theory, 'freedom of expression is also important for democratic government since it allows for the free expression of beliefs and opinions,' but Fundamental Rights themselves can only be changed by amending the Constitution and are subject to constitutional limitations. The right does not override other legal protections, and courts have consistently held that reasonable restrictions are permissible.",
+    "cited_extract": "The framework seeks to establish safeguards for content creators' intellectual property while enabling responsible generative AI development and equitable technology access.",
+    "source_file": "Class_11_Political_Science_Indian_Constitution_at_Work.pdf",
+    "source_page": 44,
+    "source_type": "NCERT",
+    "question_type": "statement_based",
+    "difficulty": "medium",
+    "model_tier": "haiku",
+    "status": "pass",
+    "grounding_ok": true,
+    "ambiguity_ok": true,
+    "distractors_ok": true,
+    "flag_reason": null,
+    "cited_extracts": [
+      "freedom of expression is also important for democratic government since it allows for the free expression of beliefs and opinions.",
+      "Fundamental Rights are protected and guaranteed by the constitution of the country. Ordinary rights may be changed by the legislature by ordinary process of law making, but a fundamental right may only be changed by amending the Constitution itself.",
+      "no organ of the government can a[ct against Fundamental Rights]"
+    ],
+    "repair_note": "Replaced the original unrelated generative AI/IP extract with NCERT extracts explicitly discussing freedom of expression and Fundamental Rights; revised options to remove ungroundable IP-specific claims; adjusted question to match available evidence.",
+    "factual_ok": true,
+    "unique_ok": true
+  },
+  {
+    "topic_query": "16th Finance Commission fiscal federalism",
+    "question": "Consider the following statements regarding the 16th Finance Commission and its constitutional framework:\n1. The Finance Commission is constituted under Article 280 of the Constitution and its recommendations are legally binding on the Union and State governments.\n2. The 16th Finance Commission's report was submitted to Parliament covering the five-year period from 2026-27 to 2030-31, with Dr. Arvind Panagariya as its Chairman.\n3. The Commission addresses resource distribution through three distinct constitutional channels: the divisible pool under Article 270(1), grants-in-aid under Article 275(1), and discretionary grants under Article 282.\nWhich of the statements given above is/are correct?",
+    "options": {
+      "A": "2 and 3 only",
+      "B": "1 and 2 only",
+      "C": "1 and 3 only",
+      "D": "1, 2 and 3"
+    },
+    "correct_answer": "A",
+    "explanation": "Statement 1 is incorrect: Finance Commission recommendations are advisory in nature and not legally binding on Union and State governments. Statement 2 is correct: The 16th Finance Commission, chaired by Dr. Arvind Panagariya, submitted its report to Parliament on February 1, 2026, covering the five-year period from 2026-27 to 2030-31. Statement 3 is correct: The Commission distributes resources through vertical devolution from the divisible pool (Article 270(1)), grants-in-aid to states (Article 275(1)), and discretionary grants (Article 282).",
+    "cited_extract": "Advisory Nature: Recommendations are not legally binding, making implementation and oversight difficult.",
+    "source_file": "Monthly Current Affairs- February 2026.pdf",
+    "source_page": 0,
+    "source_type": "current_affairs",
+    "question_type": "statement_based",
+    "difficulty": "hard",
+    "model_tier": "sonnet",
+    "status": "flag",
+    "grounding_ok": null,
+    "ambiguity_ok": null,
+    "distractors_ok": null,
+    "flag_reason": "check.py could not parse Claude's response — manual review needed.",
+    "cited_extracts": [
+      "Advisory Nature: Recommendations are not legally binding, making implementation and oversight difficult.",
+      "Report of the 16th Finance Commission was tabled in Parliament on February 1, 2026 for the five-year period between 2026-27 and 2030-31.",
+      "The 16th Finance Commission, chaired by Dr. Arvind Panagariya and comprising T Rabi Sankar, Annie George Mathew, Manoj Panda, and Soumya Kanti Ghosh, submitted its report to Parliament."
+    ],
+    "repair_note": "Replaced ungrounded Statement 2 about 41% vertical devolution with a verifiable statement about the 16th Finance Commission's award period and chairperson, grounded from fresh evidence.",
+    "factual_ok": null,
+    "unique_ok": null
+  },
+  {
+    "topic_query": "India GCC trade agreement",
+    "question": "With reference to India's free trade agreement (FTA) strategy during 2024–2026, consider the following statements:\n1. The India–New Zealand Free Trade Agreement was concluded in December 2025 as part of India's strategy of establishing trade relationships with all Regional Comprehensive Economic Partnership (RCEP) members.\n2. Following FTA signings with partners such as ASEAN, Japan, and South Korea, India's trade deficits with these partners have widened, suggesting preferential market access has not translated into proportional export gains.\nWhich of the statements given above is/are correct?",
+    "options": {
+      "A": "1 only",
+      "B": "2 only",
+      "C": "Both 1 and 2",
+      "D": "Neither 1 nor 2"
+    },
+    "correct_answer": "C",
+    "explanation": "Statement 1 is correct: The India–New Zealand Free Trade Agreement concluded in December 2025 represents India's strategy of establishing trade relationships with all RCEP members. Statement 2 is correct: Trade deficits have widened following FTA signings with major partners such as ASEAN, Japan, and South Korea, suggesting that preferential market access has not translated into proportional export gains.",
+    "cited_extract": "Following the conclusion of negotiations with New Zealand in December 2025, India now maintains free trade arrangements with all Regional Comprehensive Economic Partnership (RCEP) member states except China.",
+    "source_file": "India's Regional Trade Agreements 2024-2026; India's FTA Strategy and Implementation Challenges",
+    "source_page": 0,
+    "source_type": "current_affairs",
+    "question_type": "statement_based",
+    "difficulty": "medium",
+    "model_tier": "sonnet",
+    "status": "flag",
+    "grounding_ok": false,
+    "ambiguity_ok": false,
+    "distractors_ok": false,
+    "flag_reason": "Statement 1 is factually unverifiable and likely false — no India–New Zealand FTA was concluded in December 2025 as of available knowledge, and framing it as part of a strategy to cover 'all RCEP members' is dubious since India withdrew from RCEP in 2019; the question appears to fabricate a future event as established fact, making the answer key unreliable.",
+    "cited_extracts": [
+      "The India-New Zealand Free Trade Agreement concluded in December 2025 represents India's strategy of establishing trade relationships with all Regional Comprehensive Economic Partnership (RCEP) members.",
+      "Trade deficits have widened following FTA signings with major partners such as ASEAN, Japan, and South Korea, suggesting that preferential market access has not translated into proportional export gains."
+    ],
+    "repair_note": "Converted from assertion_reason to statement_based format because RCEP membership composition in Reason R could not be grounded from available evidence; both statements are now individually verifiable from the fresh CA evidence chunks.",
+    "factual_ok": false,
+    "unique_ok": false
+  },
+  {
+    "topic_query": "Ramsar wetlands India 2025",
+    "question": "With reference to the three wetlands recently designated as Ramsar sites in 2025, which of the following statements is/are correct?\n1. Gogabeel Lake is Bihar's first community reserve and is an oxbow wetland formed at the confluence of the Mahananda, Kankhar, and Ganga rivers.\n2. Siliserh Lake is a natural wetland located within the core zone of Sariska Tiger Reserve in Rajasthan.\n3. Kopra Jalashay is located in the upper Mahanadi catchment in Chhattisgarh and faces threats from siltation and invasive species.\nSelect the correct answer using the code given below:",
+    "options": {
+      "A": "1 and 3 only",
+      "B": "2 and 3 only",
+      "C": "1 and 2 only",
+      "D": "1, 2 and 3"
+    },
+    "correct_answer": "A",
+    "explanation": "Statement 1 is correct: Gogabeel is Bihar's first community reserve, an oxbow wetland at the confluence of Mahananda, Kankhar, and Ganga rivers. Statement 2 is incorrect on two counts: Siliserh is a human-made (artificial) wetland constructed in 1845, and it lies in the buffer zone—not the core zone—of Sariska Tiger Reserve. Statement 3 is correct: Kopra Jalashay is in Bilaspur district in the upper Mahanadi catchment and faces threats from siltation, invasive species, and intensive agriculture.",
+    "cited_extract": "Siliserh Lake is a human-made wetland constructed in 1845 within the buffer zone of Sariska Tiger Reserve in a semi-arid region, supporting species including Egyptian vultures, black storks, tigers, Indian pangolins, leopards, and sambars.",
+    "source_file": "Ramsar Wetlands Expansion - India 2025",
+    "source_page": 0,
+    "source_type": "both",
+    "question_type": "statement_based",
+    "difficulty": "hard",
+    "model_tier": "sonnet",
+    "status": "pass",
+    "grounding_ok": true,
+    "ambiguity_ok": true,
+    "distractors_ok": true,
+    "flag_reason": null
+  },
+  {
+    "topic_query": "PM RAHAT scheme road accidents",
+    "question": "Consider the following statements about the PM RAHAT scheme:\n1. It is administered by the Ministry of Road Transport and Highways and provides cashless hospitalization up to ₹1.5 lakh per road accident victim for seven days following the accident.\n2. The scheme applies universally across all road categories regardless of whether the vehicle involved is insured or uninsured.\n3. For uninsured vehicles and hit-and-run cases, funding is provided through Union budgetary allocation rather than from General Insurance Company contributions.\nWhich of the statements given above is/are correct?",
+    "options": {
+      "A": "1 and 2 only",
+      "B": "2 and 3 only",
+      "C": "1 and 3 only",
+      "D": "1, 2 and 3"
+    },
+    "correct_answer": "C",
+    "explanation": "Statement 1 is correct: PM RAHAT is administered by the Ministry of Road Transport and Highways and provides cashless hospitalization coverage up to ₹1.5 lakh per victim for seven days following the accident. Statement 2 is incorrect: the scheme does not apply universally across all road categories irrespective of insurance status in the same manner — specific provisions differ for insured vs. uninsured vehicles and hit-and-run cases. Statement 3 is correct: for uninsured vehicles and hit-and-run cases, funding comes from Union budgetary allocation rather than General Insurance Company contributions.",
+    "cited_extract": "Administered by the Ministry of Road Transport and Highways, PM RAHAT extends cashless hospitalization benefits up to ₹1.5 lakh per victim for the initial seven days following an accident.",
+    "source_file": "PM RAHAT Scheme — Road Accident Victim Hospitalization",
+    "source_page": 0,
+    "source_type": "current_affairs",
+    "question_type": "statement_based",
+    "difficulty": "medium",
+    "model_tier": "sonnet",
+    "status": "flag",
+    "grounding_ok": null,
+    "ambiguity_ok": null,
+    "distractors_ok": null,
+    "flag_reason": "check.py could not parse Claude's response — manual review needed.",
+    "cited_extracts": [
+      "PM RAHAT scheme, administered by the Ministry of Road Transport and Highways, provides cashless treatment coverage up to ₹1.5 lakh per road accident victim for seven days following the accident.",
+      "The Ministry of Road Transport and Highways oversees this initiative, which provides cashless hospitalization coverage up to ₹1.5 lakh per victim for seven days following the accident."
+    ],
+    "repair_note": "Statement 1 corrected to reflect the actual administering ministry (Ministry of Road Transport and Highways) and the correct coverage amount (₹1.5 lakh), matching the cited extract; correct answer updated to C accordingly.",
+    "factual_ok": null,
+    "unique_ok": null
+  },
+  {
+    "topic_query": "India largest rice producer",
+    "question": "Assertion (A): India is the second largest producer of rice in the world after China.\nReason (R): Rice is a kharif crop which requires high temperature (above 25°C) and high humidity with annual rainfall above 100 cm, and in areas of less rainfall, it grows with the help of irrigation.\nWhich one of the following is correct?",
+    "options": {
+      "A": "Both A and R are true, but R is not the correct explanation of A",
+      "B": "Both A and R are true, and R is the correct explanation of A",
+      "C": "A is true but R is false",
+      "D": "A is false but R is true"
+    },
+    "correct_answer": "A",
+    "explanation": "Assertion A is true — NCERT explicitly states 'Our country is the second largest producer of rice in the world after China.' Reason R is also true — rice is indeed a kharif crop requiring high temperature (above 25°C) and annual rainfall above 100 cm, and can be grown with irrigation in areas of lesser rainfall. However, R does not causally explain A: India's rank as the second largest producer is determined by its production volume and agricultural extent, not merely by the agro-climatic requirements of the crop. Many countries share similar climatic conditions without achieving comparable production levels. Hence, both A and R are true, but R is not the correct explanation of A.",
+    "cited_extract": "Our country is the second largest producer of rice in the world after China. It is a kharif crop which requires high temperature, (above 25°C) and high humidity with annual rainfall above 100 cm.",
+    "source_file": "Class_10_Geography_Contemporary_India_II.pdf",
+    "source_page": 32,
+    "source_type": "NCERT",
+    "question_type": "assertion_reason",
+    "difficulty": "medium",
+    "model_tier": "sonnet",
+    "status": "pass",
+    "grounding_ok": true,
+    "ambiguity_ok": true,
+    "distractors_ok": true,
+    "flag_reason": null,
+    "cited_extracts": [
+      "Our country is the second largest producer of rice in the world after China. It is a kharif crop which requires high temperature, (above 25°C) and high humidity with annual rainfall above 100 cm. In the areas of less rainfall, it grows with the help of irrigation."
+    ],
+    "repair_note": "Assertion A was rewritten to match the NCERT-grounded fact that India is the second largest rice producer after China, removing the ungrounded and potentially false export claim about 20 million metric tonnes in 2024–25.",
+    "factual_ok": true,
+    "unique_ok": true
+  },
+  {
+    "topic_query": "Ramsar Convention criteria wetlands",
+    "question": "Consider the following statements regarding the Ramsar Convention and the Montreux Record:\n1. A wetland included in the Montreux Record signifies that changes in its ecological character have occurred, are occurring, or are likely to occur due to human interference.\n2. The Ramsar Convention was adopted in 1971 and constitutes the world's largest network of protected areas.\n3. India's Gogabeel Lake, recently designated a Ramsar site, is Bihar's first community reserve formed at the confluence of the Mahananda, Kankhar, and Ganga rivers.\n4. Inclusion in the Montreux Record requires the host country to enact legislation prohibiting all human activity within five kilometres of the wetland boundary.\nWhich of the statements given above are correct?",
+    "options": {
+      "A": "1, 2 and 3 only",
+      "B": "1 and 3 only",
+      "C": "2, 3 and 4 only",
+      "D": "1, 2, 3 and 4"
+    },
+    "correct_answer": "A",
+    "explanation": "Statement 1 is correct: Montreux Record designation implies that changes in ecological character have occurred, are occurring, or are likely to occur in the wetland as a result of human interference. Statement 2 is correct: The Ramsar Convention on Wetlands was adopted in 1971 in Iran and has established the world's largest protected area network, with approximately 90% of UN member states as parties. Statement 3 is correct: Gogabeel Lake is formed by the confluence of the Mahananda, Kankhar, and Ganga rivers and is Bihar's first community reserve. Statement 4 is incorrect: There is no such requirement under the Montreux Record to enact legislation prohibiting human activity within five kilometres of the wetland boundary — this was a classic PYQ distractor option.",
+    "cited_extract": "Changes in ecological character have occurred, are occurring or are likely to occur in the wetland as a result of human interference.",
+    "source_file": "Gogabeel Community Reserve and International Wetland/Plant Genetic Resources Frameworks",
+    "source_page": 311,
+    "source_type": "current_affairs",
+    "question_type": "statement_based",
+    "difficulty": "hard",
+    "model_tier": "sonnet",
+    "status": "flag",
+    "grounding_ok": null,
+    "ambiguity_ok": null,
+    "distractors_ok": null,
+    "flag_reason": "check.py could not parse Claude's response — manual review needed.",
+    "cited_extracts": [
+      "Changes in ecological character have occurred, are occurring or are likely to occur in the wetland as a result of human interference.",
+      "The Ramsar Convention on Wetlands, adopted in 1971 in Iran, has been acceded to by approximately 90 percent of UN member states including India, establishing the world's largest protected area network.",
+      "Gogabeel, formed by the confluence of Mahananda, Kankhar, and Ganga rivers, is Bihar's first community reserve and serves as habitat for migratory and resident bird species."
+    ],
+    "repair_note": "Added verbatim cited extracts from fresh CA evidence to ground Statements 2 and 3; corrected Statement 3 to specify 'Bihar's first community reserve'; Statement 4 remains as a verifiable incorrect distractor.",
+    "factual_ok": null,
+    "unique_ok": null
+  },
+  {
+    "topic_query": "CITES appendices wildlife trade",
+    "question": "Assertion (A): At CITES CoP20, species such as oceanic whitetip shark, whale shark, and Galápagos marine iguana were listed under Appendix I of CITES.\nReason (R): Appendix I of CITES covers species not yet threatened with extinction but for which trade must be controlled to avoid utilization incompatible with their survival.\nWhich of the following is correct?",
+    "options": {
+      "A": "Both A and R are true and R is the correct explanation of A.",
+      "B": "Both A and R are true but R is NOT the correct explanation of A.",
+      "C": "A is true but R is false.",
+      "D": "A is false but R is true."
+    },
+    "correct_answer": "C",
+    "explanation": "Assertion A is TRUE: At CITES CoP20, notable additions to Appendix I include oceanic whitetip shark, whale shark, Galápagos marine iguana, and others. Reason R is FALSE: R incorrectly describes Appendix II of CITES (species not necessarily threatened but requiring trade control), not Appendix I. Appendix I covers species threatened with extinction where commercial trade is generally prohibited.",
+    "cited_extract": "Seventy-seven species were incorporated into the CITES protective framework, with additions spanning marine fauna such as oceanic whitetip and whale sharks, all manta and devil ray species, and terrestrial reptiles including Galápagos land and marine iguanas and Home's hinge-back tortoise.",
+    "source_file": "Monthly Current Affairs- December 2025.pdf",
+    "source_page": 0,
+    "source_type": "current_affairs",
+    "question_type": "assertion_reason",
+    "difficulty": "hard",
+    "model_tier": "sonnet",
+    "status": "flag",
+    "grounding_ok": null,
+    "ambiguity_ok": null,
+    "distractors_ok": null,
+    "flag_reason": "check.py could not parse Claude's response — manual review needed.",
+    "cited_extracts": [
+      "Notable additions include oceanic whitetip shark, whale shark, all manta and devil ray species, all three species of Galápagos land iguana, Galápagos marine iguana, Home's hinge-back tortoise to Appendix I."
+    ],
+    "repair_note": "Replaced the vague cited extract with a verbatim extract from the CA evidence that explicitly confirms CoP20, Appendix I, and the specific species listed, thereby grounding Assertion A; Reason R remains factually false (it describes Appendix II, not Appendix I), preserving the correct answer C.",
+    "factual_ok": null,
+    "unique_ok": null
+  },
+  {
+    "topic_query": "Pralay missile indigenous defence",
+    "question": "With reference to different categories of missiles and guided weapons, consider the following statements:\n1. A cruise missile flies within the earth's atmosphere and uses jet engine technology.\n2. Ballistic missiles are powered initially by a rocket or several in stages and follow a ballistic trajectory over most of their flight.\n3. Ballistic missiles are classified according to their ranges, from short (around 500 km) to intercontinental (more than 5000 km).\n4. Boost-glide vehicles are launched from a rocket and glide to their target by skipping across the atmosphere at hypersonic speeds.\nWhich of the statements given above are correct?",
+    "options": {
+      "A": "1, 2 and 3 only",
+      "B": "1, 2, 3 and 4",
+      "C": "2 and 4 only",
+      "D": "1 and 4 only"
+    },
+    "correct_answer": "B",
+    "explanation": "All four statements are correct based on standard missile classification. Cruise missiles fly within the atmosphere using jet engines. Ballistic missiles use rockets for initial propulsion, follow a ballistic trajectory, travel at hypersonic speeds, and are classified by range (short ~500 km to intercontinental >5000 km). Boost-glide vehicles are rocket-launched and glide to their target by skipping across the atmosphere at hypersonic speeds with high manoeuvrability.",
+    "cited_extract": "Cruise missile flies within the earth's atmosphere and uses jet engine technology. Ballistic missiles • Powered initially by a rocket or several in stages • Ballistic trajectory over most of its flight • Hypersonic speed during much of the flight • Optional manoeuvrability for the re-entry vehicle • Classified according to their ranges (from short, around 500 km, to intercontinental, more than 5000 km)",
+    "source_file": "Prelims PYQ (2011-2025).pdf",
+    "source_page": 117,
+    "source_type": "ncert",
+    "question_type": "statement_based",
+    "difficulty": "hard",
+    "model_tier": "sonnet",
+    "status": "pass",
+    "grounding_ok": true,
+    "ambiguity_ok": true,
+    "distractors_ok": true,
+    "flag_reason": "",
+    "cited_extracts": [
+      "Cruise missile flies within the earth's atmosphere and uses jet engine technology.",
+      "Ballistic missiles • Powered initially by a rocket or several in stages • Ballistic trajectory over most of its flight • Hypersonic speed during much of the flight • Optional manoeuvrability for the re-entry vehicle • Classified according to their ranges (from short, around 500 km, to intercontinental, more than 5000 km)",
+      "Boost-glide vehicle • Launched from a rocket • Glide to target by skipping across the atmosphere • Hypersonic speed • High manoeuvrability for the glider • Classified accordi"
+    ],
+    "repair_note": "Removed ungrounded statements about Pralay missile (range, DRDO) and Pinaka Long Range Guided Rocket (ARDE, HEMRL, 120 km); replaced with a fully grounded statement about boost-glide vehicles drawn from the fresh NCERT evidence chunk; correct answer updated to B accordingly."
+  },
+  {
+    "topic_query": "NPS Vatsalya pension scheme",
+    "question": "Assertion (A): The Atal Pension Yojana (APY) is administered by the Pension Fund Regulatory and Development Authority (PFRDA) under the National Pension System (NPS) framework and provides old-age income security to the poor.\nReason (R): APY is classified as a Centrally Sponsored Scheme, with implementation shared between the Union Government and state governments to extend social security to unorganized sector workers.\nWhich of the following is correct?",
+    "options": {
+      "A": "Both A and R are true and R is the correct explanation of A.",
+      "B": "Both A and R are true but R is NOT the correct explanation of A.",
+      "C": "A is true but R is false.",
+      "D": "A is false but R is true."
+    },
+    "correct_answer": "C",
+    "explanation": "Assertion A is true: APY is administered by PFRDA under the NPS framework and is one of the Jan Suraksha schemes launched in 2015 providing old-age income security to the poor. Reason R is false: APY is classified as a Central Sector Scheme (fully funded and implemented by the Union Government), not a Centrally Sponsored Scheme (which involves cost-sharing with state governments). Therefore, A is true but R is false.",
+    "cited_extract": "The scheme is administered by the Pension Fund Regulatory and Development Authority (PFRDA) under the National Pension System (NPS) framework, classified as a Central Sector Scheme.",
+    "source_file": "Monthly Current Affairs- December 2025.pdf",
+    "source_page": 0,
+    "source_type": "current_affairs",
+    "question_type": "assertion_reason",
+    "difficulty": "medium",
+    "model_tier": "sonnet",
+    "status": "pass",
+    "grounding_ok": true,
+    "ambiguity_ok": true,
+    "distractors_ok": true,
+    "flag_reason": "",
+    "cited_extracts": [
+      "The Jan Suraksha schemes launched in 2015, namely Pradhan Mantri Jeevan Jyoti Bima Yojana (PMJJBY) for life insurance, Pradhan Mantri Suraksha Bima Yojana (PMSBY) for accident insurance, and Atal Pension Yojana (APY) for old-age income security, have provided a safety net to the poor.",
+      "The scheme is administered by the Pension Fund Regulatory and Development Authority (PFRDA) under the National Pension System (NPS) framework, classified as a Central Sector Scheme."
+    ],
+    "repair_note": "Replaced ungrounded eligibility criteria in Assertion A with grounded claims about APY's administration under PFRDA/NPS and its purpose of old-age income security, both supported by cited extracts."
+  }
+]

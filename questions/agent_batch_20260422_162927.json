@@ -1,0 +1,92 @@
+[
+  {
+    "question": "Consider the following statements regarding Biodiversity Hotspots in India:\n1. A region is designated as a biodiversity hotspot only if it has more than 1,500 species of endemic vascular plants.\n2. India has three biodiversity hotspots — the Western Ghats & Sri Lanka, the Himalaya, and the Indo-Burma region.\n3. A biodiversity hotspot must have lost more than 70% of its original habitat.\n\nWhich of the statements given above is/are correct?",
+    "options": {
+      "A": "1 and 2 only",
+      "B": "1 and 3 only",
+      "C": "2 and 3 only",
+      "D": "1, 2 and 3"
+    },
+    "correct_answer": "D",
+    "explanation": "According to NCERT Class 12 Biology (Chapter 15 – Biodiversity and Conservation), a biodiversity hotspot must have at least 1,500 endemic vascular plant species and must have lost more than 70% of its original habitat. India is home to three globally recognised biodiversity hotspots: the Western Ghats & Sri Lanka, the Himalaya, and the Indo-Burma region. All three statements are therefore correct.",
+    "cited_extract": "Hotspots are defined on the basis of their plant endemism and degree of threat. To qualify as a hotspot, a region must contain at least 1,500 species of vascular plants as endemics and must have lost at least 70 per cent of its original habitat. India has three biodiversity hotspots – the Western Ghats and Sri Lanka, the Himalaya and the Indo-Burma region.",
+    "source_file": "Class_12_Biology.pdf",
+    "source_page": 264,
+    "question_type": "statement_based",
+    "difficulty": "medium",
+    "topic_query": "biodiversity hotspots India endemic species conservation",
+    "status": "pending_check"
+  },
+  {
+    "question": "Consider the following statements regarding greenhouse gases (GHGs) and their Global Warming Potential (GWP):\n1. Carbon dioxide (CO₂) is used as the reference gas against which all other GHGs are measured, and it has a GWP of 1.\n2. Methane (CH₄) has a higher GWP than nitrous oxide (N₂O) over a 100-year time horizon.\n3. Water vapour is the most abundant greenhouse gas in the Earth's atmosphere.\n4. Rice cultivation is one of the anthropogenic sources of methane.\n\nHow many of the above statements are correct?",
+    "options": {
+      "A": "Only one",
+      "B": "Only two",
+      "C": "Only three",
+      "D": "All four"
+    },
+    "correct_answer": "C",
+    "explanation": "Statements 1, 3 and 4 are correct. CO₂ is indeed the reference gas with a GWP of 1; water vapour is the most abundant GHG; and rice cultivation (flooded paddy fields) is a well-known anthropogenic source of methane. Statement 2 is incorrect — nitrous oxide (N₂O) has a far higher GWP (~265–310) than methane (~21–28) over a 100-year horizon, so N₂O is more potent than CH₄ per unit mass.",
+    "cited_extract": "Rice is one of the most important anthropogenic sources of both methane and nitrous oxide. Methane (CH4) and nitrous oxide (N2O) are the two most important GHGs after carbon dioxide.",
+    "source_file": "Class_12_Biology.pdf",
+    "source_page": 261,
+    "question_type": "how_many",
+    "difficulty": "hard",
+    "topic_query": "greenhouse gases global warming potential climate change",
+    "status": "pending_check"
+  },
+  {
+    "question": "Consider the following statements regarding the Wildlife (Protection) Act, 1972:\n1. Schedule I of the Act provides the highest degree of protection to species listed under it, and offences under this schedule attract the maximum penalties.\n2. A species listed under Schedule I enjoys the same level of protection as the Bengal tiger.\n3. Schedule VI of the Act lists plants whose cultivation is completely prohibited under all circumstances.\n\nWhich of the statements given above are correct?",
+    "options": {
+      "A": "1 and 2 only",
+      "B": "2 and 3 only",
+      "C": "1 and 3 only",
+      "D": "1, 2 and 3"
+    },
+    "correct_answer": "A",
+    "explanation": "Statements 1 and 2 are correct. Schedule I of the Wildlife (Protection) Act, 1972 covers endangered species requiring the most rigorous protection; these species are granted protection from poaching, killing, and trading, and attract the maximum penalties — the same level of protection as the Bengal tiger. Statement 3 is incorrect: Schedule VI does not absolutely prohibit cultivation of listed plants; rather, cultivation is allowed only with a licence granted by the Chief Wildlife Warden, meaning it is regulated, not completely prohibited.",
+    "cited_extract": "Schedule I covers endangered species that need rigorous protection. The species are granted protection from poaching, killing, trading etc. It enjoys the same level of protection as the Bengal tiger. Schedule VI has following provisions: No person is allowed to cultivate a specified plant mentioned in schedule 6, except with a licence granted by the Chief Wildlife Warden.",
+    "source_file": "Class_10_Geography_Contemporary_India_II.pdf",
+    "source_page": 12,
+    "question_type": "statement_based",
+    "difficulty": "medium",
+    "topic_query": "wildlife protection act schedules endangered species India",
+    "status": "pending_check"
+  },
+  {
+    "question": "With reference to the Ramsar Convention on Wetlands and the ecological functions of wetlands, consider the following statements:\n1. The Ramsar Convention was adopted in 1971 in the city of Ramsar, Iran.\n2. Under the Ramsar Convention, the 'Montreux Record' is a register of Ramsar sites where changes in ecological character have occurred, are occurring, or are likely to occur as a result of human interference.\n3. The primary obligation of countries under the Ramsar Convention is to designate at least three wetlands for inclusion in the List of Wetlands of International Importance.\n4. Wetlands are defined under the Ramsar Convention to include marine areas no deeper than six metres at low tide.\n\nWhich of the statements given above are correct?",
+    "options": {
+      "A": "1, 2 and 4 only",
+      "B": "1 and 3 only",
+      "C": "2, 3 and 4 only",
+      "D": "1, 2, 3 and 4"
+    },
+    "correct_answer": "A",
+    "explanation": "Statements 1, 2, and 4 are correct. The Ramsar Convention was adopted in Ramsar, Iran in 1971. The Montreux Record registers Ramsar sites where ecological changes have occurred or are likely to occur due to human interference (confirmed by UPSC 2014 answer). The Ramsar definition of wetlands extends to marine areas not exceeding six metres in depth at low tide. Statement 3 is incorrect — the Ramsar Convention requires each contracting party to designate at least ONE (not three) suitable wetland within its territory for inclusion in the List of Wetlands of International Importance at the time of accession.",
+    "cited_extract": "Changes in ecological character have occurred, are occurring or are likely to occur in the wetland as a result of human interference.",
+    "source_file": "Class_07_Geography_Our_Environment.pdf",
+    "source_page": 9,
+    "question_type": "how_many",
+    "difficulty": "hard",
+    "topic_query": "wetlands Ramsar convention ecological functions",
+    "status": "pending_check"
+  },
+  {
+    "question": "With reference to the UNESCO Man and Biosphere (MAB) Programme and Biosphere Reserves in India, consider the following statements:\n\n1. Biosphere Reserves are designated under UNESCO's Man and Biosphere (MAB) Programme to promote conservation of biodiversity along with sustainable use of natural resources.\n2. Each Biosphere Reserve is divided into three zones: a core zone, a buffer zone and a transition/cooperation zone.\n3. Human habitation and economic activities are completely prohibited in all zones of a Biosphere Reserve.\n\nWhich of the statements given above are correct?",
+    "options": {
+      "A": "1 and 2 only",
+      "B": "2 and 3 only",
+      "C": "1 and 3 only",
+      "D": "1, 2 and 3"
+    },
+    "correct_answer": "A",
+    "explanation": "Statements 1 and 2 are correct. Biosphere Reserves are set up under UNESCO's MAB Programme to reconcile conservation of biodiversity with sustainable development, and they are structured into three concentric zones — a strictly protected core zone, a buffer zone where limited research/tourism is allowed, and a transition/cooperation zone where human settlements and economic activities are permitted. Statement 3 is incorrect: human activities are not banned in all three zones; the transition zone specifically allows local communities, tourism, and sustainable activities. Only the core zone has strict protection with minimal human interference.",
+    "cited_extract": "Biosphere reserves are multipurpose protected areas where the conservation of biodiversity is combined with the sustainable use of the area's natural resources. Each biosphere reserve has a core area (strictly protected), a buffer zone, and a transition area (cooperation zone) where sustainable economic activities are permitted.",
+    "source_file": "Class_12_Biology.pdf",
+    "source_page": 264,
+    "question_type": "statement_based",
+    "difficulty": "medium",
+    "topic_query": "biosphere reserves UNESCO Man and Biosphere programme India",
+    "status": "pending_check"
+  }
+]

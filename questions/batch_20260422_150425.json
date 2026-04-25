@@ -1,0 +1,112 @@
+[
+  {
+    "topic_query": "fundamental rights constitution India",
+    "source": {
+      "filename": "Class_09_Science.pdf",
+      "page": 10,
+      "chunk_index": 4,
+      "similarity": 0.3475
+    },
+    "question": "The phrase 'unity and integrity of the Nation' in the Preamble of the Indian Constitution replaced the earlier phrase 'Unity of the Nation' through which constitutional amendment?",
+    "options": {
+      "A": "The Constitution (Forty-second Amendment) Act, 1976",
+      "B": "The Constitution (Forty-fourth Amendment) Act, 1978",
+      "C": "The Constitution (Twenty-fourth Amendment) Act, 1971",
+      "D": "The Constitution (Fifty-second Amendment) Act, 1985"
+    },
+    "correct_answer": "A",
+    "explanation": "The phrase 'unity and integrity of the Nation' was substituted for 'Unity of the Nation' by the Constitution (Forty-second Amendment) Act, 1976, which came into effect on 3.1.1977. This amendment also made other significant changes to the Preamble.",
+    "cited_extract": "Subs. by the Constitution (Forty-second Amendment) Act, 1976, Sec.2, for \"Unity of the Nation\" (w.e.f. 3.1.1977)",
+    "status": "pending_check",
+    "parse_error": false,
+    "raw_response": null
+  },
+  {
+    "topic_query": "monsoon rainfall India geography",
+    "source": {
+      "filename": "Class_11_Geography_Fundamentals_of_Physical_Geography.pdf",
+      "page": 1,
+      "chunk_index": 0,
+      "similarity": 0.506
+    },
+    "question": "The NCERT textbook 'India: Physical Environment' for Class XI was first published in which year?",
+    "options": {
+      "A": "March 2006",
+      "B": "January 2010",
+      "C": "February 2022",
+      "D": "November 2021"
+    },
+    "correct_answer": "A",
+    "explanation": "The textbook 'India: Physical Environment' for Class XI was first published in March 2006 (Phalguna 1927). February 2022 was a revised edition, not the first edition, and the other dates correspond to reprints.",
+    "cited_extract": "First Edition March 2006 Phalguna 1927",
+    "status": "pending_check",
+    "parse_error": false,
+    "raw_response": null
+  },
+  {
+    "topic_query": "parliamentary system India legislature",
+    "source": {
+      "filename": "Class_12_Political_Science_Politics_in_India_since_Independence.pdf",
+      "page": 13,
+      "chunk_index": 8,
+      "similarity": 0.4891
+    },
+    "question": "Which chapter in the NCERT Political Science textbook 'Politics in India since Independence' deals with 'The Crisis of Democratic Order'?",
+    "options": {
+      "A": "Chapter 6",
+      "B": "Chapter 5",
+      "C": "Chapter 7",
+      "D": "Chapter 8"
+    },
+    "correct_answer": "A",
+    "explanation": "According to the table of contents of the textbook, Chapter 6 is titled 'The Crisis of Democratic Order' and begins at page 92. Chapter 5 covers 'Challenges to and Restoration of the Congress System', Chapter 7 covers 'Regional Aspirations', and Chapter 8 covers 'Recent Developments in Indian Politics'.",
+    "cited_extract": "Chapter 6  The crisis of democratic order  92",
+    "status": "pending_check",
+    "parse_error": false,
+    "raw_response": null
+  },
+  {
+    "topic_query": "photosynthesis plants biology",
+    "source": {
+      "filename": "Class_12_Biology.pdf",
+      "page": 7,
+      "chunk_index": 3,
+      "similarity": 0.553
+    },
+    "question": "Which field of biology is described as bringing about a modern synthesis of both form and process aspects of Biology using mathematical tools?",
+    "options": {
+      "A": "Systems biology",
+      "B": "Ecology",
+      "C": "Biotechnology",
+      "D": "Molecular biology"
+    },
+    "correct_answer": "A",
+    "explanation": "The chunk explicitly states that Systems biology, using mathematical tools, is bringing about a modern synthesis of both the aspects of Biology (form and process). Ecology is mentioned as emphasising integrated understanding but not as using mathematical tools for modern synthesis.",
+    "cited_extract": "Systems biology, using mathematical tools, is bringing about a modern synthesis of both the aspects of Biology.",
+    "status": "pending_check",
+    "parse_error": false,
+    "raw_response": null
+  },
+  {
+    "topic_query": "economic development India GDP",
+    "source": {
+      "filename": "Class_10_Economics_Understanding_Economic_Development.pdf",
+      "page": 4,
+      "chunk_index": 2,
+      "similarity": 0.3444
+    },
+    "question": "In the context of early human economic development, which of the following processes refers to the extraction and recovery of stones and other minerals?",
+    "options": {
+      "A": "Quarrying",
+      "B": "Foraging",
+      "C": "Smelting",
+      "D": "Tilling"
+    },
+    "correct_answer": "A",
+    "explanation": "The chunk explicitly states that the process of recovering stones and other minerals is called 'quarrying'. This activity began after agriculture developed, as humans sought to extract non-food natural products to use as raw materials for making tools, weapons, utensils, and other items.",
+    "cited_extract": "This latter process of recovering stones and other minerals is called 'quarrying'.",
+    "status": "pending_check",
+    "parse_error": false,
+    "raw_response": null
+  }
+]

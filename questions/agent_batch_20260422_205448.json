@@ -1,0 +1,22 @@
+[
+  {
+    "topic_query": "fundamental rights article 19 freedoms",
+    "question": "Which of the following best describes the constitutional approach to fundamental rights and duties in the Indian Constitution?",
+    "options": {
+      "A": "The enjoyment of fundamental rights is made dependent upon the fulfillment of fundamental duties",
+      "B": "The Constitution enumerates fundamental duties but does not make the enjoyment of rights conditional upon their fulfillment",
+      "C": "Fundamental duties are enforceable by law while fundamental rights are merely advisory",
+      "D": "Fundamental rights can only be exercised if all fundamental duties are first completed"
+    },
+    "correct_answer": "B",
+    "explanation": "The NCERT text explicitly states that the Constitution does not make the enjoyment of rights dependent or conditional upon fulfillment of duties. This reflects the Indian constitutional philosophy that fundamental rights are inherent and guaranteed to all citizens regardless of whether they fulfill their duties, though citizens are still obligated to abide by constitutional provisions.",
+    "cited_extract": "However, it must be noted that our Constitution does not make the enjoyment of rights dependent or conditional upon fulfilment of duties.",
+    "source_file": "Class_11_Political_Science_Indian_Constitution_at_Work.pdf",
+    "source_page": 44,
+    "source_type": "ncert",
+    "question_type": "single_fact",
+    "difficulty": "medium",
+    "model_tier": "haiku",
+    "status": "pending_check"
+  }
+]

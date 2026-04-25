@@ -1,0 +1,75 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#1a1a2e"/>
+      <stop offset="100%" style="stop-color:#16213e"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#f5a623"/>
+      <stop offset="100%" style="stop-color:#f76b1c"/>
+    </linearGradient>
+    <linearGradient id="glow" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#4facfe"/>
+      <stop offset="100%" style="stop-color:#00f2fe"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Background rounded square -->
+  <rect width="512" height="512" rx="100" ry="100" fill="url(#bg)"/>
+
+  <!-- Subtle grid lines (exam paper feel) -->
+  <g opacity="0.06" stroke="#ffffff" stroke-width="1">
+    <line x1="0" y1="128" x2="512" y2="128"/>
+    <line x1="0" y1="256" x2="512" y2="256"/>
+    <line x1="0" y1="384" x2="512" y2="384"/>
+    <line x1="128" y1="0" x2="128" y2="512"/>
+    <line x1="256" y1="0" x2="256" y2="512"/>
+    <line x1="384" y1="0" x2="384" y2="512"/>
+  </g>
+
+  <!-- Orange accent bar top -->
+  <rect x="60" y="72" width="392" height="6" rx="3" fill="url(#accent)" opacity="0.9"/>
+
+  <!-- CSE text -->
+  <text
+    x="256"
+    y="240"
+    font-family="'Arial Black', 'Helvetica Neue', Arial, sans-serif"
+    font-weight="900"
+    font-size="148"
+    letter-spacing="-4"
+    text-anchor="middle"
+    fill="#ffffff"
+  >CSE</text>
+
+  <!-- Divider line -->
+  <rect x="80" y="262" width="352" height="3" rx="1.5" fill="url(#accent)" opacity="0.7"/>
+
+  <!-- GO! text in gradient -->
+  <text
+    x="256"
+    y="380"
+    font-family="'Arial Black', 'Helvetica Neue', Arial, sans-serif"
+    font-weight="900"
+    font-size="118"
+    letter-spacing="6"
+    text-anchor="middle"
+    fill="url(#accent)"
+  >GO!</text>
+
+  <!-- Tagline -->
+  <text
+    x="256"
+    y="444"
+    font-family="'Arial', Helvetica, sans-serif"
+    font-weight="400"
+    font-size="28"
+    letter-spacing="6"
+    text-anchor="middle"
+    fill="#ffffff"
+    opacity="0.45"
+  >UPSC PREP</text>
+
+  <!-- Bottom accent bar -->
+  <rect x="60" y="434" width="392" height="6" rx="3" fill="url(#glow)" opacity="0.5"/>
+</svg>

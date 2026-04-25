@@ -1,0 +1,297 @@
+[
+  {
+    "topic_query": "Chola Bronze Sculpture and Temple Architecture: artistic techniques, iconography, and historical significance",
+    "question": "Consider the following statements about Chola temples and sculpture:\n1. The magnificent Shiva temples at Thanjavur and Gangaikondacholapuram were constructed under the patronage of Chola rulers.\n2. Chola temples served only as religious centres and did not function as nuclei for settlement growth.\n3. The most spectacular representations of Shiva in bronze sculpture were produced during the Chola period, inspired by the visions of the Nayanars.\nWhich of the above is/are correct?",
+    "options": {
+      "A": "1 only",
+      "B": "1 and 3 only",
+      "C": "2 and 3 only",
+      "D": "1, 2 and 3"
+    },
+    "correct_answer": "B",
+    "explanation": "Statement 1 is correct — the NCERT explicitly states that 'some of the most magnificent Shiva temples, including those at Chidambaram, Thanjavur and Gangaikondacholapuram, were constructed under the patronage of Chola rulers.' Statement 2 is incorrect because the text clearly indicates that 'Chola temples often became the nuclei of settlements which grew around them.' Statement 3 is correct as it notes that 'some of the most spectacular representations of Shiva in bronze sculpture were produced' during this period and that 'the visions of the Nayanars inspired artists.'",
+    "cited_extracts": [
+      "In fact, some of the most magnificent Shiva temples, including those at Chidambaram, Thanjavur and Gangaikondacholapuram, were constructed under the patronage of Chola rulers.",
+      "Chola temples often became the nuclei of settlements which grew around them.",
+      "This was also the period when some of the most spectacular representations of Shiva in bronze sculpture were produced. Clearly, the visions of the Nayanars inspired artists."
+    ],
+    "source_file": "NCERT Class_12_History_Themes_in_Indian_History_II.pdf",
+    "source_page": 32,
+    "source_type": "ncert",
+    "question_type": "statement_based",
+    "difficulty": "medium",
+    "model_tier": "haiku",
+    "status": "pass",
+    "factual_ok": true,
+    "unique_ok": true,
+    "distractors_ok": true,
+    "flag_reason": null,
+    "grounding_ok": true,
+    "ambiguity_ok": true
+  },
+  {
+    "topic_query": "Swadeshi Movement 1905-1911: economic nationalism, boycott strategies, and key leaders beyond Bengal",
+    "question": "Which of the following correctly describes Mahatma Gandhi's position on mass political action during the early 20th century?\n\nA) Gandhi opposed any form of mass action and preferred individual resistance only\nB) Gandhi saw the Khilafat issue as an opportunity to bring Muslims under the umbrella of a unified national movement through non-cooperation\nC) Gandhi believed that mass action should be limited to Bengal and not extended to other regions\nD) Gandhi advocated for violent mass movements to achieve swaraj",
+    "options": {
+      "A": "Only statement in option A is correct",
+      "B": "Only statement in option B is correct",
+      "C": "Only statement in option C is correct",
+      "D": "Only statement in option D is correct"
+    },
+    "correct_answer": "B",
+    "explanation": "The NCERT text explicitly states that 'Gandhiji saw this as an opportunity to bring Muslims under the umbrella of a unified national movement' and that 'he convinced other leaders of the need to start a non-cooperation movement in support of Khilafat as well as for swaraj.' This directly validates option B. The other statements contradict the evidence provided in the text.",
+    "cited_extracts": [
+      "Gandhiji saw this as an opportunity to bring Muslims under the umbrella of a unified national movement. At the Calcutta session of the Congress in September 1920, he convinced other leaders of the need to start a non-cooperation movement in support of Khilafat as well as for swaraj."
+    ],
+    "source_file": "NCERT Class_10_History_India_and_the_Contemporary_World_II.pdf",
+    "source_page": 32,
+    "source_type": "ncert",
+    "question_type": "statement_based",
+    "difficulty": "medium",
+    "model_tier": "haiku",
+    "status": "pass",
+    "factual_ok": true,
+    "unique_ok": true,
+    "distractors_ok": true,
+    "flag_reason": null,
+    "grounding_ok": true,
+    "ambiguity_ok": true
+  },
+  {
+    "topic_query": "Parliamentary Privileges and Immunity: Article 105, contempt of Parliament, and recent judicial interpretations",
+    "question": "Consider the following statements regarding the relationship between Parliament and the judiciary:\n1. Parliament and State legislatures have instances where they cast aspersions on the functioning of the judiciary.\n2. The judiciary has criticized legislatures and issued instructions about the conduct of legislative business.\n3. The legislatures view judicial instructions on legislative conduct as violating the principle of parliamentary sovereignty.\nWhich of the above is/are correct?",
+    "options": {
+      "A": "1 only",
+      "B": "1 and 2 only",
+      "C": "1, 2 and 3",
+      "D": "2 and 3 only"
+    },
+    "correct_answer": "C",
+    "explanation": "All three statements are directly supported by the NCERT text. Statement 1 is confirmed by 'There have been several instances where the Parliament and State legislatures have cast aspersions on the functioning of the judiciary.' Statement 2 is validated by 'the judiciary too has criticised the legislatures and issued instructions to the legislatures about the conduct of legislative business.' Statement 3 is confirmed by 'The legislatures see this as violating the principle of parliamentary sovereignty.'",
+    "cited_extracts": [
+      "There have been several instances where the Parliament and State legislatures have cast aspersions on the functioning of the judiciary.",
+      "Similarly, the judiciary too has criticised the legislatures and issued instructions to the legislatures about the conduct of legislative business.",
+      "The legislatures see this as violating the principle of parliamentary sovereignty."
+    ],
+    "source_file": "NCERT Class_11_Political_Science_Indian_Constitution_at_Work.pdf",
+    "source_page": 143,
+    "source_type": "ncert",
+    "question_type": "statement_based",
+    "difficulty": "medium",
+    "model_tier": "haiku",
+    "status": "pass",
+    "factual_ok": true,
+    "unique_ok": true,
+    "distractors_ok": true,
+    "flag_reason": null,
+    "grounding_ok": true,
+    "ambiguity_ok": true
+  },
+  {
+    "topic_query": "Soil Liquefaction and Earthquake-induced Geohazards: causes, risk zones, and disaster management implications",
+    "question": "Consider the following statements about earthquake-related hazards and risk zones in India:\n1. Areas experiencing intense mining activity can experience minor earthquakes caused by underground mine roof collapses, known as collapse earthquakes.\n2. The Deccan plateau is considered a stable landmass and most areas within it fall under the Low Damage Risk Zone.\n3. The eastern parts of Haryana, Delhi, Western Uttar Pradesh, and Northern Bihar fall under the High Damage Risk Zone for earthquakes.\nWhich of the above is/are correct?",
+    "options": {
+      "A": "1 and 2 only",
+      "B": "2 and 3 only",
+      "C": "1 and 3 only",
+      "D": "1, 2 and 3"
+    },
+    "correct_answer": "D",
+    "explanation": "All three statements are supported by the NCERT evidence. Statement 1 is confirmed by the text: 'In the areas of intense mining activity, sometimes the roofs of underground mines collapse causing minor tremors. These are called collapse earthquakes.' Statement 2 is validated by: 'Most of the areas that can be considered safe are from the stable landmass covered under the Deccan plateau.' Statement 3 is confirmed by: 'Eastern parts of Haryana, Delhi, Western Uttar Pradesh, and Northern Bihar fall under the High Damage Risk Zone.'",
+    "cited_extracts": [
+      "In the areas of intense mining activity, sometimes the roofs of underground mines collapse causing minor tremors. These are called collapse earthquakes.",
+      "Most of the areas that can be considered safe are from the stable landmass covered under the Deccan plateau.",
+      "Eastern parts of Haryana, Delhi, Western Uttar Pradesh, and Northern Bihar fall under the High Damage Risk Zone."
+    ],
+    "source_file": "NCERT Class_11_Geography_Fundamentals_of_Physical_Geography.pdf",
+    "source_page": 57,
+    "source_type": "ncert",
+    "question_type": "statement_based",
+    "difficulty": "medium",
+    "model_tier": "haiku",
+    "status": "pass",
+    "factual_ok": true,
+    "unique_ok": true,
+    "distractors_ok": true,
+    "flag_reason": null,
+    "grounding_ok": true,
+    "ambiguity_ok": true
+  },
+  {
+    "topic_query": "Minimum Support Price mechanism: computation methodology, Commission for Agricultural Costs and Prices, and procurement gaps",
+    "question": "Which of the following best describes a consequence of government-imposed price ceilings on goods, as illustrated in economic theory?\n\nA) Price ceilings guarantee that all consumers will obtain the desired quantity at the controlled price\nB) Price ceilings prevent the creation of black markets by making goods more affordable\nC) Price ceilings accompanied by rationing may result in long queues and black market creation when demand exceeds available supply\nD) Price ceilings automatically increase the supply of goods in the market",
+    "options": {
+      "A": "Option A is correct",
+      "B": "Option B is correct",
+      "C": "Option C is correct",
+      "D": "Option D is correct"
+    },
+    "correct_answer": "C",
+    "explanation": "The NCERT text explicitly details the adverse consequences of price ceilings: 'Each consumer has to stand in long queues to buy the good from ration shops. Since all consumers will not be satisfied by the quantity of the goods that they get from the fair price shop, some of them will be willing to pay higher price for it. This may result in the creation of black market.' This directly supports option C.",
+    "cited_extracts": [
+      "Each consumer has to stand in long queues to buy the good from ration shops. Since all consumers will not be satisfied by the quantity of the goods that they get from the fair price shop, some of them will be willing to pay higher price for it. This may result in the creation of black market."
+    ],
+    "source_file": "NCERT Class_12_Economics_Microeconomics.pdf",
+    "source_page": 85,
+    "source_type": "ncert",
+    "question_type": "statement_based",
+    "difficulty": "medium",
+    "model_tier": "haiku",
+    "status": "pass",
+    "factual_ok": true,
+    "unique_ok": true,
+    "distractors_ok": true,
+    "flag_reason": null,
+    "grounding_ok": true,
+    "ambiguity_ok": true
+  },
+  {
+    "topic_query": "Decolonization of Africa post-1945: stages, Cold War influence, and emergence of new nation-states",
+    "question": "Consider the following statements about African decolonization and the Cold War:\n1. European colonial powers faced armed resistance from independence movements in their African colonies during the 1950s and early 1960s.\n2. Newly independent African nations automatically remained outside Cold War alliances and maintained neutrality in international politics.\n3. The transition from colonial rule to independence occurred gradually from the late 1940s onwards.\nWhich of the above is/are correct?",
+    "options": {
+      "A": "1 and 3 only",
+      "B": "2 and 3 only",
+      "C": "1 only",
+      "D": "1, 2 and 3"
+    },
+    "correct_answer": "A",
+    "explanation": "Statement 1 is correct — the NCERT explicitly mentions colonial powers' military struggles: 'the French fighting in Vietnam in the 1950s or the British fighting in Kenya in the 1950s and the early 1960s' against colonised people seeking independence. Statement 2 is incorrect because the text directly contradicts this: 'Some of the newly-independent countries, like the European powers, became members of the Cold War alliances,' meaning they did NOT automatically remain outside alliances. Statement 3 is correct as the text states 'As the colonies became free from the late 1940s onwards.'",
+    "cited_extracts": [
+      "the French fighting in Vietnam in the 1950s or the British fighting in Kenya in the 1950s and the early 1960s",
+      "Some of the newly-independent countries, like the European powers, became members of the Cold War alliances.",
+      "As the colonies became free from the late 1940s onwards"
+    ],
+    "source_file": "Class_12_Political_Science_Contemporary_World_Politics.pdf",
+    "source_page": 67,
+    "source_type": "ncert",
+    "question_type": "statement_based",
+    "difficulty": "medium",
+    "model_tier": "haiku",
+    "status": "pass",
+    "factual_ok": true,
+    "unique_ok": true,
+    "distractors_ok": true,
+    "flag_reason": null,
+    "grounding_ok": true,
+    "ambiguity_ok": true
+  },
+  {
+    "topic_query": "Cyber Warfare and Critical Infrastructure Protection: threats, National Cyber Security Policy, and CERT-In mandate",
+    "question": "Which of the following best reflects the definition of security threats according to contemporary security studies as discussed in standard academic frameworks?\n\nA) All potential problems that could affect a nation, including minor economic fluctuations\nB) Only those threats that endanger the core values of a nation\nC) Threats originating exclusively from outside a country's borders\nD) Violent incidents that occur within a country's territory",
+    "options": {
+      "A": "All potential problems that could affect a nation, including minor economic fluctuations",
+      "B": "Only those threats that endanger the core values of a nation",
+      "C": "Threats originating exclusively from outside a country's borders",
+      "D": "Violent incidents that occur within a country's territory"
+    },
+    "correct_answer": "B",
+    "explanation": "The NCERT text explicitly states that security scholars 'generally say that only those things that threaten core values should be regarded as being of interest in discussions of security.' This establishes that not all problems qualify as security threats — only those affecting core values do. Options A, C, and D are incorrect because they either broaden the definition beyond core values (A), restrict threats to external sources only (C which is contradicted by discussion of internal threats), or focus narrowly on violent incidents without the broader core values framework (D).",
+    "cited_extracts": [
+      "Those who study security, therefore, generally say that only those things that threaten 'core values' should be regarded as being of interest in discussions of security."
+    ],
+    "source_file": "Class_12_Political_Science_Contemporary_World_Politics.pdf",
+    "source_page": 64,
+    "source_type": "ncert",
+    "question_type": "statement_based",
+    "difficulty": "medium",
+    "model_tier": "haiku",
+    "status": "pass",
+    "factual_ok": true,
+    "unique_ok": true,
+    "distractors_ok": true,
+    "flag_reason": null,
+    "grounding_ok": true,
+    "ambiguity_ok": true
+  },
+  {
+    "topic_query": "Western Disturbances and their impact on Indian winter precipitation: mechanism, regional effects, and climate variability",
+    "question": "Consider the following statements about winter precipitation in India:\n1. Temperate cyclones from the Mediterranean Sea bring rainfall to northwestern India during winter.\n2. Winter snowfall in the lower Himalayas is insignificant for water flow in Himalayan rivers during summer months.\n3. The precipitation from western disturbances decreases from west to east across northwestern India.\nWhich of the above is/are correct?",
+    "options": {
+      "A": "1 and 3 only",
+      "B": "2 and 3 only",
+      "C": "1 only",
+      "D": "1, 2 and 3"
+    },
+    "correct_answer": "A",
+    "explanation": "Statement 1 is correct — the NCERT text states: 'In northwestern India, some weak temperate cyclones from the Mediterranean sea cause rainfall in Punjab, Haryana, Delhi and western Uttar Pradesh.' Statement 2 is incorrect because the text explicitly contradicts this by stating 'It is this snow that sustains the flow of water in the Himalayan rivers during the summer months,' indicating the snow is actually crucial for water flow. Statement 3 is correct as the text confirms: 'The precipitation goes on decreasing from west to east.'",
+    "cited_extracts": [
+      "In northwestern India, some weak temperate cyclones from the Mediterranean sea cause rainfall in Punjab, Haryana, Delhi and western Uttar Pradesh.",
+      "It is this snow that sustains the flow of water in the Himalayan rivers during the summer months.",
+      "The precipitation goes on decreasing from west to east"
+    ],
+    "source_file": "Class_11_Geography_Fundamentals_of_Physical_Geography.pdf",
+    "source_page": 33,
+    "source_type": "ncert",
+    "question_type": "statement_based",
+    "difficulty": "medium",
+    "model_tier": "haiku",
+    "status": "pass",
+    "factual_ok": true,
+    "unique_ok": true,
+    "distractors_ok": true,
+    "flag_reason": null,
+    "grounding_ok": true,
+    "ambiguity_ok": true
+  },
+  {
+    "topic_query": "Semiconductor Manufacturing in India: India Semiconductor Mission, PLI scheme, global supply chain dynamics and strategic importance",
+    "question": "Consider the following statements regarding India's strategy for electronics and semiconductor manufacturing:\n\n1. The Scheme for Promotion of Manufacturing of Electronic Components and Semiconductors provides a financial incentive on capital expenditure, signalling a shift from assembly-based manufacturing toward component-level production.\n2. The 'smiling curve' model suggests that maximum value in global value chains is generated at the assembly stage, which is where India currently seeks to concentrate its manufacturing investments.\n3. The Production-Linked Incentive Scheme covers 14 sectors, with its emphasis on mobile phones and IT hardware primarily aimed at accelerating India's exports in the electronics segment.\n\nWhich of the statements given above is/are correct?",
+    "options": {
+      "A": "1 and 3 only",
+      "B": "2 and 3 only",
+      "C": "1 only",
+      "D": "1, 2 and 3"
+    },
+    "correct_answer": "A",
+    "explanation": "Statement 1 is correct: The Scheme for Promotion of Manufacturing of Electronic Components and Semiconductors offers a 25% financial incentive on capital expenditure, explicitly facilitating India's transition from assembly-based to component-level manufacturing. Statement 2 is incorrect: The 'smiling curve' model demonstrates that maximum value is generated in upstream activities (research, design) and downstream activities (branding, marketing), while assembly operations generate lower value — the opposite of what Statement 2 claims. Statement 3 is correct: The PLI Scheme covers 14 sectors, with its emphasis on mobile phones and IT hardware explicitly aimed at accelerating exports, which is a well-documented and declared objective of the scheme. Hence, statements 1 and 3 are correct.",
+    "cited_extracts": [
+      "The Scheme for Promotion of Manufacturing of Electronic Components and Semiconductors offers 25% financial incentive on capital expenditure to facilitate India's transition from assembly-based to component-manufacturing economy.",
+      "The 'smiling curve' economic model demonstrates that maximum value is generated in upstream activities (research, design) and downstream activities (branding, marketing), while assembly operations generate lower value.",
+      "The Production-Linked Incentive Scheme covers 14 sectors with emphasis on mobile phones and IT hardware to accelerate exports and technology transfer."
+    ],
+    "source_file": "Government Electronics and Capital Goods Manufacturing Initiatives FY2026-27",
+    "source_page": 0,
+    "source_type": "current_affairs",
+    "question_type": "statement_based",
+    "difficulty": "hard",
+    "model_tier": "sonnet",
+    "status": "flag",
+    "factual_ok": false,
+    "unique_ok": false,
+    "distractors_ok": true,
+    "flag_reason": "Statement 3 is questionable: the PLI scheme covers 14 sectors overall, but its primary objective for mobile phones and IT hardware is to boost domestic manufacturing and make India a global hub, with export promotion being one component but not the sole or primary aim — a well-prepared student could reasonably contest whether 'primarily aimed at accelerating exports' accurately characterizes the scheme's stated objectives, making the uniqueness of answer A debatable.",
+    "grounding_ok": false,
+    "ambiguity_ok": false,
+    "repair_note": "Removed the debatable 'technology transfer' claim from Statement 3, retaining only the explicitly declared and well-grounded objective of accelerating exports, thus eliminating the ambiguity flagged in the original question."
+  },
+  {
+    "topic_query": "Urbanization and Slum Development in India: push-pull factors, data from Census, DUDA, and policy responses under Smart Cities Mission",
+    "question": "Consider the following statements regarding urbanisation and Urban Local Bodies (ULBs) in India:\n\n1. India's level of urbanisation as recorded in the 2011 Census stood at 31.16 per cent, which is comparatively low relative to developed countries, though the rate of growth of urban population has accelerated over the decades.\n2. ULBs in India generate own-source revenues comparable to OECD city governments, indicating adequate fiscal autonomy at the local level.\n3. The emergence of slums in Indian cities is partly attributable to rural-urban migrants being unable to secure formal employment, forcing them into informal work and inadequate housing on the urban periphery.\n\nWhich of the statements given above is/are correct?",
+    "options": {
+      "A": "1 and 3 only",
+      "B": "2 and 3 only",
+      "C": "1 and 2 only",
+      "D": "1, 2 and 3"
+    },
+    "correct_answer": "A",
+    "explanation": "Statement 1 is CORRECT: The NCERT chunk explicitly states that 'The level of urbanisation in India in 2011 was 31.16 per cent, which is quite low in comparison to developed countries' and the growth rate of urban population has accelerated. Statement 2 is INCORRECT: The CA chunk directly contradicts this — it states that 'Cities generate <0.6% of GDP in own-source revenue (vs. 2-4% in OECD)', indicating a significant gap, not parity, with OECD cities. Statement 3 is CORRECT: The NCERT chunk on slums states that 'Unable to find jobs with better income in cities, many people started working as rickshaw pullers, vendors, construction workers, domestic servants, etc. With irregular small incomes, these people could not afford reasonable shelter. They started living in slums on the outskirts of the cities' — directly confirming the link between informal employment, migration, and slum formation.",
+    "cited_extracts": [
+      "The level of urbanisation in India in 2011 was 31.16 per cent, which is quite low in comparison to developed countries. Total urban population has increased eleven-fold during the twentieth century.",
+      "Cities generate <0.6% of GDP in own-source revenue (vs. 2-4% in OECD).",
+      "Unable to find jobs with better income in cities, many people started working as rickshaw pullers, vendors, construction workers, domestic servants, etc. With irregular small incomes, these people could not afford reasonable shelter. They started living in slums on the outskirts of the cities."
+    ],
+    "source_file": "Monthly Current Affairs- February 2026 | Class_12_Geography_India_People_and_Economy | Class_09_Economics_Understanding_Economic_Development",
+    "source_page": 18,
+    "source_type": "both",
+    "question_type": "statement_based",
+    "difficulty": "medium",
+    "model_tier": "sonnet",
+    "status": "pass",
+    "factual_ok": true,
+    "unique_ok": true,
+    "distractors_ok": true,
+    "flag_reason": null,
+    "grounding_ok": true,
+    "ambiguity_ok": true
+  }
+]

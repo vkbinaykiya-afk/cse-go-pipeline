@@ -28,6 +28,7 @@
 import os
 import sys
 import json
+import glob
 import datetime
 import argparse
 import chromadb
@@ -164,7 +165,7 @@ TOOLS = [
                     "required": ["A", "B", "C", "D"]
                 },
                 "correct_answer": {"type": "string", "enum": ["A", "B", "C", "D"]},
-                "explanation":    {"type": "string", "description": "2-3 sentence explanation of why the answer is correct."},
+                "explanation":    {"type": "string", "description": "2-3 sentence explanation of why the answer is correct. Write as standalone factual prose — do NOT reference 'the chunk', 'the passage', 'the extract', 'CA chunk', 'NCERT text', or any source. Explain the fact directly as knowledge."},
                 "cited_extracts": {
                     "type": "array",
                     "items": {"type": "string"},
@@ -232,6 +233,12 @@ STRICT RULES for the question you save:
 - Match question style (statement-based, match pairs, etc.) to what UPSC uses for this topic.
 - Do not duplicate a question already in the PYQ search results.
 - Set source_type = "ncert" / "ca" / "both" to reflect where evidence came from.
+
+ASSERTION-REASON RESTRICTION:
+Only use assertion_reason format for Science & Technology, Biology, Chemistry, or Physics topics
+where causal relationships are scientifically definitive.
+For ALL other subjects (History, Polity, Geography, Economy, Environment, Current Affairs,
+Governance, IR) — use statement_based or single_fact. Never use AR for these subjects.
 
 DIFFICULTY GUIDE:
 - easy: single direct fact, no inference needed
@@ -404,7 +411,22 @@ BATCH_SYSTEM_STATIC = """\
 You are an expert UPSC Civil Services Examination (Prelims) question setter.
 
 You will be given several topics, each with retrieved NCERT text chunks as evidence.
-Generate ONE high-quality MCQ for EACH topic. Prefer statement_based or single_fact formats.
+Generate ONE high-quality MCQ for EACH topic. Preferred format: statement_based.
+Only use assertion_reason format if the topic is explicitly Science & Technology, Biology, Chemistry, or Physics — where causal relationships are definitive and unambiguous. For all other subjects (History, Polity, Geography, Economy, Environment, Current Affairs) use statement_based or single_fact.
+
+── QUESTION DESIGN PRINCIPLES ───────────────────────────────────────────────────
+Test UNDERSTANDING and RECALL of concepts, processes, and relationships — not rote memorisation.
+
+AVOID:
+  • Options that differ only by exact numbers, percentages, or specific dates
+    (e.g. do NOT ask "which state has X tigers" if options are 450/512/623/731)
+  • Trick questions built on minor numerical distinctions the candidate cannot be expected to know
+  • Obscure trivia absent from mainstream UPSC preparation material
+
+PREFER:
+  • Statements about HOW or WHY something works (constitutional mechanisms, ecological processes)
+  • Comparisons that test conceptual distinction (e.g. core zone vs buffer zone, not exact area figures)
+  • Statements where incorrectness is conceptually meaningful (wrong principle, not wrong number)
 
 ── CARDINAL RULE: EVERY STATEMENT NEEDS AN EXTRACT ─────────────────────────────
 For EACH statement you write in the question body:
@@ -415,7 +437,7 @@ For EACH statement you write in the question body:
 
 Do NOT include a statement if you cannot find a verbatim extract to confirm or contradict it.
 Do NOT test facts that only exist in your training knowledge — only what the chunks say.
-Do NOT reference "the passage" or "according to the text" in the question.
+Do NOT reference "the passage", "the chunk", "the extract", "CA chunk", "NCERT text", or any source in the question OR explanation. Write all explanations as direct factual statements.
 
 ── cited_extracts ARRAY ─────────────────────────────────────────────────────────
 One entry per statement, in the same order as the statements appear in the question.
@@ -428,7 +450,7 @@ Return ONLY a valid JSON array (one object per topic), no markdown fences:
     "question": "Consider the following statements:\\n1. [correct statement]\\n2. [incorrect statement]\\n3. [correct statement]\\nWhich of the above is/are correct?",
     "options": {"A":"1 only","B":"1 and 3 only","C":"2 and 3 only","D":"1, 2 and 3"},
     "correct_answer": "B",
-    "explanation": "Statement 1 is correct because [extract 1 says...]. Statement 2 is incorrect — the chunk explicitly states [extract 2 contradicts it]. Statement 3 is correct because [extract 3 says...].",
+    "explanation": "Statement 1 is correct: [state the fact directly]. Statement 2 is incorrect: [state why it is wrong as a fact]. Statement 3 is correct: [state the fact directly].",
     "cited_extracts": [
       "Verbatim chunk text CONFIRMING statement 1.",
       "Verbatim chunk text CONTRADICTING statement 2.",
@@ -451,8 +473,24 @@ You will be given several topics, each with:
   - NCERT chunks providing the underlying static concept
 
 Generate ONE MCQ per topic that CONNECTS the current event to the underlying UPSC concept.
-Preferred formats: assertion_reason, statement_based, single_fact.
+Preferred format: statement_based.
+Only use assertion_reason if the topic is Science & Technology, Biology, Chemistry, or Physics — where the causal relationship between A and R is scientifically definitive. For all other subjects use statement_based.
 Difficulty: medium to hard.
+
+── QUESTION DESIGN PRINCIPLES ───────────────────────────────────────────────────
+Test UNDERSTANDING of mechanisms, principles, and significance — not rote recall of specifics.
+
+AVOID:
+  • Options that differ only by exact numbers, percentages, dates, or rankings
+    (e.g. do NOT ask "what percentage of tariff lines are covered" if options are 96/97/98/99%)
+  • Questions where a candidate must recall a specific figure to distinguish options
+  • Obscure statistics unlikely to appear in mainstream UPSC preparation
+
+PREFER:
+  • Questions testing WHY a policy/scheme/event matters constitutionally or conceptually
+  • Statements testing correct understanding of a process (how does X work, not what is the number)
+  • Assertion-reason pairs where the relationship between event and principle is the key insight
+  • Comparing two related concepts the current event illustrates (e.g. Ramsar criteria vs sanctuary vs reserve)
 
 ── CARDINAL RULE: EVERY CLAIM NEEDS AN EXTRACT ──────────────────────────────────
 For EACH statement or claim in the question:
@@ -468,8 +506,13 @@ For statement_based format:
   One extract per statement, same order as statements appear. Confirm OR contradict.
 
 Do NOT test facts absent from the provided chunks.
-Do NOT reference "the passage" or "according to the text".
+Do NOT reference "the passage", "the chunk", "the extract", "CA chunk", "NCERT text", or any source in the question OR explanation. Write all explanations as direct factual statements.
 Use concept_link notes from the CA facts to guide what underlying UPSC concept to test.
+
+── ASSERTION-REASON RESTRICTION ─────────────────────────────────────────────────
+Only use assertion_reason for Science & Technology topics where causal relationships are
+scientifically definitive. For all other subjects — including Current Affairs, Governance,
+IR, Economy, History, Polity — use statement_based. Never use AR for policy or event topics.
 
 Return ONLY a valid JSON array (one object per topic), no markdown fences:
 [
@@ -535,8 +578,9 @@ def batch_retrieve(topics, ncert_col, ca_col):
 
         results.append({
             "topic":        topic,
+            # Haiku tier = NCERT-only; don't pass CA chunks to avoid retrieval bleed
             "ncert_chunks": ncert_chunks,
-            "ca_chunks":    ca_chunks,
+            "ca_chunks":    ca_chunks if tier == "sonnet" else [],
             "tier":         tier,
         })
     return results
@@ -639,7 +683,68 @@ def batch_generate(client, tier_items, tier):
         q["model_tier"]  = tier
         q["status"]      = "pending_check"
 
+    # Self-verify: strip questions where extracts don't support their statements
+    questions = _self_verify(client, questions, model)
+
     return questions
+
+
+SELF_VERIFY_PROMPT = """\
+You are a strict quality checker for UPSC MCQ questions.
+
+For each question below, check every cited_extract against its corresponding statement:
+  - Does the extract contain language that EXPLICITLY confirms or contradicts the statement?
+  - A heading, label, or vague paraphrase does NOT count.
+  - An extract about a different topic does NOT count.
+
+Return a JSON array with one object per question:
+[
+  { "topic_query": "...", "valid": true/false, "reason": "one line if invalid, empty string if valid" }
+]
+
+Only mark valid=false if there is a clear mismatch. Be strict but fair.
+Return ONLY the JSON array, no markdown.
+"""
+
+def _self_verify(client, questions, model):
+    """Drop questions whose extracts don't support their statements."""
+    if not questions:
+        return questions
+
+    payload = [
+        {
+            "topic_query": q.get("topic_query", ""),
+            "question": q.get("question", "")[:400],
+            "cited_extracts": q.get("cited_extracts", []),
+            "correct_answer": q.get("correct_answer", ""),
+        }
+        for q in questions
+    ]
+
+    try:
+        resp = client.messages.create(
+            model=model,
+            max_tokens=512,
+            system=SELF_VERIFY_PROMPT,
+            messages=[{"role": "user", "content": json.dumps(payload)}],
+        )
+        import re
+        raw = resp.content[0].text.strip()
+        raw = re.sub(r'^```json\s*|^```\s*|```\s*$', '', raw, flags=re.MULTILINE).strip()
+        verdicts = json.loads(raw)
+    except Exception as e:
+        print(f"\n  [self-verify] skipped ({e})")
+        return questions
+
+    valid_topics = {v["topic_query"] for v in verdicts if v.get("valid", True)}
+    invalid = [v for v in verdicts if not v.get("valid", True)]
+
+    if invalid:
+        print(f"\n  [self-verify] dropped {len(invalid)} question(s) with mismatched extracts:")
+        for v in invalid:
+            print(f"    ✗ {v['topic_query']}: {v.get('reason','')}")
+
+    return [q for q in questions if q.get("topic_query", "") in valid_topics]
 
 
 # ── QUESTION SET PLANNER ──────────────────────────────────────────────────────
@@ -685,13 +790,46 @@ def plan_question_set(client, subject, count):
 
 # ── OUTPUT ────────────────────────────────────────────────────────────────────
 
+def _existing_topics(output_dir):
+    """Return set of (normalised) topic_query strings already saved across all batch files."""
+    seen = set()
+    for fpath in glob.glob(os.path.join(output_dir, "*.json")):
+        try:
+            with open(fpath) as f:
+                data = json.load(f)
+            if isinstance(data, list):
+                for q in data:
+                    tq = q.get("topic_query") or ""
+                    seen.add(tq.lower().strip())
+        except Exception:
+            pass
+    return seen
+
+
+def deduplicate(records, output_dir):
+    """Remove records whose topic_query closely matches an already-saved question."""
+    existing = _existing_topics(output_dir)
+    unique, dupes = [], []
+    for q in records:
+        tq = (q.get("topic_query") or "").lower().strip()
+        if tq in existing:
+            dupes.append(tq)
+        else:
+            unique.append(q)
+            existing.add(tq)   # prevent duplicates within this batch too
+    return unique, dupes
+
+
 def save_batch(records, output_dir):
     os.makedirs(output_dir, exist_ok=True)
+    unique, dupes = deduplicate(records, output_dir)
+    if dupes:
+        print(f"  Deduplication: removed {len(dupes)} repeat topic(s): {dupes}")
     timestamp = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
     filepath  = os.path.join(output_dir, f"agent_batch_{timestamp}.json")
     with open(filepath, "w", encoding="utf-8") as f:
-        json.dump(records, f, indent=2, ensure_ascii=False)
-    return filepath
+        json.dump(unique, f, indent=2, ensure_ascii=False)
+    return filepath, unique
 
 
 def print_question(q, index):
@@ -819,11 +957,12 @@ def main():
                 })
 
     # ── Save ──────────────────────────────────────────────────────────────────
-    output_file = save_batch(records, OUTPUT_DIR)
+    output_file, saved = save_batch(records, OUTPUT_DIR)
 
     print(f"\n{'═'*52}")
     print(f"  GENERATION COMPLETE")
     print(f"  Questions generated  : {ok} / {len(topics)}")
+    print(f"  Saved (after dedup)  : {len(saved)}")
     print(f"  Saved to             : {output_file}")
     print(f"{'═'*52}")
     print("\nNext step → run check.py to verify the questions.")

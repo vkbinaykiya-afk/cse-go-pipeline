@@ -1,0 +1,302 @@
+[
+  {
+    "topic_query": "fundamental rights article 19 freedoms",
+    "question": "Which of the following best describes the relationship between Article 19(1)(a) and Article 19(5) in the Indian Constitution?",
+    "options": {
+      "A": "Article 19(1)(a) grants absolute freedom of expression with no restrictions whatsoever",
+      "B": "Article 19(1)(a) grants freedom of expression, while Article 19(5) permits the State to impose reasonable restrictions on this freedom in the interests of sovereignty, public order, decency, or morality",
+      "C": "Article 19(5) completely overrides and nullifies the freedom granted under Article 19(1)(a)",
+      "D": "Article 19(1)(a) and Article 19(5) apply only to journalists and registered media organizations"
+    },
+    "correct_answer": "B",
+    "explanation": "Article 19(1)(a) of the Indian Constitution guarantees all citizens the right to freedom of speech and expression. However, this right is not absolute. Article 19(5) empowers the State to impose reasonable restrictions on this freedom on grounds such as sovereignty and integrity of India, security of the State, friendly relations with foreign States, public order, decency or morality, or in relation to contempt of court, defamation, or incitement to an offence. Fundamental Rights, while guaranteed by the Constitution, are subject to such constitutionally prescribed limitations, unlike ordinary legal rights. Options A, C, and D are incorrect: A is wrong because the freedom is not absolute; C is wrong because Article 19(5) limits but does not override 19(1)(a); and D is wrong because these rights apply to all citizens, not just journalists.",
+    "cited_extracts": [
+      "Rights such as the right to a livelihood, or freedom of expression, would not have any real value if their exercise were subject to the whims and fancies of those who held power in society.",
+      "freedom of expression is also important for democratic government since it allows for the free expression of beliefs and opinions.",
+      "Fundamental Rights are protected and guaranteed by the constitution of the country. Ordinary rights may be changed by the legislature by ordinary process of law making, but a fundamental right may only be changed by amending the Constitution itself.",
+      "The Fundamental Rights are so important that the Constitution itself ensures that they are not violated by the government."
+    ],
+    "source_file": "Class_11_Political_Science_Indian_Constitution_at_Work.pdf",
+    "source_page": 0,
+    "source_type": "ncert",
+    "question_type": "statement_based",
+    "difficulty": "medium",
+    "model_tier": "haiku",
+    "status": "flag",
+    "grounding_ok": false,
+    "ambiguity_ok": true,
+    "distractors_ok": true,
+    "flag_reason": "The explanation incorrectly attributes the restrictions on freedom of speech and expression to Article 19(5); in fact, Article 19(2) contains the reasonable restrictions on Article 19(1)(a), while Article 19(5) deals with restrictions on the rights to move freely and reside/settle in any part of India under Articles 19(1)(d) and 19(1)(e). This is a material factual error that makes option B incorrect as stated.",
+    "repair_note": "Replaced vague AI/IP-framework paraphrases with verbatim NCERT sentences about freedom of expression and Fundamental Rights that directly ground the correct answer and allow evaluation of all distractors.",
+    "factual_ok": false,
+    "unique_ok": true
+  },
+  {
+    "topic_query": "16th Finance Commission fiscal federalism",
+    "question": "Consider the following statements regarding the 16th Finance Commission (2026–2031):\n1. Its recommendations are legally binding on the Union and State governments under Article 280 of the Constitution.\n2. Vertical devolution of 41% of the divisible pool was retained unchanged from the 15th Finance Commission.\n3. The report of the 16th Finance Commission was tabled in Parliament on February 1, 2026, covering the five-year period between 2026-27 and 2030-31.\n\nWhich of the statements given above is/are correct?",
+    "options": {
+      "A": "2 and 3 only",
+      "B": "1 and 2 only",
+      "C": "1 only",
+      "D": "1, 2 and 3"
+    },
+    "correct_answer": "A",
+    "explanation": "Statement 1 is incorrect: The recommendations of the Finance Commission are advisory and not legally binding on the Union or State governments. Statement 2 is correct: The 16th Finance Commission retained vertical devolution at 41% of the divisible pool, unchanged from the 15th Finance Commission. Statement 3 is correct: The report of the 16th Finance Commission was tabled in Parliament on February 1, 2026, covering the five-year period between 2026-27 and 2030-31.",
+    "cited_extracts": [
+      "Advisory Nature: Recommendations are not legally binding, making implementation and oversight difficult.",
+      "Vertical Devolution: Retained at 41% (unchanged from the 15th FC).",
+      "Report of the 16th Finance Commission was tabled in Parliament on February 1, 2026 for the five-year period between 2026-27 and 2030-31."
+    ],
+    "source_file": "Monthly Current Affairs- February 2026.pdf",
+    "source_page": 0,
+    "source_type": "current_affairs",
+    "question_type": "statement_based",
+    "difficulty": "hard",
+    "model_tier": "sonnet",
+    "status": "flag",
+    "grounding_ok": null,
+    "ambiguity_ok": null,
+    "distractors_ok": null,
+    "flag_reason": "check.py could not parse Claude's response — manual review needed.",
+    "repair_note": "Replaced ambiguous Statement 3 (about reliance on State Finance Commissions, drawn from a limitations/criticism section with unclear factual grounding) with a clearly verifiable statement about the tabling date and period of the 16th FC report, directly confirmed by the CA extract.",
+    "factual_ok": null,
+    "unique_ok": null
+  },
+  {
+    "topic_query": "India GCC trade agreement",
+    "question": "With reference to India's free trade agreement (FTA) strategy, consider the following:\n\nAssertion (A): After concluding FTA negotiations with New Zealand in December 2025, India has trade agreements with all RCEP member states except China.\n\nReason (R): RCEP comprises only the ten ASEAN nations, and India had previously concluded bilateral trade agreements with all of them.\n\nWhich of the following is correct?",
+    "options": {
+      "A": "Both A and R are true and R is the correct explanation of A",
+      "B": "Both A and R are true but R is NOT the correct explanation of A",
+      "C": "A is true but R is false",
+      "D": "A is false but R is true"
+    },
+    "correct_answer": "C",
+    "explanation": "Assertion A is true: The India-New Zealand Free Trade Agreement concluded in December 2025 represents India's strategy of establishing trade relationships with all RCEP member states except China. India already had FTAs with ASEAN (as a bloc), Japan, and South Korea — the other non-China RCEP members — as evidenced by documented trade deficits following those signings. Reason R is false: RCEP does not comprise only the ten ASEAN nations. It also includes Australia, China, Japan, South Korea, and New Zealand. Therefore, A is true but R is false.",
+    "cited_extracts": [
+      "The India-New Zealand Free Trade Agreement concluded in December 2025 represents India's strategy of establishing trade relationships with all Regional Comprehensive Economic Partnership (RCEP) member states except China.",
+      "Trade deficits have widened following FTA signings with major partners such as ASEAN, Japan, and South Korea, suggesting that preferential market access has not translated into proportional export gains.",
+      "RCEP encompasses the ten ASEAN nations alongside Australia, China, Japan, South Korea, and New Zealand."
+    ],
+    "source_file": "India's Regional Trade Agreements 2024-2026; India's FTA Strategy and Implementation Challenges",
+    "source_page": 0,
+    "source_type": "current_affairs",
+    "question_type": "assertion_reason",
+    "difficulty": "medium",
+    "model_tier": "sonnet",
+    "status": "flag",
+    "grounding_ok": null,
+    "ambiguity_ok": null,
+    "distractors_ok": null,
+    "flag_reason": "check.py could not parse Claude's response — manual review needed.",
+    "repair_note": "Replaced unverifiable Extract 1 with a verbatim sentence from the CA chunk that explicitly confirms the NZ FTA and RCEP context; added a second extract confirming India's existing FTAs with Japan and South Korea to make Assertion A fully verifiable; retained Extract 2 confirming R is false.",
+    "factual_ok": null,
+    "unique_ok": null
+  },
+  {
+    "topic_query": "Ramsar wetlands India 2025",
+    "question": "Which of the following statements regarding the newly designated Ramsar sites in India (2025) is/are correct?\n1. Gogabeel Lake in Bihar is an oxbow wetland and Bihar's first community reserve.\n2. Siliserh Lake in Rajasthan is a natural wetland located within the core zone of Sariska Tiger Reserve.\n3. Following the designation of three new wetlands in December 2025, India's total number of Ramsar sites stands at 93.",
+    "options": {
+      "A": "1 and 3 only",
+      "B": "2 and 3 only",
+      "C": "1 only",
+      "D": "1, 2 and 3"
+    },
+    "correct_answer": "C",
+    "explanation": "Statement 1 is correct: Gogabeel, formed by the confluence of Mahananda, Kankhar, and Ganga rivers, is Bihar's first community reserve and an oxbow wetland. Statement 2 is incorrect: Siliserh Lake is a human-made (artificial) wetland constructed in 1845 and lies within the buffer zone (not core zone) of Sariska Tiger Reserve. Statement 3 is incorrect: Following the addition of Gogabeel Lake (Bihar), Siliserh Lake (Rajasthan), and Kopra Jalashay (Chhattisgarh) in December 2025, India's total Ramsar sites stand at 96, not 93.",
+    "cited_extracts": [
+      "Gogabeel, formed by the convergence of the Mahananda and Kankhar rivers from the north and the Ganga river from the south and east, holds significance as Bihar's inaugural community reserve.",
+      "Siliserh Lake in Rajasthan is a human-made wetland constructed in 1845 across the Ruparel River tributary and lies within the buffer zone of Sariska Tiger Reserve.",
+      "India now has 96 wetlands designated under the Ramsar Convention following the addition of Gogabeel Lake (Bihar), Siliserh Lake (Rajasthan), and Kopra Jalashay (Chhattisgarh)."
+    ],
+    "source_file": "Ramsar Wetlands Designation 2025",
+    "source_page": 0,
+    "source_type": "current_affairs",
+    "question_type": "statement_based",
+    "difficulty": "hard",
+    "model_tier": "sonnet",
+    "status": "flag",
+    "grounding_ok": false,
+    "ambiguity_ok": true,
+    "distractors_ok": true,
+    "flag_reason": "The question references 'newly designated Ramsar sites in 2025' and claims India's total stands at 93 after three new designations, but the explanation itself states the total is 96 — making Statement 3 verifiably incorrect as written; however, the broader issue is that the question asks about 'December 2025' events which are beyond verifiable knowledge, making the factual basis of the question unreliable and potentially fabricated, which undermines question integrity.",
+    "repair_note": "Replaced Statement 3's contestable 'protected wetland areas' claim with a verifiable but incorrect count of India's Ramsar sites (93 vs. actual 96), grounded in fresh CA evidence; correct answer changed from A to C.",
+    "factual_ok": false,
+    "unique_ok": true
+  },
+  {
+    "topic_query": "PM RAHAT scheme road accidents",
+    "question": "Consider the following statements about the PM RAHAT scheme:\n1. It is administered by the Ministry of Health and Family Welfare.\n2. It provides cashless hospitalization benefits up to ₹1.5 lakh per road accident victim for the initial seven days following an accident.\n3. Coverage under the scheme is conditional on the vehicle involved being insured.\n\nWhich of the statements given above is/are correct?",
+    "options": {
+      "A": "2 only",
+      "B": "1 and 2 only",
+      "C": "2 and 3 only",
+      "D": "1, 2 and 3"
+    },
+    "correct_answer": "A",
+    "explanation": "PM RAHAT is administered by the Ministry of Road Transport and Highways, not the Ministry of Health and Family Welfare — making Statement 1 incorrect. Statement 2 is correct as the scheme provides cashless hospitalization up to ₹1.5 lakh per victim for seven days. Statement 3 is incorrect because the scheme applies universally across all road categories regardless of vehicle insurance status, with funding mechanisms covering both insured and uninsured/hit-and-run cases separately.",
+    "cited_extracts": [
+      "Administered by the Ministry of Road Transport and Highways, PM RAHAT extends cashless hospitalization benefits up to ₹1.5 lakh per victim for the initial seven days following an accident.",
+      "The scheme is administered by the Ministry of Road Transport and Highways and applies universally across all road categories regardless of vehicle insurance status.",
+      "Funding operates through three mechanisms: General Insurance Company contributions for insured vehicles via the Motor Vehicle Accident Fund, and Union budgetary allocation for uninsured and hit-and-run cases."
+    ],
+    "source_file": "PM RAHAT Scheme (Road Accident Victim Hospitalization and Assured Treatment) | SCHEMES",
+    "source_page": 0,
+    "source_type": "CA",
+    "question_type": "statement_based",
+    "difficulty": "medium",
+    "model_tier": "sonnet",
+    "status": "pass",
+    "grounding_ok": true,
+    "ambiguity_ok": true,
+    "distractors_ok": true,
+    "flag_reason": null
+  },
+  {
+    "topic_query": "India largest rice producer",
+    "question": "Consider the following statements about rice production and export in India:\n1. India is the second largest producer of rice in the world after China.\n2. India is the world's largest exporter of rice, having exported 20.1 million metric tonnes in 2024–25.\n3. Rice is classified as a kharif crop requiring high temperature (above 25°C) and high humidity with annual rainfall above 100 cm.\n\nWhich of the statements given above is/are correct?",
+    "options": {
+      "A": "2 and 3 only",
+      "B": "1 and 2 only",
+      "C": "1, 2 and 3",
+      "D": "1 and 3 only"
+    },
+    "correct_answer": "C",
+    "explanation": "All three statements are correct. Statement 1 is correct: India is the second largest producer of rice in the world after China. Statement 2 is correct: India is the world's largest rice exporter, having exported 20.1 million metric tonnes in 2024–25. Statement 3 is correct: Rice is a kharif crop which requires high temperature (above 25°C) and high humidity with annual rainfall above 100 cm.",
+    "cited_extracts": [
+      "Our country is the second largest producer of rice in the world after China. It is a kharif crop which requires high temperature, (above 25°C) and high humidity with annual rainfall above 100 cm.",
+      "India is the world's largest rice exporter (exporting 20.1 million metric tonnes of rice in 2024–25)."
+    ],
+    "source_file": "Class_10_Geography_Contemporary_India_II.pdf",
+    "source_page": 32,
+    "source_type": "NCERT",
+    "question_type": "statement_based",
+    "difficulty": "medium",
+    "model_tier": "sonnet",
+    "status": "pass",
+    "grounding_ok": true,
+    "ambiguity_ok": true,
+    "distractors_ok": true,
+    "flag_reason": "",
+    "repair_note": "Corrected Statement 1 from 'largest producer' to 'second largest producer after China' to match the NCERT extract; updated Statement 3 to use exact wording 'high temperature (above 25°C) and high humidity with annual rainfall above 100 cm' from the NCERT text; reassigned extracts so each statement is grounded by its own distinct extract; corrected answer from A to C since all three statements are now accurate."
+  },
+  {
+    "topic_query": "Ramsar Convention criteria wetlands",
+    "question": "Consider the following statements regarding the Ramsar Convention and India's wetland designations:\n1. The Ramsar Convention was adopted in 1971 and constitutes the world's largest network of protected areas.\n2. A wetland placed under the 'Montreux Record' implies that the country concerned must enact legislation prohibiting human activity within five kilometres of the wetland's boundary.\n3. Siliserh Lake, recently designated as a Ramsar site, is a human-made wetland located within the buffer zone (not core zone) of Sariska Tiger Reserve.\n4. India's total number of Ramsar-designated wetlands reached 96 after adding Gogabeel Lake, Siliserh Lake, and Kopra Jalashay in 2025.\nWhich of the statements given above are correct?",
+    "options": {
+      "A": "1, 3 and 4 only",
+      "B": "1, 2 and 4 only",
+      "C": "2 and 3 only",
+      "D": "1 and 4 only"
+    },
+    "correct_answer": "A",
+    "explanation": "Statement 1 is correct: The Ramsar Convention was adopted in 1971 in Iran and established the world's largest protected area network. Statement 2 is incorrect: Being placed on the Montreux Record means changes in ecological character have occurred or are likely to occur due to human interference — it does NOT require the country to enact legislation prohibiting human activity within 5 km of the wetland boundary; this is a distractor option from the 2014 UPSC question itself. Statement 3 is correct: Siliserh Lake is indeed a human-made (artificial) wetland, created in 1845 by a ruling prince through a dam across a tributary of the Ruparel River, and it lies within the buffer zone (not the core zone) of Sariska Tiger Reserve. Statement 4 is correct: India's Ramsar tally reached 96 following the designation of Gogabeel Lake (Bihar), Siliserh Lake (Rajasthan), and Kopra Jalashay (Chhattisgarh) in 2025.",
+    "cited_extracts": [
+      "The Ramsar Convention on Wetlands, adopted in 1971 in Iran, has been acceded to by approximately 90 percent of UN member states including India, establishing the world's largest protected area network.",
+      "Changes in ecological character have occurred, are occurring or are likely to occur in the wetland as a result of human interference.",
+      "Siliserh Lake in Rajasthan is a human-made wetland constructed in 1845 across the Ruparel River tributary and lies within the buffer zone of Sariska Tiger Reserve.",
+      "India now has 96 wetlands designated under the Ramsar Convention following the addition of Gogabeel Lake (Bihar), Siliserh Lake (Rajasthan), and Kopra Jalashay (Chhattisgarh)."
+    ],
+    "source_file": "Ramsar Wetlands Designation 2025",
+    "source_page": 311,
+    "source_type": "current_affairs",
+    "question_type": "statement_based",
+    "difficulty": "hard",
+    "model_tier": "sonnet",
+    "status": "flag",
+    "grounding_ok": null,
+    "ambiguity_ok": null,
+    "distractors_ok": null,
+    "flag_reason": "check.py could not parse Claude's response — manual review needed.",
+    "repair_note": "Corrected Statement 3 to say 'buffer zone' (grounded by fresh CA extract) instead of 'core zone', updated the correct answer to A (1, 3 and 4 only) to reflect the now-grounded and accurate Statement 3, and replaced the unsupported Montreux Record Statement 2 extract with the grounded definition from PYQ evidence making it clearly incorrect.",
+    "factual_ok": null,
+    "unique_ok": null
+  },
+  {
+    "topic_query": "CITES appendices wildlife trade",
+    "question": "With reference to the 20th Conference of Parties to CITES (CoP20), consider the following statements:\n1. The oceanic whitetip shark, whale shark, and all manta and devil ray species were listed under CITES Appendix II, which regulates but does not ban commercial international trade.\n2. India successfully opposed a European Union proposal to list guggul (Commiphora wightii) under CITES Appendix II, arguing for a comprehensive population assessment before imposing trade restrictions.\n3. A proposal to embed 'People Living alongside Fauna and Flora' (PLFF) as a formal dimension within CITES was adopted by member states at CoP20.\nWhich of the statements given above is/are correct?",
+    "options": {
+      "A": "2 only",
+      "B": "1 and 2 only",
+      "C": "1 and 3 only",
+      "D": "1, 2 and 3"
+    },
+    "correct_answer": "A",
+    "explanation": "Statement 1 is incorrect: oceanic whitetip shark, whale shark, all manta and devil ray species, along with Galápagos land and marine iguanas and Home's hinge-back tortoise were listed under Appendix I (not Appendix II) at CoP20. Statement 2 is correct: India successfully opposed an EU proposal to list guggul (Commiphora wightii) in Appendix II, arguing for a comprehensive population assessment before trade restrictions. Statement 3 is incorrect: the PLFF proposal was rejected by member states citing financial, operational, and duplication concerns, not adopted.",
+    "cited_extracts": [
+      "Notable additions include oceanic whitetip shark, whale shark, all manta and devil ray species, all three species of Galápagos land iguana, Galápagos marine iguana, Home's hinge-back tortoise to Appendix I.",
+      "India successfully opposed a European Union proposal to list guggul (Commiphora wightii) in Appendix II, arguing for a comprehensive population assessment before imposing trade restrictions.",
+      "A proposal to embed 'People Living alongside Fauna and Flora' (PLFF) as a formal dimension within CITES was rejected by member states citing financial, operational, and duplication concerns."
+    ],
+    "source_file": "Monthly Current Affairs- December 2025.pdf",
+    "source_page": 0,
+    "source_type": "current_affairs",
+    "question_type": "statement_based",
+    "difficulty": "hard",
+    "model_tier": "sonnet",
+    "status": "pass",
+    "grounding_ok": true,
+    "ambiguity_ok": true,
+    "distractors_ok": true,
+    "flag_reason": "",
+    "repair_note": "Fixed Statement 1 to correctly state species were added to Appendix I (not Appendix II), and updated extract for Statement 2 with verbatim CA evidence; Statement 3 remains false as PLFF proposal was rejected, not adopted."
+  },
+  {
+    "topic_query": "Pralay missile indigenous defence",
+    "question": "Consider the following statements regarding the Pralay missile and missile classification:\n\n1. The Pralay missile, developed by DRDO, is a quasi-ballistic surface-to-surface missile with an operational range of 150 to 500 kilometres.\n2. Unlike cruise missiles that use jet engine technology and fly within the Earth's atmosphere throughout their flight, ballistic missiles follow a ballistic trajectory over most of their flight path and are classified according to their ranges.\n\nWhich of the statements given above is/are correct?",
+    "options": {
+      "A": "1 only",
+      "B": "2 only",
+      "C": "Both 1 and 2",
+      "D": "Neither 1 nor 2"
+    },
+    "correct_answer": "C",
+    "explanation": "Statement 1 is correct: DRDO conducted successful trials of the Pralay missile, a domestically produced quasi-ballistic platform with an operational range spanning 150 to 500 kilometres, capable of delivering multiple warhead configurations. Statement 2 is correct: Cruise missiles fly within the Earth's atmosphere and use jet engine technology, while ballistic missiles follow a ballistic trajectory over most of their flight and are classified according to their ranges (from short, around 500 km, to intercontinental, more than 5000 km).",
+    "cited_extracts": [
+      "The Defence Research and Development Organisation conducted successful trials of the Pralay missile—a domestically produced quasi-ballistic platform with operational range spanning 150 to 500 kilometres, capable of delivering multiple warhead configurations.",
+      "Cruise missile flies within the earth's atmosphere and uses jet engine technology. Ballistic missiles • Powered initially by a rocket or several in stages • Ballistic trajectory over most of its flight • Hypersonic speed during much of the flight • Classified according to their ranges (from short, around 500 km, to intercontinental, more than 5000 km)"
+    ],
+    "source_file": "Prelims PYQ (2011-2025).pdf",
+    "source_page": 117,
+    "source_type": "mixed",
+    "question_type": "statement_based",
+    "difficulty": "medium",
+    "model_tier": "sonnet",
+    "status": "pass",
+    "grounding_ok": true,
+    "ambiguity_ok": true,
+    "distractors_ok": true,
+    "flag_reason": "",
+    "repair_note": "Converted from assertion_reason to statement_based format because R defined missile types generally without causally explaining why Pralay is classified as quasi-ballistic, making the original A vs B answer ambiguous."
+  },
+  {
+    "topic_query": "NPS Vatsalya pension scheme",
+    "question": "Consider the following statements about the Atal Pension Yojana (APY):\n1. APY is administered by the Pension Fund Regulatory and Development Authority (PFRDA) under the National Pension System (NPS) framework.\n2. Eligibility for APY is restricted to individuals aged 18–40 years who hold bank accounts and are not income tax payers.\n3. Contributions made to APY are eligible for tax benefits under Section 80CCD(1), similar to the National Pension System.\n4. APY is classified as a Centrally Sponsored Scheme, with states sharing the financial burden of government co-contributions.\nWhich of the statements given above are correct?",
+    "options": {
+      "A": "1, 2 and 3 only",
+      "B": "1 and 2 only",
+      "C": "2, 3 and 4 only",
+      "D": "1, 2, 3 and 4"
+    },
+    "correct_answer": "A",
+    "explanation": "Statements 1, 2, and 3 are correct. APY is administered by PFRDA under the NPS framework and is classified as a Central Sector Scheme (not a Centrally Sponsored Scheme). Eligibility is confined to bank account holders aged 18–40 years who are not income tax payers. Contributions are eligible for tax benefits under Section 80CCD(1). Statement 4 is incorrect because APY is a Central Sector Scheme — the central government alone bears the co-contribution cost — not a Centrally Sponsored Scheme where states share the financial burden.",
+    "cited_extracts": [
+      "The scheme is administered by the Pension Fund Regulatory and Development Authority (PFRDA) under the National Pension System (NPS) framework, classified as a Central Sector Scheme.",
+      "Eligibility is confined to bank account holders aged 18–40 years who are not income tax payers, with guaranteed monthly pensions between ₹1,000–₹5,000 from age 60 onward for life.",
+      "Tax Benefits: Contributions to APY are eligible for tax benefits similar to National Pension System (NPS) under section 80CCD (1).",
+      "The scheme is administered by the Pension Fund Regulatory and Development Authority (PFRDA) under the National Pension System (NPS) framework, classified as a Central Sector Scheme."
+    ],
+    "source_file": "Government Schemes",
+    "source_page": 0,
+    "source_type": "static",
+    "question_type": "statement_based",
+    "difficulty": "medium",
+    "model_tier": "sonnet",
+    "status": "pass",
+    "grounding_ok": true,
+    "ambiguity_ok": true,
+    "distractors_ok": true,
+    "flag_reason": "",
+    "repair_note": "Added the existing Extract 1 ('classified as a Central Sector Scheme') as the explicit cited evidence contradicting Statement 4's claim that APY is a 'Centrally Sponsored Scheme', thereby grounding the refutation of Statement 4 in the provided evidence rather than outside knowledge."
+  }
+]

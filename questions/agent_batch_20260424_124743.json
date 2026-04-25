@@ -1,0 +1,181 @@
+[
+  {
+    "topic_query": "Powers and functions of the Election Commission of India under constitutional provisions",
+    "question": "Consider the following statements regarding the Election Commission of India (ECI) and its constitutional basis:\n\n1. Article 324 vests superintendence, direction and control of the preparation of electoral rolls and conduct of all elections to Parliament, State Legislatures, and offices of President and Vice-President in the Election Commission.\n2. The Chief Election Commissioner can be removed by the President of India acting on his own discretion, without any recommendation from Parliament.\n\nWhich of the statements given above is/are correct?",
+    "options": {
+      "A": "1 only",
+      "B": "2 only",
+      "C": "Both 1 and 2",
+      "D": "Neither 1 nor 2"
+    },
+    "correct_answer": "A",
+    "explanation": "Statement 1 is correct: The NCERT extract from Article 324 states verbatim: 'The superintendence, direction and control of the preparation of the electoral rolls for, and the conduct of, all elections to Parliament and to the Legislature of every State and of elections to the offices of President and Vice-President held under this Constitution shall be vested in a Commission.' This confirms Statement 1 fully.\n\nStatement 2 is incorrect: The NCERT extract explicitly states that the CEC can be removed 'by the President if both Houses of Parliament make such a recommendation with a special majority.' This means removal requires a parliamentary recommendation with special majority — the President cannot act on his own discretion. The extract further notes 'This is done to ensure that a ruling party cannot remove a CEC who refuses to favour it in elections.' Thus Statement 2 is contradicted by the source.",
+    "cited_extracts": [
+      "Article 324: (1) The superintendence, direction and control of the preparation of the electoral rolls for, and the conduct of, all elections to Parliament and to the Legislature of every State and of elections to the offices of President and Vice-President held under this Constitution shall be vested in a Commission (referred to in this Constitution as the Election Commission).",
+      "the term, by the President if both Houses of Parliament make such a recommendation with a special majority. This is done to ensure that a ruling party cannot remove a CEC who refuses to favour it in elections. The Election Commissioners can be removed by the President of India."
+    ],
+    "source_file": "Class_11_Political_Science_Indian_Constitution_at_Work.pdf",
+    "source_page": 68,
+    "source_type": "both",
+    "question_type": "statement_based",
+    "difficulty": "medium",
+    "model_tier": "sonnet",
+    "status": "pass",
+    "factual_ok": true,
+    "unique_ok": true,
+    "distractors_ok": true,
+    "flag_reason": null,
+    "grounding_ok": true,
+    "ambiguity_ok": true
+  },
+  {
+    "topic_query": "SEBI functions and regulation of capital markets in India",
+    "question": "Consider the following statements regarding SEBI's structure and functions:\n\n1. SEBI's regulatory role includes registration and oversight of market intermediaries such as brokers, mutual funds, and credit rating agencies.\n2. The Securities Markets Code Bill, 2025 proposes to empower SEBI to delegate its registration functions exclusively to Self-Regulatory Organisations (SROs), excluding Market Infrastructure Institutions.\n3. SEBI possesses quasi-legislative, quasi-judicial, and quasi-executive powers enabling it to draft regulations, deliver judgments, and conduct investigations.\n\nWhich of the statements given above is/are correct?",
+    "options": {
+      "A": "1 and 3 only",
+      "B": "2 and 3 only",
+      "C": "1 only",
+      "D": "1, 2 and 3"
+    },
+    "correct_answer": "A",
+    "explanation": "Statement 1 is correct: The CA chunk explicitly states that SEBI's regulatory role 'encompasses the registration and oversight of market intermediaries such as brokers, mutual funds, and credit rating agencies.' Statement 2 is incorrect: The Securities Markets Code Bill, 2025 empowers SEBI to delegate registration functions to BOTH Market Infrastructure Institutions (MIIs) AND Self-Regulatory Organisations (SROs), not exclusively to SROs. The CA chunk states: 'The Bill empowers SEBI to delegate parts of its registration functions to Market Infrastructure Institutions (MIIs) and Self-Regulatory Organisations (SROs).' Statement 3 is correct: The UPSC fact from the CA chunk confirms that 'SEBI possesses quasi-legislative, quasi-judicial, and quasi-executive powers enabling it to draft regulations, deliver judgments and impose penalties, and conduct investigations respectively.'",
+    "cited_extracts": [
+      "The Securities and Exchange Board of India functions across three principal dimensions. Its regulatory role encompasses the registration and oversight of market intermediaries such as brokers, mutual funds, and credit rating agencies, alongside supervision of corporate takeover processes.",
+      "The Bill empowers SEBI to delegate parts of its registration functions to Market Infrastructure Institutions (MIIs) and Self-Regulatory Organisations (SROs).",
+      "SEBI possesses quasi-legislative, quasi-judicial, and quasi-executive powers enabling it to draft regulations, deliver judgments and impose penalties, and conduct investigations respectively."
+    ],
+    "source_file": "SEBI Structure, Functions, Achievements and Regulatory Challenges | Monthly Current Affairs- December 2025.pdf",
+    "source_page": 0,
+    "source_type": "both",
+    "question_type": "statement_based",
+    "difficulty": "medium",
+    "model_tier": "sonnet",
+    "status": "pass",
+    "factual_ok": true,
+    "unique_ok": true,
+    "distractors_ok": true,
+    "flag_reason": null,
+    "grounding_ok": true,
+    "ambiguity_ok": true
+  },
+  {
+    "topic_query": "Paris Agreement on Climate Change nationally determined contributions and India commitments",
+    "question": "With reference to the Paris Agreement (2015) and India's climate commitments, consider the following:\n\nAssertion (A): The principle of 'common but differentiated responsibilities' remains relevant to India's position in international climate negotiations, as India argues that historical per capita emissions of developing nations are far lower than those of industrialised countries.\n\nReason (R): Article 6 of the Paris Agreement provides a framework for international cooperation to achieve climate goals through market-based and non-market-based mechanisms, enabling countries to meet their Nationally Determined Contributions.\n\nWhich one of the following is correct?",
+    "options": {
+      "A": "Both A and R are true and R is the correct explanation of A",
+      "B": "Both A and R are true but R is NOT the correct explanation of A",
+      "C": "A is true but R is false",
+      "D": "A is false but R is true"
+    },
+    "correct_answer": "B",
+    "explanation": "Assertion A is correct: The NCERT chunk states that 'At the G-8 meeting in June 2005, India pointed out that the per capita emission rates of the developing countries are a tiny fraction of those in [industrialised nations]', supporting India's invocation of differentiated responsibilities based on historical emissions. Reason R is also correct: The PYQ chunk confirms that 'Article 6 of the Paris Agreement (2015, COP21) provides a framework for international cooperation to achieve climate goals through market-based and non-market-based mechanisms, enabling countries to meet their Nationally Determined Contributions.' However, R does not causally explain A — Article 6's cooperative mechanisms for NDC achievement are a separate provision from the principle of differentiated responsibilities that underlies India's negotiating position. Hence both are true but R does not explain A.",
+    "cited_extracts": [
+      "At the G-8 meeting in June 2005, India pointed out that the per capita emission rates of the developing countries are a tiny fraction of those in [industrialised nations].",
+      "Article 6 of the Paris Agreement (2015, COP21) provides a framework for international cooperation to achieve climate goals through market-based and non-market-based mechanisms, enabling countries to meet their Nationally Determined Contributions."
+    ],
+    "source_file": "Class_12_Political_Science_Contemporary_World_Politics.pdf | Prelims PYQ (2011-2025).pdf",
+    "source_page": 89,
+    "source_type": "both",
+    "question_type": "assertion_reason",
+    "difficulty": "hard",
+    "model_tier": "sonnet",
+    "status": "pass",
+    "factual_ok": true,
+    "unique_ok": true,
+    "distractors_ok": true,
+    "flag_reason": null,
+    "grounding_ok": true,
+    "ambiguity_ok": true
+  },
+  {
+    "topic_query": "Biosphere reserves in India UNESCO recognition and conservation objectives",
+    "question": "Consider the following statements regarding Biosphere Reserves in India:\n\n1. A Biosphere Reserve is internationally recognised within the framework of UNESCO's Man and Biosphere (MAB) Programme.\n2. All 18 Biosphere Reserves in India have been included in the UNESCO World Network of Biosphere Reserves.\n3. Biosphere Reserves, National Parks, and Wildlife Sanctuaries are all categories of protected areas for conservation of plants and animals.\n\nWhich of the statements given above is/are correct?",
+    "options": {
+      "A": "1 and 3 only",
+      "B": "2 and 3 only",
+      "C": "1 only",
+      "D": "1, 2 and 3"
+    },
+    "correct_answer": "A",
+    "explanation": "Statement 1 is correct: The NCERT chunk explicitly states that 'A Biosphere Reserve is a unique and representative ecosystem of terrestrial and coastal areas which are internationally recognised within the framework of UNESCO's Man and Biosphere (MAB) Programme.' Statement 2 is incorrect: The NCERT chunk contradicts this by stating 'There are 18 Biosphere Reserves in India. Twelve Biosphere Reserves have been recognised by the UNESCO on World Network of Biosphere Reserves' — meaning 6 are NOT yet recognised by UNESCO. Statement 3 is correct: The Class 8 Science NCERT chunk confirms 'Wildlife sanctuaries, national parks, biosphere reserves etc., are protected areas for conservation of plants and animals present in that area.'",
+    "cited_extracts": [
+      "A Biosphere Reserve is a unique and representative ecosystem of terrestrial and coastal areas which are internationally recognised within the framework of UNESCO's Man and Biosphere (MAB) Programme.",
+      "There are 18 Biosphere Reserves in India (Table 5.1, Figure 5.8). Twelve Biosphere Reserves have been recognised by the UNESCO on World Network of Biosphere Reserves.",
+      "Wildlife sanctuaries, national parks, biosphere reserves etc., are protected areas for conservation of plants and animals present in that area."
+    ],
+    "source_file": "Class_11_Geography_Fundamentals_of_Physical_Geography.pdf | Class_08_Science.pdf",
+    "source_page": 50,
+    "source_type": "both",
+    "question_type": "statement_based",
+    "difficulty": "medium",
+    "model_tier": "sonnet",
+    "status": "pass",
+    "factual_ok": true,
+    "unique_ok": true,
+    "distractors_ok": true,
+    "flag_reason": null,
+    "grounding_ok": true,
+    "ambiguity_ok": true
+  },
+  {
+    "topic_query": "ISRO missions Chandrayaan and Gaganyaan objectives and technological significance",
+    "question": "Consider the following statements regarding India's space missions:\n\n1. Chandrayaan-4 is India's fourth lunar mission and has identified Mons Mouton as its planned landing location on the Moon.\n2. GAGAN (GPS Aided GEO Augmented Navigation) is a Satellite-Based Augmentation System developed jointly by ISRO and the Airports Authority of India, with its primary objective being to provide satellite-based navigation services with enhanced accuracy for civil aviation applications.\n3. The Hanle Dark Sky Reserve in Ladakh, notified in December 2022, houses the Himalayan Chandra Telescope which is named after Nobel laureate Subrahmanyan Chandrasekhar.\n\nWhich of the statements given above are correct?",
+    "options": {
+      "A": "1 and 2 only",
+      "B": "2 and 3 only",
+      "C": "1 and 3 only",
+      "D": "1, 2 and 3"
+    },
+    "correct_answer": "D",
+    "explanation": "Statement 1 is correct: The CA chunk states 'Chandrayaan-4 Mission identified Mons Mouton, a location on the Moon to land its lander. Chandrayaan-4 will be India's fourth [lunar mission].' Statement 2 is correct: The PYQ NCERT chunk confirms 'GAGAN (GPS Aided GEO Augmented Navigation) is a Satellite-Based Augmentation System (SBAS) developed jointly by the Indian Space Research Organisation (ISRO) and the Airports Authority of India (AAI). Its primary objective is to provide satellite-based navigation services with enhanced accuracy and integrity, crucial for civil aviation app[lications].' Statement 3 is correct: The Class 6 Science NCERT chunk states 'One of them is called the Himalayan Chandra Telescope, which has been named after the Nobel Prize winning scientist Subrahmanyan Chandrasekhar... The area surrounding this observatory was notified as the Hanle Dark Sky Reserve (HDSR) in December 2022.'",
+    "cited_extracts": [
+      "Chandrayaan-4 Mission identified Mons Mouton, a location on the Moon to land its lander. Chandrayaan-4 will be India's fourt[h lunar mission].",
+      "GAGAN (GPS Aided GEO Augmented Navigation) is a Satellite-Based Augmentation System (SBAS) developed jointly by the Indian Space Research Organisation (ISRO) and the Airports Authority of India (AAI). Its primary objective is to provide satellite-based navigation services with enhanced accuracy and integrity, crucial for civil aviation app[lications].",
+      "One of them is called the Himalayan Chandra Telescope, which has been named after the Nobel Prize winning scientist Subrahmanyan Chandrasekhar... The area surrounding this observatory was notified as the Hanle Dark Sky Reserve (HDSR) in December 2022."
+    ],
+    "source_file": "Monthly Current Affairs- February 2026.pdf | Prelims PYQ (2011-2025).pdf | Class_06_Science_Curiosity.pdf",
+    "source_page": 0,
+    "source_type": "both",
+    "question_type": "statement_based",
+    "difficulty": "medium",
+    "model_tier": "sonnet",
+    "status": "pass",
+    "factual_ok": true,
+    "unique_ok": true,
+    "distractors_ok": true,
+    "flag_reason": null,
+    "grounding_ok": true,
+    "ambiguity_ok": true
+  },
+  {
+    "topic_query": "Digital India initiative components objectives and its role in e-governance transformation",
+    "question": "Consider the following statements regarding the Digital India Programme and related initiatives:\n\n1. The Digital India Programme is described as an umbrella programme to prepare India for a knowledge-based transformation, with its focus encapsulated in the formula IT (Indian Talent) + IT (Information Technology) = IT (India Tomorrow).\n2. The Asia-Africa Growth Corridor was established jointly by India and Japan in 2017 to promote sustainable and inclusive development in Africa through enhanced connectivity.\n3. The MeghRaj GI Cloud and IndiaAI Compute Portal function as platforms democratising access to Graphics Processing Units and shared computing resources.\n\nWhich of the statements given above are correct?",
+    "options": {
+      "A": "1 and 2 only",
+      "B": "2 and 3 only",
+      "C": "1 and 3 only",
+      "D": "1, 2 and 3"
+    },
+    "correct_answer": "D",
+    "explanation": "All three statements are correct. Statement 1 is directly supported by the NCERT text on Digital India. Statement 2 is confirmed by the Asia-Africa Growth Corridor being established in 2017 by India and Japan. Statement 3 is supported by the description of MeghRaj GI Cloud and IndiaAI Compute Portal as platforms democratising access to GPUs and shared computing resources.",
+    "cited_extracts": [
+      "Digital India is an umbrella programme to prepare India for a knowledge based transformation. The focus of Digital India Programme is on being transformative to realise – IT (Indian Talent) + IT (Information Technology)=IT (India Tomorrow) and is on making technology central to enabling change.",
+      "The Asia-Africa Growth Corridor was established in 2017 by India and Japan to promote sustainable and inclusive development in Africa through enhanced connectivity.",
+      "MeghRaj GI Cloud and IndiaAI Compute Portal function as platforms democratizing access to Graphics Processing Units and shared computing resources for broader segments of society."
+    ],
+    "source_file": "India's NAVI Framework for AI Development and Three-Phase Roadmap",
+    "source_page": 80,
+    "source_type": "current_affairs",
+    "question_type": "statement_based",
+    "difficulty": "medium",
+    "model_tier": "sonnet",
+    "status": "flag",
+    "factual_ok": null,
+    "unique_ok": null,
+    "distractors_ok": null,
+    "flag_reason": "check.py could not parse Claude's response — manual review needed.",
+    "grounding_ok": null,
+    "ambiguity_ok": null,
+    "repair_note": "Replaced the dubious/unverifiable Statement 2 about DigiLocker assisting Zambia with the well-documented Asia-Africa Growth Corridor fact grounded in the fresh CA evidence."
+  }
+]

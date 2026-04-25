@@ -1,0 +1,214 @@
+[
+  {
+    "topic_query": "Constitutional amendments related to Fundamental Rights and Directive Principles of State Policy",
+    "question": "Consider the following statements:\n1. The 42nd Amendment to the Indian Constitution inserted a list of Fundamental Duties of Citizens in the Constitution.\n2. The enjoyment of Fundamental Rights in the Indian Constitution is made conditional upon the fulfilment of Fundamental Duties.\n3. In 1973, the Supreme Court decided that the right to property was not part of the basic structure of the Constitution.\nWhich of the above statement(s) is/are correct?",
+    "options": {
+      "A": "1 only",
+      "B": "1 and 3 only",
+      "C": "2 and 3 only",
+      "D": "1, 2 and 3"
+    },
+    "correct_answer": "B",
+    "explanation": "Statement 1 is correct: The 42nd Amendment inserted a list of Fundamental Duties of Citizens in the Constitution. Statement 2 is incorrect: The Constitution does not make the enjoyment of rights dependent or conditional upon fulfilment of duties. Statement 3 is correct: In 1973, the Supreme Court gave a decision that the right to property was not part of the basic structure of the Constitution, and therefore Parliament had the power to abridge this right by an amendment.",
+    "cited_extracts": [
+      "Among other things, this amendment inserted a list of Fundamental Duties of Citizens. In all, ten duties were enumerated.",
+      "However, it must be noted that our Constitution does not make the enjoyment of rights dependent or conditional upon fulfilment of duties. In this sense, the inclusion of fundamental duties has not changed the status of our fundamental rights.",
+      "Finally, in 1973, the Supreme Court gave a decision that the right to property was not part of the basic structure of the Constitution and therefore, parliament had power to abridge this right by an amendment."
+    ],
+    "source_file": "Class_11_Political_Science_Indian_Constitution_at_Work.pdf",
+    "source_page": 44,
+    "source_type": "ncert",
+    "question_type": "statement_based",
+    "difficulty": "medium",
+    "model_tier": "haiku",
+    "status": "pass",
+    "factual_ok": true,
+    "unique_ok": true,
+    "distractors_ok": true,
+    "flag_reason": null,
+    "grounding_ok": true,
+    "ambiguity_ok": true,
+    "repair_note": "Replaced truncated extract for Statement 1 with fuller verbatim sentence; ensured all three extracts are complete verbatim sentences from the fresh evidence chunks; corrected JSON formatting to resolve parsing error."
+  },
+  {
+    "topic_query": "Western Ghats biodiversity hotspot and endemic species",
+    "question": "Consider the following statements:\n1. The Western Ghats have a greater amphibian species diversity than the Eastern Ghats.\n2. Biodiversity hotspots are regions identified for maximum protection that have very high levels of species richness and a high degree of endemism.\n3. A tropical forest region has significantly fewer vascular plant species compared to a temperate region of equal area.\nWhich of the above statement(s) is/are correct?",
+    "options": {
+      "A": "1 only",
+      "B": "1 and 2 only",
+      "C": "2 and 3 only",
+      "D": "1, 2 and 3"
+    },
+    "correct_answer": "B",
+    "explanation": "Statement 1 is correct — the Western Ghats are explicitly noted to have greater amphibian species diversity than the Eastern Ghats. Statement 2 is correct — biodiversity hotspots are defined as regions with very high levels of species richness and high degree of endemism identified for maximum protection. Statement 3 is incorrect — the evidence shows that a tropical forest has up to 10 times as many species of vascular plants as a temperate region of equal area, the opposite of what is stated.",
+    "cited_extracts": [
+      "the Western Ghats have a greater amphibian species diversity than the Eastern Ghats.",
+      "They identified for maximum protection certain 'biodiversity hotspots' regions with very high levels of species richness and high degree of endemism",
+      "A forest in a tropical region like Equador has up to 10 times as many species of vascular plants as a forest of equal area in a temperate region like the Midwest of the USA."
+    ],
+    "source_file": "Class_12_Biology.pdf",
+    "source_page": 224,
+    "source_type": "ncert",
+    "question_type": "statement_based",
+    "difficulty": "medium",
+    "model_tier": "haiku",
+    "status": "pass",
+    "factual_ok": true,
+    "unique_ok": true,
+    "distractors_ok": true,
+    "flag_reason": null,
+    "grounding_ok": true,
+    "ambiguity_ok": true
+  },
+  {
+    "topic_query": "Indian National Movement: Non-Cooperation Movement causes and consequences",
+    "question": "Consider the following statements regarding the Non-Cooperation Movement (1920-22):\n1. Gandhi convinced Congress leaders to begin non-cooperation both in support of the Khilafat cause and for swaraj at the Calcutta session of 1920.\n2. The withdrawal of the Non-Cooperation Movement followed violent incidents at Chauri Chaura, where a peaceful demonstration turned into a violent clash with the police.\n3. Gandhi's principles of Satyagraha, which underpinned the Non-Cooperation Movement, were first developed in India against caste discrimination.\n\nWhich of the statements given above is/are correct?",
+    "options": {
+      "A": "1 and 2 only",
+      "B": "2 and 3 only",
+      "C": "1 and 3 only",
+      "D": "1, 2 and 3"
+    },
+    "correct_answer": "A",
+    "explanation": "Statement 1 is CORRECT: The NCERT extract explicitly states 'At the Calcutta session of the Congress in September 1920, he convinced other leaders of the need to start a non-cooperation movement in support of Khilafat as well as for swaraj.' Statement 2 is CORRECT: The NCERT extract confirms 'At Chauri Chaura in Gorakhpur, a peaceful demonstration in a bazaar turned into a violent clash with the police' — this event led Gandhi to call off the movement. Statement 3 is INCORRECT: The CA chunk explicitly states that 'Gandhi developed his principles of Satyagraha against racial discrimination, in Africa (1893-1914)' — not in India against caste discrimination. Therefore only statements 1 and 2 are correct.",
+    "cited_extracts": [
+      "At the Calcutta session of the Congress in September 1920, he convinced other leaders of the need to start a non-cooperation movement in support of Khilafat as well as for swaraj.",
+      "At Chauri Chaura in Gorakhpur, a peaceful demonstration in a bazaar turned into a violent clash with the police.",
+      "Gandhi developed his principles of Satyagraha against racial discrimination, in Africa (1893-1914) which later inspired independence movements."
+    ],
+    "source_file": "Class_10_History_India_and_the_Contemporary_World_II.pdf",
+    "source_page": 32,
+    "source_type": "both",
+    "question_type": "statement_based",
+    "difficulty": "medium",
+    "model_tier": "sonnet",
+    "status": "pass",
+    "factual_ok": true,
+    "unique_ok": true,
+    "distractors_ok": true,
+    "flag_reason": null,
+    "grounding_ok": true,
+    "ambiguity_ok": true
+  },
+  {
+    "topic_query": "Monsoon mechanism and its impact on Indian agriculture and river systems",
+    "question": "With reference to the role of monsoon in India, consider the following statements:\n1. The monsoon is described as the axis around which the entire agricultural cycle of India revolves, primarily because a majority of India's population depends on agriculture that itself is based on the southwest monsoon.\n2. Due to topographical and hydrological constraints, only about one-third of India's available surface water can actually be utilised.\n3. The Aravalli range, being a young fold mountain system formed alongside the Himalayas, plays a significant role in regulating the monsoon cycle by influencing wind patterns.\n\nWhich of the statements given above is/are correct?",
+    "options": {
+      "A": "1 and 2 only",
+      "B": "2 and 3 only",
+      "C": "1 and 3 only",
+      "D": "1, 2 and 3"
+    },
+    "correct_answer": "A",
+    "explanation": "Statement 1 is CORRECT: The NCERT extract states 'Monsoon is that axis around which revolves the entire agricultural cycle of India. It is because about 64 per cent people of India depend on agriculture for their livelihood and agriculture itself is based on southwest monsoon.' Statement 2 is CORRECT: The NCERT Geography extract states 'only about 690 cubic km (32 per cent) of the available surface water can be utilised' due to topographical, hydrological and other constraints — approximately one-third. Statement 3 is INCORRECT: The CA chunk explicitly describes the Aravallis as 'One of the oldest residual fold mountain ranges of the world (Pre-Cambrian), and predates the formation of the Himalayan ranges' — it is not a young fold mountain formed alongside the Himalayas. The Aravallis do regulate the monsoon cycle, but the characterisation of them as young is false. Thus only statements 1 and 2 are correct.",
+    "cited_extracts": [
+      "Monsoon is that axis around which revolves the entire agricultural cycle of India. It is because about 64 per cent people of India depend on agriculture for their livelihood and agriculture itself is based on southwest monsoon.",
+      "only about 690 cubic km (32 per cent) of the available surface water can be utilised. Water flow in a river depends on size of its catchment area or river basin and rainfall within its catchment area.",
+      "One of the oldest residual fold mountain ranges of the world (Pre-Cambrian), and predates the formation of the Himalayan ranges... Significance of Aravallis: Ecological and Geographical: Regulation of Climate, temperature and the monsoon cycle of India. E.g. By influencing wind patterns and stabilising."
+    ],
+    "source_file": "Class_11_Geography_Fundamentals_of_Physical_Geography.pdf and Class_12_Geography_India_People_and_Economy.pdf",
+    "source_page": 38,
+    "source_type": "both",
+    "question_type": "statement_based",
+    "difficulty": "medium",
+    "model_tier": "sonnet",
+    "status": "pass",
+    "factual_ok": true,
+    "unique_ok": true,
+    "distractors_ok": true,
+    "flag_reason": null,
+    "grounding_ok": true,
+    "ambiguity_ok": true
+  },
+  {
+    "topic_query": "GST structure in India: dual GST model and revenue sharing between Centre and States",
+    "question": "With reference to India's Goods and Services Tax (GST), consider the following statements:\n\n1. GST replaced various types of taxes/cesses levied by both the Central and State/UT Governments, including Central Excise Duty, Service Tax, Central Sales Tax, VAT/Sales Tax, and Entry Tax, among others.\n\n2. GST was designed to establish parity in taxation across the country and extend the principles of value-added taxation to all goods and services.\n\nWhich of the statements given above is/are correct?",
+    "options": {
+      "A": "1 only",
+      "B": "2 only",
+      "C": "Both 1 and 2",
+      "D": "Neither 1 nor 2"
+    },
+    "correct_answer": "C",
+    "explanation": "Both statements are correct. Statement 1 is confirmed by the NCERT text which states that GST 'has replaced various types of taxes/cesses, levied by the Central and State/UT Governments. Some of the major taxes that were levied by Centre were Central Excise Duty, Service Tax, Central Sales Tax, Cesses like KKC and SBC. The major State taxes were VAT/Sales Tax, Entry Tax, Luxury Tax, Octroi, Entertainment Tax.' Statement 2 is confirmed by the same source which states that GST 'addresses to establish parity in taxation across the country, and extend principles of value-added taxation to all goods and services.'",
+    "cited_extracts": [
+      "It has replaced various types of taxes/cesses, levied by the Central and State/UT Governments. Some of the major taxes that were levied by Centre were Central Excise Duty, Service Tax, Central Sales Tax, Cesses like KKC and SBC. The major State taxes were VAT/Sales Tax, Entry Tax, Luxury Tax, Octroi, Entertainment Tax, Taxes on Advertisements, Taxes on Lottery /Betting/ Gambl",
+      "In view of our large and fast growing economy, it addresses to establish parity in taxation across the country, and extend principles of 'value-added taxation' to all goods and services."
+    ],
+    "source_file": "Class_12_Economics_Macroeconomics.pdf",
+    "source_page": 83,
+    "source_type": "NCERT",
+    "question_type": "statement_based",
+    "difficulty": "medium",
+    "model_tier": "sonnet",
+    "status": "pass",
+    "factual_ok": true,
+    "unique_ok": true,
+    "distractors_ok": true,
+    "flag_reason": null,
+    "grounding_ok": true,
+    "ambiguity_ok": true,
+    "repair_note": "Converted from assertion_reason to statement_based format to avoid the unfixable causal link problem between R (design philosophy) and A (replacement of taxes), while preserving the same factual content and difficulty level."
+  },
+  {
+    "topic_query": "Paris Agreement on Climate Change: NDCs and India's climate commitments",
+    "question": "With reference to the Paris Agreement and India's climate position, consider the following statements:\n1. Article 6 of the Paris Agreement provides a framework for international cooperation through market-based and non-market-based mechanisms, enabling countries to meet their Nationally Determined Contributions.\n2. India has consistently argued at international forums that the per capita emission rates of developing countries are a tiny fraction of those in developed nations, to justify differentiated responsibilities.\n3. The United States has recently signalled withdrawal from the Paris Agreement, citing that participation is deemed disadvantageous to its fossil fuel interests and economic growth.\n\nWhich of the statements given above is/are correct?",
+    "options": {
+      "A": "1 and 3 only",
+      "B": "2 and 3 only",
+      "C": "1 and 2 only",
+      "D": "1, 2 and 3"
+    },
+    "correct_answer": "D",
+    "explanation": "All three statements are correct. Statement 1 is correct: Article 6 of the Paris Agreement (2015, COP21) provides a framework for international cooperation to achieve climate goals through market-based and non-market-based mechanisms, enabling countries to meet their Nationally Determined Contributions. Statement 2 is correct: At the G-8 meeting in June 2005, India pointed out that the per capita emission rates of the developing countries are a tiny fraction of those in the developed world, invoking the principle of common but differentiated responsibilities. Statement 3 is correct: The US has signalled withdrawal from the Paris Agreement, which is deemed disadvantageous to US fossil fuel interests and economic growth.",
+    "cited_extracts": [
+      "Article 6 of the Paris Agreement (2015, COP21) provides a framework for international cooperation to achieve climate goals through market-based and non-market-based mechanisms, enabling countries to meet their Nationally Determined Contributions.",
+      "At the G-8 meeting in June 2005, India pointed out that the per capita emission rates of the developing countries are a tiny fraction of those in the developed world.",
+      "is deemed disadvantageous to US fossil fuel interests and economic growth."
+    ],
+    "source_file": "Monthly Current Affairs- January 2026.pdf",
+    "source_page": 89,
+    "source_type": "current_affairs",
+    "question_type": "statement_based",
+    "difficulty": "hard",
+    "model_tier": "sonnet",
+    "status": "flag",
+    "factual_ok": false,
+    "unique_ok": false,
+    "distractors_ok": true,
+    "flag_reason": "Statement 3 is ambiguous in temporal accuracy: the US under Trump first withdrew in 2017 (effective 2020), rejoined under Biden in 2021, and signalled withdrawal again in January 2025 — the question uses 'recently signalled withdrawal' without a clear timeframe, making it potentially conflatable with the first withdrawal; more critically, the phrasing 'deemed disadvantageous to its fossil fuel interests and economic growth' conflates the stated reasoning across two separate withdrawal episodes, and a well-prepared student could question whether this characterisation precisely matches the official stated rationale, making the factual accuracy of Statement 3 debatable and undermining the uniqueness of the all-correct answer D.",
+    "grounding_ok": false,
+    "ambiguity_ok": false,
+    "repair_note": "Statement 3 corrected from 'withdrawal from UNFCCC' to 'withdrawal from the Paris Agreement', which is the factually accurate and well-documented US action, grounded in the CA evidence."
+  },
+  {
+    "topic_query": "ISRO missions: Chandrayaan and Gaganyaan objectives and scientific significance",
+    "question": "Consider the following statements regarding India's space programmes:\n\n1. Chandrayaan-4 Mission identified Mons Mouton as its targeted landing location on the Moon.\n2. GAGAN (GPS Aided GEO Augmented Navigation) is a Satellite-Based Augmentation System (SBAS) developed jointly by ISRO and the Airports Authority of India (AAI), primarily aimed at enhancing navigation accuracy for civil aviation applications.\n\nWhich of the statements given above is/are correct?",
+    "options": {
+      "A": "1 only",
+      "B": "2 only",
+      "C": "Both 1 and 2",
+      "D": "Neither 1 nor 2"
+    },
+    "correct_answer": "C",
+    "explanation": "Both statements are correct. Statement 1: Chandrayaan-4 Mission identified Mons Mouton, a location on the Moon, as its targeted landing site. Statement 2: GAGAN is a Satellite-Based Augmentation System (SBAS) developed jointly by ISRO and the Airports Authority of India (AAI), with its primary objective being to provide satellite-based navigation services with enhanced accuracy and integrity, crucial for civil aviation applications.",
+    "cited_extracts": [
+      "Chandrayaan-4 Mission identified Mons Mouton, a location on the Moon to land its lander.",
+      "GAGAN (GPS Aided GEO Augmented Navigation) is a Satellite-Based Augmentation System (SBAS) developed jointly by the Indian Space Research Organisation (ISRO) and the Airports Authority of India (AAI). Its primary objective is to provide satellite-based navigation services with enhanced accuracy and integrity, crucial for civil aviation applications."
+    ],
+    "source_file": "Monthly Current Affairs- February 2026.pdf; Prelims PYQ (2011-2025).pdf",
+    "source_page": 0,
+    "source_type": "current_affairs",
+    "question_type": "statement_based",
+    "difficulty": "medium",
+    "model_tier": "sonnet",
+    "status": "pass",
+    "factual_ok": true,
+    "unique_ok": true,
+    "distractors_ok": true,
+    "flag_reason": null,
+    "grounding_ok": true,
+    "ambiguity_ok": true,
+    "repair_note": "Reconstructed as properly parseable JSON; no factual changes made as both statements and extracts were verified correct from fresh evidence chunks."
+  }
+]

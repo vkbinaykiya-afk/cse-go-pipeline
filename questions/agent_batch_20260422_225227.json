@@ -1,0 +1,295 @@
+[
+  {
+    "topic_query": "fundamental rights article 19 freedoms",
+    "question": "Consider the following statements about fundamental rights under the Indian Constitution:\n1. Article 21 (Right to Life) has been interpreted by courts to include the right to health and the right to livelihood.\n2. The Constitution makes the enjoyment of fundamental rights dependent upon the fulfillment of fundamental duties by citizens.\n3. Fundamental rights are guarantees that human beings seek in order to lead a minimally good life.\nWhich of the above is/are correct?",
+    "options": {
+      "A": "1 and 3 only",
+      "B": "2 and 3 only",
+      "C": "1, 2 and 3",
+      "D": "3 only"
+    },
+    "correct_answer": "A",
+    "explanation": "Statement 1 is correct — the NCERT text explicitly states that Article 21 has been used to establish the right to health (Hakim Sheikh case) and the right to livelihood (slum-dwellers case). Statement 2 is incorrect — the Constitution explicitly does not make the enjoyment of rights dependent upon fulfillment of duties. The NCERT text states: 'it must be noted that our Constitution does not make the enjoyment of rights dependent or conditional upon fulfilment of duties.' Statement 3 is correct — Rights are described as guarantees that human beings seek in order to lead a minimally good life.",
+    "cited_extracts": [
+      "So for example, you have read of how the case of the injured farmer Hakim Sheikh established the right to health as part of the Right to Life. Similarly, you read of how the case of the slum-dwellers being evicted from Mumbai established the right to livelihood as part of the Right to Life.",
+      "However, it must be noted that our Constitution does not make the enjoyment of rights dependent or conditional upon fulfilment of duties.",
+      "Rights are increasingly seen as guarantees that human beings themselves seek or arrive at in order to lead a minimally good life."
+    ],
+    "source_file": "Class_08_Civics_Social_and_Political_Life_III.pdf, Class_11_Political_Science_Indian_Constitution_at_Work.pdf, Class_11_Political_Science_Political_Theory.pdf",
+    "source_page": [
+      112,
+      44,
+      69
+    ],
+    "source_type": "ncert",
+    "question_type": "statement_based",
+    "difficulty": "medium",
+    "model_tier": "haiku",
+    "status": "pass",
+    "grounding_ok": true,
+    "ambiguity_ok": true,
+    "distractors_ok": true,
+    "flag_reason": null
+  },
+  {
+    "topic_query": "16th Finance Commission fiscal federalism",
+    "question": "Consider the following statements regarding the 16th Finance Commission:\n\n1. The vertical devolution share of states in central taxes was increased from 41% to 42% by the 16th Finance Commission.\n2. The 16th Finance Commission was constituted under Article 280 of the Constitution and is chaired by N.K. Singh.\n3. Resources flow from the Union to States through the divisible pool under Article 270(1), grants-in-aid under Article 275(1), and discretionary grants under Article 282.\n\nWhich of the statements given above is/are correct?",
+    "options": {
+      "A": "1 and 2 only",
+      "B": "3 only",
+      "C": "2 and 3 only",
+      "D": "1, 2 and 3"
+    },
+    "correct_answer": "B",
+    "explanation": "Statement 1 is incorrect: The 16th Finance Commission retained the vertical devolution share at 41%, unchanged from the 15th Finance Commission — it was not increased to 42%. Statement 2 is incorrect: While the Finance Commission is indeed constituted under Article 280 of the Constitution, the 16th Finance Commission is chaired by Dr. Arvind Panagariya, not N.K. Singh (who chaired the 15th Finance Commission). Statement 3 is correct: Resources flow from Union to States via three channels — the divisible pool under Article 270(1), grants-in-aid under Article 275(1), and discretionary grants primarily through centrally sponsored schemes under Article 282.",
+    "cited_extracts": [
+      "Vertical Devolution: Retained at 41% (unchanged from the 15th FC).",
+      "The 16th Finance Commission, chaired by Dr. Arvind Panagariya and comprising T Rabi Sankar, Annie George Mathew, Manoj Panda, and Soumya Kanti Ghosh, submitted its report to Parliament.",
+      "The 15th Finance Commission of India was constituted by the President of India in November 2017 under Article 280 of the Constitution.",
+      "Resources flow from Union to States via three channels: the divisible pool under Article 270(1), grants-in-aid under Article 275(1), and discretionary grants primarily through centrally sponsored schemes under Article 282."
+    ],
+    "source_file": "16th Finance Commission: Composition, Mandate, and Constitutional Framework",
+    "source_page": 0,
+    "source_type": "current_affairs",
+    "question_type": "statement_based",
+    "difficulty": "hard",
+    "model_tier": "sonnet",
+    "status": "flag",
+    "grounding_ok": false,
+    "ambiguity_ok": true,
+    "distractors_ok": true,
+    "flag_reason": "Statement 3 is questionable: the 16th Finance Commission has not yet submitted its report, so the vertical devolution share claim in Statement 1 is about a future/pending recommendation, not a finalized decision — but more critically, Article 270(1) governs distribution of taxes between Union and States broadly, while the 'divisible pool' concept is more precisely tied to Article 270 as amended; the characterization of Article 282 as 'discretionary grants' flowing from Union to States is partially correct but Article 282 also covers grants by States, making the framing imprecise enough that a well-prepared student might question whether Statement 3 is fully accurate, potentially undermining answer uniqueness.",
+    "repair_note": "Replaced the unverifiable 'Articles 280 and 292' claim in Statement 2 with a grounded but incorrect claim about the chairperson (N.K. Singh instead of Arvind Panagariya), supported by fresh evidence, keeping Statement 2 incorrect and the correct answer as B.",
+    "factual_ok": false,
+    "unique_ok": true
+  },
+  {
+    "topic_query": "India GCC trade agreement",
+    "question": "With reference to India's Free Trade Agreements (FTAs) and the WTO framework, consider the following statements:\n\n1. Article XXIV of GATT permits WTO members to establish FTAs as an exception to the most-favoured-nation principle, provided the agreements cover substantially all trade and do not increase barriers against third parties.\n2. Indian exporters utilise FTA benefits at rates between 25% and 50%, primarily constrained by tariff barriers in partner countries.\n3. Trade deficits with major FTA partners such as ASEAN, Japan, and South Korea suggest that preferential market access has not translated into proportional export gains for India.\n\nWhich of the statements given above is/are correct?",
+    "options": {
+      "A": "1 and 3 only",
+      "B": "2 and 3 only",
+      "C": "1 only",
+      "D": "1, 2 and 3"
+    },
+    "correct_answer": "A",
+    "explanation": "Statement 1 is correct: Article XXIV of GATT explicitly permits WTO members to form FTAs as an exception to most-favoured-nation treatment, subject to the condition that such agreements cover substantially all trade and do not raise barriers against third parties. Statement 2 is incorrect: Indian exporters utilise FTA benefits at rates between 5% and 25% (not 25%–50%), and the primary constraints are complex compliance standards and inadequate awareness, particularly among MSMEs — not tariff barriers. Statement 3 is correct: India's engagement with FTAs has shown that trade deficits widened following FTA signings with ASEAN, Japan, and South Korea, indicating that preferential market access did not translate into proportional export gains.",
+    "cited_extracts": [
+      "Article XXIV of GATT permits World Trade Organization members to establish FTAs as an exception to most-favored-nation treatment, provided the agreements cover substantially all trade and do not increase barriers against third parties.",
+      "Indian exporters utilize FTA benefits at rates between 5% and 25%, constrained by complex compliance standards and inadequate awareness, particularly among micro, small, and medium enterprises.",
+      "Trade deficits have widened following FTA signings with major partners such as ASEAN, Japan, and South Korea, suggesting that preferential market access has not translated into proportional export gains."
+    ],
+    "source_file": "India's FTA Strategy and Implementation Challenges",
+    "source_page": 0,
+    "source_type": "current_affairs",
+    "question_type": "statement_based",
+    "difficulty": "medium",
+    "model_tier": "sonnet",
+    "status": "pass",
+    "grounding_ok": true,
+    "ambiguity_ok": true,
+    "distractors_ok": true,
+    "flag_reason": "",
+    "repair_note": "Removed the unverifiable Statement 1 about India-Oman CEPA (sourced from a speculative future-dated document); replaced it with a verifiable statement about India's FTA trade deficit outcomes grounded in the current affairs evidence, and corrected Statement 2 to serve as the clear distractor with accurate figures (5%–25%) from cited extracts."
+  },
+  {
+    "topic_query": "Ramsar wetlands India 2025",
+    "question": "Assertion (A): Gogabeel, designated as a Ramsar site in December 2025, is Bihar's first community reserve, formed by the convergence of the Mahananda, Kankhar, and Ganga rivers.\n\nReason (R): The Ramsar Convention on Wetlands, adopted in 1971 in Iran, has been acceded to by approximately 90 percent of United Nations member states, including India, and India's addition of Gogabeel Lake, Siliserh Lake, and Kopra Jalashay in December 2025 brought India's total number of Ramsar-designated wetlands to 96.",
+    "options": {
+      "A": "Both A and R are true and R is the correct explanation of A",
+      "B": "Both A and R are true but R is not the correct explanation of A",
+      "C": "A is true but R is false",
+      "D": "A is false but R is true"
+    },
+    "correct_answer": "B",
+    "explanation": "Assertion (A) is true: Gogabeel, formed by the convergence of the Mahananda and Kankhar rivers from the north and the Ganga river from the south and east, is Bihar's inaugural community reserve and was designated a Ramsar site in December 2025. Reason (R) is also true: The Ramsar Convention was adopted in 1971 in Iran and has been acceded to by approximately 90 percent of UN member states including India; India's December 2025 additions (Gogabeel Lake, Siliserh Lake, Kopra Jalashay) brought its total to 96 Ramsar sites. However, R does not causally explain A — the fact that India has 96 Ramsar sites and many countries have joined the convention does not explain why Gogabeel is Bihar's first community reserve. Hence B is correct.",
+    "cited_extracts": [
+      "Gogabeel, formed by the convergence of the Mahananda and Kankhar rivers from the north and the Ganga river from the south and east, holds significance as Bihar's inaugural community reserve.",
+      "India now has 96 wetlands designated under the Ramsar Convention following the addition of Gogabeel Lake (Bihar), Siliserh Lake (Rajasthan), and Kopra Jalashay (Chhattisgarh).",
+      "The Ramsar Convention on Wetlands, adopted in 1971 in Iran, has been acceded to by approximately 90 percent of United Nations member states, including India, becoming party to this international agreement."
+    ],
+    "source_file": "Gogabeel Community Reserve and International Wetland/Plant Genetic Resources Frameworks; Ramsar Wetlands Designation 2025",
+    "source_page": 0,
+    "source_type": "current_affairs",
+    "question_type": "assertion_reason",
+    "difficulty": "medium",
+    "model_tier": "sonnet",
+    "status": "pass",
+    "grounding_ok": true,
+    "ambiguity_ok": true,
+    "distractors_ok": true,
+    "flag_reason": "",
+    "repair_note": "Grounded the Assertion's 2025 Ramsar designation with CA evidence confirming December 2025 addition; replaced the contested 'world's largest protected area network' claim in R with the verifiable fact that India's total Ramsar sites reached 96 in December 2025 with the addition of Gogabeel, Siliserh, and Kopra Jalashay."
+  },
+  {
+    "topic_query": "PM RAHAT scheme road accidents",
+    "question": "With reference to the PM RAHAT scheme, which of the following statements is/are correct?\n\n1. The scheme is administered by the Ministry of Health and Family Welfare and provides cashless treatment up to ₹1.5 lakh per victim.\n2. The scheme institutionalizes the 'Golden Hour' principle, providing stabilization care for 48 hours in cases of non-life-threatening injuries.\n3. Funding operates through three channels including the Motor Vehicle Accident Fund for insured vehicles and government budgetary allocation for uninsured and hit-and-run cases, with claim settlement within 10 days.\n\nSelect the correct answer using the code given below:",
+    "options": {
+      "A": "3 only",
+      "B": "1 and 2 only",
+      "C": "2 and 3 only",
+      "D": "1, 2 and 3"
+    },
+    "correct_answer": "A",
+    "explanation": "Statement 1 is incorrect: PM RAHAT is administered by the Ministry of Road Transport and Highways, not the Ministry of Health and Family Welfare. Statement 2 is incorrect: The scheme provides stabilization care for 24 hours (non-life-threatening) and 48 hours (life-threatening) injuries — not 48 hours for non-life-threatening cases. Statement 3 is correct: Funding operates through three channels including the Motor Vehicle Accident Fund (insured vehicles via insurance contributions) and government budgetary allocation (uninsured and hit-and-run cases), with claim settlement within 10 days.",
+    "cited_extracts": [
+      "PM RAHAT scheme, administered by the Ministry of Road Transport and Highways, provides cashless treatment coverage up to ₹1.5 lakh per road accident victim for seven days following the accident.",
+      "The scheme institutionalizes 'Golden Hour' trauma care principles, extending stabilization treatment for 24 hours (non-life-threatening) and 48 hours (life-threatening) injuries.",
+      "Funding operates through three channels: Motor Vehicle Accident Fund (insured vehicles via insurance contributions), government budgetary allocation (uninsured and hit-and-run cases), with claim settlement within 10 days."
+    ],
+    "source_file": "PM RAHAT Scheme — Road Accident Victim Hospitalization",
+    "source_page": 0,
+    "source_type": "current_affairs",
+    "question_type": "statement_based",
+    "difficulty": "hard",
+    "model_tier": "sonnet",
+    "status": "pass",
+    "grounding_ok": true,
+    "ambiguity_ok": true,
+    "distractors_ok": true,
+    "flag_reason": "",
+    "repair_note": "Statement 3 rewritten to explicitly include 'Motor Vehicle Accident Fund' matching the cited extract, eliminating ambiguity about whether the partial description made it incorrect."
+  },
+  {
+    "topic_query": "India largest rice producer",
+    "question": "Assertion (A): India is the largest producer of rice in the world, surpassing China.\n\nReason (R): Rice is a kharif crop that requires high temperature above 25°C and high humidity with annual rainfall above 100 cm, and in areas of less rainfall, it grows with the help of irrigation.",
+    "options": {
+      "A": "Both A and R are true and R is the correct explanation of A",
+      "B": "Both A and R are true but R is not the correct explanation of A",
+      "C": "A is false but R is true",
+      "D": "Both A and R are false"
+    },
+    "correct_answer": "C",
+    "explanation": "Assertion (A) is FALSE: The NCERT chunk explicitly states 'Our country is the second largest producer of rice in the world after China' — India is the second largest, not the largest. Reason (R) is TRUE: The NCERT chunk confirms 'It is a kharif crop which requires high temperature, (above 25°C) and high humidity with annual rainfall above 100 cm. In the areas of less rainfall, it grows with the help of irrigation.' Since A is false, the correct answer is C.",
+    "cited_extracts": [
+      "Our country is the second largest producer of rice in the world after China.",
+      "It is a kharif crop which requires high temperature, (above 25°C) and high humidity with annual rainfall above 100 cm. In the areas of less rainfall, it grows with the help of irrigation."
+    ],
+    "source_file": "Class_10_Geography_Contemporary_India_II.pdf",
+    "source_page": 32,
+    "source_type": "both",
+    "question_type": "assertion_reason",
+    "difficulty": "medium",
+    "model_tier": "sonnet",
+    "status": "pass",
+    "grounding_ok": true,
+    "ambiguity_ok": true,
+    "distractors_ok": true,
+    "flag_reason": null
+  },
+  {
+    "topic_query": "Ramsar Convention criteria wetlands",
+    "question": "Consider the following statements regarding India's Ramsar wetlands designated in December 2025:\n1. Gogabeel Lake in Bihar is formed by the confluence of the Mahananda, Kankhar, and Ganga rivers and is Bihar's first community reserve.\n2. Siliserh Lake in Rajasthan is a natural water body located within the core zone of Sariska Tiger Reserve.\n3. Kopra Jalashay in Chhattisgarh is situated in the upper Mahanadi River basin and faces threats from siltation and invasive species.\nWhich of the statements given above is/are correct?",
+    "options": {
+      "A": "1 and 3 only",
+      "B": "2 and 3 only",
+      "C": "1 only",
+      "D": "1, 2 and 3"
+    },
+    "correct_answer": "A",
+    "explanation": "Statement 1 is CORRECT: The CA chunk explicitly states 'Gogabeel, formed by the convergence of the Mahananda and Kankhar rivers from the north and the Ganga river from the south and east, holds significance as Bihar's inaugural community reserve.' Statement 2 is INCORRECT: The CA chunk states Siliserh Lake is 'an artificial water body created in 1845 by a ruling prince through a dam constructed across a tributary of the Ruparel River' — it is human-made, not natural. Additionally, the chunk places it 'within the buffer zone of Sariska Tiger Reserve', not the core zone. Statement 3 is CORRECT: The CA chunk confirms 'Kopra Jalashay in Chhattisgarh is a reservoir in the upper Mahanadi catchment... and faces threats from siltation, invasive species, and agricultural pressure.' Thus only statements 1 and 3 are correct.",
+    "cited_extracts": [
+      "Gogabeel, formed by the convergence of the Mahananda and Kankhar rivers from the north and the Ganga river from the south and east, holds significance as Bihar's inaugural community reserve.",
+      "Siliserh Lake in Rajasthan is a human-made wetland constructed in 1845 across the Ruparel River tributary and lies within the buffer zone of Sariska Tiger Reserve.",
+      "Kopra Jalashay in Chhattisgarh is a reservoir in the upper Mahanadi catchment with shallow nutrient-rich backwaters and faces threats from siltation, invasive species, and agricultural pressure."
+    ],
+    "source_file": "Ramsar Wetlands Designation 2025 / Gogabeel Community Reserve CA",
+    "source_page": 0,
+    "source_type": "both",
+    "question_type": "statement_based",
+    "difficulty": "medium",
+    "model_tier": "sonnet",
+    "status": "pass",
+    "grounding_ok": true,
+    "ambiguity_ok": true,
+    "distractors_ok": true,
+    "flag_reason": null
+  },
+  {
+    "topic_query": "CITES appendices wildlife trade",
+    "question": "With reference to CITES CoP20, consider the following Assertion and Reason:\n\nAssertion (A): At CoP20, oceanic whitetip shark and whale shark were added to Appendix I of CITES, effectively prohibiting commercial international trade in these species.\n\nReason (R): At CoP20, India successfully opposed a European Union proposal to list guggul (Commiphora wightii) in Appendix II, arguing for comprehensive population assessments first.\n\nWhich of the following is correct?",
+    "options": {
+      "A": "Both A and R are true, and R is the correct explanation of A.",
+      "B": "Both A and R are true, but R is NOT the correct explanation of A.",
+      "C": "A is true but R is false.",
+      "D": "A is false but R is true."
+    },
+    "correct_answer": "B",
+    "explanation": "Both A and R are factually true statements about CITES CoP20. At CoP20, notable additions to Appendix I included the oceanic whitetip shark, whale shark, all manta and devil ray species, Galápagos land iguana species, Galápagos marine iguana, and Home's hinge-back tortoise — effectively banning commercial international trade in these species. India also successfully opposed the EU's proposal to list guggul (Commiphora wightii) in Appendix II, arguing for comprehensive population assessments first. However, R (India's stance on guggul) does not causally explain A (the shark listings), as these are two independent outcomes of CoP20. Hence, B is the correct answer.",
+    "cited_extracts": [
+      "Notable additions include oceanic whitetip shark, whale shark, all manta and devil ray species, all three species of Galápagos land iguana, Galápagos marine iguana, Home's hinge-back tortoise to Appendix I.",
+      "India successfully opposed a European Union proposal to list guggul (Commiphora wightii) in Appendix II, arguing for a comprehensive population assessments first."
+    ],
+    "source_file": "Monthly Current Affairs- December 2025.pdf",
+    "source_page": 0,
+    "source_type": "current_affairs",
+    "question_type": "assertion_reason",
+    "difficulty": "hard",
+    "model_tier": "sonnet",
+    "status": "flag",
+    "grounding_ok": null,
+    "ambiguity_ok": null,
+    "distractors_ok": null,
+    "flag_reason": "check.py could not parse Claude's response — manual review needed.",
+    "repair_note": "Clarified that both A and R refer specifically to CITES CoP20, grounded both assertions in verbatim extracts from fresh CA evidence confirming CoP20 did list these sharks to Appendix I, resolving the flag's ambiguity about which CoP meeting was referenced.",
+    "factual_ok": null,
+    "unique_ok": null
+  },
+  {
+    "topic_query": "Pralay missile indigenous defence",
+    "question": "With reference to India's indigenous defence capabilities, consider the following statements:\n1. INS Vaghsheer is the sixth and final submarine of Project 75 Scorpene (Kalvari class), constructed by Mazagaon Dock Shipbuilders Limited in collaboration with Naval Group of France.\n2. Kalvari-class submarines use nuclear propulsion systems, distinguishing them from conventional submarines.\n3. The Pinaka Multi Barrel Rocket Launcher system has been tested with a maximum range of 120 kilometres and was designed by ARDE in association with HEMRL, DRDL, and RCI.\nWhich of the statements given above is/are correct?",
+    "options": {
+      "A": "1 and 2 only",
+      "B": "1 and 3 only",
+      "C": "2 and 3 only",
+      "D": "1, 2 and 3"
+    },
+    "correct_answer": "B",
+    "explanation": "Statement 1 is CORRECT: The CA chunk explicitly confirms 'INS Vaghsheer is the sixth and final submarine of Project 75 Scorpene (Kalvari class), constructed by Mazagaon Dock Shipbuilders Limited in collaboration with Naval Group of France.' Statement 2 is INCORRECT: The CA chunk directly contradicts this — 'Kalvari-class submarines are equipped with diesel-electric propulsion systems and operate as conventional submarines.' They do not use nuclear propulsion. Statement 3 is CORRECT: The CA chunk states 'The Pinaka Multi Barrel Rocket Launcher system was tested with a maximum range of 120 kilometres, designed by ARDE in association with HEMRL, DRDL, and RCI.' Thus only statements 1 and 3 are correct.",
+    "cited_extracts": [
+      "INS Vaghsheer is the sixth and final submarine of Project 75 Scorpene (Kalvari class), constructed by Mazagaon Dock Shipbuilders Limited in collaboration with Naval Group of France.",
+      "Kalvari-class submarines are equipped with diesel-electric propulsion systems and operate as conventional submarines.",
+      "The Pinaka Multi Barrel Rocket Launcher system was tested with a maximum range of 120 kilometres, designed by ARDE in association with HEMRL, DRDL, and RCI."
+    ],
+    "source_file": "India's Defence Modernisation and Maritime Security Infrastructure (December 2025)",
+    "source_page": 0,
+    "source_type": "both",
+    "question_type": "statement_based",
+    "difficulty": "medium",
+    "model_tier": "sonnet",
+    "status": "pass",
+    "grounding_ok": true,
+    "ambiguity_ok": true,
+    "distractors_ok": true,
+    "flag_reason": null
+  },
+  {
+    "topic_query": "NPS Vatsalya pension scheme",
+    "question": "Consider the following statements regarding social security and financial schemes in India:\n1. The Atal Pension Yojana (APY), launched under the Jan Suraksha schemes in 2015, provides old-age income security and has been categorized as an accident insurance scheme.\n2. The PM SVANidhi scheme is administered jointly by the Ministry of Housing and Urban Affairs and the Department of Financial Services.\n3. Under the Liberalised Remittance Scheme (LRS), all resident individuals including minors are allowed to freely remit up to USD 2,50,000 per financial year for permissible transactions.\nWhich of the statements given above is/are correct?",
+    "options": {
+      "A": "1 and 2 only",
+      "B": "2 and 3 only",
+      "C": "1 and 3 only",
+      "D": "1, 2 and 3"
+    },
+    "correct_answer": "B",
+    "explanation": "Statement 1 is incorrect: APY is for old-age income security, not accident insurance. Accident insurance is covered by PMSBY (Pradhan Mantri Suraksha Bima Yojana). The Jan Suraksha schemes comprise PMJJBY for life insurance, PMSBY for accident insurance, and APY for old-age income security. Statement 2 is correct: PM SVANidhi is administered jointly by the Ministry of Housing and Urban Affairs and the Department of Financial Services. Statement 3 is correct: Under LRS, all resident individuals including minors are allowed to freely remit up to USD 2,50,000 per financial year for permissible current or capital account transactions.",
+    "cited_extracts": [
+      "The Jan Suraksha schemes launched in 2015, namely Pradhan Mantri Jeevan Jyoti Bima Yojana (PMJJBY) for life insurance, Pradhan Mantri Suraksha Bima Yojana (PMSBY) for accident insurance, and Atal Pension Yojana (APY) for old-age income security, have provided a safety net to the poor.",
+      "PM SVANidhi is administered jointly by the Ministry of Housing and Urban Affairs and the Department of Financial Services.",
+      "All resident individuals (including minors) are allowed to freely remit up to USD 2,50,000 per financial year for permissible current or capital account transactions."
+    ],
+    "source_file": "Monthly Current Affairs- December 2025.pdf",
+    "source_page": 0,
+    "source_type": "current_affairs",
+    "question_type": "statement_based",
+    "difficulty": "hard",
+    "model_tier": "sonnet",
+    "status": "pass",
+    "grounding_ok": true,
+    "ambiguity_ok": true,
+    "distractors_ok": true,
+    "flag_reason": "",
+    "repair_note": "Removed the loan tranches claim from Statement 2 so it is now supported by a single extract (joint administration), achieving strict one-extract-per-statement correspondence across all three statements."
+  }
+]

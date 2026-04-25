@@ -1,0 +1,176 @@
+[
+  {
+    "topic_query": "fundamental rights article 19 freedoms",
+    "question": "Consider the following statements:\n1. Article 19(1)(a) of the Indian Constitution guarantees freedom of speech and expression, but this right is not absolute and is subject to restrictions under Article 19(2).\n2. The Constitution permits reasonable restrictions on freedom of expression to balance competing fundamental rights and societal interests.\n3. The enjoyment of fundamental rights under the Constitution is made conditional upon the fulfilment of Fundamental Duties.\nWhich of the above is/are correct?",
+    "options": {
+      "A": "1 only",
+      "B": "1 and 2 only",
+      "C": "2 and 3 only",
+      "D": "1, 2 and 3"
+    },
+    "correct_answer": "B",
+    "explanation": "Statement 1 is correct: Article 19(1)(a) guarantees freedom of speech and expression, but it is not absolute — Article 19(2) allows the state to impose reasonable restrictions on grounds such as sovereignty, security, public order, decency, and morality. Statement 2 is correct: the Constitution explicitly permits reasonable restrictions on freedom of expression to balance societal interests. Statement 3 is incorrect: the Constitution does not make the enjoyment of rights dependent or conditional upon fulfilment of duties — the inclusion of Fundamental Duties has not changed the status of Fundamental Rights.",
+    "cited_extracts": [
+      "Rights such as the right to a livelihood, or freedom of expression, wou[ld be important for enabling people to lead a life of dignity]... But freedom of expression is also important for democratic government since it allows for the free expression of beliefs and opinions.",
+      "UN sought to extend human rights law to digital spaces, with an emphasis on freedom of expression, privacy, and internet access.",
+      "our Constitution does not make the enjoyment of rights dependent or conditional upon fulfilment of duties. In this sense, the inclusion of fundamental duties has not changed the status of our fundamental rights."
+    ],
+    "source_file": "Class_11_Political_Science_Indian_Constitution_at_Work.pdf",
+    "source_page": 44,
+    "source_type": "ncert",
+    "question_type": "statement_based",
+    "difficulty": "medium",
+    "model_tier": "haiku",
+    "status": "pass",
+    "grounding_ok": true,
+    "ambiguity_ok": true,
+    "distractors_ok": true,
+    "flag_reason": null,
+    "repair_note": "Rewrote Statement 1 to be factually accurate (right exists but is not absolute), added verbatim extracts grounding Statements 1 and 2 from NCERT and CA evidence, replacing the heading/label extract; adjusted options and correct answer accordingly.",
+    "factual_ok": true,
+    "unique_ok": true
+  },
+  {
+    "topic_query": "16th Finance Commission fiscal federalism",
+    "question": "Consider the following statements regarding the Finance Commission of India:\n1. The vertical devolution share of States in central taxes was increased from 41% to 42% by the 16th Finance Commission.\n2. The Finance Commission is constituted by the President of India under Article 280 of the Constitution.\n3. The recommendations of the Finance Commission are legally binding on the Union and State governments.\nWhich of the statements given above is/are correct?",
+    "options": {
+      "A": "2 only",
+      "B": "1 and 2 only",
+      "C": "2 and 3 only",
+      "D": "1, 2 and 3"
+    },
+    "correct_answer": "A",
+    "explanation": "Statement 1 is incorrect: The 16th Finance Commission retained the vertical devolution share at 41%, unchanged from the 15th FC. Statement 2 is correct: The Finance Commission is constituted by the President of India under Article 280 of the Constitution — as established by the 15th Finance Commission's constitution and applicable to all Finance Commissions including the 16th. Statement 3 is incorrect: The recommendations of the Finance Commission are advisory in nature and not legally binding, making implementation and oversight difficult.",
+    "cited_extracts": [
+      "Vertical Devolution: Retained at 41% (unchanged from the 15th FC).",
+      "The Finance Commission is constituted by the President of India under Article 280 of the Constitution. The Commission was chaired by N.K. Singh and its recommendations cover the five-year period from 2021-22 to 2025-26.",
+      "Advisory Nature: Recommendations are not legally binding, making implementation and oversight difficult."
+    ],
+    "source_file": "Monthly Current Affairs- February 2026.pdf",
+    "source_page": 44,
+    "source_type": "current_affairs",
+    "question_type": "statement_based",
+    "difficulty": "medium",
+    "model_tier": "sonnet",
+    "status": "pass",
+    "grounding_ok": true,
+    "ambiguity_ok": true,
+    "distractors_ok": true,
+    "flag_reason": "",
+    "repair_note": "Statement 2 was reframed as a general constitutional fact about the Finance Commission (not specific to the 16th FC), so the 15th FC extract explicitly confirming Article 280 directly grounds the claim without requiring inference."
+  },
+  {
+    "topic_query": "India GCC trade agreement",
+    "question": "With reference to India's Free Trade Agreement (FTA) strategy during 2024–2026, consider the following statements:\n1. The India-New Zealand Free Trade Agreement concluded in December 2025 represents India's strategy of establishing trade relationships with all Regional Comprehensive Economic Partnership (RCEP) member states except China.\n2. Indian exporters utilize FTA benefits at rates between 5% and 25%, constrained by complex compliance standards and inadequate awareness, particularly among micro, small, and medium enterprises.\nWhich of the statements given above is/are correct?",
+    "options": {
+      "A": "1 only",
+      "B": "2 only",
+      "C": "Both 1 and 2",
+      "D": "Neither 1 nor 2"
+    },
+    "correct_answer": "C",
+    "explanation": "Both statements are correct. Statement 1 is confirmed by CA evidence: 'The India-New Zealand Free Trade Agreement concluded in December 2025 represents India's strategy of establishing trade relationships with all Regional Comprehensive Economic Partnership (RCEP) member states except China.' Statement 2 is confirmed by CA evidence: 'Indian exporters utilize FTA benefits at rates between 5% and 25%, constrained by complex compliance standards and inadequate awareness, particularly among micro, small, and medium enterprises.'",
+    "cited_extracts": [
+      "The India-New Zealand Free Trade Agreement concluded in December 2025 represents India's strategy of establishing trade relationships with all Regional Comprehensive Economic Partnership (RCEP) member states except China.",
+      "Indian exporters utilize FTA benefits at rates between 5% and 25%, constrained by complex compliance standards and inadequate awareness, particularly among micro, small, and medium enterprises."
+    ],
+    "source_file": "India's Regional Trade Agreements 2024-2026",
+    "source_page": 0,
+    "source_type": "current_affairs",
+    "question_type": "statement_based",
+    "difficulty": "medium",
+    "model_tier": "sonnet",
+    "status": "flag",
+    "grounding_ok": false,
+    "ambiguity_ok": false,
+    "distractors_ok": true,
+    "flag_reason": "Statement 1 is factually dubious on multiple grounds: as of available knowledge, no India-New Zealand FTA was concluded in December 2025, and the framing that India seeks FTAs with 'all RCEP members except China' is an oversimplification not supported by India's actual FTA strategy (India has no FTA with several RCEP members and its motivations are not framed this way officially), making the claimed answer C unreliable.",
+    "repair_note": "Converted from assertion_reason to statement_based format because R (RCEP membership composition) did not causally explain A (India's FTA coverage), and no suitable causal extract was available; replaced with a grounded second statement on FTA utilization rates.",
+    "factual_ok": false,
+    "unique_ok": false
+  },
+  {
+    "topic_query": "Ramsar wetlands India 2025",
+    "question": "Consider the following statements about India's recently designated Ramsar sites (2025):\n1. Gogabeel Lake is Bihar's first community reserve and is formed at the confluence of the Mahananda, Kankhar, and Ganga rivers.\n2. Siliserh Lake is a natural wetland located in the core zone of Sariska Tiger Reserve.\n3. With the addition of three new sites in 2025, India's total Ramsar-designated wetlands stand at 96.\nWhich of the statements given above is/are correct?",
+    "options": {
+      "A": "1 and 3 only",
+      "B": "2 and 3 only",
+      "C": "1 only",
+      "D": "1, 2 and 3"
+    },
+    "correct_answer": "A",
+    "explanation": "Statement 1 is CORRECT: 'Gogabeel Lake is Bihar's first community reserve and is an oxbow wetland formed by the confluence of the Mahananda, Kankhar, and Ganga rivers.' Statement 2 is INCORRECT on two counts: Siliserh Lake is a human-made (artificial) wetland, not a natural one — 'Siliserh Lake is a human-made wetland constructed in 1845' — and it lies in the buffer zone, not the core zone — 'located in the buffer zone of Sariska Tiger Reserve.' Statement 3 is CORRECT: 'India designated Gogabeel Lake (Bihar), Siliserh Lake (Rajasthan), and Kopra Jalashay (Chhattisgarh) as Ramsar Wetlands of International Importance, bringing the total count to 96 such sites.'",
+    "cited_extracts": [
+      "Gogabeel Lake is Bihar's first community reserve and is an oxbow wetland formed by the confluence of the Mahananda, Kankhar, and Ganga rivers.",
+      "Siliserh Lake is a human-made wetland constructed in 1845 within the buffer zone of Sariska Tiger Reserve in a semi-arid region.",
+      "India designated Gogabeel Lake (Bihar), Siliserh Lake (Rajasthan), and Kopra Jalashay (Chhattisgarh) as Ramsar Wetlands of International Importance, bringing the total count to 96 such sites."
+    ],
+    "source_file": "Ramsar Wetlands Expansion - India 2025 | Ramsar Wetlands Designation – December 2025",
+    "source_page": 0,
+    "source_type": "CA",
+    "question_type": "statement_based",
+    "difficulty": "hard",
+    "model_tier": "sonnet",
+    "status": "pass",
+    "grounding_ok": true,
+    "ambiguity_ok": true,
+    "distractors_ok": true,
+    "flag_reason": null
+  },
+  {
+    "topic_query": "PM RAHAT scheme road accidents",
+    "question": "Consider the following statements about the PM RAHAT scheme:\n1. It provides cashless hospitalization coverage up to ₹1.5 lakh per road accident victim for the first seven days following an accident.\n2. The scheme is administered by the Ministry of Health and Family Welfare.\n3. Funding for uninsured and hit-and-run cases comes from Union budgetary allocation.\nWhich of the statements given above is/are correct?",
+    "options": {
+      "A": "1 and 3 only",
+      "B": "2 and 3 only",
+      "C": "1 only",
+      "D": "1, 2 and 3"
+    },
+    "correct_answer": "A",
+    "explanation": "Statement 1 is CORRECT: 'PM RAHAT extends cashless hospitalization benefits up to ₹1.5 lakh per victim for the initial seven days following an accident.' Statement 2 is INCORRECT: The scheme is administered by the Ministry of Road Transport and Highways, not the Ministry of Health and Family Welfare — 'Administered by the Ministry of Road Transport and Highways, PM RAHAT extends cashless hospitalization benefits.' Statement 3 is CORRECT: 'Funding operates through three mechanisms: General Insurance Company contributions for insured vehicles via the Motor Vehicle Accident Fund, and Union budgetary allocation for uninsured and hit-and-run cases.'",
+    "cited_extracts": [
+      "PM RAHAT extends cashless hospitalization benefits up to ₹1.5 lakh per victim for the initial seven days following an accident.",
+      "Administered by the Ministry of Road Transport and Highways, PM RAHAT extends cashless hospitalization benefits up to ₹1.5 lakh per victim for the initial seven days following an accident.",
+      "Funding operates through three mechanisms: General Insurance Company contributions for insured vehicles via the Motor Vehicle Accident Fund, and Union budgetary allocation for uninsured and hit-and-run cases."
+    ],
+    "source_file": "PM RAHAT Scheme (Road Accident Victim Hospitalization and Assured Treatment)",
+    "source_page": 0,
+    "source_type": "CA",
+    "question_type": "statement_based",
+    "difficulty": "medium",
+    "model_tier": "sonnet",
+    "status": "pass",
+    "grounding_ok": true,
+    "ambiguity_ok": true,
+    "distractors_ok": true,
+    "flag_reason": null
+  },
+  {
+    "topic_query": "India largest rice producer",
+    "question": "Consider the following statements regarding rice production and export in India:\n1. As per recent data, India is the world's largest rice exporter, having exported 20.1 million metric tonnes in 2024–25.\n2. According to NCERT, India is the second largest producer of rice in the world after China.\n3. Among Indian states, Uttar Pradesh accounts for the highest share of rice production at 13.8% in 2024–25.\nWhich of the statements given above is/are correct?",
+    "options": {
+      "A": "1, 2 and 3",
+      "B": "1 and 2 only",
+      "C": "2 and 3 only",
+      "D": "1 and 3 only"
+    },
+    "correct_answer": "A",
+    "explanation": "Statement 1 is CORRECT: 'India is the world's largest rice exporter (exporting 20.1 million metric tonnes of rice in 2024–25).' Statement 2 is CORRECT: 'Our country is the second largest producer of rice in the world after China.' This is the static NCERT position on production rank, which differs from the export rank where India leads — an important distinction UPSC often tests. Statement 3 is CORRECT: 'State wise Production in India (2024-25): Uttar Pradesh (13.8%), Telangana (11.6%), West Bengal (10.6%), Punjab (9.5%), Chhattisgarh (7%)' — confirming Uttar Pradesh has the highest share.",
+    "cited_extracts": [
+      "India is the world's largest rice exporter (exporting 20.1 million metric tonnes of rice in 2024–25).",
+      "Our country is the second largest producer of rice in the world after China.",
+      "State wise Production in India (2024-25): Uttar Pradesh (13.8%), Telangana (11.6%), West Bengal (10.6%), Punjab (9.5%), Chhattisgarh (7%) etc."
+    ],
+    "source_file": "Monthly Current Affairs- January 2026.pdf | Class_10_Geography_Contemporary_India_II.pdf",
+    "source_page": 32,
+    "source_type": "both",
+    "question_type": "statement_based",
+    "difficulty": "medium",
+    "model_tier": "sonnet",
+    "status": "pass",
+    "grounding_ok": true,
+    "ambiguity_ok": true,
+    "distractors_ok": true,
+    "flag_reason": null
+  }
+]

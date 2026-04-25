@@ -1,0 +1,132 @@
+[
+  {
+    "topic_query": "fundamental rights constitution India",
+    "source": {
+      "filename": "Class_09_Economics_Understanding_Economic_Development.pdf",
+      "page": 10,
+      "chunk_index": 1,
+      "similarity": 0.3989
+    },
+    "question": "Which Constitutional Amendment Act inserted clause (k) under Article 51A, making it a Fundamental Duty of parents or guardians to provide opportunities for education to their child between the age of six and fourteen years?",
+    "options": {
+      "A": "The Constitution (86th Amendment) Act, 2002",
+      "B": "The Constitution (42nd Amendment) Act, 1976",
+      "C": "The Constitution (44th Amendment) Act, 1978",
+      "D": "The Constitution (73rd Amendment) Act, 1992"
+    },
+    "correct_answer": "A",
+    "explanation": "Clause (k) of Article 51A, which imposes the duty on parents or guardians to provide educational opportunities to children between six and fourteen years, was specifically inserted by the Constitution (86th Amendment) Act, 2002, with effect from 1 April 2010. The 42nd Amendment Act of 1976 inserted the original Article 51A containing Fundamental Duties, but clause (k) was added later.",
+    "cited_extract": "*(k) was inserted by the Constitution (86th Amendment) Act, 2002 (with effect from 1 April 2010).",
+    "status": "pass",
+    "parse_error": false,
+    "raw_response": null,
+    "grounding_ok": true,
+    "ambiguity_ok": true,
+    "distractors_ok": true,
+    "flag_reason": null
+  },
+  {
+    "topic_query": "monsoon rainfall India",
+    "source": {
+      "filename": "Class_06_Science_Curiosity.pdf",
+      "page": 14,
+      "chunk_index": 5,
+      "similarity": 0.6436
+    },
+    "question": "The Indian Astronomical Observatory (IAO) at Hanle is located in which region of India?",
+    "options": {
+      "A": "Ladakh",
+      "B": "Himachal Pradesh",
+      "C": "Uttarakhand",
+      "D": "Sikkim"
+    },
+    "correct_answer": "A",
+    "explanation": "The chunk explicitly mentions Dorje Angchuk as Engineer-in-charge of the Indian Astronomical Observatory (IIA), Hanle, Ladakh, confirming that the observatory is located in Ladakh. The other options are plausible Himalayan regions but are not mentioned in the chunk.",
+    "cited_extract": "Dorje Angchuk, Engineer-in-charge, Indian Astronomical Observatory (IIA), Hanle, Ladakh for providing the photographs",
+    "status": "pass",
+    "parse_error": false,
+    "raw_response": null,
+    "grounding_ok": true,
+    "ambiguity_ok": true,
+    "distractors_ok": true,
+    "flag_reason": null
+  },
+  {
+    "topic_query": "parliamentary system legislature",
+    "source": {
+      "filename": "Class_08_Civics_Social_and_Political_Life_III.pdf",
+      "page": 9,
+      "chunk_index": 2,
+      "similarity": 0.6344
+    },
+    "question": "According to the pedagogical approach adopted for the new social science subject area at the middle-school level, which of the following was a deliberate design choice regarding concepts discussed in the textbook?",
+    "options": {
+      "A": "Definitions for concepts would not be provided as often as possible",
+      "B": "All key concepts would be accompanied by precise dictionary definitions",
+      "C": "Concepts would be explained exclusively through government-related examples",
+      "D": "Definitions would be provided only for political concepts, not social ones"
+    },
+    "correct_answer": "A",
+    "explanation": "The text explicitly states that one of the pedagogical thoughts was that 'as often as possible we would not provide definitions for concepts that we discussed.' This was a deliberate choice to encourage analytical engagement rather than rote learning of definitions.",
+    "cited_extract": "one, that as often as possible we would not provide definitions for concepts that we discussed",
+    "status": "pass",
+    "parse_error": false,
+    "raw_response": null,
+    "grounding_ok": true,
+    "ambiguity_ok": true,
+    "distractors_ok": true,
+    "flag_reason": null
+  },
+  {
+    "topic_query": "photosynthesis plants",
+    "source": {
+      "filename": "Class_12_Biology.pdf",
+      "page": 7,
+      "chunk_index": 1,
+      "similarity": 0.6773
+    },
+    "question": "Which field of study is described as bringing about a modern synthesis of both morphological and process-based aspects of Biology using mathematical tools?",
+    "options": {
+      "A": "Systems Biology",
+      "B": "Molecular Biology",
+      "C": "Ecology",
+      "D": "Biotechnology"
+    },
+    "correct_answer": "A",
+    "explanation": "Systems Biology is explicitly identified in the chunk as using mathematical tools to bring about a modern synthesis of both form (morphology) and process aspects of Biology. While Ecology is also mentioned as emphasising integrated understanding, it is Systems Biology that is specifically credited with using mathematical tools for this synthesis.",
+    "cited_extract": "Systems biology, using mathematical tools, is bringing about a modern synthesis of both the aspects of Biology.",
+    "status": "pass",
+    "parse_error": false,
+    "raw_response": null,
+    "grounding_ok": true,
+    "ambiguity_ok": true,
+    "distractors_ok": true,
+    "flag_reason": null
+  },
+  {
+    "topic_query": "economic planning India",
+    "source": {
+      "filename": "Class_11_Economics_Indian_Economic_Development.pdf",
+      "page": 12,
+      "chunk_index": 4,
+      "similarity": 0.4353
+    },
+    "question": "Which constitutional amendment inserted clause (k) as a Fundamental Duty, making it obligatory for parents or guardians to provide educational opportunities to their children between the ages of six and fourteen years?",
+    "options": {
+      "A": "The Constitution (86th Amendment) Act, 2002",
+      "B": "The Constitution (42nd Amendment) Act, 1976",
+      "C": "The Constitution (44th Amendment) Act, 1978",
+      "D": "The Constitution (73rd Amendment) Act, 1992"
+    },
+    "correct_answer": "A",
+    "explanation": "Clause (k) of Article 51A, which requires parents or guardians to provide educational opportunities to children between six and fourteen years, was specifically inserted by the Constitution (86th Amendment) Act, 2002, and came into effect from 1 April 2010. This is distinct from the original insertion of Fundamental Duties under Article 51A, which was done by the 42nd Amendment Act, 1976.",
+    "cited_extract": "*(k) was inserted by the Constitution (86th Amendment) Act, 2002 (with effect from 1 April 2010).",
+    "status": "pass",
+    "parse_error": false,
+    "raw_response": null,
+    "grounding_ok": true,
+    "ambiguity_ok": true,
+    "distractors_ok": true,
+    "flag_reason": null
+  }
+]

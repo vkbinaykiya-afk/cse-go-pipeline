@@ -1,0 +1,38 @@
+[
+  {
+    "question": "With reference to the light reactions of photosynthesis, consider the following statements:\n1. Photosystem I (PS I) has a reaction centre chlorophyll that absorbs light at a wavelength of 700 nm (P700).\n2. In non-cyclic photophosphorylation, both PS I and PS II are involved, and oxygen is evolved by the photolysis of water.\n3. In cyclic photophosphorylation, only PS I is involved and NADPH is produced but no ATP is synthesised.\n4. The primary electron acceptor of PS II passes electrons to a series of electron carriers including plastoquinone.\n\nWhich of the statements given above are correct?",
+    "options": {
+      "A": "1, 2 and 4 only",
+      "B": "1, 3 and 4 only",
+      "C": "2 and 3 only",
+      "D": "1, 2, 3 and 4"
+    },
+    "correct_answer": "A",
+    "explanation": "Statement 1 is correct: PS I reaction centre absorbs maximally at 700 nm (P700). Statement 2 is correct: Non-cyclic photophosphorylation involves both PS II and PS I; water is split in PS II releasing O₂. Statement 3 is INCORRECT: In cyclic photophosphorylation only PS I is involved, but NADPH is NOT produced — only ATP is synthesised as electrons cycle back from ferredoxin to the plastoquinone pool without reducing NADP⁺. Statement 4 is correct: After PS II is excited, the electrons pass through plastoquinone (PQ) in the electron transport chain. Therefore, statements 1, 2, and 4 are correct.",
+    "cited_extract": "The light reactions include (i) absorption of light, (ii) water splitting, (iii) release of oxygen, (iv) formation of ATP, and (v) formation of NADPH. PS I has P700 chlorophyll a molecule at its reaction centre... In non-cyclic photophosphorylation both PS I and PS II are required... In cyclic photophosphorylation only PS I is involved... only ATP is synthesised and no NADPH is produced and no oxygen is evolved. The electrons from the excited PS II pass on to the electron carriers (plastoquinone, cytochrome b6f, plastocyanin) and then to PS I.",
+    "source_file": "Class_11_Biology.pdf",
+    "source_page": 168,
+    "question_type": "statement_based",
+    "difficulty": "hard",
+    "topic_query": "photosynthesis light reactions",
+    "status": "pending_check"
+  },
+  {
+    "question": "With reference to the 'Right to Freedom' guaranteed under the Constitution of India (Articles 12–35), consider the following freedoms:\n1. Freedom of expression\n2. Freedom of assembly\n3. Freedom of association\n4. Freedom of movement\n5. Freedom of residence\n6. Freedom of profession\n\nHow many of the above are included under the 'Right to Freedom'?",
+    "options": {
+      "A": "Only three",
+      "B": "Only four",
+      "C": "Only five",
+      "D": "All six"
+    },
+    "correct_answer": "D",
+    "explanation": "The Constitution of India's Part III (Articles 12–35) guarantees the Right to Freedom, which includes freedoms of expression, assembly, association, movement, residence, and profession — all six listed freedoms. These are the core freedoms available to citizens under Article 19, subject to certain conditions, exceptions, and reasonable restrictions.",
+    "cited_extract": "Right to Freedom · of expression, assembly, association, movement, residence and profession; · of certain protections in respect of conviction for offences; · of protection of life and personal liberty; · of free and compulsory education for children between the age of six and fourteen years; · of protection against arrest and detention in certain cases.",
+    "source_file": "Class_09_Economics_Understanding_Economic_Development.pdf",
+    "source_page": 4,
+    "question_type": "how_many",
+    "difficulty": "medium",
+    "topic_query": "fundamental rights article 19",
+    "status": "pending_check"
+  }
+]

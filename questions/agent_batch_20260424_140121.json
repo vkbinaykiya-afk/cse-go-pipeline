@@ -1,0 +1,275 @@
+[
+  {
+    "topic_query": "Revolt of 1857 - causes, nature of uprising, and its aftermath on British colonial policy",
+    "question": "Consider the following statements about the Revolt of 1857:\n\n1. The revolt was triggered in part by the perception that the traditional system of land payment and social privileges was being replaced by an impersonal and alien system of British administration.\n2. The activities of Christian missionaries aggravated uncertainty and contributed to the spread of rumors that fueled the revolt.\n3. The British successfully suppressed the rebel forces in Delhi within early June 1857 with minimal losses.\n\nWhich of the above statements is/are correct?",
+    "options": {
+      "A": "1 and 2 only",
+      "B": "2 and 3 only",
+      "C": "1 and 3 only",
+      "D": "1, 2 and 3"
+    },
+    "correct_answer": "A",
+    "explanation": "Statement 1 is correct — the NCERT text explicitly states that the traditional system of payment was 'being destroyed and replaced by a system that was more impersonal, alien and oppressive.' Statement 2 is correct — the text directly mentions 'This perception was aggravated by the activities of Christian missionaries. In such a situation of uncertainty, rumours spread with remarkable swiftness.' Statement 3 is incorrect — the source clearly states that attempts to recover Delhi began in earnest in early June 1857 'but it was only in late September that the city was finally captured' with 'heavy' fighting and losses on both sides.",
+    "cited_extracts": [
+      "payment – was being destroyed and replaced by a system that was more impersonal, alien and oppressive.",
+      "This perception was aggravated by the activities of Christian missionaries. In such a situation of uncertainty, rumours spread with remarkable swiftness.",
+      "attempts to recover Delhi began in earnest in early June 1857 but it was only in late September that the city was finally captured. The fighting and losses on both sides were heavy."
+    ],
+    "source_file": "Class_12_History_Themes_in_Indian_History_III.pdf",
+    "source_page": 39,
+    "source_type": "ncert",
+    "question_type": "statement_based",
+    "difficulty": "medium",
+    "model_tier": "haiku",
+    "status": "pass",
+    "factual_ok": true,
+    "unique_ok": true,
+    "distractors_ok": true,
+    "flag_reason": null,
+    "grounding_ok": true,
+    "ambiguity_ok": true
+  },
+  {
+    "topic_query": "Cyclone formation mechanisms in Bay of Bengal and Arabian Sea - geographical factors",
+    "question": "Consider the following statements about tropical cyclone formation:\n\n1. Tropical cyclones are confined to latitudes between 30° North and 30° South, and their formation requires a strong Coriolis force to prevent filling of the low-pressure center.\n2. A mature tropical cyclone is characterized by a calm region called the eye where air subsides, and the diameter of the circulating system can vary between 150 and 250 km; around the eye is the eye wall where strong spiralling ascent of air occurs.\n3. Tropical cyclones can form near the equator where the Coriolis force is weak or absent.\n\nWhich of the above statements is/are correct?",
+    "options": {
+      "A": "1 and 2 only",
+      "B": "2 only",
+      "C": "1 and 3 only",
+      "D": "1, 2 and 3"
+    },
+    "correct_answer": "A",
+    "explanation": "Statement 1 is correct: Tropical cyclones are intense low-pressure areas confined to 30°N and 30°S latitudes, requiring a strong Coriolis force to prevent filling of the low-pressure centre. Statement 2 is correct: A mature tropical cyclone has an eye that is a region of calm with subsiding air; the diameter of the entire circulating system varies between 150 and 250 km, and the eye wall surrounding the eye is where strong spiralling ascent of air occurs. Statement 3 is incorrect: The absence of Coriolis force near the equator (0°–5° latitude) actually prohibits the formation of tropical cyclones there.",
+    "cited_extracts": [
+      "Strong Coriolis force that can prevent filling of low pressure at the centre (absence of Coriolis force near the equator prohibits the formation of tropical cyclone between 0°-5° latitude).",
+      "A mature tropical cyclone is characterised by the strong spirally circulating wind around the centre, called the eye. The diameter of the circulating system can vary between 150 and 250 km. The eye is a region of calm with subsiding air. Around the eye is the eye wall, where there is a strong spiralling ascent of air to greater height reaching the tropopause.",
+      "Tropical cyclones are intense low-pressure areas confined to the area lying between 30° N and 30° S latitudes, in the atmosphere around which high velocity winds blow."
+    ],
+    "source_file": "Class_11_Geography_India_Physical_Environment.pdf",
+    "source_page": 60,
+    "source_type": "ncert",
+    "question_type": "statement_based",
+    "difficulty": "medium",
+    "model_tier": "haiku",
+    "status": "flag",
+    "factual_ok": null,
+    "unique_ok": null,
+    "distractors_ok": null,
+    "flag_reason": "check.py could not parse Claude's response — manual review needed.",
+    "grounding_ok": null,
+    "ambiguity_ok": null,
+    "repair_note": "Corrected Statement 2 to attribute the 150-250 km diameter to the entire circulating system (not the eye), and clarified the eye as a region of calm with subsiding air, consistent with the NCERT source text."
+  },
+  {
+    "topic_query": "Bhakti Movement - key saints, regional variations, and socio-religious impact",
+    "question": "Consider the following statements about the Bhakti Movement:\n\n1. The Bhakti movement offered an alternative to the brahminical social order by teaching that social differences could be overcome through personal devotion and effort rather than through birth in a noble family or high caste.\n2. The Alvars and Nayanars of Tamil Nadu, who emerged in the sixth century, were devotees who traveled singing hymns in Tamil in praise of Vishnu and Shiva respectively.\n3. Nirguna bhakti involved the worship of multiple incarnations and anthropomorphic forms of gods and goddesses.\n\nWhich of the above statements is/are correct?",
+    "options": {
+      "A": "1 and 2 only",
+      "B": "2 and 3 only",
+      "C": "1 and 3 only",
+      "D": "1, 2 and 3"
+    },
+    "correct_answer": "A",
+    "explanation": "Statement 1 is correct — the NCERT text states that 'Others felt attracted to the idea of a Supreme God who could deliver humans from such bondage if approached with devotion (or bhakti)' and that people 'turned to the teachings' that made 'it...possible to overcome social differences and break the cycle of rebirth through personal effort.' Statement 2 is correct — the text confirms 'the Alvars (literally, those who are \"immersed\" in devotion to Vishnu) and Nayanars (literally, leaders who were devotees of Shiva)...were led [in the sixth century]...They travelled from place to place singing hymns in Tamil.' Statement 3 is incorrect — the source explicitly states 'Nirguna bhakti on the other hand was worship of an abstract form of god,' while the concrete forms and incarnations belonged to Saguna bhakti.",
+    "cited_extracts": [
+      "Others felt attracted to the idea of a Supreme God who could deliver humans from such bondage if approached with devotion (or bhakti). This idea, a",
+      "Some of the earliest bhakti movements (c. sixth century) were led by the Alvars (literally, those who are \"immersed\" in devotion to Vishnu) and Nayanars (literally, leaders who were devotees of Shiva). They travelled from place to place singing hymns in Tamil in praise of their gods.",
+      "Nirguna bhakti on the other hand was worship of an abstract form of god."
+    ],
+    "source_file": "Class_12_History_Themes_in_Indian_History_II.pdf",
+    "source_page": 29,
+    "source_type": "ncert",
+    "question_type": "statement_based",
+    "difficulty": "medium",
+    "model_tier": "haiku",
+    "status": "pass",
+    "factual_ok": true,
+    "unique_ok": true,
+    "distractors_ok": true,
+    "flag_reason": null,
+    "grounding_ok": true,
+    "ambiguity_ok": true
+  },
+  {
+    "topic_query": "National Food Security Act 2013 - provisions, coverage, and implementation challenges",
+    "question": "Consider the following statements about food security interventions in India:\n1. The Public Distribution System (PDS) for food grains was introduced after the National Food Security Act 2013.\n2. The Integrated Child Development Services (ICDS) was first introduced in 1975 on an experimental basis.\n3. Food-for-Work (FFW) programme was introduced in 1977–78.\nWhich of the above statements is/are correct?",
+    "options": {
+      "A": "1 only",
+      "B": "2 and 3 only",
+      "C": "1 and 2 only",
+      "D": "1, 2 and 3"
+    },
+    "correct_answer": "B",
+    "explanation": "Statement 1 is incorrect because the PDS existed earlier and was only strengthened thereafter, not introduced after the 2013 Act. The NCERT text explicitly states that PDS was 'in existence earlier but strengthened thereafter.' Statement 2 is correct — the ICDS was 'introduced in 1975 on an experimental basis' according to the document. Statement 3 is correct — the FFW was 'introduced in 1977–78' as stated in the text.",
+    "cited_extracts": [
+      "Public Distribution System (PDS) for food grains (in existence earlier but strengthened thereafter)",
+      "Integrated Child Development Services (ICDS) (introduced in 1975 on an experimental basis)",
+      "Food-for-Work** (FFW) (introduced in 1977–78)"
+    ],
+    "source_file": "Class_09_Economics_Understanding_Economic_Development.pdf",
+    "source_page": 48,
+    "source_type": "ncert",
+    "question_type": "statement_based",
+    "difficulty": "medium",
+    "model_tier": "haiku",
+    "status": "pass",
+    "factual_ok": true,
+    "unique_ok": true,
+    "distractors_ok": true,
+    "flag_reason": null,
+    "grounding_ok": true,
+    "ambiguity_ok": true
+  },
+  {
+    "topic_query": "India-Bangladesh relations - connectivity projects, Teesta water sharing, and border issues",
+    "question": "Consider the following statements regarding the Indus Waters Treaty (1960) between India and Pakistan:\n\n1. The Treaty was signed with the help of the World Bank and has survived various military conflicts between the two countries.\n2. Even after the Treaty, the two countries still have some minor differences about the interpretation of the Indus Waters Treaty and the use of the river waters.",
+    "options": {
+      "A": "1 only",
+      "B": "2 only",
+      "C": "Both 1 and 2",
+      "D": "Neither 1 nor 2"
+    },
+    "correct_answer": "C",
+    "explanation": "Both statements are explicitly supported by NCERT. Statement 1 is confirmed by: 'in 1960, with the help of the World Bank, India and Pakistan signed the Indus Waters Treaty which has survived to this day in spite of various military conflicts.' Statement 2 is confirmed by: 'There are still some minor differences about the interpretation of the Indus Waters Treaty and the use of the river waters.' Hence both statements are correct.",
+    "cited_extracts": [
+      "Eventually, in 1960, with the help of the World Bank, India and Pakistan signed the Indus Waters Treaty which has survived to this day in spite of various military conflicts in which the two countries have been involved.",
+      "There are still some minor differences about the interpretation of the Indus Waters Treaty and the use of the river waters."
+    ],
+    "source_file": "Class_12_Political_Science_Contemporary_World_Politics.pdf",
+    "source_page": 39,
+    "source_type": "NCERT",
+    "question_type": "statement_based",
+    "difficulty": "medium",
+    "model_tier": "sonnet",
+    "status": "pass",
+    "factual_ok": true,
+    "unique_ok": true,
+    "distractors_ok": true,
+    "flag_reason": null,
+    "grounding_ok": true,
+    "ambiguity_ok": true,
+    "repair_note": "Replaced the inferential Statement 2 about India-Bangladesh water sharing (drawn from a vague exercise prompt) with an explicitly stated NCERT claim about minor post-Treaty differences on the Indus Waters Treaty interpretation, drawn from the same page as Statement 1."
+  },
+  {
+    "topic_query": "Panchayati Raj institutions - 73rd Constitutional Amendment, devolution of functions, and PESA Act",
+    "question": "Assertion (A): The Panchayats (Extension to Scheduled Areas) Act, 1996 (PESA) mandates that every Chairperson position at all Panchayat levels in Scheduled Areas must be held by a Scheduled Tribe member, thereby going beyond the general reservation framework of the 73rd Amendment.\n\nReason (R): PESA operationalizes Article 243M(4)(b) of the Constitution, which specifically enables extension of Panchayati Raj provisions to Fifth Schedule Areas with tribal-centric modifications, because the standard Part IX provisions of the Constitution were not automatically applicable to Scheduled Areas.",
+    "options": {
+      "A": "Both A and R are true, and R is the correct explanation of A",
+      "B": "Both A and R are true, but R is NOT the correct explanation of A",
+      "C": "A is true but R is false",
+      "D": "A is false but R is true"
+    },
+    "correct_answer": "A",
+    "explanation": "Assertion A is correct: PESA mandates that every Chairperson position at all Panchayat levels in Scheduled Areas must be held by an ST member, which is a tribal-centric modification going beyond the general reservation norms of the 73rd Amendment. Reason R is also correct: PESA operationalizes Article 243M(4)(b) and extends Part IX (Panchayati Raj) provisions to Fifth Schedule Areas with specific tribal-centric modifications. R correctly explains A because it is precisely through this constitutional mechanism (Article 243M(4)(b)) that PESA is empowered to impose stronger ST-centric provisions — such as mandatory ST Chairpersons — that go beyond what Part IX normally requires.",
+    "cited_extracts": [
+      "The Panchayats (Extension to Scheduled Areas) Act, 1996, operationalizes Article 243M(4)(b) of the Constitution and extends Part IX (Panchayati Raj) provisions to Fifth Schedule Areas with specific tribal-centric modifications.",
+      "The Panchayats (Extension to Scheduled Areas) Act, 1996, commonly known as PESA, represents a constitutional framework designed to extend self-governance institutions to tribal regions classified as Scheduled Areas under the Fifth Schedule of the Indian Constitution. The Act operationalizes Article 243M(4)(b) and applies across ten states: Andhra Pradesh, Chhattisgarh, Gujarat, Himachal Pradesh, Jharkhand, Madhya Pradesh, Maharashtra, Odisha, Rajasthan, and Telangana.",
+      "73rd and 74th Amendment Acts 1992: Constitutionalized Panchayats and Municipalities with addition of Part IX (Panchayats) and Part IXA (Municipalities)."
+    ],
+    "source_file": "PESA Act, 1996 — 30 Years Milestone and Implementation Status",
+    "source_page": 0,
+    "source_type": "current_affairs",
+    "question_type": "assertion_reason",
+    "difficulty": "hard",
+    "model_tier": "sonnet",
+    "status": "flag",
+    "factual_ok": null,
+    "unique_ok": null,
+    "distractors_ok": null,
+    "flag_reason": "check.py could not parse Claude's response — manual review needed.",
+    "grounding_ok": null,
+    "ambiguity_ok": null,
+    "repair_note": "Replaced ungrounded cited extracts with verbatim sentences from fresh PESA and CA evidence chunks; ensured all extracts are traceable to provided sources and returned properly formatted JSON."
+  },
+  {
+    "topic_query": "Nano-technology applications in medicine and agriculture - recent Indian developments",
+    "question": "Consider the following statements regarding India's agricultural technology and traditional knowledge policy:\n\n1. The government is promoting nano-fertiliser production and a Production Linked Incentive scheme for drones used in nano-fertiliser application, with nano-fertilisers offering lower input costs and higher nutrient uptake efficiency.\n2. India's Traditional Knowledge Digital Library (TKDL) serves primarily as a repository to commercialise traditional medicine formulations through patent licensing to domestic pharmaceutical companies.\n3. Sarpagandha, a medicinal plant used in traditional systems, has been categorised as endangered by the IUCN Red Data List.\n\nWhich of the above statements is/are correct?",
+    "options": {
+      "A": "1 and 3 only",
+      "B": "2 and 3 only",
+      "C": "1 only",
+      "D": "1, 2 and 3"
+    },
+    "correct_answer": "A",
+    "explanation": "Statement 1 is confirmed by the CA chunk: 'The government is promoting nano-fertiliser production and introducing a Production Linked Incentive scheme for drones used in nano-fertiliser application, with nano-fertilisers offering lower input costs and higher nutrient uptake efficiency.' Statement 2 is incorrect: The CA chunk states India established TKDL 'containing documented information from Indian Systems of Medicine' and its purpose is described as 'documentation as prior-art defense against biopiracy' — not to commercialise formulations through patent licensing. The NCERT chunk on biotechnology reinforces this by highlighting concerns about companies being 'granted patents for products and technologies that make use of the genetic materials, plants and other biological resources' — showing TKDL's defensive rather than commercial licensing purpose. Statement 3 is confirmed by the CA chunk: 'Sarpagandha, a medicinal plant used in traditional systems, has been categorized as endangered by the IUCN Red Data List.'",
+    "cited_extracts": [
+      "The government is promoting nano-fertiliser production and introducing a Production Linked Incentive scheme for drones used in nano-fertiliser application, with nano-fertilisers offering lower input costs and higher nutrient uptake efficiency.",
+      "India has established a Traditional Knowledge Digital Library (TKDL) containing documented information from Indian Systems of Medicine. → Intellectual property protection for traditional knowledge; sui generis systems; documentation as prior-art defense against biopiracy.",
+      "Sarpagandha, a medicinal plant used in traditional systems, is classified as endangered by the IUCN Red Data List."
+    ],
+    "source_file": "Fertilizer Sector Reforms and Shipbuilding Industry Guidelines (December 2025)",
+    "source_page": 0,
+    "source_type": "both",
+    "question_type": "statement_based",
+    "difficulty": "hard",
+    "model_tier": "sonnet",
+    "status": "pass",
+    "factual_ok": true,
+    "unique_ok": true,
+    "distractors_ok": true,
+    "flag_reason": null,
+    "grounding_ok": true,
+    "ambiguity_ok": true
+  },
+  {
+    "topic_query": "Left Wing Extremism in India - affected regions, causes, government counter-strategies",
+    "question": "Consider the following statements regarding regional aspirations, marginalisation, and internal security challenges in India:\n\n1. According to the NCERT framework, political conflicts over regional rights and separate existence are common to nations that want to respect diversity while retaining unity, and regional aspirations are usually expressed in the language of the region.\n2. The NCERT perspective on confronting marginalisation identifies armed struggle as one of the strategies historically adopted by powerless groups, alongside religious solace, self-improvement, education, and economic uplift.\n\nWhich of the above statements is/are correct?",
+    "options": {
+      "A": "1 only",
+      "B": "2 only",
+      "C": "Both 1 and 2",
+      "D": "Neither 1 nor 2"
+    },
+    "correct_answer": "C",
+    "explanation": "Statement 1 is confirmed by the NCERT extract: 'political conflicts over issues of power of the regions, their rights and their separate existence are common to nations that want to respect diversity while trying to forge and retain unity' and 'Regional aspirations are usually expressed in the language of the region and addressed to the local population.' Statement 2 is confirmed by the NCERT extract: 'Religious solace, armed struggle, self improvement and education, economic uplift – there appears to be n[o shortage of strategies]' adopted by groups confronting marginalisation. This question connects the structural causes of Left Wing Extremism — marginalisation, regional deprivation, and unmet aspirations — to the NCERT conceptual framework on how excluded communities historically respond, which is directly relevant to understanding LWE's ideological roots and why development-based counter-strategies are emphasised by the government.",
+    "cited_extracts": [
+      "political conflicts over issues of power of the regions, their rights and their separate existence are common to nations that want to respect diversity while trying to forge and retain unity.",
+      "Regional aspirations are usually expressed in the language of the region and addressed to the local population.",
+      "Religious solace, armed struggle, self improvement and education, economic uplift – there appears to be n[o shortage of strategies adopted by groups confronting marginalisation]."
+    ],
+    "source_file": "Class_12_Political_Science_Politics_in_India_since_Independence.pdf",
+    "source_page": 111,
+    "source_type": "both",
+    "question_type": "statement_based",
+    "difficulty": "medium",
+    "model_tier": "sonnet",
+    "status": "pass",
+    "factual_ok": true,
+    "unique_ok": true,
+    "distractors_ok": true,
+    "flag_reason": null,
+    "grounding_ok": true,
+    "ambiguity_ok": true
+  },
+  {
+    "topic_query": "Operation Sindoor and India's evolving counter-terrorism doctrine - current affairs",
+    "question": "Assertion (A): India's border management modernisation strategy, including the Comprehensive Integrated Border Management System (CIBMS) and AI-powered surveillance, reflects a shift from traditional security reliance on physical barriers toward a technology-driven non-traditional security framework.\n\nReason (R): The traditional approach relying on physical barriers and conventional outposts has proven inadequate against sophisticated infiltration methods, as adversaries now employ aerial drones to smuggle narcotics and weapons while criminal syndicates leverage encrypted communications and advanced sensors to evade detection.",
+    "options": {
+      "A": "Both A and R are true, and R is the correct explanation of A",
+      "B": "Both A and R are true, but R is NOT the correct explanation of A",
+      "C": "A is true but R is false",
+      "D": "A is false but R is true"
+    },
+    "correct_answer": "A",
+    "explanation": "Both A and R are true, and R is the correct explanation of A. A correctly states that India's border modernisation (CIBMS, AI surveillance) represents a shift away from physical barriers. R directly and causally explains this shift: because physical barriers and conventional outposts have proven inadequate against drone infiltration, tunnel construction, and cyber attacks, India has been compelled to adopt technology-driven systems such as CIBMS. R is not merely parallel context — it provides the specific operational reason (inadequacy of physical barriers against sophisticated modern threats) that drove the adoption of the systems named in A.",
+    "cited_extracts": [
+      "The traditional approach relying on physical barriers and conventional outposts has proven inadequate against sophisticated infiltration methods. Adversaries now employ aerial drones to smuggle narcotics and weapons, particularly along western frontiers, while criminal syndicates leverage encrypted communications and advanced sensors to evade detection.",
+      "The Union Home Minister advocated for adopting advanced technological solutions to counter emerging border security threats including drone infiltration, tunnel construction, cyber attacks, and maritime incursions.",
+      "The Comprehensive Integrated Border Management System (CIBMS) will be expanded in Stage II and Stage III implementations to cover approximately 1,955 kilometers of vulnerable borders following pilot projects."
+    ],
+    "source_file": "Advanced Technology Integration in Border Management",
+    "source_page": 0,
+    "source_type": "current_affairs",
+    "question_type": "assertion_reason",
+    "difficulty": "hard",
+    "model_tier": "sonnet",
+    "status": "flag",
+    "factual_ok": true,
+    "unique_ok": false,
+    "distractors_ok": true,
+    "flag_reason": "A well-prepared student could reasonably choose B: CIBMS and AI surveillance represent a *complement* to physical barriers (fences, outposts still exist) rather than a replacement, and R's causal chain—while related—describes adversarial capabilities rather than directly explaining why India adopted CIBMS, making R more parallel context than a direct causal explanation of A, leaving options A and B equally defensible.",
+    "grounding_ok": true,
+    "ambiguity_ok": false,
+    "repair_note": "Replaced the generic NCERT-based R (about deterrence/defence having limited usage) with a causally specific R drawn from the CA evidence that directly explains why physical barriers failed and thus why India adopted CIBMS/AI surveillance, eliminating the ambiguity that made option B equally defensible."
+  }
+]

@@ -1,8 +1,14 @@
-# Data and generated files — too large for git
+# Large source material — not needed on Railway
 source-docs/
 chroma-db/
-questions/
-pyq_questions.json
+
+# DB — Railway has its own, Mac has its own
+*.db
+*.db-shm
+*.db-wal
+
+# Logs
+logs/*.log
 
 # Python
 __pycache__/
@@ -14,3 +20,7 @@ venv/
 
 # OS
 .DS_Store
+
+# Secrets
+.env
+*.env

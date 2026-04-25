@@ -19,6 +19,7 @@
 ## 🔜 Next Up
 
 ### Question Quality
+- [ ] **Improve precision** — statements sometimes claim slightly beyond what the extract explicitly states (e.g. Article cited not in extract, partial descriptions creating ambiguity, extract-to-statement misalignment across multiple extracts). Fix: tighten batch prompt to require each statement to be fully verifiable from its single assigned extract; reject any statement that requires inference across extracts. Also: checker flags CA events with future dates as unverifiable — add a date-awareness note to the generation prompt.
 - [ ] **Assertion-reason logical validation** — micro Haiku call after generation to verify R causally explains A, not just correlates. Option: restrict AR to agentic mode only for now. ~1 day, ~$0.01/question.
 - [ ] **Fix reword failures** — 34–47 chunks per PDF fall back to raw text. Likely Haiku timeouts on dense chunks. Add chunking pre-filter or retry logic.
 - [ ] **Filter low-content CA chunks** — December 2025 PDF was a table of contents; chunks are index entries not substantive text. Add minimum word/sentence density filter before reword.
@@ -29,9 +30,11 @@
 - [ ] **Subject coverage audit** — run `agent_generate.py --subject` across all UPSC Prelims subjects, identify gaps in NCERT chunk retrieval.
 
 ### Pipeline
+- [ ] **Guard daily set from mid-day overwrites** — `build_daily_set` currently uses `INSERT OR REPLACE`, so rerunning the pipeline mid-day resets the set. Once real users are active, skip set creation if today's set already exists AND has at least 1 attempt recorded against it. Safe for dev (no attempts = always overwrite), safe for prod (in-progress quiz is never reset).
+- [ ] **DB as source of truth** — currently DB is rebuilt from JSON on every API restart; questions have no persistent identity, timestamps, or history. Refactor: `agent_generate`, `check`, `repair` write directly to SQLite. JSON becomes archive only. Add `generated_at`, `checked_at`, `repaired_at`, `pipeline_version` columns. Prerequisite for topic quizzes, archives, and recall.
 - [ ] **`--subject` batch mode** — currently `--subject` only works in agentic mode. Wire planner to batch mode.
 - [ ] **Daily question set automation** — cron/scheduler to generate N questions per day and write to `questions/daily/`.
-- [ ] **Question deduplication** — before saving, check new question against existing batches to avoid repeats on same topic.
+- [x] **Question deduplication** — before saving, check new question against existing batches to avoid repeats on same topic.
 
 ---
 
@@ -41,6 +44,7 @@
 - [ ] **Lovable-based frontend** — user said defer. Needs: question display, answer reveal, score tracking, subject filter. API layer needed first.
 - [ ] **API layer** — FastAPI or similar to serve questions and accept answers. Prerequisite for any frontend.
 - [ ] **User progress tracking** — which questions attempted, weak subjects, accuracy over time.
+- [ ] **Personalised practice mode** — retry questions answered wrong, drill weak topics. Pure SQL, no LLM. Needs two endpoints: `/questions/retry-wrongs` and `/questions/weak-areas`. Prerequisite: DB as source of truth + timestamps.
 
 ### Quality
 - [ ] **Assertion-reason format (option 2)** — logical validation micro-call. Parked until pass rate is stable on statement_based.
@@ -51,6 +55,81 @@
 ### Scale
 - [ ] **Cost optimisation** — switch question generation to Haiku for drafting, Sonnet for final polish pass. Estimate: 5× cheaper than current batch mode.
 - [ ] **Batch size scaling** — test 50-question batch sets. Currently tested up to 10.
+
+---
+
+## 🗺 Map Questions (assessed, not yet built)
+
+### Goal
+Mandatory visual map aid for all `map_based` questions. Simplified abstraction — not satellite/photo — matching NCERT textbook style: clean outlines, minimal colour, only relevant entities labelled.
+
+### Architecture
+
+**Rendering stack**
+- `generate_map.py` — Python script, takes a `map_config` JSON, outputs a PNG to `./static/maps/`
+- Libraries: `geopandas` + `matplotlib` (deterministic, no API calls, same config = same map)
+- Output stored as `image_url TEXT` on the question record (DB column + migration already planned)
+
+**Two-tier feature data**
+
+| Tier | Source | Coverage |
+|------|--------|----------|
+| Base layer | Natural Earth GeoJSON (free) | Major rivers, state/country boundaries, coastlines, mountain ranges |
+| Strategic layer | GADM (district-level India) + hand-curated GeoJSON (~50 points) | Northeast state detail, LAC/LoC segments, passes (Doklam, Galwan, Nathu La, Siachen), straits (Hormuz, Bab-el-Mandeb, Gulf of Aden), corridors (INSTC, Chabahar, BRI routes), SCO member boundaries |
+
+**CA-aware entity promotion**
+When a geographic entity appears in CA ingestion → extracted and stored in a `geo_entities` table (name, lat/lon, bbox, type). At map question generation time, the LLM picks entities from `geo_entities` + base layer. Entities "in news" are automatically surfaced as label/highlight candidates.
+
+**Generation prompt addition**
+For `map_based` questions, generator outputs a `map_config` block alongside the question:
+```json
+{
+  "bbox": [68.0, 8.0, 97.0, 37.0],
+  "zoom_region": "peninsular india",
+  "highlight": ["Krishna River", "Godavari River"],
+  "label": ["Karnataka", "Andhra Pradesh", "Tamil Nadu"],
+  "show_layers": ["states", "rivers"]
+}
+```
+
+**Priority regions for UPSC**
+- Northeast India — Brahmaputra tributaries, Seven Sisters boundaries, passes, Doklam plateau
+- Border states — LAC (Western/Middle/Eastern sectors), LoC, Aksai Chin, Siachen
+- Middle East — Strait of Hormuz, Bab-el-Mandeb, Red Sea corridor, Gulf of Aden, conflict zones
+- Central Asia — SCO members, INSTC route, Chabahar port, BRI corridors
+
+**Build order**
+1. Add `map_config TEXT` + `image_url TEXT` columns to DB schema
+2. Curate strategic GeoJSON (~50 points, ~2 hrs one-time task)
+3. Build `generate_map.py` with geopandas
+4. Add `map_config` extraction to generation prompt for `map_based` question type
+5. Wire `geo_entities` extraction into CA ingestion pipeline
+6. Wire `image_url` into frontend question display
+
+**Estimated effort**: 3–4 days. Covers ~90% of UPSC map questions with major + strategically important minor features.
+
+---
+
+## 🎯 Quiz UX — Skip & Confidence (assessed, not yet built)
+
+**Practice mode**
+- Skip button: low-friction, lets candidate defer and revisit before finishing
+- Show "skipped" indicator on question nav; allow revisit before submitting
+
+**Exam mode** (future)
+- Skip is a strategic decision — UPSC scoring: +2 correct, -0.66 wrong, 0 skipped
+- Label the button "Skip (no penalty)" to reinforce exam strategy, not just a neutral skip
+- Keyboard shortcut for skip (serious aspirants are keyboard-first)
+
+**Confidence indicator — both modes**
+Three-state answer: **Sure / Unsure / Skip**
+- Sure: attempted, confident
+- Unsure: attempted, flagged for review — show differently at summary
+- Skip: not attempted this session
+
+**Why this matters beyond UX:** Unsure rate per question is a quality signal. High Unsure rate = question is ambiguous or too hard → feeds back into HITL review queue. This turns user behaviour into a passive QA loop.
+
+**Data to store:** add `confidence` column to `attempts` table (`sure | unsure | skip`). Aggregate in `/report` as a per-question and per-subject metric.
 
 ---
 

@@ -1,0 +1,151 @@
+[
+  {
+    "topic_query": "RBI monetary policy tools repo rate",
+    "question": "Consider the following statements about RBI's monetary policy instruments:\n1. The RBI uses monetary instruments such as interest rates to influence money supply in the economy.\n2. Monetary policy measures include adjusting interest rates, controlling reserve ratios of banks, and buying or selling government securities in the open market.\n3. The primary objective of RBI's monetary policy is to regulate currency notes and coins in circulation exclusively.\nWhich of the above statement(s) is/are correct?",
+    "options": {
+      "A": "1 and 2 only",
+      "B": "2 and 3 only",
+      "C": "1 and 3 only",
+      "D": "1, 2 and 3"
+    },
+    "correct_answer": "A",
+    "explanation": "Statement 1 is correct — the RBI Act 1934 empowers RBI to use monetary instruments including interest rates to influence money supply and achieve macroeconomic goals. Statement 2 is correct as it explicitly lists the key monetary policy measures: adjusting interest rates, controlling reserve ratios, and open market operations. Statement 3 is incorrect — monetary policy's objective is broader than merely regulating physical currency; it aims to influence overall money supply in the economy through various instruments to achieve macroeconomic goals.",
+    "cited_extracts": [
+      "It is the policy under which RBI uses monetary instruments (interest rate and other instruments) under the RBI Act, 1934, to influence money supply in the economy to achieve certain macroeconomic goals.",
+      "the supply of money in the economy through various monetary policy measures such as adjusting interest rates, controlling the reserve ratios of banks, and buying or selling government securities in the open market.",
+      "Supply of money, on the other hand, consists of currency notes and coins, demand and time deposits held by commercial banks, etc. It is classified as narrow and broad money according to the decreasing order of liquidity."
+    ],
+    "source_file": "Prelims PYQ (2011-2025).pdf and Class_12_Economics_Macroeconomics.pdf",
+    "source_page": "276, 49",
+    "source_type": "ncert",
+    "question_type": "statement_based",
+    "difficulty": "medium",
+    "model_tier": "haiku",
+    "status": "pass",
+    "factual_ok": true,
+    "unique_ok": true,
+    "distractors_ok": true,
+    "flag_reason": null,
+    "grounding_ok": true,
+    "ambiguity_ok": true
+  },
+  {
+    "topic_query": "Green Revolution Punjab wheat production",
+    "question": "Consider the following statements about the Green Revolution in India:\n1. The Green Revolution was primarily based on the use of high-yielding variety (HYV) seeds, particularly for wheat and rice.\n2. The use of HYV seeds required the application of fertilizers and pesticides in correct proportions along with regular water supply.\n3. Farmers who benefited from HYV seeds in the first phase of the Green Revolution required reliable irrigation facilities and financial resources.\nWhich of the above statement(s) is/are correct?",
+    "options": {
+      "A": "1 only",
+      "B": "2 only",
+      "C": "1 and 2 only",
+      "D": "1, 2 and 3"
+    },
+    "correct_answer": "D",
+    "explanation": "Statement 1 is correct — the Green Revolution was indeed centered on the adoption of high-yielding variety seeds for wheat and rice cultivation. Statement 2 is correct — the use of these seeds explicitly required correct quantities of fertilizers and pesticides as well as regular water supply. Statement 3 is correct — only farmers with access to reliable irrigation facilities and sufficient financial resources to purchase inputs like fertilizers and pesticides could benefit from HYV seeds in the early phase of the Green Revolution.",
+    "cited_extracts": [
+      "the use of high yielding variety (HYV) seeds especially for wheat and rice.",
+      "The use of these seeds required the use of fertiliser and pesticide in the correct quantities as well as regular supply of water; the application of these inputs in correct proportions is vital.",
+      "The farmers who could benefit from HYV seeds required reliable irrigation facilities as well as the financial resources to purchase fertiliser and pesticide."
+    ],
+    "source_file": "Class_11_Economics_Indian_Economic_Development.pdf",
+    "source_page": "24",
+    "source_type": "ncert",
+    "question_type": "statement_based",
+    "difficulty": "medium",
+    "model_tier": "haiku",
+    "status": "pass",
+    "factual_ok": true,
+    "unique_ok": true,
+    "distractors_ok": true,
+    "flag_reason": null,
+    "grounding_ok": true,
+    "ambiguity_ok": true
+  },
+  {
+    "topic_query": "Fundamental duties Article 51A",
+    "question": "Consider the following statements about Fundamental Duties under Article 51A of the Indian Constitution:\n1. Fundamental Duties include the duty to preserve the rich heritage of the country's culture.\n2. Protecting the national environment including forests, lakes, and wildlife is a Fundamental Duty.\n3. Parents have a constitutional duty to provide education to their children between the ages of 6 and 14 years.\nWhich of the above statement(s) is/are correct?",
+    "options": {
+      "A": "1 and 2 only",
+      "B": "2 and 3 only",
+      "C": "1 and 3 only",
+      "D": "1, 2 and 3"
+    },
+    "correct_answer": "D",
+    "explanation": "Statement 1 is correct — preservation of the rich heritage of the country's culture is explicitly listed as a Fundamental Duty under Article 51A. Statement 2 is correct — protecting the national environment including forests, lakes, and wildlife is enumerated as a Fundamental Duty. Statement 3 is correct — Article 51A includes the duty of parents to provide educational opportunities to their children within the specified age group of 6 to 14 years, which aligns with the constitutional emphasis on universal primary education.",
+    "cited_extracts": [
+      "To preserve the rich heritage of the country's culture.",
+      "To protect the national environment including forests, lakes, wildlife, etc.",
+      "To provide opportunity for education to his child between the age 6 and 14 years"
+    ],
+    "source_file": "Prelims PYQ (2011-2025).pdf",
+    "source_page": "227",
+    "source_type": "ncert",
+    "question_type": "statement_based",
+    "difficulty": "medium",
+    "model_tier": "haiku",
+    "status": "flag",
+    "factual_ok": false,
+    "unique_ok": false,
+    "distractors_ok": true,
+    "flag_reason": "Statement 2 incorrectly uses 'national environment' instead of 'natural environment' as specified in Article 51A(g), which is a factual error that could make C (1 and 3 only) the defensible answer rather than D.",
+    "grounding_ok": false,
+    "ambiguity_ok": false
+  },
+  {
+    "topic_query": "Monsoon formation mechanism India",
+    "question": "With reference to the mechanism of Indian monsoon, consider the following:\n\nAssertion (A): The easterly jet stream along 15°N latitude is held responsible for the burst of the monsoon in India.\n\nReason (R): The easterly jet stream sets in only after the western jet stream has withdrawn itself from its position over the north Indian plain, south of the Himalayas.",
+    "options": {
+      "A": "Both A and R are true, and R is the correct explanation of A",
+      "B": "Both A and R are true, but R is NOT the correct explanation of A",
+      "C": "A is true but R is false",
+      "D": "A is false but R is true"
+    },
+    "correct_answer": "A",
+    "explanation": "Both the Assertion and Reason are confirmed by the NCERT Geography chunk. The chunk explicitly states 'The easterly jet stream sets in along 15°N latitude only after the western jet stream has withdrawn itself from the region. This easterly jet stream is held responsible for the burst of the monsoon in India.' This establishes a direct causal relationship: the easterly jet stream (A) bursts the monsoon because it only sets in after the westerly jet stream withdraws (R), making R the correct causal explanation of A.",
+    "cited_extracts": [
+      "The easterly jet stream sets in along 15°N latitude only after the western jet stream has withdrawn itself from the region. This easterly jet stream is held responsible for the burst of the monsoon in India.",
+      "The shift in the position of the ITCZ is also related to the phenomenon of the withdrawal of the westerly jet stream from its position over the north Indian plain, south of the Himalayas."
+    ],
+    "source_file": "Class_11_Geography_Fundamentals_of_Physical_Geography.pdf",
+    "source_page": 30,
+    "source_type": "both",
+    "question_type": "assertion_reason",
+    "difficulty": "medium",
+    "model_tier": "sonnet",
+    "status": "flag",
+    "factual_ok": null,
+    "unique_ok": null,
+    "distractors_ok": null,
+    "flag_reason": "check.py could not parse Claude's response — manual review needed.",
+    "grounding_ok": null,
+    "ambiguity_ok": null
+  },
+  {
+    "topic_query": "Non-Cooperation Movement Gandhi 1920",
+    "question": "Consider the following statements about the Non-Cooperation Movement of 1920–1922:\n\n1. At the Calcutta session of the Congress in September 1920, Gandhi convinced other leaders to start a non-cooperation movement in support of Khilafat as well as for swaraj.\n2. The movement was called off by Gandhi following the violent incident at Chauri Chaura in Gorakhpur where a peaceful demonstration turned into a violent clash with the police.\n3. Gandhi's foundational ideas about non-violence that underpinned the Non-Cooperation Movement were developed entirely within India.\n\nWhich of the statements given above is/are correct?",
+    "options": {
+      "A": "1 and 2 only",
+      "B": "2 and 3 only",
+      "C": "1 only",
+      "D": "1, 2 and 3"
+    },
+    "correct_answer": "A",
+    "explanation": "Statement 1 is CORRECT: The NCERT History chunk states 'At the Calcutta session of the Congress in September 1920, he convinced other leaders of the need to start a non-cooperation movement in support of Khilafat as well as for swaraj.' Statement 2 is CORRECT: The NCERT History chunk describes the Chauri Chaura incident — 'At Chauri Chaura in Gorakhpur, a peaceful demonstration in a bazaar turned into a violent clash with the police' — which led Gandhi to withdraw the movement. Statement 3 is INCORRECT: The CA chunk explicitly states 'Gandhi developed his principles of Satyagraha against racial discrimination, in Africa (1893-1914) which later inspired independence movement', and the Class 8 History NCERT confirms 'In South Africa … I succeeded in learning the eternal law of suffering as the only remedy for undoing wrong and injustice' — demonstrating his principles of non-violence were developed in Africa, not entirely within India.",
+    "cited_extracts": [
+      "At the Calcutta session of the Congress in September 1920, he convinced other leaders of the need to start a non-cooperation movement in support of Khilafat as well as for swaraj.",
+      "At Chauri Chaura in Gorakhpur, a peaceful demonstration in a bazaar turned into a violent clash with the police.",
+      "Gandhi developed his principles of Satyagraha against racial discrimination, in Africa (1893-1914) which later inspired independence movement. In South Africa … I succeeded in learning the eternal law of suffering as the only remedy for undoing wrong and injustice."
+    ],
+    "source_file": "Class_10_History_India_and_the_Contemporary_World_II.pdf / Monthly Current Affairs- December 2025.pdf / Class_08_History_Our_Pasts_III.pdf",
+    "source_page": 37,
+    "source_type": "both",
+    "question_type": "statement_based",
+    "difficulty": "medium",
+    "model_tier": "sonnet",
+    "status": "pass",
+    "factual_ok": true,
+    "unique_ok": true,
+    "distractors_ok": true,
+    "flag_reason": null,
+    "grounding_ok": true,
+    "ambiguity_ok": true
+  }
+]

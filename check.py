@@ -39,37 +39,39 @@ CLAUDE_MODEL  = "claude-sonnet-4-6"
 #   3. Distractor cleanliness — are wrong options factually false (not just unlisted)?
 
 CHECKER_SYSTEM = """\
-You are a strict quality-control examiner for UPSC Civil Services Examination questions.
-Your job is to find flaws in MCQ questions that another AI has generated.
+You are a strict quality-control examiner for UPSC Civil Services Examination (Prelims) questions.
+Your job is to find genuine flaws in MCQ questions using your own UPSC knowledge.
 
-You will receive:
-  - A question with four options (A/B/C/D)
-  - The claimed correct answer
-  - cited_extracts: an array of verbatim sentences from the source — one per statement or
-    claim in the question (e.g. a 3-statement question should have 3 extracts)
+You will receive a question, four options, the claimed correct answer, and an explanation.
+Do NOT rely on cited_extracts for verification — use your knowledge of UPSC-relevant facts.
 
-You must check THREE things and output ONLY valid JSON — no preamble, no markdown fences:
+Check THREE things and output ONLY valid JSON — no preamble, no markdown fences:
 
-1. GROUNDING: Does each cited extract directly and explicitly support or refute the
-   statement it corresponds to?
-   FAIL if: any extract only implies the fact, requires inference, or does not contain
-   the key fact needed to evaluate that statement.
+1. FACTUAL ACCURACY: Is every statement in the question factually correct or incorrect
+   as claimed? Is the answer key right?
+   FAIL if: any statement is factually wrong in a way that changes the correct answer,
+   or if the answer key itself is incorrect.
 
-2. AMBIGUITY: Based on the cited extracts alone (no outside knowledge), is the correct
-   answer the ONLY defensible choice?
-   FAIL if: another option could reasonably be chosen using only the extracts.
+2. ANSWER UNIQUENESS: Is exactly one option clearly correct? No two options defensible?
+   For assertion_reason questions specifically:
+     - If both A and R are true, check whether R contains a causal mechanism that
+       DIRECTLY EXPLAINS why A is true (not just related background or context).
+     - If R merely describes, defines, or provides parallel context without explaining A,
+       the answer should be B (both true, R not the explanation) — flag if marked A.
+     - Flag if a well-prepared student could reasonably choose between A and B.
+   FAIL if: two options are equally defensible.
 
-3. DISTRACTOR CLEANLINESS: Are the wrong options clearly wrong based on the extracts?
-   FAIL if: a distractor contains a factual claim that the extracts do not contradict,
-   making it look plausible in a way that could confuse a well-prepared student.
+3. DISTRACTOR QUALITY: Are wrong options clearly distinguishable from the correct answer?
+   FAIL if: a wrong option is so close to correct that it would confuse a prepared student,
+   OR if all distractors are trivially obvious.
 
 Output format — exactly these keys:
 {
-  "verdict":      "pass" or "flag",
-  "grounding_ok": true or false,
-  "ambiguity_ok": true or false,
+  "verdict":        "pass" or "flag",
+  "factual_ok":     true or false,
+  "unique_ok":      true or false,
   "distractors_ok": true or false,
-  "flag_reason":  "One clear sentence explaining the primary problem, or null if verdict is pass."
+  "flag_reason":    "One specific sentence identifying the problem, or null if pass."
 }\
 """
 
@@ -85,10 +87,9 @@ D) {opt_D}
 
 CLAIMED CORRECT ANSWER: {correct}
 
-CITED EXTRACTS (verbatim from source, one per statement/claim):
-{cited_extracts}
+EXPLANATION: {explanation}
 
-Check this question against the three criteria and return your JSON verdict.\
+Check this question and return your JSON verdict.\
 """
 
 # ─────────────────────────────────────────────────────────────────────────────
@@ -110,21 +111,14 @@ def check_one_question(client, record):
     """
     options = record.get("options") or {}
 
-    # Support both old (cited_extract string) and new (cited_extracts array) formats
-    extracts = record.get("cited_extracts")
-    if not extracts:
-        old = record.get("cited_extract", "")
-        extracts = [old] if old else []
-    extracts_str = "\n".join(f'{i+1}. "{e}"' for i, e in enumerate(extracts))
-
     user_message = CHECKER_USER_TEMPLATE.format(
-        question        = record.get("question", ""),
-        opt_A           = options.get("A", ""),
-        opt_B           = options.get("B", ""),
-        opt_C           = options.get("C", ""),
-        opt_D           = options.get("D", ""),
-        correct         = record.get("correct_answer", ""),
-        cited_extracts  = extracts_str
+        question    = record.get("question", ""),
+        opt_A       = options.get("A", ""),
+        opt_B       = options.get("B", ""),
+        opt_C       = options.get("C", ""),
+        opt_D       = options.get("D", ""),
+        correct     = record.get("correct_answer", ""),
+        explanation = record.get("explanation", ""),
     )
 
     response = client.messages.create(
@@ -142,26 +136,53 @@ def check_one_question(client, record):
 
     raw = response.content[0].text.strip()
 
-    try:
-        result = json.loads(raw)
-    except json.JSONDecodeError:
-        cleaned = raw.removeprefix("```json").removeprefix("```").removesuffix("```").strip()
+    import re as _re
+    def _parse(text):
+        text = text.strip()
+        # Direct parse
         try:
-            result = json.loads(cleaned)
+            return json.loads(text)
         except json.JSONDecodeError:
-            result = {
-                "verdict":        "flag",
-                "grounding_ok":   None,
-                "ambiguity_ok":   None,
-                "distractors_ok": None,
-                "flag_reason":    "check.py could not parse Claude's response — manual review needed."
-            }
+            pass
+        # Strip markdown fences
+        cleaned = _re.sub(r'^```json\s*|^```\s*|```\s*$', '', text, flags=_re.MULTILINE).strip()
+        try:
+            return json.loads(cleaned)
+        except json.JSONDecodeError:
+            pass
+        # Extract last {...} block — model may reason before outputting JSON
+        # Also handles ```json ... ``` fences anywhere in the text
+        for block in reversed(list(_re.finditer(r'```json\s*(.*?)```', text, _re.DOTALL))):
+            try:
+                return json.loads(block.group(1).strip())
+            except json.JSONDecodeError:
+                pass
+        matches = list(_re.finditer(r'\{[^{}]*"verdict"[^{}]*\}', text, _re.DOTALL))
+        if matches:
+            try:
+                return json.loads(matches[-1].group())
+            except json.JSONDecodeError:
+                pass
+        return None
+
+    result = _parse(raw)
+    if result is None:
+        result = {
+            "verdict":        "flag",
+            "factual_ok":     None,
+            "unique_ok":      None,
+            "distractors_ok": None,
+            "flag_reason":    "check.py could not parse Claude's response — manual review needed."
+        }
 
     record["status"]          = result.get("verdict", "flag")
-    record["grounding_ok"]    = result.get("grounding_ok")
-    record["ambiguity_ok"]    = result.get("ambiguity_ok")
+    record["factual_ok"]      = result.get("factual_ok")
+    record["unique_ok"]       = result.get("unique_ok")
     record["distractors_ok"]  = result.get("distractors_ok")
     record["flag_reason"]     = result.get("flag_reason")
+    # Keep legacy fields for backwards compat
+    record["grounding_ok"]    = result.get("factual_ok")
+    record["ambiguity_ok"]    = result.get("unique_ok")
 
     return record
 
@@ -177,7 +198,7 @@ def print_result(record, index):
     if record.get("flag_reason"):
         print(f"       Reason: {record['flag_reason']}")
     checks = []
-    for key, label in [("grounding_ok","Grounding"), ("ambiguity_ok","Unambiguous"), ("distractors_ok","Distractors")]:
+    for key, label in [("factual_ok","Factual"), ("unique_ok","Unique answer"), ("distractors_ok","Distractors")]:
         val = record.get(key)
         if val is not None:
             checks.append(f"{label}:{'✓' if val else '✗'}")
@@ -203,9 +224,10 @@ def main():
     with open(filepath, "r", encoding="utf-8") as f:
         records = json.load(f)
 
-    # Only check questions not yet checked (status == "pending_check")
-    # Re-running check.py on an already-checked file is safe — it skips done ones
-    to_check = [r for r in records if r.get("status") == "pending_check"]
+    # Check pending + previously flagged (new checker may pass them now)
+    # Pass --all flag to recheck everything including already-passed questions
+    recheck_all = "--all" in sys.argv
+    to_check = [r for r in records if r.get("status") in ("pending_check", "flag") or recheck_all]
     already  = len(records) - len(to_check)
 
     if already > 0:

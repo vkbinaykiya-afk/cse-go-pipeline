@@ -1,0 +1,303 @@
+[
+  {
+    "topic_query": "Partition of Bengal 1905 and Swadeshi Movement significance",
+    "question": "Consider the following statements about the Partition of Bengal in 1905:\n1. The partition was implemented by Lord Curzon.\n2. The partition was annulled when King George V abrogated Curzon's Act at the Royal Durbar in Delhi in 1911.\nWhich of the above is/are correct?",
+    "options": {
+      "A": "1 only",
+      "B": "2 only",
+      "C": "Both 1 and 2",
+      "D": "Neither 1 nor 2"
+    },
+    "correct_answer": "C",
+    "explanation": "Both statements are correct. Statement 1 is correct: The Partition of Bengal was made by Lord Curzon in 1905. Statement 2 is correct: The partition lasted until King George V abrogated Curzon's Act at the Royal Durbar in Delhi in 1911, not until the First World War as was previously and incorrectly stated.",
+    "cited_extracts": [
+      "The Partition of Bengal made by Lord Curzon in 1905 lasted until: (2014) (a) The First World War when Indian troops were needed by the British and the partition was ended. (b) King George V abrogated Curzon's Act as the Royal Durbar in Delhi in 1911"
+    ],
+    "source_file": "Prelims PYQ (2011-2025).pdf",
+    "source_page": 146,
+    "source_type": "NCERT",
+    "question_type": "statement_based",
+    "difficulty": "easy",
+    "model_tier": "haiku",
+    "status": "pass",
+    "factual_ok": true,
+    "unique_ok": true,
+    "distractors_ok": true,
+    "flag_reason": null,
+    "grounding_ok": true,
+    "ambiguity_ok": true,
+    "repair_note": "Corrected Statement 2 from 'lasted until the First World War' to 'annulled at the Royal Durbar in Delhi in 1911', and updated correct answer from C to C (both now correct); previously Statement 2 was factually wrong making only A correct."
+  },
+  {
+    "topic_query": "Western Ghats biodiversity hotspot endemic species and ecological significance",
+    "question": "Consider the following statements about the Western Ghats:\n1. The Western Ghats have greater amphibian species diversity than the Eastern Ghats.\n2. The Western Ghats are discontinuous hill ranges that can be crossed easily at many points.\n3. The Western Ghats lie parallel to the western coast of India.\nWhich of the above is/are correct?",
+    "options": {
+      "A": "1 and 3 only",
+      "B": "2 and 3 only",
+      "C": "1 and 2 only",
+      "D": "1, 2 and 3"
+    },
+    "correct_answer": "A",
+    "explanation": "Statement 1 is correct: the chunk explicitly states 'the Western Ghats have a greater amphibian species diversity than the Eastern Ghats.' Statement 2 is incorrect: the chunk states that the Western Ghats 'are continuous and can be crossed through passes only' — contradicting the claim that they are discontinuous and can be crossed easily. Statement 3 is correct: the chunk confirms 'Western Ghats lie parallel to the western coast.'",
+    "cited_extracts": [
+      "the Western Ghats have a greater amphibian species diversity than the Eastern Ghats.",
+      "They are continuous and can be crossed through passes only.",
+      "Western Ghats lie parallel to the western coast."
+    ],
+    "source_file": "Class_12_Biology.pdf",
+    "source_page": "217, 9, 12",
+    "source_type": "ncert",
+    "question_type": "statement_based",
+    "difficulty": "medium",
+    "model_tier": "haiku",
+    "status": "pass",
+    "factual_ok": true,
+    "unique_ok": true,
+    "distractors_ok": true,
+    "flag_reason": null,
+    "grounding_ok": true,
+    "ambiguity_ok": true
+  },
+  {
+    "topic_query": "Goods and Services Tax structure, GST Council composition and decision making",
+    "question": "Consider the following statements about the Goods and Services Tax (GST):\n1. GST has replaced various types of taxes and cesses levied by both Central and State/UT Governments.\n2. GST extends the principles of value-added taxation to all goods and services in India.\n3. Central Excise Duty and Service Tax were among the major taxes levied by the Centre before GST was implemented.\nWhich of the above is/are correct?",
+    "options": {
+      "A": "1 and 2 only",
+      "B": "2 and 3 only",
+      "C": "1 and 3 only",
+      "D": "1, 2 and 3"
+    },
+    "correct_answer": "D",
+    "explanation": "Statement 1 is correct: the chunk states 'It has replaced various types of taxes/cesses, levied by the Central and State/UT Governments.' Statement 2 is correct: the chunk confirms it 'extend principles of value-added taxation to all goods and services.' Statement 3 is correct: the chunk lists 'Some of the major taxes that were levied by Centre were Central Excise Duty, Service Tax, Central Sales Tax, Cesses like KKC and SBC.' All three statements are supported by the evidence.",
+    "cited_extracts": [
+      "It has replaced various types of taxes/cesses, levied by the Central and State/UT Governments.",
+      "extend principles of 'value-added taxation' to all goods and services.",
+      "Some of the major taxes that were levied by Centre were Central Excise Duty, Service Tax, Central Sales Tax, Cesses like KKC and SBC."
+    ],
+    "source_file": "Class_12_Economics_Macroeconomics.pdf",
+    "source_page": 83,
+    "source_type": "ncert",
+    "question_type": "statement_based",
+    "difficulty": "easy",
+    "model_tier": "haiku",
+    "status": "pass",
+    "factual_ok": true,
+    "unique_ok": true,
+    "distractors_ok": true,
+    "flag_reason": null,
+    "grounding_ok": true,
+    "ambiguity_ok": true
+  },
+  {
+    "topic_query": "Powers and functions of the Election Commission of India under Article 324",
+    "question": "Consider the following statements regarding the Election Commission of India (ECI) and its constitutional position:\n\n1. Article 324 vests superintendence, direction and control of elections to Parliament, State Legislatures, and the offices of President and Vice-President in the Election Commission.\n2. The Chief Election Commissioner can be removed by the President of India on the recommendation of both Houses of Parliament with an ordinary majority.\n3. The State Election Commissioner, responsible for conducting elections to Panchayats, is appointed by the State government.\n\nWhich of the statements given above is/are correct?",
+    "options": {
+      "A": "1 and 3 only",
+      "B": "1 only",
+      "C": "2 and 3 only",
+      "D": "1, 2 and 3"
+    },
+    "correct_answer": "A",
+    "explanation": "Statement 1 is CORRECT: Article 324(1) explicitly vests 'the superintendence, direction and control of the preparation of the electoral rolls for, and the conduct of, all elections to Parliament and to the Legislature of every State and of elections to the offices of President and Vice-President' in the Election Commission. Statement 2 is INCORRECT: The NCERT extract states the CEC can be removed by the President 'if both Houses of Parliament make such a recommendation with a special majority' — not an ordinary majority. This special majority protection exists 'to ensure that a ruling party cannot remove a CEC who refuses to favour it in elections.' Statement 3 is CORRECT: The NCERT extract on Panchayati Raj states 'The State government is required to appoint a State Election Commissioner who would be responsible for conducting elections to the Panchayats.'",
+    "cited_extracts": [
+      "Article 324: (1) The superintendence, direction and control of the preparation of the electoral rolls for, and the conduct of, all elections to Parliament and to the Legislature of every State and of elections to the offices of President and Vice- President held under this Constitution shall be vested in a Commission (referred to in this Constitution as the Election Commission).",
+      "the term, by the President if both Houses of Parliament make such a recommendation with a special majority. This is done to ensure that a ruling party cannot remove a CEC who refuses to favour it in elections.",
+      "The State government is required to appoint a State Election Commissioner who would be responsible for conducting elections to the Panchayats."
+    ],
+    "source_file": "Class_11_Political_Science_Indian_Constitution_at_Work.pdf",
+    "source_page": 68,
+    "source_type": "both",
+    "question_type": "statement_based",
+    "difficulty": "medium",
+    "model_tier": "sonnet",
+    "status": "pass",
+    "factual_ok": true,
+    "unique_ok": true,
+    "distractors_ok": true,
+    "flag_reason": null,
+    "grounding_ok": true,
+    "ambiguity_ok": true
+  },
+  {
+    "topic_query": "Non-Cooperation Movement causes, events, and Gandhi's role in 1920-1922",
+    "question": "With reference to the Non-Cooperation Movement (1920–1922), consider the following statements:\n\n1. At the Calcutta session of the Congress in September 1920, Gandhi convinced leaders to start a non-cooperation movement in support of the Khilafat issue as well as for swaraj.\n2. The movement was called off by Gandhi following the violence at Chauri Chaura, where a peaceful demonstration turned into a violent clash with the police.\n3. Gandhi first developed his principles of Satyagraha during the Champaran movement of 1917, before applying them at the national level.\n\nWhich of the statements given above is/are correct?",
+    "options": {
+      "A": "1 and 2 only",
+      "B": "2 and 3 only",
+      "C": "1 and 3 only",
+      "D": "1, 2 and 3"
+    },
+    "correct_answer": "A",
+    "explanation": "Statement 1 is correct: At the Calcutta session of the Congress in September 1920, Gandhi convinced other leaders of the need to start a non-cooperation movement in support of Khilafat as well as for swaraj. Statement 2 is correct: At Chauri Chaura in Gorakhpur, a peaceful demonstration in a bazaar turned into a violent clash with the police, following which Gandhi called a halt to the Non-Cooperation Movement. Statement 3 is incorrect: Gandhi developed his principles of Satyagraha in South Africa (1893–1914) against racial discrimination, not first during the Champaran movement of 1917. Champaran was his first major Satyagraha campaign in India, but the principles were developed earlier in South Africa.",
+    "cited_extracts": [
+      "At the Calcutta session of the Congress in September 1920, he convinced other leaders of the need to start a non-cooperation movement in support of Khilafat as well as for swaraj.",
+      "At Chauri Chaura in Gorakhpur, a peaceful demonstration in a bazaar turned into a violent clash with the police. Hearing of the incident, Mahatma Gandhi called a halt to the Non-Cooperation Movement.",
+      "Gandhi developed his principles of Satyagraha against racial discrimination, in Africa (1893-1914) which later inspired independence movement."
+    ],
+    "source_file": "Class_10_History_India_and_the_Contemporary_World_II.pdf",
+    "source_page": 32,
+    "source_type": "ncert",
+    "question_type": "statement_based",
+    "difficulty": "medium",
+    "model_tier": "sonnet",
+    "status": "pass",
+    "factual_ok": true,
+    "unique_ok": true,
+    "distractors_ok": true,
+    "flag_reason": null,
+    "grounding_ok": true,
+    "ambiguity_ok": true,
+    "repair_note": "Removed the 'in India' geographic qualifier from Statement 3 so it unambiguously claims Champaran as the origin of Satyagraha, which is clearly contradicted by evidence that Gandhi developed Satyagraha in South Africa (1893–1914)."
+  },
+  {
+    "topic_query": "SEBI functions, role in regulating capital markets and investor protection",
+    "question": "With reference to the Securities and Exchange Board of India (SEBI), consider the following statements:\n\n1. SEBI's regulatory role includes registration and oversight of market intermediaries such as brokers, mutual funds, and credit rating agencies, alongside supervision of corporate takeover processes.\n2. SEBI introduced the Applications Supported by Blocked Amount (ASBA) mechanism in IPO processes to protect investor capital from being debited until share allotment.\n3. The proposed Securities Markets Code Bill, 2025 empowers SEBI to delegate its registration functions exclusively to Self-Regulatory Organisations (SROs), excluding Market Infrastructure Institutions.\n\nWhich of the statements given above is/are correct?",
+    "options": {
+      "A": "1 and 2 only",
+      "B": "2 and 3 only",
+      "C": "1 only",
+      "D": "1, 2 and 3"
+    },
+    "correct_answer": "A",
+    "explanation": "Statement 1 is CORRECT: The CA extract on SEBI states its 'regulatory role encompasses the registration and oversight of market intermediaries such as brokers, mutual funds, and credit rating agencies, alongside supervision of corporate takeover processes.' Statement 2 is CORRECT: The CA UPSC facts confirm 'SEBI introduced Applications Supported by Blocked Amount in IPO processes to protect investor capital from being debited until share allotment.' Statement 3 is INCORRECT: The CA extract states the Bill empowers SEBI 'to delegate parts of its registration functions to Market Infrastructure Institutions (MIIs) and Self-Regulatory Organisations (SROs)' — both MIIs and SROs are included, not SROs exclusively.",
+    "cited_extracts": [
+      "Its regulatory role encompasses the registration and oversight of market intermediaries such as brokers, mutual funds, and credit rating agencies, alongside supervision of corporate takeover processes.",
+      "SEBI introduced Applications Supported by Blocked Amount in IPO processes to protect investor capital from being debited until share allotment.",
+      "The Bill empowers SEBI to delegate parts of its registration functions to Market Infrastructure Institutions (MIIs) and Self-Regulatory Organisations (SROs)."
+    ],
+    "source_file": "SEBI Structure, Functions, Achievements and Regulatory Challenges",
+    "source_page": 0,
+    "source_type": "both",
+    "question_type": "statement_based",
+    "difficulty": "medium",
+    "model_tier": "sonnet",
+    "status": "pass",
+    "factual_ok": true,
+    "unique_ok": true,
+    "distractors_ok": true,
+    "flag_reason": null,
+    "grounding_ok": true,
+    "ambiguity_ok": true
+  },
+  {
+    "topic_query": "Paris Agreement goals, NDCs, and India's climate commitments under UNFCCC",
+    "question": "Assertion (A): The United States withdrawal from the Paris Agreement reflects a view that multilateral climate agreements are disadvantageous to its fossil fuel interests and economic growth.\n\nReason (R): Article 6 of the Paris Agreement provides a framework for international cooperation to achieve climate goals through market-based and non-market-based mechanisms, enabling countries to meet their Nationally Determined Contributions (NDCs).\n\nWhich one of the following is correct in respect of the above Assertion and Reason?",
+    "options": {
+      "A": "Both A and R are true and R is the correct explanation of A",
+      "B": "Both A and R are true but R is NOT the correct explanation of A",
+      "C": "A is true but R is false",
+      "D": "A is false but R is true"
+    },
+    "correct_answer": "B",
+    "explanation": "A is true: The US withdrawal from the Paris Agreement is deemed disadvantageous to US fossil fuel interests and economic growth, reflecting ideological reservations about multilateral climate commitments. R is also true: Article 6 of the Paris Agreement (2015, COP21) provides a framework for international cooperation to achieve climate goals through market-based and non-market-based mechanisms, enabling countries to meet their NDCs. However, R does not causally explain A — the existence of Article 6 mechanisms is not the reason the US withdrew from the Paris Agreement. Hence, both are true but R is not the correct explanation of A.",
+    "cited_extracts": [
+      "is deemed disadvantageous to US fossil fuel interests and economic growth.",
+      "Article 6 of the Paris Agreement (2015, COP21) provides a framework for international cooperation to achieve climate goals through market-based and non-market-based mechanisms, enabling countries to meet their Nationally Determined Contributions (NDCs)."
+    ],
+    "source_file": "Monthly Current Affairs- January 2026.pdf",
+    "source_page": 0,
+    "source_type": "current_affairs",
+    "question_type": "assertion_reason",
+    "difficulty": "hard",
+    "model_tier": "sonnet",
+    "status": "flag",
+    "factual_ok": true,
+    "unique_ok": false,
+    "distractors_ok": true,
+    "flag_reason": "Assertion A is ambiguous and potentially false as stated: 'reflects a view that multilateral climate agreements are disadvantageous to its fossil fuel interests' — the US withdrawal argument was actually that the agreement was disadvantageous to the US economy broadly, not that it was disadvantageous to fossil fuel interests (the fossil fuel industry benefits from withdrawal, not harmed by it), making the assertion's framing questionable and potentially invertible, which means a well-prepared student could reasonably choose D over B.",
+    "grounding_ok": true,
+    "ambiguity_ok": false,
+    "repair_note": "Changed 'UN Framework Convention on Climate Change (UNFCCC)' to 'Paris Agreement' in the Assertion, since the US withdrew from the Paris Agreement, not the UNFCCC itself, correcting the factual inaccuracy identified in the flag reason."
+  },
+  {
+    "topic_query": "ISRO missions Chandrayaan and Gaganyaan objectives and scientific significance",
+    "question": "Consider the following statements regarding India's space missions:\n\n1. Chandrayaan-4 Mission has identified Mons Mouton as its target landing location on the Moon.\n2. The Axiom-4 mission to the International Space Station will include scientific studies led by ISRO, conducted in microgravity environments where physical, chemical, and biological systems behave differently than under normal gravity.\n3. GAGAN (GPS Aided GEO Augmented Navigation) was developed solely by ISRO as a satellite-based navigation system for civil aviation.\n\nWhich of the statements given above is/are correct?",
+    "options": {
+      "A": "1 and 2 only",
+      "B": "2 and 3 only",
+      "C": "1 and 3 only",
+      "D": "1, 2 and 3"
+    },
+    "correct_answer": "A",
+    "explanation": "Statement 1 is correct: Chandrayaan-4 Mission has identified Mons Mouton as its target landing location on the Moon. Statement 2 is correct: Axiom-4 is a private mission to the ISS that will conduct around 60 scientific studies, including several led by ISRO. Microgravity research involves studying how physical, chemical, and biological systems behave differently than they do under normal gravity. Statement 3 is incorrect: GAGAN (GPS Aided GEO Augmented Navigation) was developed jointly by ISRO and the Airports Authority of India (AAI), not solely by ISRO.",
+    "cited_extracts": [
+      "Chandrayaan-4 Mission identified Mons Mouton, a location on the Moon to land its lander.",
+      "Axiom-4 is a private mission to the ISS that will conduct around 60 scientific studies, including several led by ISRO, with a strong focus on microgravity research across various disciplines such as biology, medicine,",
+      "Microgravity research refers to scientific studies conducted in environments where the force of gravity is extremely low, causing objects and people to appear weightless. In such conditions, often found in space or simulated on Earth, researchers can observe how physical, chemical, and biological systems behave differently than they do under normal gravity.",
+      "GAGAN (GPS Aided GEO Augmented Navigation) is a Satellite-Based Augmentation System (SBAS) developed jointly by the Indian Space Research Organisation (ISRO) and the Airports Authority of India (AAI)."
+    ],
+    "source_file": "Monthly Current Affairs- February 2026.pdf",
+    "source_page": 0,
+    "source_type": "current_affairs",
+    "question_type": "statement_based",
+    "difficulty": "medium",
+    "model_tier": "sonnet",
+    "status": "pass",
+    "factual_ok": true,
+    "unique_ok": true,
+    "distractors_ok": true,
+    "flag_reason": null,
+    "grounding_ok": true,
+    "ambiguity_ok": true,
+    "repair_note": "Statement 1 retained and grounded with corroborating evidence from Monthly Current Affairs February 2026 which explicitly references 'MONS MOUTON' as the Chandrayaan-4 Mission landing site; no factual change required as the claim is supported by the fresh evidence chunk."
+  },
+  {
+    "topic_query": "Semiconductor technology applications and India's semiconductor policy initiatives",
+    "question": "With reference to India's semiconductor and electronics manufacturing policy, consider the following statements:\n\n1. The Scheme for Promotion of Manufacturing of Electronic Components and Semiconductors provides a financial incentive on capital expenditure, aimed at transitioning India from an assembly-based to a component-manufacturing economy.\n2. The Production-Linked Incentive (PLI) Scheme covers fourteen sectors with a primary emphasis on mobile phones and IT hardware to accelerate exports and technology transfer.\n3. The National Policy on Electronics was first articulated in 2025 as a response to global semiconductor supply chain disruptions.\n\nWhich of the statements given above is/are correct?",
+    "options": {
+      "A": "1 and 2 only",
+      "B": "2 and 3 only",
+      "C": "1 only",
+      "D": "1, 2 and 3"
+    },
+    "correct_answer": "A",
+    "explanation": "Statement 1 is CORRECT: The CA chunk confirms 'The Scheme for Promotion of Manufacturing of Electronic Components and Semiconductors offers 25% financial incentive on capital expenditure to facilitate India's transition from assembly-based to component-manufacturing economy.' Statement 2 is CORRECT: The CA chunk states 'The Production-Linked Incentive Scheme covers 14 sectors with emphasis on mobile phones and IT hardware to accelerate exports and technology transfer.' Statement 3 is INCORRECT: The CA chunk explicitly contradicts it, stating 'The National Policy on Electronics (2019) established the policy framework' — it was established in 2019, not 2025. Therefore, only statements 1 and 2 are correct.",
+    "cited_extracts": [
+      "The Scheme for Promotion of Manufacturing of Electronic Components and Semiconductors offers 25% financial incentive on capital expenditure to facilitate India's transition from assembly-based to component-manufacturing economy.",
+      "The Production-Linked Incentive Scheme covers 14 sectors with emphasis on mobile phones and IT hardware to accelerate exports and technology transfer.",
+      "The National Policy on Electronics (2019) established the policy framework positioning India as a global electronics system design and manufacturing hub."
+    ],
+    "source_file": "Government Electronics and Capital Goods Manufacturing Initiatives FY2026-27",
+    "source_page": 0,
+    "source_type": "both",
+    "question_type": "statement_based",
+    "difficulty": "medium",
+    "model_tier": "sonnet",
+    "status": "pass",
+    "factual_ok": true,
+    "unique_ok": true,
+    "distractors_ok": true,
+    "flag_reason": null,
+    "grounding_ok": true,
+    "ambiguity_ok": true
+  },
+  {
+    "topic_query": "India's G20 presidency priorities digital public infrastructure and multilateral reforms",
+    "question": "Assertion (A): India's G20 Presidency of 2023 served as a platform for advancing digital public infrastructure initiatives across multiple working groups, including Digital Economy and Global Partnership for Financial Inclusion.\n\nReason (R): The G20 has a permanent secretariat that coordinates these working group activities and provides institutional continuity across rotating presidencies.\n\nWhich one of the following is correct in respect of the above Assertion and Reason?",
+    "options": {
+      "A": "Both A and R are correct and R is the correct explanation of A",
+      "B": "Both A and R are correct but R is NOT the correct explanation of A",
+      "C": "A is correct but R is incorrect",
+      "D": "A is incorrect but R is correct"
+    },
+    "correct_answer": "C",
+    "explanation": "The Assertion (A) is CORRECT: The PYQ chunk confirms that India's G20 Presidency spanned 'multiple Working Groups such as Digital Economy, Health, Education, and Global Partnership for Financial Inclusion.' The Reason (R) is INCORRECT: The PYQ chunk explicitly contradicts it by stating 'The group does not have a permanent secretariat and is supported by the previous, current, and future holders of the presidency, known as the troika.' Since the G20 lacks a permanent secretariat and instead relies on the troika mechanism, R is factually wrong. Therefore, A is correct but R is incorrect.",
+    "cited_extracts": [
+      "India's G20 Presidency, spanning across multiple Working Groups such as Digital Economy, Health, Education, and Global Partnership for Financial Inclusion.",
+      "The group does not have a permanent secretariat and is supported by the previous, current, and future holders of the presidency, known as the troika. In 2023, the troika consists of Indonesia, Brazil, and India."
+    ],
+    "source_file": "Prelims PYQ (2011-2025).pdf",
+    "source_page": 109,
+    "source_type": "both",
+    "question_type": "assertion_reason",
+    "difficulty": "medium",
+    "model_tier": "sonnet",
+    "status": "pass",
+    "factual_ok": true,
+    "unique_ok": true,
+    "distractors_ok": true,
+    "flag_reason": null,
+    "grounding_ok": true,
+    "ambiguity_ok": true
+  }
+]
