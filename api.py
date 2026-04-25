@@ -15,6 +15,7 @@ from typing import Optional, List
 from pathlib import Path
 
 import smtplib
+import urllib.request
 from email.mime.text import MIMEText
 from fastapi import FastAPI, HTTPException, Query, Header
 from fastapi.middleware.cors import CORSMiddleware
@@ -22,6 +23,8 @@ from pydantic import BaseModel
 
 GMAIL_USER = os.environ.get("GMAIL_USER", "")
 GMAIL_APP_PASSWORD = os.environ.get("GMAIL_APP_PASSWORD", "")
+RESEND_API_KEY = os.environ.get("RESEND_API_KEY", "")
+RESEND_FROM = os.environ.get("RESEND_FROM", "onboarding@resend.dev")
 OTP_EXPIRY_MINUTES = 10
 PORT = int(os.environ.get("PORT", 8000))
 PIPELINE_SECRET = os.environ.get("PIPELINE_SECRET", "")
@@ -308,22 +311,37 @@ def _get_user_from_token(token: Optional[str], conn) -> Optional[dict]:
 
 
 def _send_otp_email(email: str, code: str):
-    msg = MIMEText(
-        f"Your CSE-GO one-time login code is: {code}\n\nValid for {OTP_EXPIRY_MINUTES} minutes."
-    )
+    body = f"Your CSE-GO one-time login code is: {code}\n\nValid for {OTP_EXPIRY_MINUTES} minutes."
+
+    # Resend HTTP API — works on all cloud hosts (no SMTP port restrictions)
+    if RESEND_API_KEY:
+        import json as _json
+        payload = _json.dumps({
+            "from": RESEND_FROM,
+            "to": [email],
+            "subject": "Your CSE-GO login code",
+            "text": body,
+        }).encode()
+        req = urllib.request.Request(
+            "https://api.resend.com/emails",
+            data=payload,
+            headers={
+                "Authorization": f"Bearer {RESEND_API_KEY}",
+                "Content-Type": "application/json",
+            },
+        )
+        with urllib.request.urlopen(req, timeout=10) as resp:
+            if resp.status >= 400:
+                raise RuntimeError(f"Resend API error {resp.status}")
+        return
+
+    # Gmail SMTP — Mac local dev only
+    msg = MIMEText(body)
     msg["Subject"] = "Your CSE-GO login code"
     msg["From"] = GMAIL_USER
     msg["To"] = email
-    # Try port 587 (STARTTLS) first — more permissive on cloud hosts
-    try:
-        with smtplib.SMTP("smtp.gmail.com", 587, timeout=10) as s:
-            s.starttls()
-            s.login(GMAIL_USER, GMAIL_APP_PASSWORD)
-            s.send_message(msg)
-        return
-    except Exception as e:
-        print(f"[SMTP 587 failed] {e} — trying 465")
-    with smtplib.SMTP_SSL("smtp.gmail.com", 465, timeout=10) as s:
+    with smtplib.SMTP("smtp.gmail.com", 587, timeout=10) as s:
+        s.starttls()
         s.login(GMAIL_USER, GMAIL_APP_PASSWORD)
         s.send_message(msg)
 
@@ -407,11 +425,11 @@ def request_otp(body: OTPRequest):
                  (body.email.lower(), code, expires_at))
     conn.commit()
     conn.close()
-    if GMAIL_USER and GMAIL_APP_PASSWORD:
+    if RESEND_API_KEY or (GMAIL_USER and GMAIL_APP_PASSWORD):
         try:
             _send_otp_email(body.email.lower(), code)
         except Exception as e:
-            print(f"[SMTP ERROR] {e}")
+            print(f"[EMAIL ERROR] {e}")
             raise HTTPException(503, f"Could not send OTP email: {e}")
     else:
         print(f"[DEV] OTP for {body.email}: {code}")
