@@ -533,34 +533,45 @@ def record_attempt(body: AttemptIn, x_session_token: Optional[str] = Header(defa
 
 
 @app.get("/report")
-def get_report(x_user_id: Optional[str] = Header(default=None)):
+def get_report(x_session_token: Optional[str] = Header(default=None)):
     conn = get_db()
+    user = _get_user_from_token(x_session_token, conn)
 
-    user_filter = "AND a.user_id = ?" if x_user_id else ""
-    user_params = [x_user_id] if x_user_id else []
+    if not user:
+        conn.close()
+        return {
+            "total_attempts": 0,
+            "overall_accuracy_pct": 0,
+            "streak_days": 0,
+            "subject_breakdown": [
+                {"subject": s, "total": 0, "correct": 0, "accuracy_pct": None, "status": "not_attempted"}
+                for s in STATIC_SUBJECTS
+            ],
+            "weak_areas": [],
+        }
+
+    uid = user["id"]
 
     total_attempts = conn.execute(
-        f"SELECT COUNT(*) FROM attempts a WHERE 1=1 {user_filter}", user_params
+        "SELECT COUNT(*) FROM attempts a WHERE a.user_id = ?", (uid,)
     ).fetchone()[0]
     correct_attempts = conn.execute(
-        f"SELECT COUNT(*) FROM attempts a WHERE is_correct=1 {user_filter}", user_params
+        "SELECT COUNT(*) FROM attempts a WHERE a.user_id = ? AND is_correct=1", (uid,)
     ).fetchone()[0]
 
-    # Attempted counts per subject
-    attempted_rows = conn.execute(f"""
+    attempted_rows = conn.execute("""
         SELECT COALESCE(q.upsc_subject, q.subject, 'Unknown') AS subject,
                COUNT(a.id)                     AS total,
                SUM(a.is_correct)               AS correct,
                ROUND(AVG(a.is_correct)*100, 1) AS accuracy_pct
         FROM attempts a
         JOIN questions q ON a.question_id = q.id
-        WHERE 1=1 {user_filter}
+        WHERE a.user_id = ?
         GROUP BY subject
-    """, user_params).fetchall()
+    """, (uid,)).fetchall()
 
     attempted_map = {r["subject"]: r for r in attempted_rows}
 
-    # Build static subject list — NA for untested
     subject_breakdown = []
     for subj in STATIC_SUBJECTS:
         if subj in attempted_map:
@@ -581,14 +592,12 @@ def get_report(x_user_id: Optional[str] = Header(default=None)):
                 "status": "not_attempted",
             })
 
-    # Weak areas — bottom 3 attempted subjects by accuracy
     weak_areas = sorted(
         [s for s in subject_breakdown if s["status"] == "attempted" and s["total"] >= 2],
         key=lambda s: s["accuracy_pct"]
     )[:3]
 
-    # Daily streak — consecutive days where user COMPLETED (all questions) the daily quiz on that day
-    completed_days = conn.execute(f"""
+    completed_days = conn.execute("""
         SELECT ds.date
         FROM daily_sets ds
         WHERE (
@@ -596,10 +605,10 @@ def get_report(x_user_id: Optional[str] = Header(default=None)):
             FROM attempts a
             WHERE a.question_id IN (SELECT value FROM json_each(ds.question_ids))
             AND DATE(a.attempted_at) = ds.date
-            {"AND a.user_id = ?" if x_user_id else ""}
+            AND a.user_id = ?
         ) >= json_array_length(ds.question_ids)
         ORDER BY ds.date DESC
-    """, ([x_user_id] if x_user_id else [])).fetchall()
+    """, (uid,)).fetchall()
 
     streak = 0
     prev = None
