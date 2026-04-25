@@ -629,28 +629,40 @@ def get_report(x_session_token: Optional[str] = Header(default=None)):
         return empty
 
     uid = user["id"]
-    cur = _execute(conn, "SELECT COUNT(*) FROM attempts WHERE user_id = ?", (uid,))
-    total_attempts = _fetchone(cur, conn)
-    total_attempts = list(total_attempts.values())[0] if USE_PG else total_attempts[0]
+    try:
+        cur = _execute(conn, "SELECT COUNT(*) FROM attempts WHERE user_id = ?", (uid,))
+        total_attempts = _fetchone(cur, conn)
+        total_attempts = list(total_attempts.values())[0] if USE_PG else total_attempts[0]
+    except Exception as e:
+        print(f"[REPORT ERROR - total_attempts] {e}")
+        conn.close(); return empty
 
-    cur = _execute(conn, "SELECT COUNT(*) FROM attempts WHERE user_id = ? AND is_correct=1", (uid,))
-    correct_attempts = _fetchone(cur, conn)
-    correct_attempts = list(correct_attempts.values())[0] if USE_PG else correct_attempts[0]
+    try:
+        cur = _execute(conn, "SELECT COUNT(*) FROM attempts WHERE user_id = ? AND is_correct=TRUE" if USE_PG else "SELECT COUNT(*) FROM attempts WHERE user_id = ? AND is_correct=1", (uid,))
+        correct_attempts = _fetchone(cur, conn)
+        correct_attempts = list(correct_attempts.values())[0] if USE_PG else correct_attempts[0]
+    except Exception as e:
+        print(f"[REPORT ERROR - correct_attempts] {e}")
+        conn.close(); return empty
 
-    cur = _execute(conn, """
-        SELECT COALESCE(q.upsc_subject, q.subject, 'Unknown') AS subject,
-               COUNT(a.id) AS total, SUM(a.is_correct) AS correct,
-               ROUND(AVG(a.is_correct::float)*100, 1) AS accuracy_pct
-        FROM attempts a JOIN questions q ON a.question_id = q.id
-        WHERE a.user_id = ? GROUP BY COALESCE(q.upsc_subject, q.subject, 'Unknown')
-    """ if USE_PG else """
-        SELECT COALESCE(q.upsc_subject, q.subject, 'Unknown') AS subject,
-               COUNT(a.id) AS total, SUM(a.is_correct) AS correct,
-               ROUND(AVG(a.is_correct)*100, 1) AS accuracy_pct
-        FROM attempts a JOIN questions q ON a.question_id = q.id
-        WHERE a.user_id = ? GROUP BY COALESCE(q.upsc_subject, q.subject, 'Unknown')
-    """, (uid,))
-    attempted_map = {r["subject"]: r for r in _fetchall(cur, conn)}
+    try:
+        cur = _execute(conn, """
+            SELECT COALESCE(q.upsc_subject, q.subject, 'Unknown') AS subject,
+                   COUNT(a.id) AS total, SUM(a.is_correct::int) AS correct,
+                   ROUND(AVG(a.is_correct::float)*100, 1) AS accuracy_pct
+            FROM attempts a JOIN questions q ON a.question_id = q.id
+            WHERE a.user_id = ? GROUP BY COALESCE(q.upsc_subject, q.subject, 'Unknown')
+        """ if USE_PG else """
+            SELECT COALESCE(q.upsc_subject, q.subject, 'Unknown') AS subject,
+                   COUNT(a.id) AS total, SUM(a.is_correct) AS correct,
+                   ROUND(AVG(a.is_correct)*100, 1) AS accuracy_pct
+            FROM attempts a JOIN questions q ON a.question_id = q.id
+            WHERE a.user_id = ? GROUP BY COALESCE(q.upsc_subject, q.subject, 'Unknown')
+        """, (uid,))
+        attempted_map = {r["subject"]: r for r in _fetchall(cur, conn)}
+    except Exception as e:
+        print(f"[REPORT ERROR - subject_breakdown] {e}")
+        attempted_map = {}
 
     subject_breakdown = []
     for subj in STATIC_SUBJECTS:
