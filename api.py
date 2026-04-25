@@ -895,6 +895,22 @@ def restart_daily(date: Optional[str] = None):
     return {"date": target_date, "attempts_cleared": deleted}
 
 
+@app.get("/internal/users")
+def list_users():
+    """Admin view of all signed-up users."""
+    conn = get_db()
+    rows = conn.execute(
+        "SELECT email, signup_date, created_at FROM users ORDER BY created_at DESC"
+    ).fetchall()
+    total_attempts = conn.execute("SELECT COUNT(*) FROM attempts WHERE user_id IS NOT NULL").fetchone()[0]
+    conn.close()
+    return {
+        "total_users": len(rows),
+        "total_attempts": total_attempts,
+        "users": [{"email": r["email"], "signup_date": r["signup_date"], "created_at": r["created_at"]} for r in rows],
+    }
+
+
 @app.post("/internal/sync")
 def internal_sync():
     """Trigger a DB sync + re-import from JSON files without restarting."""
