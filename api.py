@@ -436,6 +436,11 @@ def _send_otp_email(email: str, code: str):
 # Startup
 # ---------------------------------------------------------------------------
 
+@app.get("/ping")
+def ping():
+    return {"ok": True}
+
+
 @app.on_event("startup")
 def startup():
     init_db()
@@ -736,29 +741,30 @@ def get_daily(date: Optional[str] = None, x_session_token: Optional[str] = Heade
     q_ids = json.loads(row["question_ids"])
     user = _get_user_from_token(x_session_token, conn)
 
-    questions = []
-    for q_id in q_ids:
-        cur = _execute(conn, "SELECT * FROM questions WHERE id=?", (q_id,))
-        qrow = _fetchone(cur, conn)
-        if qrow:
-            questions.append(_format_question(qrow))
+    # Fetch all questions in one query
+    placeholders = ",".join(["?" if not USE_PG else "%s"] * len(q_ids))
+    cur = _execute(conn, f"SELECT * FROM questions WHERE id IN ({placeholders})", tuple(q_ids))
+    qrows = _fetchall(cur, conn)
+    qmap = {r["id"]: r for r in qrows}
+    questions = [_format_question(qmap[q_id]) for q_id in q_ids if q_id in qmap]
 
+    # Fetch all attempts in one query
     attempts_map = {}
-    for q_id in q_ids:
-        if user:
-            cur = _execute(conn,
-                "SELECT chosen, is_correct, attempted_at FROM attempts "
-                "WHERE question_id=? AND is_daily=1 AND user_id=? ORDER BY attempted_at DESC LIMIT 1",
-                (q_id, user["id"]))
-        else:
-            cur = _execute(conn,
-                "SELECT chosen, is_correct, attempted_at FROM attempts "
-                "WHERE question_id=? AND is_daily=1 ORDER BY attempted_at DESC LIMIT 1",
-                (q_id,))
-        a = _fetchone(cur, conn)
-        if a:
-            attempts_map[q_id] = {"chosen": a["chosen"], "is_correct": bool(a["is_correct"]),
-                                   "attempted_at": a["attempted_at"]}
+    if user:
+        cur = _execute(conn,
+            f"SELECT DISTINCT ON (question_id) question_id, chosen, is_correct, attempted_at "
+            f"FROM attempts WHERE question_id IN ({placeholders}) AND is_daily=1 AND user_id=? "
+            f"ORDER BY question_id, attempted_at DESC"
+            if USE_PG else
+            f"SELECT question_id, chosen, is_correct, attempted_at FROM attempts "
+            f"WHERE question_id IN ({placeholders}) AND is_daily=1 AND user_id=? "
+            f"GROUP BY question_id HAVING attempted_at = MAX(attempted_at)",
+            tuple(q_ids) + (user["id"],))
+        for a in _fetchall(cur, conn):
+            attempts_map[a["question_id"]] = {
+                "chosen": a["chosen"], "is_correct": bool(a["is_correct"]),
+                "attempted_at": a["attempted_at"]
+            }
 
     conn.close()
     attempted = len(attempts_map)
