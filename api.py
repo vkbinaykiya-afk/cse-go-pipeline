@@ -673,39 +673,45 @@ def get_report(x_session_token: Optional[str] = Header(default=None)):
     )[:3]
 
     # Streak — completed days (all questions answered on that day)
-    if USE_PG:
-        cur = conn.cursor()
-        cur.execute("""
-            SELECT ds.date FROM daily_sets ds
-            WHERE (
-                SELECT COUNT(DISTINCT a.question_id) FROM attempts a
-                WHERE a.question_id = ANY(ARRAY(SELECT json_array_elements_text(ds.question_ids::json)))
-                AND DATE(a.attempted_at::timestamp) = ds.date::date
-                AND a.user_id = %s
-            ) >= json_array_length(ds.question_ids::json)
-            ORDER BY ds.date DESC
-        """, (uid,))
-        completed_days = [{"date": r[0]} for r in cur.fetchall()]
-    else:
-        cur = _execute(conn, """
-            SELECT ds.date FROM daily_sets ds
-            WHERE (
-                SELECT COUNT(DISTINCT a.question_id) FROM attempts a
-                WHERE a.question_id IN (SELECT value FROM json_each(ds.question_ids))
-                AND DATE(a.attempted_at) = ds.date AND a.user_id = ?
-            ) >= json_array_length(ds.question_ids)
-            ORDER BY ds.date DESC
-        """, (uid,))
-        completed_days = _fetchall(cur, conn)
-
     streak = 0
-    prev = None
-    for row in completed_days:
-        d = str(row["date"])
-        if prev is None or (datetime.fromisoformat(prev) - datetime.fromisoformat(d)).days == 1:
-            streak += 1; prev = d
+    try:
+        if USE_PG:
+            cur = conn.cursor()
+            cur.execute("""
+                SELECT ds.date, ds.question_ids,
+                       COUNT(DISTINCT a.question_id) AS answered
+                FROM daily_sets ds
+                LEFT JOIN attempts a
+                  ON a.user_id = %s
+                  AND DATE(a.attempted_at::timestamp) = ds.date::date
+                GROUP BY ds.date, ds.question_ids
+                ORDER BY ds.date DESC
+            """, (uid,))
+            completed_days = [
+                r[0] for r in cur.fetchall()
+                if r[2] >= len(json.loads(r[1]))
+            ]
         else:
-            break
+            cur = _execute(conn, """
+                SELECT ds.date FROM daily_sets ds
+                WHERE (
+                    SELECT COUNT(DISTINCT a.question_id) FROM attempts a
+                    WHERE a.question_id IN (SELECT value FROM json_each(ds.question_ids))
+                    AND DATE(a.attempted_at) = ds.date AND a.user_id = ?
+                ) >= json_array_length(ds.question_ids)
+                ORDER BY ds.date DESC
+            """, (uid,))
+            completed_days = [str(r["date"]) for r in _fetchall(cur, conn)]
+
+        prev = None
+        for d in completed_days:
+            d = str(d)
+            if prev is None or (datetime.fromisoformat(prev) - datetime.fromisoformat(d)).days == 1:
+                streak += 1; prev = d
+            else:
+                break
+    except Exception as e:
+        print(f"[STREAK ERROR] {e}")
 
     conn.close()
     return {
