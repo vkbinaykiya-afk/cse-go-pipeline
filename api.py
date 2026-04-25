@@ -316,6 +316,7 @@ def _send_otp_email(email: str, code: str):
     # Resend HTTP API — works on all cloud hosts (no SMTP port restrictions)
     if RESEND_API_KEY:
         import json as _json
+        import urllib.error
         payload = _json.dumps({
             "from": RESEND_FROM,
             "to": [email],
@@ -330,9 +331,12 @@ def _send_otp_email(email: str, code: str):
                 "Content-Type": "application/json",
             },
         )
-        with urllib.request.urlopen(req, timeout=10) as resp:
-            if resp.status >= 400:
-                raise RuntimeError(f"Resend API error {resp.status}")
+        try:
+            with urllib.request.urlopen(req, timeout=10) as resp:
+                pass
+        except urllib.error.HTTPError as e:
+            error_body = e.read().decode()
+            raise RuntimeError(f"Resend {e.code}: {error_body}")
         return
 
     # Gmail SMTP — Mac local dev only
