@@ -362,6 +362,7 @@ class PushDailySetIn(BaseModel):
 class PushQuestionsIn(BaseModel):
     questions: List[dict]
     secret: str
+    update_status: bool = False
 
 
 # ---------------------------------------------------------------------------
@@ -1016,7 +1017,12 @@ def push_questions(body: PushQuestionsIn):
         q_id = q.get("id") or str(uuid.uuid5(uuid.NAMESPACE_DNS, q.get("question", "") + q.get("source_file", "")))
         cur = _execute(conn, "SELECT id FROM questions WHERE id=?", (q_id,))
         if _fetchone(cur, conn):
-            skipped += 1
+            if body.update_status and q.get("status"):
+                _execute(conn, "UPDATE questions SET status=?, flag_reason=? WHERE id=?",
+                         (q.get("status"), q.get("flag_reason"), q_id))
+                skipped += 1
+            else:
+                skipped += 1
             continue
         extracts = q.get("cited_extracts") or ([q["cited_extract"]] if q.get("cited_extract") else [])
         _execute(conn, """
