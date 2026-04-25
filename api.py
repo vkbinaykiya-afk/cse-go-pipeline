@@ -314,7 +314,16 @@ def _send_otp_email(email: str, code: str):
     msg["Subject"] = "Your CSE-GO login code"
     msg["From"] = GMAIL_USER
     msg["To"] = email
-    with smtplib.SMTP_SSL("smtp.gmail.com", 465) as s:
+    # Try port 587 (STARTTLS) first — more permissive on cloud hosts
+    try:
+        with smtplib.SMTP("smtp.gmail.com", 587, timeout=10) as s:
+            s.starttls()
+            s.login(GMAIL_USER, GMAIL_APP_PASSWORD)
+            s.send_message(msg)
+        return
+    except Exception as e:
+        print(f"[SMTP 587 failed] {e} — trying 465")
+    with smtplib.SMTP_SSL("smtp.gmail.com", 465, timeout=10) as s:
         s.login(GMAIL_USER, GMAIL_APP_PASSWORD)
         s.send_message(msg)
 
@@ -399,7 +408,11 @@ def request_otp(body: OTPRequest):
     conn.commit()
     conn.close()
     if GMAIL_USER and GMAIL_APP_PASSWORD:
-        _send_otp_email(body.email.lower(), code)
+        try:
+            _send_otp_email(body.email.lower(), code)
+        except Exception as e:
+            print(f"[SMTP ERROR] {e}")
+            raise HTTPException(503, f"Could not send OTP email: {e}")
     else:
         print(f"[DEV] OTP for {body.email}: {code}")
     return {"message": "OTP sent"}
