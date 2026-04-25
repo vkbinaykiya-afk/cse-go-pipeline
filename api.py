@@ -25,6 +25,7 @@ GMAIL_USER        = os.environ.get("GMAIL_USER", "")
 GMAIL_APP_PASSWORD= os.environ.get("GMAIL_APP_PASSWORD", "")
 RESEND_API_KEY    = os.environ.get("RESEND_API_KEY", "")
 RESEND_FROM       = os.environ.get("RESEND_FROM", "onboarding@resend.dev")
+BREVO_API_KEY     = os.environ.get("BREVO_API_KEY", "")
 OTP_EXPIRY_MINUTES= 10
 PORT              = int(os.environ.get("PORT", 8000))
 PIPELINE_SECRET   = os.environ.get("PIPELINE_SECRET", "")
@@ -376,6 +377,26 @@ def _get_user_from_token(token: Optional[str], conn) -> Optional[dict]:
 def _send_otp_email(email: str, code: str):
     body = f"Your CSE-GO one-time login code is: {code}\n\nValid for {OTP_EXPIRY_MINUTES} minutes."
 
+    if BREVO_API_KEY:
+        import urllib.error
+        payload = json.dumps({
+            "sender": {"name": "CSE-GO", "email": "noreply@csego.app"},
+            "to": [{"email": email}],
+            "subject": "Your CSE-GO login code",
+            "textContent": body,
+        }).encode()
+        req = urllib.request.Request(
+            "https://api.brevo.com/v3/smtp/email",
+            data=payload,
+            headers={"api-key": BREVO_API_KEY, "Content-Type": "application/json"},
+        )
+        try:
+            with urllib.request.urlopen(req, timeout=10):
+                pass
+        except urllib.error.HTTPError as e:
+            raise RuntimeError(f"Brevo {e.code}: {e.read().decode()}")
+        return
+
     if RESEND_API_KEY:
         import urllib.error
         payload = json.dumps({
@@ -472,7 +493,7 @@ def request_otp(body: OTPRequest):
     _upsert_otp(conn, body.email.lower(), code, expires_at)
     _commit(conn)
     conn.close()
-    if RESEND_API_KEY or (GMAIL_USER and GMAIL_APP_PASSWORD):
+    if BREVO_API_KEY or RESEND_API_KEY or (GMAIL_USER and GMAIL_APP_PASSWORD):
         try:
             _send_otp_email(body.email.lower(), code)
         except Exception as e:
