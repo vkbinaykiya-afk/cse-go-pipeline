@@ -537,7 +537,7 @@ def verify_otp(body: OTPVerify):
     _execute(conn, "DELETE FROM otps WHERE email=?", (email,))
     _commit(conn)
     conn.close()
-    return {"token": token, "user_id": user_id, "email": email, "signup_date": signup_date}
+    return {"session_token": token, "user_id": user_id, "email": email, "signup_date": signup_date}
 
 
 @app.post("/auth/logout")
