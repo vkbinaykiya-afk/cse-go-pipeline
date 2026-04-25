@@ -895,6 +895,17 @@ def restart_daily(date: Optional[str] = None):
     return {"date": target_date, "attempts_cleared": deleted}
 
 
+@app.get("/internal/otp/{email}")
+def get_otp(email: str):
+    """Dev only — read current OTP for an email directly from DB."""
+    conn = get_db()
+    row = conn.execute("SELECT code, expires_at FROM otps WHERE email=?", (email.lower(),)).fetchone()
+    conn.close()
+    if not row:
+        raise HTTPException(404, "No OTP found for this email")
+    return {"email": email, "code": row["code"], "expires_at": row["expires_at"]}
+
+
 @app.get("/internal/users")
 def list_users():
     """Admin view of all signed-up users."""
