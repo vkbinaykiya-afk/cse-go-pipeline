@@ -638,7 +638,7 @@ def get_report(x_session_token: Optional[str] = Header(default=None)):
         conn.close(); return empty
 
     try:
-        cur = _execute(conn, "SELECT COUNT(*) FROM attempts WHERE user_id = ? AND is_correct=TRUE" if USE_PG else "SELECT COUNT(*) FROM attempts WHERE user_id = ? AND is_correct=1", (uid,))
+        cur = _execute(conn, "SELECT COUNT(*) FROM attempts WHERE user_id = ? AND is_correct=1", (uid,))
         correct_attempts = _fetchone(cur, conn)
         correct_attempts = list(correct_attempts.values())[0] if USE_PG else correct_attempts[0]
     except Exception as e:
