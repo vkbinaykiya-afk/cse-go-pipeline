@@ -380,7 +380,7 @@ def _send_otp_email(email: str, code: str):
     if BREVO_API_KEY:
         import urllib.error
         payload = json.dumps({
-            "sender": {"name": "CSE-GO", "email": "noreply@csego.app"},
+            "sender": {"name": "CSE-GO", "email": "v.k.binaykiya@gmail.com"},
             "to": [{"email": email}],
             "subject": "Your CSE-GO login code",
             "textContent": body,
