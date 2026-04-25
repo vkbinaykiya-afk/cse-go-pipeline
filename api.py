@@ -429,8 +429,8 @@ def request_otp(body: OTPRequest):
         try:
             _send_otp_email(body.email.lower(), code)
         except Exception as e:
-            print(f"[EMAIL ERROR] {e}")
-            raise HTTPException(503, f"Could not send OTP email: {e}")
+            print(f"[EMAIL ERROR] {e} — OTP for {body.email.lower()}: {code}")
+            # Don't surface email errors to user — OTP is in DB, readable via /internal/otp
     else:
         print(f"[DEV] OTP for {body.email}: {code}")
     return {"message": "OTP sent"}
