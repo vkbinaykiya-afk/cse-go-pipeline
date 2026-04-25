@@ -359,6 +359,10 @@ class PushDailySetIn(BaseModel):
     question_ids: List[str]
     secret: str
 
+class PushQuestionsIn(BaseModel):
+    questions: List[dict]
+    secret: str
+
 
 # ---------------------------------------------------------------------------
 # Auth helpers
@@ -1000,6 +1004,43 @@ def push_daily_set(body: PushDailySetIn):
     _commit(conn)
     conn.close()
     return {"date": body.date, "questions": len(body.question_ids)}
+
+
+@app.post("/internal/push-questions")
+def push_questions(body: PushQuestionsIn):
+    if PIPELINE_SECRET and body.secret != PIPELINE_SECRET:
+        raise HTTPException(403, "Forbidden")
+    conn = get_db()
+    inserted = skipped = 0
+    for q in body.questions:
+        q_id = q.get("id") or str(uuid.uuid5(uuid.NAMESPACE_DNS, q.get("question", "") + q.get("source_file", "")))
+        cur = _execute(conn, "SELECT id FROM questions WHERE id=?", (q_id,))
+        if _fetchone(cur, conn):
+            skipped += 1
+            continue
+        extracts = q.get("cited_extracts") or ([q["cited_extract"]] if q.get("cited_extract") else [])
+        _execute(conn, """
+            INSERT INTO questions
+              (id, question, options, correct, explanation, subject, difficulty,
+               question_type, source_type, source_file, source_page,
+               status, flag_reason, extracts, raw,
+               upsc_subject, upsc_topic, broad_category, question_category, suggested_reading)
+            VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)
+        """, (
+            q_id, q.get("question", ""), json.dumps(q.get("options", {})),
+            q.get("correct_answer") or q.get("correct", ""), q.get("explanation", ""),
+            q.get("subject", ""), q.get("difficulty", "medium"),
+            q.get("question_type", "statement_based"),
+            q.get("source_type", "ncert"), q.get("source_file", ""),
+            _safe_int(q.get("source_page")), q.get("status", "unchecked"),
+            q.get("flag_reason"), json.dumps(extracts), json.dumps(q),
+            q.get("upsc_subject"), q.get("upsc_topic"), q.get("broad_category"),
+            q.get("question_category"), json.dumps(q.get("suggested_reading")) if q.get("suggested_reading") else None,
+        ))
+        inserted += 1
+    _commit(conn)
+    conn.close()
+    return {"inserted": inserted, "skipped": skipped}
 
 
 # ---------------------------------------------------------------------------

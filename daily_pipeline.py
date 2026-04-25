@@ -497,6 +497,36 @@ def build_daily_set(records, date_str):
     pipeline_secret = os.environ.get("PIPELINE_SECRET", "")
     if railway_url:
         try:
+            # Push question data first so Railway has all IDs before the daily set
+            conn2 = sqlite3.connect(DB_PATH)
+            conn2.row_factory = sqlite3.Row
+            q_payload = []
+            for q_id in selected:
+                row = conn2.execute("SELECT * FROM questions WHERE id=?", (q_id,)).fetchone()
+                if row:
+                    q_payload.append({
+                        "id": row["id"], "question": row["question"],
+                        "options": json.loads(row["options"]) if row["options"] else {},
+                        "correct_answer": row["correct"], "explanation": row["explanation"],
+                        "subject": row["subject"], "difficulty": row["difficulty"],
+                        "question_type": row["question_type"], "source_type": row["source_type"],
+                        "source_file": row["source_file"] or "", "source_page": row["source_page"],
+                        "status": row["status"], "cited_extracts": json.loads(row["extracts"] or "[]"),
+                        "upsc_subject": row["upsc_subject"], "upsc_topic": row["upsc_topic"],
+                        "broad_category": row["broad_category"], "question_category": row["question_category"],
+                    })
+            conn2.close()
+            if q_payload:
+                qresp = requests.post(
+                    f"{railway_url}/internal/push-questions",
+                    json={"questions": q_payload, "secret": pipeline_secret},
+                    timeout=30,
+                )
+                if qresp.ok:
+                    logging.info(f"  Pushed {len(q_payload)} questions to Railway ({qresp.json()})")
+                else:
+                    logging.warning(f"  Railway questions push failed: {qresp.status_code} {qresp.text[:120]}")
+
             resp = requests.post(
                 f"{railway_url}/internal/push-daily-set",
                 json={"date": today, "question_ids": selected, "secret": pipeline_secret},
