@@ -1,232 +1,300 @@
 """
 FastAPI backend for CSE-GO quiz app.
 Serves questions, records attempts, returns personalized reports.
+Uses PostgreSQL on Railway (DATABASE_URL env var), SQLite locally.
 """
 
 import json
-import sqlite3
 import glob
 import os
 import uuid
 import secrets
 import string
+import smtplib
+import urllib.request
 from datetime import datetime, timezone, timedelta
 from typing import Optional, List
 from pathlib import Path
-
-import smtplib
-import urllib.request
 from email.mime.text import MIMEText
+
 from fastapi import FastAPI, HTTPException, Query, Header
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 
-GMAIL_USER = os.environ.get("GMAIL_USER", "")
-GMAIL_APP_PASSWORD = os.environ.get("GMAIL_APP_PASSWORD", "")
-RESEND_API_KEY = os.environ.get("RESEND_API_KEY", "")
-RESEND_FROM = os.environ.get("RESEND_FROM", "onboarding@resend.dev")
-OTP_EXPIRY_MINUTES = 10
-PORT = int(os.environ.get("PORT", 8000))
-PIPELINE_SECRET = os.environ.get("PIPELINE_SECRET", "")
-STATIC_SUBJECTS = ["History", "Geography", "Polity", "Environment",
-                   "Science & Technology", "Economics", "Current Affairs"]
+GMAIL_USER        = os.environ.get("GMAIL_USER", "")
+GMAIL_APP_PASSWORD= os.environ.get("GMAIL_APP_PASSWORD", "")
+RESEND_API_KEY    = os.environ.get("RESEND_API_KEY", "")
+RESEND_FROM       = os.environ.get("RESEND_FROM", "onboarding@resend.dev")
+OTP_EXPIRY_MINUTES= 10
+PORT              = int(os.environ.get("PORT", 8000))
+PIPELINE_SECRET   = os.environ.get("PIPELINE_SECRET", "")
+DATABASE_URL      = os.environ.get("DATABASE_URL", "")   # set by Railway Postgres
+STATIC_SUBJECTS   = ["History", "Geography", "Polity", "Environment",
+                     "Science & Technology", "Economics", "Current Affairs"]
 
-DB_PATH = Path(__file__).parent / "cse_go.db"
+DB_PATH       = Path(__file__).parent / "cse_go.db"
 QUESTIONS_DIR = Path(__file__).parent / "questions"
 
 app = FastAPI(title="CSE-GO API", version="1.0")
+app.add_middleware(CORSMiddleware, allow_origins=["*"], allow_methods=["*"], allow_headers=["*"])
 
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=["*"],
-    allow_methods=["*"],
-    allow_headers=["*"],
-)
-
+USE_PG = bool(DATABASE_URL)
 
 # ---------------------------------------------------------------------------
-# DB setup
+# DB connection — Postgres or SQLite
 # ---------------------------------------------------------------------------
 
 def get_db():
-    conn = sqlite3.connect(DB_PATH)
-    conn.row_factory = sqlite3.Row
-    return conn
+    if USE_PG:
+        import psycopg2
+        import psycopg2.extras
+        conn = psycopg2.connect(DATABASE_URL)
+        conn.autocommit = False
+        return conn
+    else:
+        import sqlite3
+        conn = sqlite3.connect(DB_PATH)
+        conn.row_factory = sqlite3.Row
+        return conn
 
+
+def _execute(conn, sql, params=()):
+    """Execute SQL, handling ? vs %s placeholder difference."""
+    if USE_PG:
+        sql = sql.replace("?", "%s")
+        # Replace SQLite-only syntax
+        sql = sql.replace("INSERT OR REPLACE INTO", "INSERT INTO")
+        sql = sql.replace("INSERT OR IGNORE INTO", "INSERT INTO")
+    cur = conn.cursor()
+    cur.execute(sql, params)
+    return cur
+
+
+def _fetchone(cur, conn):
+    row = cur.fetchone()
+    if row is None:
+        return None
+    if USE_PG:
+        cols = [d[0] for d in cur.description]
+        return dict(zip(cols, row))
+    return row
+
+
+def _fetchall(cur, conn):
+    rows = cur.fetchall()
+    if USE_PG:
+        cols = [d[0] for d in cur.description]
+        return [dict(zip(cols, r)) for r in rows]
+    return rows
+
+
+def _row_get(row, key, default=None):
+    """Get value from either a dict (PG) or sqlite3.Row."""
+    if row is None:
+        return default
+    try:
+        return row[key]
+    except (KeyError, IndexError):
+        return default
+
+
+def _commit(conn):
+    if not USE_PG or not conn.autocommit:
+        conn.commit()
+
+
+# ---------------------------------------------------------------------------
+# DB init
+# ---------------------------------------------------------------------------
 
 def init_db():
     conn = get_db()
-    conn.executescript("""
-        CREATE TABLE IF NOT EXISTS questions (
-            id              TEXT PRIMARY KEY,
-            question        TEXT NOT NULL,
-            options         TEXT NOT NULL,      -- JSON object
-            correct         TEXT NOT NULL,
-            explanation     TEXT,
-            subject         TEXT,               -- legacy heuristic subject
-            difficulty      TEXT,
-            question_type   TEXT,
-            source_type     TEXT,
-            source_file     TEXT,
-            source_page     INTEGER,
-            status          TEXT,
-            flag_reason     TEXT,
-            extracts        TEXT,               -- JSON array
-            raw             TEXT NOT NULL,      -- full original JSON
-            -- UPSC tagging (populated by tag_questions.py)
-            upsc_subject    TEXT,               -- Polity | History | Geography | Economy | Environment | Science & Tech | Current Affairs
-            upsc_topic      TEXT,               -- UPSC syllabus topic, e.g. "Fundamental Rights"
-            broad_category  TEXT,               -- parent grouping, e.g. "Part III of Constitution"
-            question_category TEXT              -- factual | conceptual | trend_based | in_news | map_based
-        );
-
-        CREATE TABLE IF NOT EXISTS attempts (
-            id          TEXT PRIMARY KEY,
-            question_id TEXT NOT NULL,
-            chosen      TEXT NOT NULL,
-            is_correct  INTEGER NOT NULL,
-            time_taken  INTEGER,
-            attempted_at TEXT NOT NULL,
-            FOREIGN KEY (question_id) REFERENCES questions(id)
-        );
-
-        CREATE TABLE IF NOT EXISTS daily_sets (
-            date         TEXT PRIMARY KEY,   -- YYYY-MM-DD
-            question_ids TEXT NOT NULL,      -- JSON array of question IDs
-            created_at   TEXT NOT NULL
-        );
-
-        CREATE TABLE IF NOT EXISTS users (
-            id           TEXT PRIMARY KEY,
-            email        TEXT UNIQUE NOT NULL,
-            signup_date  TEXT NOT NULL,      -- YYYY-MM-DD
-            created_at   TEXT NOT NULL
-        );
-
-        CREATE TABLE IF NOT EXISTS otps (
-            email       TEXT PRIMARY KEY,
-            code        TEXT NOT NULL,
-            expires_at  TEXT NOT NULL
-        );
-
-        CREATE TABLE IF NOT EXISTS sessions (
-            token      TEXT PRIMARY KEY,
-            user_id    TEXT NOT NULL,
-            created_at TEXT NOT NULL,
-            FOREIGN KEY (user_id) REFERENCES users(id)
-        );
-    """)
-    # Migrate: add columns if they don't exist yet
-    for col, typedef in [
-        ("upsc_subject",      "TEXT"),
-        ("upsc_topic",        "TEXT"),
-        ("broad_category",    "TEXT"),
-        ("question_category", "TEXT"),
-        ("generated_at",      "TEXT"),
-        ("checked_at",        "TEXT"),
-        ("repaired_at",       "TEXT"),
-        ("pipeline_version",  "TEXT"),
-        ("topic_query",       "TEXT"),
-        ("suggested_reading", "TEXT"),
-    ]:
-        try:
-            conn.execute(f"ALTER TABLE questions ADD COLUMN {col} {typedef}")
-        except sqlite3.OperationalError:
-            pass
-    # Add user_id to attempts if missing
-    try:
-        conn.execute("ALTER TABLE attempts ADD COLUMN user_id TEXT")
-    except sqlite3.OperationalError:
-        pass
-    # is_daily: 1 if this attempt was part of today's scheduled daily set
-    try:
-        conn.execute("ALTER TABLE attempts ADD COLUMN is_daily INTEGER NOT NULL DEFAULT 0")
-    except sqlite3.OperationalError:
-        pass
-    conn.commit()
+    if USE_PG:
+        cur = conn.cursor()
+        cur.execute("""
+            CREATE TABLE IF NOT EXISTS questions (
+                id                TEXT PRIMARY KEY,
+                question          TEXT NOT NULL,
+                options           TEXT NOT NULL,
+                correct           TEXT NOT NULL,
+                explanation       TEXT,
+                subject           TEXT,
+                difficulty        TEXT,
+                question_type     TEXT,
+                source_type       TEXT,
+                source_file       TEXT,
+                source_page       INTEGER,
+                status            TEXT,
+                flag_reason       TEXT,
+                extracts          TEXT,
+                raw               TEXT NOT NULL,
+                upsc_subject      TEXT,
+                upsc_topic        TEXT,
+                broad_category    TEXT,
+                question_category TEXT,
+                generated_at      TEXT,
+                checked_at        TEXT,
+                repaired_at       TEXT,
+                pipeline_version  TEXT,
+                topic_query       TEXT,
+                suggested_reading TEXT
+            );
+            CREATE TABLE IF NOT EXISTS attempts (
+                id           TEXT PRIMARY KEY,
+                question_id  TEXT NOT NULL,
+                chosen       TEXT NOT NULL,
+                is_correct   INTEGER NOT NULL,
+                time_taken   INTEGER,
+                attempted_at TEXT NOT NULL,
+                user_id      TEXT,
+                is_daily     INTEGER NOT NULL DEFAULT 0
+            );
+            CREATE TABLE IF NOT EXISTS daily_sets (
+                date         TEXT PRIMARY KEY,
+                question_ids TEXT NOT NULL,
+                created_at   TEXT NOT NULL
+            );
+            CREATE TABLE IF NOT EXISTS users (
+                id           TEXT PRIMARY KEY,
+                email        TEXT UNIQUE NOT NULL,
+                signup_date  TEXT NOT NULL,
+                created_at   TEXT NOT NULL
+            );
+            CREATE TABLE IF NOT EXISTS otps (
+                email      TEXT PRIMARY KEY,
+                code       TEXT NOT NULL,
+                expires_at TEXT NOT NULL
+            );
+            CREATE TABLE IF NOT EXISTS sessions (
+                token      TEXT PRIMARY KEY,
+                user_id    TEXT NOT NULL,
+                created_at TEXT NOT NULL
+            );
+        """)
+        conn.commit()
+    else:
+        import sqlite3
+        conn.executescript("""
+            CREATE TABLE IF NOT EXISTS questions (
+                id TEXT PRIMARY KEY, question TEXT NOT NULL, options TEXT NOT NULL,
+                correct TEXT NOT NULL, explanation TEXT, subject TEXT, difficulty TEXT,
+                question_type TEXT, source_type TEXT, source_file TEXT, source_page INTEGER,
+                status TEXT, flag_reason TEXT, extracts TEXT, raw TEXT NOT NULL,
+                upsc_subject TEXT, upsc_topic TEXT, broad_category TEXT,
+                question_category TEXT, generated_at TEXT, checked_at TEXT,
+                repaired_at TEXT, pipeline_version TEXT, topic_query TEXT, suggested_reading TEXT
+            );
+            CREATE TABLE IF NOT EXISTS attempts (
+                id TEXT PRIMARY KEY, question_id TEXT NOT NULL, chosen TEXT NOT NULL,
+                is_correct INTEGER NOT NULL, time_taken INTEGER, attempted_at TEXT NOT NULL,
+                user_id TEXT, is_daily INTEGER NOT NULL DEFAULT 0
+            );
+            CREATE TABLE IF NOT EXISTS daily_sets (
+                date TEXT PRIMARY KEY, question_ids TEXT NOT NULL, created_at TEXT NOT NULL
+            );
+            CREATE TABLE IF NOT EXISTS users (
+                id TEXT PRIMARY KEY, email TEXT UNIQUE NOT NULL,
+                signup_date TEXT NOT NULL, created_at TEXT NOT NULL
+            );
+            CREATE TABLE IF NOT EXISTS otps (
+                email TEXT PRIMARY KEY, code TEXT NOT NULL, expires_at TEXT NOT NULL
+            );
+            CREATE TABLE IF NOT EXISTS sessions (
+                token TEXT PRIMARY KEY, user_id TEXT NOT NULL, created_at TEXT NOT NULL
+            );
+        """)
+        conn.commit()
     conn.close()
 
 
+def _upsert_otp(conn, email, code, expires_at):
+    if USE_PG:
+        cur = conn.cursor()
+        cur.execute("""
+            INSERT INTO otps (email, code, expires_at) VALUES (%s, %s, %s)
+            ON CONFLICT (email) DO UPDATE SET code=EXCLUDED.code, expires_at=EXCLUDED.expires_at
+        """, (email, code, expires_at))
+    else:
+        conn.execute("INSERT OR REPLACE INTO otps (email, code, expires_at) VALUES (?,?,?)",
+                     (email, code, expires_at))
+
+
+def _upsert_daily_set(conn, date, question_ids_json, created_at):
+    if USE_PG:
+        cur = conn.cursor()
+        cur.execute("""
+            INSERT INTO daily_sets (date, question_ids, created_at) VALUES (%s, %s, %s)
+            ON CONFLICT (date) DO UPDATE SET question_ids=EXCLUDED.question_ids, created_at=EXCLUDED.created_at
+        """, (date, question_ids_json, created_at))
+    else:
+        conn.execute("INSERT OR REPLACE INTO daily_sets (date, question_ids, created_at) VALUES (?,?,?)",
+                     (date, question_ids_json, created_at))
+
+
+# ---------------------------------------------------------------------------
+# Question import
+# ---------------------------------------------------------------------------
+
 def sync_statuses():
-    """Sync status/flag_reason for existing questions from JSON files into DB."""
     conn = get_db()
     files = glob.glob(str(QUESTIONS_DIR / "*.json"))
     updated = 0
     for fpath in files:
-        with open(fpath) as f:
-            try:
+        try:
+            with open(fpath) as f:
                 data = json.load(f)
-            except Exception:
-                continue
+        except Exception:
+            continue
         if isinstance(data, dict):
             data = [data]
         for q in data:
             q_id = str(uuid.uuid5(uuid.NAMESPACE_DNS, q.get("question", "") + q.get("source_file", "")))
             status = q.get("status")
             if status in ("pass", "flag"):
-                conn.execute(
-                    "UPDATE questions SET status=?, flag_reason=? WHERE id=?",
-                    (status, q.get("flag_reason"), q_id)
-                )
-                updated += 1
-    conn.commit()
+                cur = _execute(conn, "UPDATE questions SET status=?, flag_reason=? WHERE id=?",
+                               (status, q.get("flag_reason"), q_id))
+                updated += cur.rowcount
+    _commit(conn)
     conn.close()
     return updated
 
 
 def import_questions():
-    """Import all question JSON files from ./questions/ into DB."""
     conn = get_db()
     files = glob.glob(str(QUESTIONS_DIR / "*.json"))
-    inserted = 0
-    skipped = 0
+    inserted = skipped = 0
     for fpath in files:
-        with open(fpath) as f:
-            try:
+        try:
+            with open(fpath) as f:
                 data = json.load(f)
-            except Exception:
-                continue
+        except Exception:
+            continue
         if isinstance(data, dict):
             data = [data]
         for q in data:
-            # Derive a stable ID from question text
             q_id = str(uuid.uuid5(uuid.NAMESPACE_DNS, q.get("question", "") + q.get("source_file", "")))
-            existing = conn.execute("SELECT id FROM questions WHERE id=?", (q_id,)).fetchone()
-            if existing:
+            cur = _execute(conn, "SELECT id FROM questions WHERE id=?", (q_id,))
+            if _fetchone(cur, conn):
                 skipped += 1
                 continue
-
-            # Derive subject from source_file heuristic
             subject = _infer_subject(q)
-
             extracts = q.get("cited_extracts") or ([q["cited_extract"]] if q.get("cited_extract") else [])
-
-            conn.execute("""
+            _execute(conn, """
                 INSERT INTO questions
                   (id, question, options, correct, explanation, subject, difficulty,
                    question_type, source_type, source_file, source_page,
                    status, flag_reason, extracts, raw)
                 VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)
             """, (
-                q_id,
-                q.get("question", ""),
-                json.dumps(q.get("options", {})),
-                q.get("correct_answer", ""),
-                q.get("explanation", ""),
-                subject,
-                q.get("difficulty", "medium"),
-                q.get("question_type", "statement_based"),
-                q.get("source_type", "ncert"),
-                q.get("source_file", ""),
-                _safe_int(q.get("source_page")),
-                q.get("status", "unchecked"),
-                q.get("flag_reason"),
-                json.dumps(extracts),
-                json.dumps(q),
+                q_id, q.get("question", ""), json.dumps(q.get("options", {})),
+                q.get("correct_answer", ""), q.get("explanation", ""), subject,
+                q.get("difficulty", "medium"), q.get("question_type", "statement_based"),
+                q.get("source_type", "ncert"), q.get("source_file", ""),
+                _safe_int(q.get("source_page")), q.get("status", "unchecked"),
+                q.get("flag_reason"), json.dumps(extracts), json.dumps(q),
             ))
             inserted += 1
-
-    conn.commit()
+    _commit(conn)
     conn.close()
     return inserted, skipped
 
@@ -244,29 +312,19 @@ def _safe_int(val):
 
 def _infer_subject(q: dict) -> str:
     src = (q.get("source_file") or q.get("topic_query") or "").lower()
-    source_type = q.get("source_type", "")
     mapping = {
-        "polity": "Polity",
-        "political": "Polity",
-        "constitution": "Polity",
-        "geography": "Geography",
-        "contemporary_india": "Geography",
-        "history": "History",
-        "economics": "Economics",
-        "economy": "Economics",
-        "environment": "Environment",
-        "science": "Science & Technology",
-        "biology": "Science & Technology",
-        "physics": "Science & Technology",
-        "chemistry": "Science & Technology",
-        "current_affairs": "Current Affairs",
-        "finance commission": "Economy",
+        "polity": "Polity", "political": "Polity", "constitution": "Polity",
+        "geography": "Geography", "contemporary_india": "Geography",
+        "history": "History", "economics": "Economics", "economy": "Economics",
+        "environment": "Environment", "science": "Science & Technology",
+        "biology": "Science & Technology", "physics": "Science & Technology",
+        "chemistry": "Science & Technology", "current_affairs": "Current Affairs",
         "ramsar": "Environment",
     }
     for key, subject in mapping.items():
         if key in src:
             return subject
-    if source_type == "ca":
+    if q.get("source_type") == "ca":
         return "Current Affairs"
     return "General Studies"
 
@@ -295,6 +353,11 @@ class OTPVerify(BaseModel):
     email: str
     code: str
 
+class PushDailySetIn(BaseModel):
+    date: str
+    question_ids: List[str]
+    secret: str
+
 
 # ---------------------------------------------------------------------------
 # Auth helpers
@@ -303,21 +366,19 @@ class OTPVerify(BaseModel):
 def _get_user_from_token(token: Optional[str], conn) -> Optional[dict]:
     if not token:
         return None
-    row = conn.execute(
+    cur = _execute(conn,
         "SELECT u.id, u.email, u.signup_date FROM sessions s "
-        "JOIN users u ON s.user_id = u.id WHERE s.token = ?", (token,)
-    ).fetchone()
+        "JOIN users u ON s.user_id = u.id WHERE s.token = ?", (token,))
+    row = _fetchone(cur, conn)
     return dict(row) if row else None
 
 
 def _send_otp_email(email: str, code: str):
     body = f"Your CSE-GO one-time login code is: {code}\n\nValid for {OTP_EXPIRY_MINUTES} minutes."
 
-    # Resend HTTP API — works on all cloud hosts (no SMTP port restrictions)
     if RESEND_API_KEY:
-        import json as _json
         import urllib.error
-        payload = _json.dumps({
+        payload = json.dumps({
             "from": RESEND_FROM,
             "to": [email],
             "subject": "Your CSE-GO login code",
@@ -326,20 +387,15 @@ def _send_otp_email(email: str, code: str):
         req = urllib.request.Request(
             "https://api.resend.com/emails",
             data=payload,
-            headers={
-                "Authorization": f"Bearer {RESEND_API_KEY}",
-                "Content-Type": "application/json",
-            },
+            headers={"Authorization": f"Bearer {RESEND_API_KEY}", "Content-Type": "application/json"},
         )
         try:
-            with urllib.request.urlopen(req, timeout=10) as resp:
+            with urllib.request.urlopen(req, timeout=10):
                 pass
         except urllib.error.HTTPError as e:
-            error_body = e.read().decode()
-            raise RuntimeError(f"Resend {e.code}: {error_body}")
+            raise RuntimeError(f"Resend {e.code}: {e.read().decode()}")
         return
 
-    # Gmail SMTP — Mac local dev only
     msg = MIMEText(body)
     msg["Subject"] = "Your CSE-GO login code"
     msg["From"] = GMAIL_USER
@@ -351,7 +407,7 @@ def _send_otp_email(email: str, code: str):
 
 
 # ---------------------------------------------------------------------------
-# Routes
+# Startup
 # ---------------------------------------------------------------------------
 
 @app.on_event("startup")
@@ -359,82 +415,68 @@ def startup():
     init_db()
     inserted, skipped = import_questions()
     updated = sync_statuses()
-    print(f"DB ready. Imported {inserted} new, {skipped} existing, {updated} statuses synced.")
+    print(f"DB ready ({'postgres' if USE_PG else 'sqlite'}). "
+          f"Imported {inserted} new, {skipped} existing, {updated} statuses synced.")
 
+
+# ---------------------------------------------------------------------------
+# Routes — Questions
+# ---------------------------------------------------------------------------
 
 @app.get("/questions")
 def list_questions(
-    subject: Optional[str] = None,
-    upsc_subject: Optional[str] = None,
-    upsc_topic: Optional[str] = None,
-    question_category: Optional[str] = None,
-    difficulty: Optional[str] = None,
-    question_type: Optional[str] = None,
-    status: Optional[str] = Query(default="pass"),   # pass | flag | unchecked | all
-    limit: int = 10,
-    offset: int = 0,
+    subject: Optional[str] = None, upsc_subject: Optional[str] = None,
+    upsc_topic: Optional[str] = None, question_category: Optional[str] = None,
+    difficulty: Optional[str] = None, question_type: Optional[str] = None,
+    status: Optional[str] = Query(default="pass"), limit: int = 10, offset: int = 0,
 ):
     conn = get_db()
-    clauses = []
-    params = []
-
-    if subject:
-        clauses.append("subject = ?")
-        params.append(subject)
-    if upsc_subject:
-        clauses.append("upsc_subject = ?")
-        params.append(upsc_subject)
-    if upsc_topic:
-        clauses.append("upsc_topic = ?")
-        params.append(upsc_topic)
-    if question_category:
-        clauses.append("question_category = ?")
-        params.append(question_category)
-    if difficulty:
-        clauses.append("difficulty = ?")
-        params.append(difficulty)
-    if question_type:
-        clauses.append("question_type = ?")
-        params.append(question_type)
+    clauses, params = [], []
+    if subject:        clauses.append("subject = ?");          params.append(subject)
+    if upsc_subject:   clauses.append("upsc_subject = ?");     params.append(upsc_subject)
+    if upsc_topic:     clauses.append("upsc_topic = ?");       params.append(upsc_topic)
+    if question_category: clauses.append("question_category = ?"); params.append(question_category)
+    if difficulty:     clauses.append("difficulty = ?");       params.append(difficulty)
+    if question_type:  clauses.append("question_type = ?");    params.append(question_type)
     if status and status != "all":
-        clauses.append("status = ?")
-        params.append(status)
+        clauses.append("status = ?"); params.append(status)
 
     where = ("WHERE " + " AND ".join(clauses)) if clauses else ""
-    rows = conn.execute(
-        f"SELECT * FROM questions {where} ORDER BY RANDOM() LIMIT ? OFFSET ?",
-        params + [limit, offset],
-    ).fetchall()
+    order = "ORDER BY RANDOM()" if not USE_PG else "ORDER BY RANDOM()"
+    cur = _execute(conn, f"SELECT * FROM questions {where} {order} LIMIT ? OFFSET ?", params + [limit, offset])
+    rows = _fetchall(cur, conn)
     conn.close()
-
     return [_format_question(r) for r in rows]
 
 
 @app.get("/questions/{question_id}")
 def get_question(question_id: str):
     conn = get_db()
-    row = conn.execute("SELECT * FROM questions WHERE id=?", (question_id,)).fetchone()
+    cur = _execute(conn, "SELECT * FROM questions WHERE id=?", (question_id,))
+    row = _fetchone(cur, conn)
     conn.close()
     if not row:
         raise HTTPException(404, "Question not found")
     return _format_question(row)
 
 
+# ---------------------------------------------------------------------------
+# Routes — Auth
+# ---------------------------------------------------------------------------
+
 @app.post("/auth/request-otp")
 def request_otp(body: OTPRequest):
     code = "".join(secrets.choice(string.digits) for _ in range(6))
     expires_at = (datetime.now(timezone.utc) + timedelta(minutes=OTP_EXPIRY_MINUTES)).isoformat()
     conn = get_db()
-    conn.execute("INSERT OR REPLACE INTO otps (email, code, expires_at) VALUES (?,?,?)",
-                 (body.email.lower(), code, expires_at))
-    conn.commit()
+    _upsert_otp(conn, body.email.lower(), code, expires_at)
+    _commit(conn)
     conn.close()
     if RESEND_API_KEY or (GMAIL_USER and GMAIL_APP_PASSWORD):
         try:
             _send_otp_email(body.email.lower(), code)
         except Exception as e:
             print(f"[EMAIL ERROR] {e} — OTP for {body.email.lower()}: {code}")
-            # Don't surface email errors to user — OTP is in DB, readable via /internal/otp
     else:
         print(f"[DEV] OTP for {body.email}: {code}")
     return {"message": "OTP sent"}
@@ -444,7 +486,8 @@ def request_otp(body: OTPRequest):
 def verify_otp(body: OTPVerify):
     conn = get_db()
     email = body.email.lower()
-    row = conn.execute("SELECT code, expires_at FROM otps WHERE email=?", (email,)).fetchone()
+    cur = _execute(conn, "SELECT code, expires_at FROM otps WHERE email=?", (email,))
+    row = _fetchone(cur, conn)
     if not row:
         conn.close()
         raise HTTPException(400, "No OTP found for this email")
@@ -455,26 +498,24 @@ def verify_otp(body: OTPVerify):
         conn.close()
         raise HTTPException(400, "Invalid OTP")
 
-    # Get or create user
-    user = conn.execute("SELECT id, signup_date FROM users WHERE email=?", (email,)).fetchone()
+    cur = _execute(conn, "SELECT id, signup_date FROM users WHERE email=?", (email,))
+    user = _fetchone(cur, conn)
     if not user:
         user_id = str(uuid.uuid4())
         today = datetime.now(timezone.utc).strftime("%Y-%m-%d")
-        conn.execute("INSERT INTO users (id, email, signup_date, created_at) VALUES (?,?,?,?)",
-                     (user_id, email, today, datetime.now(timezone.utc).isoformat()))
+        _execute(conn, "INSERT INTO users (id, email, signup_date, created_at) VALUES (?,?,?,?)",
+                 (user_id, email, today, datetime.now(timezone.utc).isoformat()))
         signup_date = today
     else:
         user_id = user["id"]
         signup_date = user["signup_date"]
 
-    # Create session token
     token = secrets.token_urlsafe(32)
-    conn.execute("INSERT INTO sessions (token, user_id, created_at) VALUES (?,?,?)",
-                 (token, user_id, datetime.now(timezone.utc).isoformat()))
-    conn.execute("DELETE FROM otps WHERE email=?", (email,))
-    conn.commit()
+    _execute(conn, "INSERT INTO sessions (token, user_id, created_at) VALUES (?,?,?)",
+             (token, user_id, datetime.now(timezone.utc).isoformat()))
+    _execute(conn, "DELETE FROM otps WHERE email=?", (email,))
+    _commit(conn)
     conn.close()
-
     return {"token": token, "user_id": user_id, "email": email, "signup_date": signup_date}
 
 
@@ -482,8 +523,8 @@ def verify_otp(body: OTPVerify):
 def logout(x_session_token: Optional[str] = Header(default=None)):
     if x_session_token:
         conn = get_db()
-        conn.execute("DELETE FROM sessions WHERE token=?", (x_session_token,))
-        conn.commit()
+        _execute(conn, "DELETE FROM sessions WHERE token=?", (x_session_token,))
+        _commit(conn)
         conn.close()
     return {"message": "Logged out"}
 
@@ -498,11 +539,16 @@ def get_me(x_session_token: Optional[str] = Header(default=None)):
     return user
 
 
+# ---------------------------------------------------------------------------
+# Routes — Attempts
+# ---------------------------------------------------------------------------
+
 @app.post("/attempts", response_model=AttemptOut)
 def record_attempt(body: AttemptIn, x_session_token: Optional[str] = Header(default=None)):
     conn = get_db()
     user = _get_user_from_token(x_session_token, conn)
-    q = conn.execute("SELECT * FROM questions WHERE id=?", (body.question_id,)).fetchone()
+    cur = _execute(conn, "SELECT * FROM questions WHERE id=?", (body.question_id,))
+    q = _fetchone(cur, conn)
     if not q:
         conn.close()
         raise HTTPException(404, "Question not found")
@@ -512,88 +558,82 @@ def record_attempt(body: AttemptIn, x_session_token: Optional[str] = Header(defa
     now = datetime.now(timezone.utc).isoformat()
     today = datetime.now(timezone.utc).strftime("%Y-%m-%d")
 
-    # Mark as daily if this question is in today's scheduled daily set
-    daily_row = conn.execute("SELECT question_ids FROM daily_sets WHERE date=?", (today,)).fetchone()
+    cur = _execute(conn, "SELECT question_ids FROM daily_sets WHERE date=?", (today,))
+    daily_row = _fetchone(cur, conn)
     today_ids = set(json.loads(daily_row["question_ids"])) if daily_row else set()
     is_daily = 1 if body.question_id in today_ids else 0
 
-    conn.execute(
+    _execute(conn,
         "INSERT INTO attempts (id, question_id, chosen, is_correct, time_taken, attempted_at, user_id, is_daily) "
         "VALUES (?,?,?,?,?,?,?,?)",
-        (attempt_id, body.question_id, body.chosen, int(is_correct), body.time_taken, now,
-         user["id"] if user else None, is_daily),
-    )
-    conn.commit()
+        (attempt_id, body.question_id, body.chosen, int(is_correct), body.time_taken,
+         now, user["id"] if user else None, is_daily))
+    _commit(conn)
     conn.close()
 
     return AttemptOut(
-        id=attempt_id,
-        question_id=body.question_id,
-        chosen=body.chosen,
-        is_correct=is_correct,
-        correct_answer=q["correct"],
-        explanation=q["explanation"] or "",
+        id=attempt_id, question_id=body.question_id, chosen=body.chosen,
+        is_correct=is_correct, correct_answer=q["correct"], explanation=q["explanation"] or "",
     )
 
+
+# ---------------------------------------------------------------------------
+# Routes — Report
+# ---------------------------------------------------------------------------
 
 @app.get("/report")
 def get_report(x_session_token: Optional[str] = Header(default=None)):
     conn = get_db()
     user = _get_user_from_token(x_session_token, conn)
-
+    empty = {
+        "total_attempts": 0, "overall_accuracy_pct": 0, "streak_days": 0,
+        "subject_breakdown": [
+            {"subject": s, "total": 0, "correct": 0, "accuracy_pct": None, "status": "not_attempted"}
+            for s in STATIC_SUBJECTS
+        ],
+        "weak_areas": [],
+    }
     if not user:
         conn.close()
-        return {
-            "total_attempts": 0,
-            "overall_accuracy_pct": 0,
-            "streak_days": 0,
-            "subject_breakdown": [
-                {"subject": s, "total": 0, "correct": 0, "accuracy_pct": None, "status": "not_attempted"}
-                for s in STATIC_SUBJECTS
-            ],
-            "weak_areas": [],
-        }
+        return empty
 
     uid = user["id"]
+    cur = _execute(conn, "SELECT COUNT(*) FROM attempts WHERE user_id = ?", (uid,))
+    total_attempts = _fetchone(cur, conn)
+    total_attempts = list(total_attempts.values())[0] if USE_PG else total_attempts[0]
 
-    total_attempts = conn.execute(
-        "SELECT COUNT(*) FROM attempts a WHERE a.user_id = ?", (uid,)
-    ).fetchone()[0]
-    correct_attempts = conn.execute(
-        "SELECT COUNT(*) FROM attempts a WHERE a.user_id = ? AND is_correct=1", (uid,)
-    ).fetchone()[0]
+    cur = _execute(conn, "SELECT COUNT(*) FROM attempts WHERE user_id = ? AND is_correct=1", (uid,))
+    correct_attempts = _fetchone(cur, conn)
+    correct_attempts = list(correct_attempts.values())[0] if USE_PG else correct_attempts[0]
 
-    attempted_rows = conn.execute("""
+    cur = _execute(conn, """
         SELECT COALESCE(q.upsc_subject, q.subject, 'Unknown') AS subject,
-               COUNT(a.id)                     AS total,
-               SUM(a.is_correct)               AS correct,
+               COUNT(a.id) AS total, SUM(a.is_correct) AS correct,
+               ROUND(AVG(a.is_correct::float)*100, 1) AS accuracy_pct
+        FROM attempts a JOIN questions q ON a.question_id = q.id
+        WHERE a.user_id = ? GROUP BY subject
+    """ if USE_PG else """
+        SELECT COALESCE(q.upsc_subject, q.subject, 'Unknown') AS subject,
+               COUNT(a.id) AS total, SUM(a.is_correct) AS correct,
                ROUND(AVG(a.is_correct)*100, 1) AS accuracy_pct
-        FROM attempts a
-        JOIN questions q ON a.question_id = q.id
-        WHERE a.user_id = ?
-        GROUP BY subject
-    """, (uid,)).fetchall()
-
-    attempted_map = {r["subject"]: r for r in attempted_rows}
+        FROM attempts a JOIN questions q ON a.question_id = q.id
+        WHERE a.user_id = ? GROUP BY subject
+    """, (uid,))
+    attempted_map = {r["subject"]: r for r in _fetchall(cur, conn)}
 
     subject_breakdown = []
     for subj in STATIC_SUBJECTS:
         if subj in attempted_map:
             r = attempted_map[subj]
             subject_breakdown.append({
-                "subject": subj,
-                "total": r["total"],
-                "correct": r["correct"],
-                "accuracy_pct": r["accuracy_pct"],
+                "subject": subj, "total": r["total"], "correct": r["correct"],
+                "accuracy_pct": float(r["accuracy_pct"]) if r["accuracy_pct"] else 0,
                 "status": "attempted",
             })
         else:
             subject_breakdown.append({
-                "subject": subj,
-                "total": 0,
-                "correct": 0,
-                "accuracy_pct": None,
-                "status": "not_attempted",
+                "subject": subj, "total": 0, "correct": 0,
+                "accuracy_pct": None, "status": "not_attempted",
             })
 
     weak_areas = sorted(
@@ -601,31 +641,42 @@ def get_report(x_session_token: Optional[str] = Header(default=None)):
         key=lambda s: s["accuracy_pct"]
     )[:3]
 
-    completed_days = conn.execute("""
-        SELECT ds.date
-        FROM daily_sets ds
-        WHERE (
-            SELECT COUNT(DISTINCT a.question_id)
-            FROM attempts a
-            WHERE a.question_id IN (SELECT value FROM json_each(ds.question_ids))
-            AND DATE(a.attempted_at) = ds.date
-            AND a.user_id = ?
-        ) >= json_array_length(ds.question_ids)
-        ORDER BY ds.date DESC
-    """, (uid,)).fetchall()
+    # Streak — completed days (all questions answered on that day)
+    if USE_PG:
+        cur = conn.cursor()
+        cur.execute("""
+            SELECT ds.date FROM daily_sets ds
+            WHERE (
+                SELECT COUNT(DISTINCT a.question_id) FROM attempts a
+                WHERE a.question_id = ANY(ARRAY(SELECT json_array_elements_text(ds.question_ids::json)))
+                AND DATE(a.attempted_at::timestamp) = ds.date::date
+                AND a.user_id = %s
+            ) >= json_array_length(ds.question_ids::json)
+            ORDER BY ds.date DESC
+        """, (uid,))
+        completed_days = [{"date": r[0]} for r in cur.fetchall()]
+    else:
+        cur = _execute(conn, """
+            SELECT ds.date FROM daily_sets ds
+            WHERE (
+                SELECT COUNT(DISTINCT a.question_id) FROM attempts a
+                WHERE a.question_id IN (SELECT value FROM json_each(ds.question_ids))
+                AND DATE(a.attempted_at) = ds.date AND a.user_id = ?
+            ) >= json_array_length(ds.question_ids)
+            ORDER BY ds.date DESC
+        """, (uid,))
+        completed_days = _fetchall(cur, conn)
 
     streak = 0
     prev = None
     for row in completed_days:
-        d = row["date"]
+        d = str(row["date"])
         if prev is None or (datetime.fromisoformat(prev) - datetime.fromisoformat(d)).days == 1:
-            streak += 1
-            prev = d
+            streak += 1; prev = d
         else:
             break
 
     conn.close()
-
     return {
         "total_attempts": total_attempts,
         "overall_accuracy_pct": round(correct_attempts / total_attempts * 100, 1) if total_attempts else 0,
@@ -635,25 +686,18 @@ def get_report(x_session_token: Optional[str] = Header(default=None)):
     }
 
 
+# ---------------------------------------------------------------------------
+# Routes — Daily
+# ---------------------------------------------------------------------------
+
 @app.get("/daily")
-def get_daily(
-    date: Optional[str] = None,
-    x_session_token: Optional[str] = Header(default=None),
-):
-    """
-    Return today's 10-question set.
-    The daily pipeline owns set creation — this endpoint reads it.
-    Pass ?date=YYYY-MM-DD to fetch a past set (archive).
-    Returns 503 if today's set hasn't been generated yet.
-    """
+def get_daily(date: Optional[str] = None, x_session_token: Optional[str] = Header(default=None)):
     target_date = date or datetime.now(timezone.utc).strftime("%Y-%m-%d")
     is_today = (target_date == datetime.now(timezone.utc).strftime("%Y-%m-%d"))
     conn = get_db()
 
-    row = conn.execute(
-        "SELECT question_ids FROM daily_sets WHERE date=?", (target_date,)
-    ).fetchone()
-
+    cur = _execute(conn, "SELECT question_ids FROM daily_sets WHERE date=?", (target_date,))
+    row = _fetchone(cur, conn)
     if not row:
         conn.close()
         if is_today:
@@ -666,244 +710,239 @@ def get_daily(
     q_ids = json.loads(row["question_ids"])
     user = _get_user_from_token(x_session_token, conn)
 
-    # Fetch full question objects in order
     questions = []
     for q_id in q_ids:
-        qrow = conn.execute("SELECT * FROM questions WHERE id=?", (q_id,)).fetchone()
+        cur = _execute(conn, "SELECT * FROM questions WHERE id=?", (q_id,))
+        qrow = _fetchone(cur, conn)
         if qrow:
             questions.append(_format_question(qrow))
 
-    # Fetch user's attempts for these questions (daily attempts only)
     attempts_map = {}
-    user_filter = "AND user_id = ?" if user else ""
-    user_param = [user["id"]] if user else []
     for q_id in q_ids:
-        a = conn.execute(
-            f"SELECT chosen, is_correct, attempted_at FROM attempts "
-            f"WHERE question_id=? AND is_daily=1 {user_filter} "
-            f"ORDER BY attempted_at DESC LIMIT 1",
-            [q_id] + user_param
-        ).fetchone()
+        if user:
+            cur = _execute(conn,
+                "SELECT chosen, is_correct, attempted_at FROM attempts "
+                "WHERE question_id=? AND is_daily=1 AND user_id=? ORDER BY attempted_at DESC LIMIT 1",
+                (q_id, user["id"]))
+        else:
+            cur = _execute(conn,
+                "SELECT chosen, is_correct, attempted_at FROM attempts "
+                "WHERE question_id=? AND is_daily=1 ORDER BY attempted_at DESC LIMIT 1",
+                (q_id,))
+        a = _fetchone(cur, conn)
         if a:
             attempts_map[q_id] = {"chosen": a["chosen"], "is_correct": bool(a["is_correct"]),
                                    "attempted_at": a["attempted_at"]}
 
     conn.close()
-
     attempted = len(attempts_map)
-    correct   = sum(1 for a in attempts_map.values() if a["is_correct"])
-
+    correct = sum(1 for a in attempts_map.values() if a["is_correct"])
     return {
-        "date": target_date,
-        "questions": questions,
-        "attempts": attempts_map,
-        "summary": {
-            "total": len(questions),
-            "attempted": attempted,
-            "correct": correct,
-            "completed": attempted == len(questions),
-        }
+        "date": target_date, "questions": questions, "attempts": attempts_map,
+        "summary": {"total": len(questions), "attempted": attempted,
+                    "correct": correct, "completed": attempted == len(questions)},
     }
 
 
 @app.get("/daily/archive")
-def get_archive(
-    detail: Optional[str] = None,   # ?detail=YYYY-MM-DD to get full question+attempt data for one set
-    x_session_token: Optional[str] = Header(default=None),
-):
-    """
-    List daily sets available to this user (from signup date onward).
-    Each set includes state: 'attempted' | 'unattempted'.
-    Pass ?detail=YYYY-MM-DD to get full question+attempt data for a specific set.
-    """
+def get_archive(detail: Optional[str] = None, x_session_token: Optional[str] = Header(default=None)):
     conn = get_db()
     user = _get_user_from_token(x_session_token, conn)
     signup_date = user["signup_date"] if user else None
     today = datetime.now(timezone.utc).strftime("%Y-%m-%d")
 
-    # If detail requested, return full question+attempt data for that date
     if detail:
-        row = conn.execute("SELECT question_ids FROM daily_sets WHERE date=?", (detail,)).fetchone()
+        cur = _execute(conn, "SELECT question_ids FROM daily_sets WHERE date=?", (detail,))
+        row = _fetchone(cur, conn)
         if not row:
             conn.close()
             raise HTTPException(404, f"No set found for {detail}")
         q_ids = json.loads(row["question_ids"])
-        user_filter = "AND user_id = ?" if user else ""
-        user_param = [user["id"]] if user else []
-
-        questions = []
-        attempts_map = {}
+        questions, attempts_map = [], {}
         for q_id in q_ids:
-            qrow = conn.execute("SELECT * FROM questions WHERE id=?", (q_id,)).fetchone()
+            cur = _execute(conn, "SELECT * FROM questions WHERE id=?", (q_id,))
+            qrow = _fetchone(cur, conn)
             if qrow:
                 questions.append(_format_question(qrow))
-            a = conn.execute(
-                f"SELECT chosen, is_correct, attempted_at FROM attempts "
-                f"WHERE question_id=? {user_filter} ORDER BY attempted_at DESC LIMIT 1",
-                [q_id] + user_param
-            ).fetchone()
+            if user:
+                cur = _execute(conn,
+                    "SELECT chosen, is_correct, attempted_at FROM attempts "
+                    "WHERE question_id=? AND user_id=? ORDER BY attempted_at DESC LIMIT 1",
+                    (q_id, user["id"]))
+            else:
+                cur = _execute(conn,
+                    "SELECT chosen, is_correct, attempted_at FROM attempts "
+                    "WHERE question_id=? ORDER BY attempted_at DESC LIMIT 1", (q_id,))
+            a = _fetchone(cur, conn)
             if a:
                 attempts_map[q_id] = {"chosen": a["chosen"], "is_correct": bool(a["is_correct"]),
                                        "attempted_at": a["attempted_at"]}
         conn.close()
         attempted_count = len(attempts_map)
-        state = "attempted" if attempted_count > 0 else "unattempted"
         return {
-            "date": detail,
-            "state": state,
-            "questions": questions,
-            "attempts": attempts_map,
-            "summary": {
-                "total": len(questions),
-                "attempted": attempted_count,
-                "correct": sum(1 for a in attempts_map.values() if a["is_correct"]),
-                "completed": attempted_count == len(questions),
-            }
+            "date": detail, "state": "attempted" if attempted_count > 0 else "unattempted",
+            "questions": questions, "attempts": attempts_map,
+            "summary": {"total": len(questions), "attempted": attempted_count,
+                        "correct": sum(1 for a in attempts_map.values() if a["is_correct"]),
+                        "completed": attempted_count == len(questions)},
         }
 
-    query = "SELECT date, question_ids, created_at FROM daily_sets"
-    params = []
     if signup_date:
-        query += " WHERE date >= ?"
-        params.append(signup_date)
-    query += " ORDER BY date DESC"
-
-    sets = conn.execute(query, params).fetchall()
+        cur = _execute(conn, "SELECT date, question_ids FROM daily_sets WHERE date >= ? ORDER BY date DESC", (signup_date,))
+    else:
+        cur = _execute(conn, "SELECT date, question_ids FROM daily_sets ORDER BY date DESC")
+    sets = _fetchall(cur, conn)
 
     result = []
     for s in sets:
         if s["date"] == today:
-            continue  # today is shown via /daily, not archive
+            continue
         q_ids = json.loads(s["question_ids"])
-        user_filter = "AND user_id = ?" if user else ""
-        user_param = [user["id"]] if user else []
+        placeholders = ",".join(["?"] * len(q_ids))
+        user_and = "AND user_id = ?" if user else ""
+        user_p = [user["id"]] if user else []
 
-        attempted = conn.execute(
-            f"SELECT COUNT(DISTINCT question_id) FROM attempts "
-            f"WHERE question_id IN ({','.join('?' * len(q_ids))}) {user_filter}",
-            q_ids + user_param
-        ).fetchone()[0]
-        correct = conn.execute(
-            f"SELECT COUNT(*) FROM attempts "
-            f"WHERE question_id IN ({','.join('?' * len(q_ids))}) AND is_correct=1 {user_filter}",
-            q_ids + user_param
-        ).fetchone()[0]
-        state = "attempted" if attempted > 0 else "unattempted"
+        cur = _execute(conn,
+            f"SELECT COUNT(DISTINCT question_id) FROM attempts WHERE question_id IN ({placeholders}) {user_and}",
+            q_ids + user_p)
+        attempted = list(_fetchone(cur, conn).values())[0] if USE_PG else _fetchone(cur, conn)[0]
+
+        cur = _execute(conn,
+            f"SELECT COUNT(*) FROM attempts WHERE question_id IN ({placeholders}) AND is_correct=1 {user_and}",
+            q_ids + user_p)
+        correct = list(_fetchone(cur, conn).values())[0] if USE_PG else _fetchone(cur, conn)[0]
+
         result.append({
-            "date": s["date"],
-            "total": len(q_ids),
-            "attempted": attempted,
-            "correct": correct,
-            "completed": attempted == len(q_ids),
-            "state": state,
+            "date": s["date"], "total": len(q_ids), "attempted": attempted,
+            "correct": correct, "completed": attempted == len(q_ids),
+            "state": "attempted" if attempted > 0 else "unattempted",
         })
 
     conn.close()
     return result
 
 
+# ---------------------------------------------------------------------------
+# Routes — Streak
+# ---------------------------------------------------------------------------
+
 @app.get("/streak/calendar")
 def get_streak_calendar(x_session_token: Optional[str] = Header(default=None)):
-    """
-    Return 7-day window centred on today (today = position 4).
-    Each day: date, attempted (bool), is_today (bool).
-    """
     conn = get_db()
     user = _get_user_from_token(x_session_token, conn)
     today = datetime.now(timezone.utc).date()
-
-    # Build 7-day window: today is index 3 (0-based), i.e. positions -3 to +3
     dates = [today + timedelta(days=i) for i in range(-3, 4)]
 
-    user_filter = "AND user_id = ?" if user else ""
-    user_param = [user["id"]] if user else []
+    if USE_PG:
+        uid_param = (user["id"],) if user else None
+        uid_check = "AND a.user_id = %s" if user else ""
 
-    # A day is "completed" (streak-worthy) if user answered ALL questions in that day's set on that day
-    completed_dates = set()
-    streak_rows = conn.execute(f"""
-        SELECT ds.date
-        FROM daily_sets ds
-        WHERE (
-            SELECT COUNT(DISTINCT a.question_id)
-            FROM attempts a
-            WHERE a.question_id IN (SELECT value FROM json_each(ds.question_ids))
-            AND DATE(a.attempted_at) = ds.date
-            {"AND a.user_id = ?" if user else ""}
-        ) >= json_array_length(ds.question_ids)
-    """, ([user["id"]] if user else [])).fetchall()
-    completed_dates = {r["date"] for r in streak_rows}
+        cur = conn.cursor()
+        cur.execute(f"""
+            SELECT ds.date FROM daily_sets ds
+            WHERE (
+                SELECT COUNT(DISTINCT a.question_id) FROM attempts a
+                WHERE a.question_id = ANY(ARRAY(SELECT json_array_elements_text(ds.question_ids::json)))
+                AND DATE(a.attempted_at::timestamp) = ds.date::date {uid_check}
+            ) >= json_array_length(ds.question_ids::json)
+        """, uid_param or ())
+        completed_dates = {str(r[0]) for r in cur.fetchall()}
 
-    # A day is "partially attempted" if user answered some (but not all) questions
-    partial_rows = conn.execute(f"""
-        SELECT ds.date
-        FROM daily_sets ds
-        WHERE (
-            SELECT COUNT(DISTINCT a.question_id)
-            FROM attempts a
-            WHERE a.question_id IN (SELECT value FROM json_each(ds.question_ids))
-            AND DATE(a.attempted_at) = ds.date
-            {"AND a.user_id = ?" if user else ""}
-        ) > 0
-        AND ds.date NOT IN ({",".join("?" * len(completed_dates)) if completed_dates else "NULL"})
-    """, ([user["id"]] if user else []) + list(completed_dates)).fetchall()
-    partial_dates = {r["date"] for r in partial_rows}
+        cur.execute(f"""
+            SELECT ds.date FROM daily_sets ds
+            WHERE (
+                SELECT COUNT(DISTINCT a.question_id) FROM attempts a
+                WHERE a.question_id = ANY(ARRAY(SELECT json_array_elements_text(ds.question_ids::json)))
+                AND DATE(a.attempted_at::timestamp) = ds.date::date {uid_check}
+            ) > 0
+        """, uid_param or ())
+        partial_dates = {str(r[0]) for r in cur.fetchall()} - completed_dates
+    else:
+        uid_check = "AND a.user_id = ?" if user else ""
+        uid_p = [user["id"]] if user else []
+
+        cur = _execute(conn, f"""
+            SELECT ds.date FROM daily_sets ds
+            WHERE (
+                SELECT COUNT(DISTINCT a.question_id) FROM attempts a
+                WHERE a.question_id IN (SELECT value FROM json_each(ds.question_ids))
+                AND DATE(a.attempted_at) = ds.date {uid_check}
+            ) >= json_array_length(ds.question_ids)
+        """, uid_p)
+        completed_dates = {r["date"] for r in _fetchall(cur, conn)}
+
+        cur = _execute(conn, f"""
+            SELECT ds.date FROM daily_sets ds
+            WHERE (
+                SELECT COUNT(DISTINCT a.question_id) FROM attempts a
+                WHERE a.question_id IN (SELECT value FROM json_each(ds.question_ids))
+                AND DATE(a.attempted_at) = ds.date {uid_check}
+            ) > 0
+        """, uid_p)
+        partial_dates = {r["date"] for r in _fetchall(cur, conn)} - completed_dates
+
     conn.close()
-
     return {
         "today": today.isoformat(),
         "days": [
-            {
-                "date": d.isoformat(),
-                "completed": d.isoformat() in completed_dates,      # full set done → streak
-                "partial": d.isoformat() in partial_dates,           # some questions done
-                "is_today": d == today,
-                "is_future": d > today,
-            }
+            {"date": d.isoformat(), "completed": d.isoformat() in completed_dates,
+             "partial": d.isoformat() in partial_dates,
+             "is_today": d == today, "is_future": d > today}
             for d in dates
-        ]
+        ],
     }
 
+
+# ---------------------------------------------------------------------------
+# Routes — Misc
+# ---------------------------------------------------------------------------
 
 @app.get("/subjects")
 def list_subjects():
     conn = get_db()
-    rows = conn.execute(
-        "SELECT subject, COUNT(*) as count FROM questions GROUP BY subject ORDER BY count DESC"
-    ).fetchall()
+    cur = _execute(conn, "SELECT subject, COUNT(*) as count FROM questions GROUP BY subject ORDER BY count DESC")
+    rows = _fetchall(cur, conn)
     conn.close()
     return [{"subject": r["subject"], "count": r["count"]} for r in rows]
 
 
 @app.post("/daily/restart")
 def restart_daily(date: Optional[str] = None):
-    """Clear all attempts for today's daily set so user can retake."""
     target_date = date or datetime.now(timezone.utc).strftime("%Y-%m-%d")
     conn = get_db()
-
-    row = conn.execute(
-        "SELECT question_ids FROM daily_sets WHERE date=?", (target_date,)
-    ).fetchone()
-
+    cur = _execute(conn, "SELECT question_ids FROM daily_sets WHERE date=?", (target_date,))
+    row = _fetchone(cur, conn)
     if not row:
         conn.close()
         raise HTTPException(404, "No daily set found for this date")
-
     q_ids = json.loads(row["question_ids"])
-    placeholders = ",".join("?" * len(q_ids))
-    deleted = conn.execute(
-        f"DELETE FROM attempts WHERE question_id IN ({placeholders})",
-        q_ids
-    ).rowcount
-    conn.commit()
+    placeholders = ",".join(["?"] * len(q_ids))
+    cur = _execute(conn, f"DELETE FROM attempts WHERE question_id IN ({placeholders})", q_ids)
+    deleted = cur.rowcount
+    _commit(conn)
     conn.close()
     return {"date": target_date, "attempts_cleared": deleted}
 
 
+@app.get("/stats")
+def stats():
+    conn = get_db()
+    cur = _execute(conn, "SELECT COUNT(*) FROM questions"); total_q = list(_fetchone(cur,conn).values())[0] if USE_PG else _fetchone(cur,conn)[0]
+    cur = _execute(conn, "SELECT COUNT(*) FROM questions WHERE status='pass'"); passed_q = list(_fetchone(cur,conn).values())[0] if USE_PG else _fetchone(cur,conn)[0]
+    cur = _execute(conn, "SELECT COUNT(*) FROM attempts"); total_a = list(_fetchone(cur,conn).values())[0] if USE_PG else _fetchone(cur,conn)[0]
+    conn.close()
+    return {"total_questions": total_q, "passed_questions": passed_q, "total_attempts": total_a}
+
+
+# ---------------------------------------------------------------------------
+# Internal / admin routes
+# ---------------------------------------------------------------------------
+
 @app.get("/internal/otp/{email}")
 def get_otp(email: str):
-    """Dev only — read current OTP for an email directly from DB."""
     conn = get_db()
-    row = conn.execute("SELECT code, expires_at FROM otps WHERE email=?", (email.lower(),)).fetchone()
+    cur = _execute(conn, "SELECT code, expires_at FROM otps WHERE email=?", (email.lower(),))
+    row = _fetchone(cur, conn)
     conn.close()
     if not row:
         raise HTTPException(404, "No OTP found for this email")
@@ -912,61 +951,34 @@ def get_otp(email: str):
 
 @app.get("/internal/users")
 def list_users():
-    """Admin view of all signed-up users."""
     conn = get_db()
-    rows = conn.execute(
-        "SELECT email, signup_date, created_at FROM users ORDER BY created_at DESC"
-    ).fetchall()
-    total_attempts = conn.execute("SELECT COUNT(*) FROM attempts WHERE user_id IS NOT NULL").fetchone()[0]
+    cur = _execute(conn, "SELECT email, signup_date, created_at FROM users ORDER BY created_at DESC")
+    rows = _fetchall(cur, conn)
+    cur = _execute(conn, "SELECT COUNT(*) FROM attempts WHERE user_id IS NOT NULL")
+    total_a = list(_fetchone(cur,conn).values())[0] if USE_PG else _fetchone(cur,conn)[0]
     conn.close()
     return {
-        "total_users": len(rows),
-        "total_attempts": total_attempts,
+        "total_users": len(rows), "total_attempts": total_a,
         "users": [{"email": r["email"], "signup_date": r["signup_date"], "created_at": r["created_at"]} for r in rows],
     }
 
 
 @app.post("/internal/sync")
 def internal_sync():
-    """Trigger a DB sync + re-import from JSON files without restarting."""
     inserted, skipped = import_questions()
     updated = sync_statuses()
     return {"inserted": inserted, "skipped": skipped, "statuses_synced": updated}
 
 
-class PushDailySetIn(BaseModel):
-    date: str               # YYYY-MM-DD
-    question_ids: List[str]
-    secret: str
-
-
 @app.post("/internal/push-daily-set")
 def push_daily_set(body: PushDailySetIn):
-    """
-    Called by the Mac pipeline after generating today's set.
-    Writes the daily_set record so Railway API serves it immediately.
-    Protected by PIPELINE_SECRET env var.
-    """
     if PIPELINE_SECRET and body.secret != PIPELINE_SECRET:
         raise HTTPException(403, "Forbidden")
     conn = get_db()
-    conn.execute(
-        "INSERT OR REPLACE INTO daily_sets (date, question_ids, created_at) VALUES (?,?,?)",
-        (body.date, json.dumps(body.question_ids), datetime.now(timezone.utc).isoformat())
-    )
-    conn.commit()
+    _upsert_daily_set(conn, body.date, json.dumps(body.question_ids), datetime.now(timezone.utc).isoformat())
+    _commit(conn)
     conn.close()
     return {"date": body.date, "questions": len(body.question_ids)}
-
-
-@app.get("/stats")
-def stats():
-    conn = get_db()
-    total_q = conn.execute("SELECT COUNT(*) FROM questions").fetchone()[0]
-    passed_q = conn.execute("SELECT COUNT(*) FROM questions WHERE status='pass'").fetchone()[0]
-    total_a = conn.execute("SELECT COUNT(*) FROM attempts").fetchone()[0]
-    conn.close()
-    return {"total_questions": total_q, "passed_questions": passed_q, "total_attempts": total_a}
 
 
 # ---------------------------------------------------------------------------
@@ -974,20 +986,15 @@ def stats():
 # ---------------------------------------------------------------------------
 
 def _format_question(row) -> dict:
-    sr_raw = row["suggested_reading"] if "suggested_reading" in row.keys() else None
+    sr_raw = row.get("suggested_reading") if isinstance(row, dict) else (row["suggested_reading"] if "suggested_reading" in row.keys() else None)
     suggested_reading = json.loads(sr_raw) if sr_raw else None
     return {
-        "id": row["id"],
-        "question": row["question"],
-        "options": json.loads(row["options"]),
-        "correct_answer": row["correct"],
-        "explanation": row["explanation"],
-        "difficulty": row["difficulty"],
-        "question_type": row["question_type"],
-        "source_type": row["source_type"],
-        "upsc_subject": row["upsc_subject"],
-        "upsc_topic": row["upsc_topic"],
-        "upsc_category": row["broad_category"],
+        "id": row["id"], "question": row["question"],
+        "options": json.loads(row["options"]) if isinstance(row["options"], str) else row["options"],
+        "correct_answer": row["correct"], "explanation": row["explanation"],
+        "difficulty": row["difficulty"], "question_type": row["question_type"],
+        "source_type": row["source_type"], "upsc_subject": row["upsc_subject"],
+        "upsc_topic": row["upsc_topic"], "upsc_category": row["broad_category"],
         "question_category": row["question_category"],
         "suggested_reading": suggested_reading,
         "is_pyq": "pyq" in (row["source_file"] or "").lower(),

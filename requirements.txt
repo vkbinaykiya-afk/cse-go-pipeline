@@ -4,3 +4,4 @@ anthropic==0.96.0
 httpx==0.28.1
 pydantic==2.12.5
 h11==0.16.0
+psycopg2-binary==2.9.9
