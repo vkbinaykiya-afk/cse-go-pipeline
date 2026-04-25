@@ -642,13 +642,13 @@ def get_report(x_session_token: Optional[str] = Header(default=None)):
                COUNT(a.id) AS total, SUM(a.is_correct) AS correct,
                ROUND(AVG(a.is_correct::float)*100, 1) AS accuracy_pct
         FROM attempts a JOIN questions q ON a.question_id = q.id
-        WHERE a.user_id = ? GROUP BY subject
+        WHERE a.user_id = ? GROUP BY COALESCE(q.upsc_subject, q.subject, 'Unknown')
     """ if USE_PG else """
         SELECT COALESCE(q.upsc_subject, q.subject, 'Unknown') AS subject,
                COUNT(a.id) AS total, SUM(a.is_correct) AS correct,
                ROUND(AVG(a.is_correct)*100, 1) AS accuracy_pct
         FROM attempts a JOIN questions q ON a.question_id = q.id
-        WHERE a.user_id = ? GROUP BY subject
+        WHERE a.user_id = ? GROUP BY COALESCE(q.upsc_subject, q.subject, 'Unknown')
     """, (uid,))
     attempted_map = {r["subject"]: r for r in _fetchall(cur, conn)}
 
