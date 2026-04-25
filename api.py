@@ -648,8 +648,8 @@ def get_report(x_session_token: Optional[str] = Header(default=None)):
     try:
         cur = _execute(conn, """
             SELECT COALESCE(q.upsc_subject, q.subject, 'Unknown') AS subject,
-                   COUNT(a.id) AS total, SUM(a.is_correct::int) AS correct,
-                   ROUND(AVG(a.is_correct::float)*100, 1) AS accuracy_pct
+                   COUNT(a.id) AS total, SUM(a.is_correct) AS correct,
+                   ROUND((100.0 * SUM(a.is_correct) / COUNT(a.id))::numeric, 1) AS accuracy_pct
             FROM attempts a JOIN questions q ON a.question_id = q.id
             WHERE a.user_id = ? GROUP BY COALESCE(q.upsc_subject, q.subject, 'Unknown')
         """ if USE_PG else """
@@ -659,7 +659,31 @@ def get_report(x_session_token: Optional[str] = Header(default=None)):
             FROM attempts a JOIN questions q ON a.question_id = q.id
             WHERE a.user_id = ? GROUP BY COALESCE(q.upsc_subject, q.subject, 'Unknown')
         """, (uid,))
-        attempted_map = {r["subject"]: r for r in _fetchall(cur, conn)}
+        _SUBJ_NORM = {
+            "economy": "Economics", "science & tech": "Science & Technology",
+            "science and technology": "Science & Technology", "indian polity": "Polity",
+            "polity & governance": "Polity", "art & culture": "Art & Culture",
+            "current affairs": "Current Affairs",
+        }
+        raw_rows = _fetchall(cur, conn)
+        attempted_map = {}
+        for r in raw_rows:
+            key = _SUBJ_NORM.get(r["subject"].lower(), r["subject"])
+            if key in attempted_map:
+                # merge if same normalized subject appears twice
+                attempted_map[key] = {
+                    "subject": key,
+                    "total": attempted_map[key]["total"] + r["total"],
+                    "correct": attempted_map[key]["correct"] + r["correct"],
+                    "accuracy_pct": None,
+                }
+            else:
+                attempted_map[key] = dict(r)
+                attempted_map[key]["subject"] = key
+        # recalculate accuracy for merged rows
+        for k, v in attempted_map.items():
+            if v["total"]:
+                v["accuracy_pct"] = round(v["correct"] / v["total"] * 100, 1)
     except Exception as e:
         print(f"[REPORT ERROR - subject_breakdown] {e}")
         attempted_map = {}
@@ -695,7 +719,7 @@ def get_report(x_session_token: Optional[str] = Header(default=None)):
                 FROM daily_sets ds
                 LEFT JOIN attempts a
                   ON a.user_id = %s
-                  AND DATE(a.attempted_at::timestamp) = ds.date::date
+                  AND DATE(a.attempted_at::timestamptz) = ds.date::date
                 GROUP BY ds.date, ds.question_ids
                 ORDER BY ds.date DESC
             """, (uid,))
