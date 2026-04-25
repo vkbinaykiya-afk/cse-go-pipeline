@@ -438,6 +438,7 @@ For EACH statement you write in the question body:
 Do NOT include a statement if you cannot find a verbatim extract to confirm or contradict it.
 Do NOT test facts that only exist in your training knowledge — only what the chunks say.
 Do NOT reference "the passage", "the chunk", "the extract", "CA chunk", "NCERT text", or any source in the question OR explanation. Write all explanations as direct factual statements.
+Do NOT frame questions as "Based on NCERT evidence", "According to NCERT", or "As per NCERT". NCERTs are textbooks, not primary historical sources — questions must stand on factual merit alone.
 
 ── cited_extracts ARRAY ─────────────────────────────────────────────────────────
 One entry per statement, in the same order as the statements appear in the question.
@@ -507,6 +508,7 @@ For statement_based format:
 
 Do NOT test facts absent from the provided chunks.
 Do NOT reference "the passage", "the chunk", "the extract", "CA chunk", "NCERT text", or any source in the question OR explanation. Write all explanations as direct factual statements.
+Do NOT frame questions as "Based on NCERT evidence", "According to NCERT", or "As per NCERT". NCERTs are textbooks, not primary sources — questions must stand on factual merit alone.
 Use concept_link notes from the CA facts to guide what underlying UPSC concept to test.
 
 ── ASSERTION-REASON RESTRICTION ─────────────────────────────────────────────────
