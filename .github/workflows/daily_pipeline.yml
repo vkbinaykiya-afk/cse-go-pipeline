@@ -5,6 +5,9 @@ on:
     - cron: "30 3 * * *"   # 3:30 AM UTC = 9:00 AM IST
   workflow_dispatch:        # manual trigger from GitHub UI
 
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
 jobs:
   run-pipeline:
     runs-on: ubuntu-latest
