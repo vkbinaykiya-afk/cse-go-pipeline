@@ -21,12 +21,43 @@ jobs:
       - name: Install dependencies
         run: pip install -r requirements.txt
 
+      - name: Install rclone
+        run: |
+          curl https://rclone.org/install.sh | sudo bash
+          mkdir -p ~/.config/rclone
+          cat > ~/.config/rclone/rclone.conf << EOF
+          [r2]
+          type = s3
+          provider = Cloudflare
+          access_key_id = ${{ secrets.R2_ACCESS_KEY_ID }}
+          secret_access_key = ${{ secrets.R2_SECRET_ACCESS_KEY }}
+          endpoint = https://${{ secrets.CF_ACCOUNT_ID }}.r2.cloudflarestorage.com
+          acl = private
+          no_check_bucket = true
+          EOF
+
+      - name: Download data from R2
+        run: |
+          rclone copy r2:cse-go-pipeline/chroma-db.tar.gz . --progress
+          rclone copy r2:cse-go-pipeline/cse_go.db.tar.gz . --progress
+          tar -xzf chroma-db.tar.gz
+          tar -xzf cse_go.db.tar.gz
+          echo "chroma-db chunks: $(python3 -c "import chromadb; c=chromadb.PersistentClient('./chroma-db'); print(c.get_collection('cse_knowledge_base').count())")"
+
       - name: Run daily pipeline
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
           PIPELINE_SECRET: ${{ secrets.PIPELINE_SECRET }}
           RAILWAY_URL: ${{ secrets.RAILWAY_URL }}
         run: python3 daily_pipeline.py
+
+      - name: Upload updated data to R2
+        if: success()
+        run: |
+          tar -czf chroma-db.tar.gz chroma-db/
+          tar -czf cse_go.db.tar.gz cse_go.db
+          rclone copy chroma-db.tar.gz r2:cse-go-pipeline/ --progress
+          rclone copy cse_go.db.tar.gz r2:cse-go-pipeline/ --progress
 
       - name: Upload logs
         if: always()
