@@ -33,9 +33,8 @@ from chromadb.utils.embedding_functions import SentenceTransformerEmbeddingFunct
 SOURCE_DIR    = "./source-docs"        # put your PDFs here
 CHROMA_DIR    = "./chroma-db"          # ChromaDB will create and manage this folder
 COLLECTION    = "cse_knowledge_base"   # name of the vector database collection
-CHUNK_WORDS   = 500                    # each chunk is ~500 words
-OVERLAP_WORDS = 50                     # last 50 words of chunk N become first 50 of chunk N+1
-                                       # overlap preserves context at chunk boundaries
+CHUNK_WORDS   = 800                    # each chunk is ~800 words
+OVERLAP_WORDS = 150                    # 150-word overlap preserves context across boundaries
 EMBED_MODEL   = "all-MiniLM-L6-v2"    # free, fast, runs locally — no API key needed
 # ─────────────────────────────────────────────────────────────────────────────
 
@@ -191,12 +190,25 @@ def create_chunks(word_list, chunk_size=CHUNK_WORDS, overlap=OVERLAP_WORDS):
     return chunks
 
 
+def extract_subject(filename):
+    """Infer UPSC subject from NCERT filename for metadata filtering."""
+    f = filename.lower()
+    if "geography" in f:                          return "Geography"
+    if "history" in f:                            return "History"
+    if "civics" in f or "political" in f:         return "Polity"
+    if "economics" in f or "economy" in f:        return "Economics"
+    if "science" in f and "social" not in f:      return "Science & Technology"
+    if "social_science" in f or "society" in f:   return "History"  # broad social science → History
+    return "General"
+
+
 def ingest_one_pdf(pdf_path, collection):
     """
     Runs the full extract → chunk → store pipeline for a single PDF.
     Returns the number of chunks stored.
     """
     filename = os.path.basename(pdf_path)
+    subject  = extract_subject(filename)
     print(f"\n  Processing: {filename}")
 
     # Extract text page by page
@@ -239,7 +251,8 @@ def ingest_one_pdf(pdf_path, collection):
         metadatas.append({
             "source":      filename,
             "page":        chunk["start_page"],
-            "chunk_index": chunk["chunk_index"]
+            "chunk_index": chunk["chunk_index"],
+            "subject":     subject,
         })
         ids.append(chunk_id)
 

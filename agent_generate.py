@@ -49,9 +49,9 @@ SONNET_MODEL  = "claude-sonnet-4-6"          # CA + inference questions
 HAIKU_MODEL   = "claude-haiku-4-5-20251001"  # static + PYQ-style questions
 
 MAX_AGENT_TURNS = 14    # safety cap on tool calls per question
-TOP_K_NCERT     = 3
+TOP_K_NCERT     = 5
 TOP_K_PYQ       = 2
-TOP_K_CA        = 3
+TOP_K_CA        = 5
 
 # Batch mode: CA distance threshold — below this = CA hit → use Sonnet
 CA_HIT_THRESHOLD = 0.55
@@ -249,15 +249,24 @@ DIFFICULTY GUIDE:
 
 # ── TOOL EXECUTORS ────────────────────────────────────────────────────────────
 
-def execute_search_ncert(ncert_col, query, n_results=3):
-    n = min(int(n_results), 5)
-    results = ncert_col.query(query_texts=[query], n_results=n)
+def execute_search_ncert(ncert_col, query, n_results=5, subject_filter=None):
+    n = min(int(n_results), 8)
+    # Try subject-scoped retrieval first; fall back to unfiltered if too few results
+    where = {"subject": {"$eq": subject_filter}} if subject_filter else None
+    try:
+        results = ncert_col.query(query_texts=[query], n_results=n, where=where)
+        if where and len(results["documents"][0]) < 2:
+            # Not enough subject-scoped chunks — widen to full collection
+            results = ncert_col.query(query_texts=[query], n_results=n)
+    except Exception:
+        results = ncert_col.query(query_texts=[query], n_results=n)
     chunks = []
     for i in range(len(results["documents"][0])):
         chunks.append({
             "text":     results["documents"][0][i],
             "source":   results["metadatas"][0][i]["source"],
             "page":     results["metadatas"][0][i]["page"],
+            "subject":  results["metadatas"][0][i].get("subject", ""),
             "distance": round(results["distances"][0][i], 4)
         })
     return chunks
@@ -545,9 +554,34 @@ def batch_retrieve(topics, ncert_col, ca_col):
     Returns list of {topic, ncert_chunks, ca_chunks, tier} dicts.
     Tier = 'sonnet' if CA hit is strong, else 'haiku'.
     """
+    # Map UPSC subject names to metadata subject values used in ingest.py
+    SUBJECT_MAP = {
+        "history": "History", "art & culture": "History",
+        "geography": "Geography",
+        "polity": "Polity", "governance": "Polity",
+        "economics": "Economics", "economy": "Economics",
+        "science": "Science & Technology", "science & technology": "Science & Technology",
+        "environment": "Geography",  # env content mostly in Geography NCERTs
+        "current affairs": None,     # no subject filter for CA topics
+    }
+
+    def _subject_for_topic(topic_str):
+        t = topic_str.lower()
+        for key, val in SUBJECT_MAP.items():
+            if key in t:
+                return val
+        return None
+
     results = []
     for topic in topics:
-        ncert_res = ncert_col.query(query_texts=[topic], n_results=BATCH_NCERT_K)
+        subject_hint = _subject_for_topic(topic)
+        where = {"subject": {"$eq": subject_hint}} if subject_hint else None
+        try:
+            ncert_res = ncert_col.query(query_texts=[topic], n_results=BATCH_NCERT_K, where=where)
+            if where and len(ncert_res["documents"][0]) < 2:
+                ncert_res = ncert_col.query(query_texts=[topic], n_results=BATCH_NCERT_K)
+        except Exception:
+            ncert_res = ncert_col.query(query_texts=[topic], n_results=BATCH_NCERT_K)
         ncert_chunks = []
         for i in range(len(ncert_res["documents"][0])):
             ncert_chunks.append({
