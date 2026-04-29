@@ -500,24 +500,56 @@ def build_daily_set(records, date_str):
     pipeline_secret = os.environ.get("PIPELINE_SECRET", "")
     if railway_url:
         try:
-            # Push question data first so Railway has all IDs before the daily set
+            # Build a lookup from today's in-memory records so newly generated
+            # questions (not yet in SQLite) are still included in the payload.
+            records_by_id = {}
+            for r in records:
+                r_id = str(uuid.uuid5(uuid.NAMESPACE_DNS, r.get("question", "") + r.get("source_file", "")))
+                records_by_id[r_id] = r
+
             conn2 = sqlite3.connect(DB_PATH)
             conn2.row_factory = sqlite3.Row
             q_payload = []
             for q_id in selected:
-                row = conn2.execute("SELECT * FROM questions WHERE id=?", (q_id,)).fetchone()
-                if row:
+                r = records_by_id.get(q_id)
+                if r:
+                    # Use in-memory record for today's new questions
                     q_payload.append({
-                        "id": row["id"], "question": row["question"],
-                        "options": json.loads(row["options"]) if row["options"] else {},
-                        "correct_answer": row["correct"], "explanation": row["explanation"],
-                        "subject": row["subject"], "difficulty": row["difficulty"],
-                        "question_type": row["question_type"], "source_type": row["source_type"],
-                        "source_file": row["source_file"] or "", "source_page": row["source_page"],
-                        "status": row["status"], "cited_extracts": json.loads(row["extracts"] or "[]"),
-                        "upsc_subject": row["upsc_subject"], "upsc_topic": row["upsc_topic"],
-                        "broad_category": row["broad_category"], "question_category": row["question_category"],
+                        "id": q_id,
+                        "question": r.get("question", ""),
+                        "options": r.get("options", {}),
+                        "correct_answer": r.get("correct_answer", ""),
+                        "explanation": r.get("explanation", ""),
+                        "subject": r.get("subject", ""),
+                        "difficulty": r.get("difficulty", ""),
+                        "question_type": r.get("question_type", ""),
+                        "source_type": r.get("source_type", ""),
+                        "source_file": r.get("source_file", ""),
+                        "source_page": r.get("source_page"),
+                        "status": r.get("status", "pass"),
+                        "cited_extracts": r.get("cited_extracts", []),
+                        "upsc_subject": r.get("upsc_subject"),
+                        "upsc_topic": r.get("upsc_topic"),
+                        "broad_category": r.get("broad_category"),
+                        "question_category": r.get("question_category"),
                     })
+                else:
+                    # Fall back to SQLite for historical (PYQ/pool) questions
+                    row = conn2.execute("SELECT * FROM questions WHERE id=?", (q_id,)).fetchone()
+                    if row:
+                        q_payload.append({
+                            "id": row["id"], "question": row["question"],
+                            "options": json.loads(row["options"]) if row["options"] else {},
+                            "correct_answer": row["correct"], "explanation": row["explanation"],
+                            "subject": row["subject"], "difficulty": row["difficulty"],
+                            "question_type": row["question_type"], "source_type": row["source_type"],
+                            "source_file": row["source_file"] or "", "source_page": row["source_page"],
+                            "status": row["status"], "cited_extracts": json.loads(row["extracts"] or "[]"),
+                            "upsc_subject": row["upsc_subject"], "upsc_topic": row["upsc_topic"],
+                            "broad_category": row["broad_category"], "question_category": row["question_category"],
+                        })
+                    else:
+                        logging.warning(f"  Question {q_id} not found in records or SQLite — skipping from payload")
             conn2.close()
             if q_payload:
                 qresp = requests.post(
