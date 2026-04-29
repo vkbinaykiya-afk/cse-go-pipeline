@@ -50,7 +50,7 @@ API_BASE      = os.environ.get("RAILWAY_API_URL", "http://localhost:8000")
 EMBED_MODEL   = "all-MiniLM-L6-v2"
 PLANNER_MODEL = "claude-sonnet-4-6"
 TARGET_PASS   = 10    # aim for this many passing questions per day
-GENERATE_N    = 15    # topics to generate (expect ~65% pass rate after repair)
+GENERATE_N    = 20    # topics to generate (expect ~65% pass rate after repair)
 CHECK_WORKERS = 3     # parallel checker threads (conservative to avoid 529 overload)
 RECENT_TOPIC_LOOKBACK = 7  # days to look back for recently covered topics
 
