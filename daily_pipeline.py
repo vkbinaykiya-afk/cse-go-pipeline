@@ -46,7 +46,7 @@ CHROMA_DIR    = "./chroma-db"
 QUESTIONS_DIR = Path("./questions")
 LOGS_DIR      = Path("./logs")
 DB_PATH       = Path("./cse_go.db")
-API_BASE      = "http://localhost:8000"
+API_BASE      = os.environ.get("RAILWAY_API_URL", "http://localhost:8000")
 EMBED_MODEL   = "all-MiniLM-L6-v2"
 PLANNER_MODEL = "claude-sonnet-4-6"
 TARGET_PASS   = 10    # aim for this many passing questions per day
@@ -328,6 +328,9 @@ def sync_db():
         logging.info("  API not reachable, syncing DB directly ...")
         conn = sqlite3.connect(DB_PATH)
         conn.row_factory = sqlite3.Row
+        # Ensure repair_note column exists (may be missing in older DBs)
+        conn.execute("ALTER TABLE questions ADD COLUMN repair_note TEXT")
+        conn.commit()
         files = glob.glob(str(QUESTIONS_DIR / "*.json"))
         updated = 0
         for fpath in files:

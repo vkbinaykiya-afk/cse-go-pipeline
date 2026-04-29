@@ -51,7 +51,7 @@ jobs:
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
           PIPELINE_SECRET: ${{ secrets.PIPELINE_SECRET }}
-          RAILWAY_URL: ${{ secrets.RAILWAY_URL }}
+          RAILWAY_API_URL: ${{ secrets.RAILWAY_URL }}
         run: python3 daily_pipeline.py
 
       - name: Upload updated data to R2
