@@ -25,19 +25,19 @@ jobs:
         run: pip install -r requirements.txt
 
       - name: Install rclone
+        run: curl https://rclone.org/install.sh | sudo bash
+
+      - name: Configure rclone
+        env:
+          CF_ACCOUNT_ID: ${{ secrets.CF_ACCOUNT_ID }}
+          R2_ACCESS_KEY_ID: ${{ secrets.R2_ACCESS_KEY_ID }}
+          R2_SECRET_ACCESS_KEY: ${{ secrets.R2_SECRET_ACCESS_KEY }}
         run: |
-          curl https://rclone.org/install.sh | sudo bash
           mkdir -p ~/.config/rclone
-          cat > ~/.config/rclone/rclone.conf << EOF
-          [r2]
-          type = s3
-          provider = Cloudflare
-          access_key_id = ${{ secrets.R2_ACCESS_KEY_ID }}
-          secret_access_key = ${{ secrets.R2_SECRET_ACCESS_KEY }}
-          endpoint = https://${{ secrets.CF_ACCOUNT_ID }}.r2.cloudflarestorage.com
-          acl = private
-          no_check_bucket = true
-          EOF
+          printf '[r2]\ntype = s3\nprovider = Cloudflare\naccess_key_id = %s\nsecret_access_key = %s\nendpoint = https://%s.r2.cloudflarestorage.com\nacl = private\nno_check_bucket = true\n' \
+            "$R2_ACCESS_KEY_ID" "$R2_SECRET_ACCESS_KEY" "$CF_ACCOUNT_ID" \
+            > ~/.config/rclone/rclone.conf
+          rclone ls r2:cse-go-pipeline/ 2>&1
 
       - name: Download data from R2
         run: |
