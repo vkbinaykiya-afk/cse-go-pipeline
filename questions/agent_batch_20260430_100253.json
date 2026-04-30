@@ -1,0 +1,333 @@
+[
+  {
+    "topic_query": "Montague-Chelmsford Reforms 1919 and Dyarchy in Provincial Government",
+    "question": "Consider the following statements about the Montagu-Chelmsford Reforms (1government of India Act 1919):\n1. The reforms introduced a system of diarchy (rule of two) at the provincial government level.\n2. The diarchy system was implemented across all provinces of British India uniformly.\n3. The reforms recommended limited extension of voting rights to women based on property, tax, or education qualifications.\nWhich of the above statements is/are correct?",
+    "options": {
+      "A": "1 and 3 only",
+      "B": "2 and 3 only",
+      "C": "1 only",
+      "D": "1, 2 and 3"
+    },
+    "correct_answer": "A",
+    "explanation": "Statements 1 and 3 are correct. The Montagu-Chelmsford Reforms introduced diarchy at the provincial level, whereby certain subjects were placed under Indian control while others remained under British control. The reforms also recommended extending voting rights to women on the basis of property, tax, or education qualifications—not universal adult suffrage. Statement 2 is incorrect because diarchy was implemented specifically in eight named provinces (Assam, Bengal, Bihar and Orissa, Central Provinces, United Provinces, Bombay, Madras, and Punjab), not uniformly across all provinces.",
+    "cited_extracts": [
+      "The GoI Act 1919 introduced a diarchy (rule of two individuals/parties) for the executive at the level of the provincial government.",
+      "The diarchy was implemented in eight provinces: Assam, Bengal, Bihar and Orissa, Central Provinces, United Provinces, Bombay, Madras and Punjab.",
+      "recommended the voting rights to women in limited numbers to be extended on the basis of property, tax or education"
+    ],
+    "source_file": "Prelims PYQ (2011-2025).pdf",
+    "source_page": 157,
+    "source_type": "ncert",
+    "question_type": "statement_based",
+    "difficulty": "medium",
+    "model_tier": "haiku",
+    "status": "pass",
+    "factual_ok": true,
+    "unique_ok": true,
+    "distractors_ok": true,
+    "flag_reason": null,
+    "grounding_ok": true,
+    "ambiguity_ok": true
+  },
+  {
+    "topic_query": "National Food Security Act 2013 — provisions, coverage, entitlements, and implementation challenges",
+    "question": "Consider the following statements about food security in India:\n1. Food security was redefined by Amartya Sen to include not just availability of food but also 'access' to food through entitlements.\n2. India's food security system relies exclusively on buffer stock for ensuring food availability to all sections of society.\n3. The public distribution system (PDS) works in conjunction with poverty alleviation programmes as part of the broader food security framework.\nWhich of the above statements is/are correct?",
+    "options": {
+      "A": "1 and 3 only",
+      "B": "2 only",
+      "C": "1 and 2 only",
+      "D": "1, 2 and 3"
+    },
+    "correct_answer": "A",
+    "explanation": "Statements 1 and 3 are correct. Amartya Sen expanded the concept of food security beyond mere availability to emphasize access to food through what he called 'entitlements'—recognizing that people need not just the existence of food but the means to obtain it. India's food security system operates through multiple mechanisms including both buffer stock and public distribution systems, and these work alongside various poverty alleviation programmes. Statement 2 is incorrect because India's food security system is composed of two components—buffer stock AND public distribution system—not buffer stock alone, and it is further supplemented by poverty alleviation programmes.",
+    "cited_extracts": [
+      "Amartya Sen added a new dimension to food security and emphasised the \"access\" to food through what he called 'entitlements'",
+      "To ensure availability of food to all sections of the society the Indian government carefully designed food security system, which is composed of two components: (a) buffer stock and (b) public distribution system. In addition to PDS, various poverty alleviation programmes",
+      "To ensure availability of food to all sections of the society the Indian government carefully designed food security system, which is composed of two components: (a) buffer stock and (b) public distribution system. In addition to PDS, various poverty alleviation programmes"
+    ],
+    "source_file": "Class_09_Economics_Understanding_Economic_Development.pdf",
+    "source_page": 42,
+    "source_type": "ncert",
+    "question_type": "statement_based",
+    "difficulty": "medium",
+    "model_tier": "haiku",
+    "status": "pass",
+    "factual_ok": true,
+    "unique_ok": true,
+    "distractors_ok": true,
+    "flag_reason": null,
+    "grounding_ok": true,
+    "ambiguity_ok": true
+  },
+  {
+    "topic_query": "Industrial Revolution — causes, social consequences, and impact on colonialism in Asia",
+    "question": "Consider the following statements about the Industrial Revolution and its global impact:\n1. The Industrial Revolution, originating in Britain, enabled European powers to establish more intense and powerful systems of colonial control over Africa and Asia compared to earlier empires.\n2. The decline of Indian traditional cottage and handicraft industries was a direct consequence of the Industrial Revolution in England coupled with the colonization of India.\n3. The Industrial Revolution led to the immediate political independence of Asian nations by strengthening their own industrial capacity.\nWhich of the above statements is/are correct?",
+    "options": {
+      "A": "1 and 2 only",
+      "B": "2 only",
+      "C": "1 and 3 only",
+      "D": "1, 2 and 3"
+    },
+    "correct_answer": "A",
+    "explanation": "Statements 1 and 2 are correct. The Industrial Revolution in Britain provided European powers—particularly Britain, France, and Germany—with technological and economic advantages that enabled them to create systems of colonial control over parts of Africa and Asia that were more intense and powerful than those of earlier empires. Similarly, the deindustrialization of traditional Indian cottage and handicraft industries resulted directly from England's Industrial Revolution combined with India's colonization, as British machine-made goods displaced local hand-made products. Statement 3 is incorrect because the Industrial Revolution did not lead to immediate political independence for Asian nations; rather, it strengthened colonial control. Asian nations like Japan that achieved rapid economic and industrial progress did so largely by remaining free of colonial control—a different trajectory altogether.",
+    "cited_extracts": [
+      "Britain, France and Germany were able to create systems of colonial control over parts of Africa and Asia – systems more intense and powerful than those of earlier empires.",
+      "Declining and deindustrialisation of the Indian traditional cottage and handicraft industry was a direct effect of the industrial revolution in England along with the colonisation of India.",
+      "Japan succeeded in remaining free of colonial control and achieved fairly rapid economic and industrial pr"
+    ],
+    "source_file": "Class_11_History_Themes_in_World_History.pdf",
+    "source_page": 183,
+    "source_type": "ncert",
+    "question_type": "statement_based",
+    "difficulty": "medium",
+    "model_tier": "haiku",
+    "status": "pass",
+    "factual_ok": true,
+    "unique_ok": true,
+    "distractors_ok": true,
+    "flag_reason": null,
+    "grounding_ok": true,
+    "ambiguity_ok": true
+  },
+  {
+    "topic_query": "Basic Structure Doctrine — Kesavananda Bharati case and subsequent judicial interpretations",
+    "question": "With reference to the Basic Structure Doctrine and constitutional amendments in India, consider the following statements:\n\n1. The controversy over Parliament's power to amend the Constitution was settled by the Supreme Court's ruling in the Kesavananda Bharati case, which held that Parliament cannot alter certain basic features of the Constitution.\n2. The 42nd Amendment Act of 1976 curtailed the power of High Courts in judicial review by debarring them from considering the constitutional validity of any central law, and this position was subsequently restored by the 43rd Amendment Act of 1978.\n\nWhich of the statements given above is/are correct?",
+    "options": {
+      "A": "1 only",
+      "B": "2 only",
+      "C": "Both 1 and 2",
+      "D": "Neither 1 nor 2"
+    },
+    "correct_answer": "C",
+    "explanation": "Statement 1 is correct. The Supreme Court in the Kesavananda Bharati case ruled that Parliament can amend the Constitution but cannot alter its basic features, settling the long-standing controversy about whether Parliament's amending power was unlimited. Statement 2 is also correct. The 42nd Amendment Act of 1976 curtailed the power of High Courts in judicial review and debarred them from considering the constitutional validity of any central law. The 43rd Amendment Act of 1978 then restored the original position, and High Courts are now considered principal civil courts of original jurisdiction with power to declare any central law constitutionally invalid.",
+    "cited_extracts": [
+      "The government was saying that Parliament can amend any part of the Constitution. The court was saying that Parliament cannot make an amendment that violated Fundamental Rights. This controversy was settled by an important decision of the Supreme Court in Kesavananda Bharati case. In this case, the court said that there are certain basic features of the Constitution and these cannot be changed by Parliament.",
+      "of 1976 curtailed the power of HC in judicial review and debarred the HC from considering the constitutional validity of any central law. However, the 43rd Amendment Act of 1978 restored the original position of the HC and moreover now the HC is considered as the principal civil courts of original jurisdiction in each state and union territory, thus they shall have the jurisdiction to declare any central law to be constitutionally invalid."
+    ],
+    "source_file": "Class_11_Political_Science_Indian_Constitution_at_Work.pdf; Prelims PYQ (2011-2025).pdf",
+    "source_page": 47,
+    "source_type": "both",
+    "question_type": "statement_based",
+    "difficulty": "medium",
+    "model_tier": "sonnet",
+    "status": "pass",
+    "factual_ok": true,
+    "unique_ok": true,
+    "distractors_ok": true,
+    "flag_reason": null,
+    "grounding_ok": true,
+    "ambiguity_ok": true
+  },
+  {
+    "topic_query": "Semiconductor Mission and India's chip fabrication policy under Atmanirbhar Bharat",
+    "question": "With reference to India's initiatives to develop its electronics and semiconductor manufacturing ecosystem, consider the following statements:\n\n1. The Production-Linked Incentive (PLI) Scheme covers 14 sectors, with a focus on mobile phones and IT hardware to boost exports and technology adoption.\n2. The Scheme for Promotion of Manufacturing of Electronic Components and Semiconductors (SPECS) offers a 25% financial incentive on capital expenditure to facilitate India's transition from assembly-based to component manufacturing.\n3. The India Semiconductor Mission is primarily aimed at democratising access to shared computing resources such as Graphics Processing Units.\n\nWhich of the statements given above is/are correct?",
+    "options": {
+      "A": "1 and 2 only",
+      "B": "2 and 3 only",
+      "C": "1 and 3 only",
+      "D": "1, 2 and 3"
+    },
+    "correct_answer": "A",
+    "explanation": "Statement 1 is correct. The PLI Scheme covers 14 sectors with a focus on mobile phones and IT hardware to boost exports and technology adoption. Statement 2 is correct. SPECS offers a 25% financial incentive on capital expenditure, aimed at moving India from assembly-based manufacturing to component-level production. Statement 3 is incorrect. The India Semiconductor Mission is aimed at reducing import dependence in semiconductors, not at democratising access to GPUs. It is platforms such as MeghRaj GI Cloud and IndiaAI Compute Portal that are democratising access to shared computing resources like GPUs.",
+    "cited_extracts": [
+      "Production-Linked Incentive (PLI) Scheme: It covers 14 sectors, focusing on mobile phones and IT hardware to boost exports and technology adoption.",
+      "The Scheme for Promotion of Manufacturing of Electronic Components and Semiconductors offers 25% financial incentive on capital expenditure to facilitate India's transition from assembly-based to component-manufacturing economy.",
+      "India Semiconductor Mission to reduced import dependence in semiconductors. • A (Accessible and Inclusive AI): It ensures that AI must serve as a multiplier for society, not a monopoly of a privileged few. o E.g., Platforms such as MeghRaj GI Cloud and IndiaAI Compute Portal are democratising access to shared computing resources like Graphics Processing Units (GPUs)."
+    ],
+    "source_file": "Government Electronics and Capital Goods Manufacturing Initiatives FY2026-27; Monthly Current Affairs- February 2026.pdf",
+    "source_page": 55,
+    "source_type": "both",
+    "question_type": "statement_based",
+    "difficulty": "hard",
+    "model_tier": "sonnet",
+    "status": "pass",
+    "factual_ok": true,
+    "unique_ok": true,
+    "distractors_ok": true,
+    "flag_reason": null,
+    "grounding_ok": true,
+    "ambiguity_ok": true
+  },
+  {
+    "topic_query": "India-Middle East-Europe Economic Corridor (IMEC) — strategic significance and current status",
+    "question": "With reference to India's strategic and economic partnerships in recent years, consider the following statements:\n\n1. India and the European Union concluded negotiations on a Free Trade Agreement at the 16th India–EU Summit, making the EU India's 22nd FTA partner.\n2. The concluded India–EU FTA texts require legal review and translation before submission to the European Council for approval and the European Parliament for consent.\n3. India and UAE agreed to increase bilateral trade to over US$ 200 billion by 2032, building upon a Comprehensive Economic Partnership Agreement signed between the two countries.\n\nWhich of the statements given above is/are correct?",
+    "options": {
+      "A": "1 and 2 only",
+      "B": "2 and 3 only",
+      "C": "1 and 3 only",
+      "D": "1, 2 and 3"
+    },
+    "correct_answer": "D",
+    "explanation": "All three statements are correct. Statement 1 is confirmed by the formal announcement at the 16th India–EU Summit where the EU became India's 22nd FTA partner. Statement 2 is correct as the agreed texts must undergo legal review and translation before submission to the European Council for approval and the European Parliament for consent. Statement 3 is correct as India and UAE agreed to increase bilateral trade to over US$ 200 billion by 2032, building on their CEPA signed in 2022 which facilitated trade growth to nearly USD 100 billion by FY 2024–25.",
+    "cited_extracts": [
+      "India and the European Union have concluded negotiations on a Free Trade Agreement, representing a major development in their economic partnership. The agreement was formally announced at the 16th India–EU Summit held in India, establishing the EU as India's 22nd FTA partner.",
+      "Following the conclusion of negotiations, the agreed texts must undergo legal review and translation before submission to the European Council for approval and the European Parliament for consent.",
+      "India and UAE agreed to increase bilateral trade to over US$ 200 billion by 2032, building upon the Comprehensive Economic Partnership Agreement signed in 2022 which facilitated trade growth to nearly USD 100 billion by FY 2024–25."
+    ],
+    "source_file": "Monthly Current Affairs",
+    "source_page": 0,
+    "source_type": "current_affairs",
+    "question_type": "statement_based",
+    "difficulty": "medium",
+    "model_tier": "sonnet",
+    "status": "flag",
+    "factual_ok": null,
+    "unique_ok": null,
+    "distractors_ok": null,
+    "flag_reason": "check.py could not parse Claude's response — manual review needed.",
+    "grounding_ok": null,
+    "ambiguity_ok": null,
+    "repair_note": "Replaced fabricated/paraphrased cited extracts with verbatim sentences from fresh evidence chunks that explicitly confirm all three statements; correct answer D is retained as all statements are grounded in the fresh evidence."
+  },
+  {
+    "topic_query": "Decentralization and 74th Constitutional Amendment — Urban Local Bodies and ward committees",
+    "question": "With reference to decentralization and local governance under the 73rd and 74th Constitutional Amendment Acts, consider the following statements:\n\n1. The 73rd and 74th Amendment Acts of 1992 constitutionalized Panchayats and Municipalities by adding Part IX and Part IXA respectively to the Constitution.\n2. The functions assigned to urban local bodies under the 74th Amendment are listed in the Twelfth Schedule of the Constitution.\n3. The Panchayats (Extension to Scheduled Areas) Act, 1996 (PESA) operationalizes Article 243M(4)(b) and applies to all states in India that have tribal populations.\n\nWhich of the statements given above is/are correct?",
+    "options": {
+      "A": "1 and 2 only",
+      "B": "2 and 3 only",
+      "C": "1 and 3 only",
+      "D": "1, 2 and 3"
+    },
+    "correct_answer": "A",
+    "explanation": "Statement 1 is correct. The 73rd and 74th Amendment Acts of 1992 constitutionalized Panchayats and Municipalities with the addition of Part IX (Panchayats) and Part IXA (Municipalities) to the Constitution. Statement 2 is correct. The list of functions transferred from State governments to urban local bodies has been listed in the Twelfth Schedule of the Constitution. Statement 3 is incorrect. PESA does not apply to all states with tribal populations; it applies specifically to ten states that have Scheduled Areas under the Fifth Schedule of the Constitution — namely Andhra Pradesh, Chhattisgarh, Gujarat, Himachal Pradesh, Jharkhand, Madhya Pradesh, Maharashtra, Odisha, Rajasthan, and Telangana.",
+    "cited_extracts": [
+      "73rd and 74th Amendment Acts 1992: Constitutionalized Panchayats and Municipalities with addition of Part IX (Panchayats) and Part IXA (Municipalities).",
+      "These functions have been listed in the Twelfth Schedule of the Constitution.",
+      "The Panchayats (Extension to Scheduled Areas) Act, 1996, commonly known as PESA, represents a constitutional framework designed to extend self-governance institutions to tribal regions classified as Scheduled Areas under the Fifth Schedule of the Indian Constitution. The Act operationalizes Article 243M(4)(b) and applies across ten states: Andhra Pradesh, Chhattisgarh, Gujarat, Himachal Pradesh, Jharkhand, Madhya Pradesh, Maharashtra, Odisha, Rajasthan, and Telangana."
+    ],
+    "source_file": "Monthly Current Affairs- February 2026.pdf; Class_11_Political_Science_Indian_Constitution_at_Work.pdf; PESA Act, 1996 — 30 Years Milestone and Implementation Status",
+    "source_page": 187,
+    "source_type": "both",
+    "question_type": "statement_based",
+    "difficulty": "hard",
+    "model_tier": "sonnet",
+    "status": "pass",
+    "factual_ok": true,
+    "unique_ok": true,
+    "distractors_ok": true,
+    "flag_reason": null,
+    "grounding_ok": true,
+    "ambiguity_ok": true
+  },
+  {
+    "topic_query": "Lokpal and Lokayuktas Act 2013 — structure, jurisdiction, powers, and appointment process",
+    "question": "With reference to the Lokpal and Lokayuktas Act, 2013, consider the following statements:\n\n1. The Lokpal and Lokayuktas Act, 2013 applies only to public servants posted within India and does not extend jurisdiction to public servants serving abroad.\n2. The selection committee for the Lokpal's Chairperson and Members includes the Prime Minister, Speaker of Lok Sabha, Leader of Opposition in Lok Sabha, a nominee of the Chief Justice of India or the Supreme Court, and an eminent jurist nominated by the President.\n3. The Lokpal cannot investigate allegations against the Prime Minister relating to matters of international relations, external and internal security, atomic energy, and space.\n\nWhich of the statements given above is/are correct?",
+    "options": {
+      "A": "2 and 3 only",
+      "B": "1 and 3 only",
+      "C": "1 and 2 only",
+      "D": "1, 2 and 3"
+    },
+    "correct_answer": "A",
+    "explanation": "Statement 1 is incorrect: The Lokpal and Lokayuktas Act, 2013 shall apply to public servants in and outside India. Thus, the Lokpal has jurisdiction over all public servants, whether posted in India or abroad. Statement 2 is correct: The Lokpal's leadership is selected by a committee comprising the Prime Minister, Speaker of Lok Sabha, Leader of Opposition in Lok Sabha, a nominee from the Chief Justice of India or Supreme Court, and a President-nominated eminent jurist. Statement 3 is correct: The Lokpal cannot investigate allegations against the Prime Minister relating to international relations, external and internal security, public order, atomic energy, and space.",
+    "cited_extracts": [
+      "The Lokpal and Lokayuktas Act, 2013 shall apply to public servants in and outside India. Thus, the Lokpal has jurisdiction over all public servants, whether posted in India or abroad.",
+      "The Lokpal's leadership is selected by a committee comprising the Prime Minister, Speaker of Lok Sabha, Leader of Opposition in Lok Sabha, a nominee from the Chief Justice of India or Supreme Court, and a President-nominated eminent jurist, with the President making the final appointment.",
+      "The Lokpal cannot investigate allegations against the Prime Minister relating to international relations, external and internal security, public order, atomic energy, and space."
+    ],
+    "source_file": "Prelims PYQ (2011-2025).pdf",
+    "source_page": 39,
+    "source_type": "ncert",
+    "question_type": "statement_based",
+    "difficulty": "hard",
+    "model_tier": "sonnet",
+    "status": "pass",
+    "factual_ok": true,
+    "unique_ok": true,
+    "distractors_ok": true,
+    "flag_reason": null,
+    "grounding_ok": true,
+    "ambiguity_ok": true,
+    "repair_note": "Replaced bare list and explanation-text extracts with verbatim grounded sentences from fresh evidence chunks to ensure each statement has a proper supporting or contradicting extract."
+  },
+  {
+    "topic_query": "Quantum Computing — principles, applications, and India's National Quantum Mission",
+    "question": "Assertion (A): Under India's National Quantum Mission, the current encryption infrastructure is considered strategically vulnerable and requires dedicated sovereign-level countermeasures.\n\nReason (R): Quantum computers can theoretically break classical encryption algorithms, making Post-Quantum Cryptography development a national security imperative.",
+    "options": {
+      "A": "Both A and R are true and R is the correct explanation of A",
+      "B": "Both A and R are true but R is NOT the correct explanation of A",
+      "C": "A is true but R is false",
+      "D": "A is false but R is true"
+    },
+    "correct_answer": "A",
+    "explanation": "The Assertion is correct: the National Quantum Mission recognizes that current encryption methods are vulnerable to quantum attacks, and Post-Quantum Cryptography development under NQM is described as a sovereign imperative — directly indicating that the existing encryption infrastructure requires dedicated national-level action. The Reason is also correct and directly explains the Assertion: it is precisely because quantum computers threaten classical encryption that PQC development becomes a sovereign imperative. R correctly identifies the causal scientific-strategic mechanism behind A.",
+    "cited_extracts": [
+      "Current encryption methods are vulnerable to quantum attacks. Post-Quantum Cryptography (PQC) development under NQM is therefore a sovereign imperative.",
+      "Countries such as the US, China, members of the EU, and Canada have already made major investments in quantum technologies, making it essential for India to move early to avoid long-term strategic dependence."
+    ],
+    "source_file": "Monthly Current Affairs- February 2026.pdf",
+    "source_page": 89,
+    "source_type": "both",
+    "question_type": "assertion_reason",
+    "difficulty": "medium",
+    "model_tier": "sonnet",
+    "status": "pass",
+    "factual_ok": true,
+    "unique_ok": true,
+    "distractors_ok": true,
+    "flag_reason": null,
+    "grounding_ok": true,
+    "ambiguity_ok": true
+  },
+  {
+    "topic_query": "Scheduled Tribes and Other Traditional Forest Dwellers (Recognition of Forest Rights) Act 2006",
+    "question": "Consider the following statements regarding the Panchayats (Extension to Scheduled Areas) Act, 1996 (PESA):\n\n1. PESA operationalizes Article 243M(4)(b) of the Constitution and extends Panchayati Raj provisions to areas listed under the Fifth Schedule.\n2. Under PESA, Scheduled Tribes must constitute at least 50 percent of all Panchayat seats, and every Chairperson at all Panchayat levels must belong to a Scheduled Tribe.\n3. All ten states with Scheduled Areas have fully notified their respective PESA rules.\n\nWhich of the statements given above are correct?",
+    "options": {
+      "A": "1 and 2 only",
+      "B": "2 and 3 only",
+      "C": "1 and 3 only",
+      "D": "1, 2 and 3"
+    },
+    "correct_answer": "A",
+    "explanation": "Statement 1 is correct: PESA operationalizes Article 243M(4)(b) of the Constitution and extends Part IX (Panchayati Raj) provisions to Fifth Schedule Areas with specific tribal-centric modifications. Statement 2 is correct: The Act mandates that Scheduled Tribes must comprise at least 50 percent of all Panchayat seats, and every Chairperson position at all Panchayat levels must be held by an ST member. Statement 3 is incorrect: As of now, only nine of the ten states with Scheduled Areas have framed PESA rules, while Odisha has only draft rules pending full notification.",
+    "cited_extracts": [
+      "The Panchayats (Extension to Scheduled Areas) Act, 1996, operationalizes Article 243M(4)(b) of the Constitution and extends Part IX (Panchayati Raj) provisions to Fifth Schedule Areas with specific tribal-centric modifications.",
+      "The Act mandates that Scheduled Tribes must comprise at least 50 percent of all Panchayat seats, and every Chairperson position at all Panchayat levels must be held by an ST member.",
+      "PESA applies to ten states with Scheduled Areas: Andhra Pradesh, Chhattisgarh, Gujarat, Himachal Pradesh, Jharkhand, Madhya Pradesh, Maharashtra, Odisha, Rajasthan, and Telangana; nine states have framed rules while Odisha has draft rules."
+    ],
+    "source_file": "PESA Act, 1996 — 30 Years Milestone and Implementation Status",
+    "source_page": 0,
+    "source_type": "current_affairs",
+    "question_type": "statement_based",
+    "difficulty": "hard",
+    "model_tier": "sonnet",
+    "status": "flag",
+    "factual_ok": null,
+    "unique_ok": null,
+    "distractors_ok": null,
+    "flag_reason": "check.py could not parse Claude's response — manual review needed.",
+    "grounding_ok": null,
+    "ambiguity_ok": null,
+    "repair_note": "Returned clean valid JSON after parse failure; no substantive content changed as all statements and extracts were already grounded in available evidence."
+  },
+  {
+    "topic_query": "India-Bangladesh relations — Teesta water sharing, border management, and connectivity projects",
+    "question": "Consider the following statements regarding transboundary water resource disputes in South Asia:\n\n1. Freshwater constitutes only about 3 percent of the total water available on Earth, with a very small proportion effectively available for human use.\n2. Smaller South Asian neighbours have at times feared that India seeks to exercise regional dominance, contributing to tensions over shared resources.\n3. Disputes over sharing and control of scarce freshwater resources arise primarily because water is a non-renewable and non-cyclic resource.\n\nWhich of the statements given above are correct?",
+    "options": {
+      "A": "1 and 2 only",
+      "B": "2 and 3 only",
+      "C": "1 and 3 only",
+      "D": "1, 2 and 3"
+    },
+    "correct_answer": "A",
+    "explanation": "Statement 1 is correct: freshwater constitutes only about 3 percent of the total water on Earth, and a very small proportion of that is effectively available for human use — making it a scarce and contested resource. Statement 2 is correct: smaller South Asian countries have feared that India wants to be a regionally-dominant power, a perception that underlies tensions including those over shared river waters. Statement 3 is incorrect: water is explicitly described as a cyclic resource with abundant supplies on the globe — the tensions arise not because it is non-cyclic but because availability varies over space and time and supplies shrink due to over-utilisation and pollution.",
+    "cited_extracts": [
+      "Approximately, 71 per cent of the earth's surface is covered with it but freshwater constitutes only about 3 per cent of the total water. In fact, a very small proportion of freshwater is effectively available for human use.",
+      "The smaller countries fear that India wants to be a regionally-dominant power.",
+      "Water is a cyclic resource with abundant supplies on the globe... The tensions and disputes on sharing and control of this scarce resource..."
+    ],
+    "source_file": "Class_12_Geography_India_People_and_Economy.pdf",
+    "source_page": 41,
+    "source_type": "both",
+    "question_type": "statement_based",
+    "difficulty": "medium",
+    "model_tier": "sonnet",
+    "status": "pass",
+    "factual_ok": true,
+    "unique_ok": true,
+    "distractors_ok": true,
+    "flag_reason": null,
+    "grounding_ok": true,
+    "ambiguity_ok": true
+  }
+]

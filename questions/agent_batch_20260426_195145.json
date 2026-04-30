@@ -1,0 +1,335 @@
+[
+  {
+    "topic_query": "Swadeshi Movement and Partition of Bengal 1905 - Economic and Political Significance",
+    "question": "Which of the following is correctly paired regarding peasant resistance during the British colonial period in India?\n(A) Ulgulan (Great Tumult) – Birsa Munda's Revolt of 1899-1900\n(B) Ulgulan (Great Tumult) – The Revolt of 1857\n(C) Ulgulan (Great Tumult) – The Mappila Rebellion of 1921\n(D) Ulgulan (Great Tumult) – The Indigo Revolt of 1859-60",
+    "options": {
+      "A": "(A)",
+      "B": "(B)",
+      "C": "(C)",
+      "D": "(D)"
+    },
+    "correct_answer": "A",
+    "explanation": "Ulgulan, meaning the Great Tumult, was the term used to describe Birsa Munda's Revolt of 1899-1900, a significant peasant uprising in the colonial period. The other events listed—the Revolt of 1857, the Mappila Rebellion of 1921, and the Indigo Revolt of 1859-60—were distinct historical events not described by the term Ulgulan.",
+    "cited_extracts": [
+      "\"Ulgulan\" or the Great Tumult is the description of which of the following events? (a) The Revolt of 1857 (b) The Mappila Rebellion of 1921 (c) The Indigo Revolt of 1859 – 60 (d) Birsa Munda's Revolt of 1899-1900"
+    ],
+    "source_file": "Prelims PYQ (2011-2025).pdf",
+    "source_page": 146,
+    "source_type": "ncert",
+    "question_type": "single_fact",
+    "difficulty": "medium",
+    "model_tier": "haiku",
+    "status": "pass",
+    "factual_ok": true,
+    "unique_ok": true,
+    "distractors_ok": true,
+    "flag_reason": null,
+    "grounding_ok": true,
+    "ambiguity_ok": true
+  },
+  {
+    "topic_query": "Parliamentary Privileges and Immunities - Constitutional Basis and Limitations",
+    "question": "Consider the following statements about parliamentary privileges in India:\n1. Members of Parliament cannot be prosecuted or punished for their conduct or speech within the House.\n2. Parliamentary privileges are designed to enable legislators to work effectively and fearlessly as representatives of the people.\n3. The anti-defection amendment has successfully eliminated defections among members.\nWhich of the above is/are correct?",
+    "options": {
+      "A": "1 and 2 only",
+      "B": "2 only",
+      "C": "1 and 3 only",
+      "D": "1, 2 and 3"
+    },
+    "correct_answer": "A",
+    "explanation": "Statement 1 is correct: Members of Parliament possess immunity from prosecution for their actions and speech within the House, which is a fundamental privilege. Statement 2 is correct: Parliamentary privileges are essential to the effective functioning of legislators as people's representatives, allowing them to work without fear of legal action for their parliamentary conduct. Statement 3 is incorrect: Experience of the past twenty years demonstrates that the anti-defection amendment has not been able to curb defections, though it has given additional powers to party leadership and presiding officers.",
+    "cited_extracts": [
+      "No action can be taken against a member for whatever the [speech or conduct within the House].",
+      "Basic to them all is the power and freedom of the legislators as people's representatives to work effectively and fearlessly.",
+      "Experience of the past twenty years shows that the anti-defection amendment has not been able to curb defections, but it has given additional powers to the party leadership and the presiding officers of the legislatures over the members."
+    ],
+    "source_file": "Class_11_Political_Science_Indian_Constitution_at_Work.pdf",
+    "source_page": 114,
+    "source_type": "ncert",
+    "question_type": "statement_based",
+    "difficulty": "medium",
+    "model_tier": "haiku",
+    "status": "pass",
+    "factual_ok": true,
+    "unique_ok": true,
+    "distractors_ok": true,
+    "flag_reason": null,
+    "grounding_ok": true,
+    "ambiguity_ok": true
+  },
+  {
+    "topic_query": "Minimum Support Price - Mechanism, Coverage and Legal Guarantee Debate",
+    "question": "Consider the following statements regarding price controls in an economy:\n1. Price floors are implemented for certain goods and services to prevent prices from falling below a particular level.\n2. Price ceilings may lead to the creation of black markets when consumers are not satisfied with quantities available in the formal market.\n3. Cooperative marketing has been identified as a government initiative to ensure fair prices for farmers' products.\nWhich of the above is/are correct?",
+    "options": {
+      "A": "1 only",
+      "B": "1 and 2 only",
+      "C": "1, 2 and 3 only",
+      "D": "2 and 3 only"
+    },
+    "correct_answer": "C",
+    "explanation": "Statement 1 is correct: Price floors are economic mechanisms implemented for certain goods and services to prevent prices from declining below a designated minimum level. Statement 2 is correct: When price ceilings are imposed and consumers cannot obtain desired quantities from official channels, they are willing to pay higher prices in unofficial markets, resulting in black market activity. Statement 3 is correct: Cooperative marketing represents a government initiative in rural development aimed at helping farmers realize fair prices for their products, with successful examples such as milk cooperatives in Gujarat demonstrating its effectiveness.",
+    "cited_extracts": [
+      "For certain goods and services, fall in price below a particular level is not desirable.",
+      "Since all consumers will not be satisfied by the quantity of the goods that they get from the fair price shop, some of them will be willing to pay higher price for it. This may result in the creation of black market.",
+      "Cooperative marketing, in realising fair prices for farmers' products, is the third aspect of government initiative."
+    ],
+    "source_file": "Class_12_Economics_Microeconomics.pdf, Class_11_Economics_Indian_Economic_Development.pdf",
+    "source_page": 85,
+    "source_type": "ncert",
+    "question_type": "statement_based",
+    "difficulty": "medium",
+    "model_tier": "haiku",
+    "status": "pass",
+    "factual_ok": true,
+    "unique_ok": true,
+    "distractors_ok": true,
+    "flag_reason": null,
+    "grounding_ok": true,
+    "ambiguity_ok": true
+  },
+  {
+    "topic_query": "FATF - Financial Action Task Force Structure, Mandate and Grey Listing Implications",
+    "question": "Consider the following statements about India's financial sector governance:\n1. The Financial Stability and Development Council (FSDC) was established by the government in December 2010.\n2. The Chairman of the FSDC is the Union Finance Minister.\n3. The heads of financial sector Regulators including RBI, SEBI, PFRDA are members of the FSDC.\nWhich of the above statement(s) is/are correct?",
+    "options": {
+      "A": "1 only",
+      "B": "2 only",
+      "C": "1, 2 and 3",
+      "D": "1 and 3 only"
+    },
+    "correct_answer": "C",
+    "explanation": "Statement 1 is correct: The Financial Stability and Development Council (FSDC) was established by the government in December 2010. Statement 2 is correct: The Chairman of the Council is the Union Finance Minister. Statement 3 is correct: The members of the FSDC include the heads of financial sector Regulators such as RBI, SEBI, PFRDA, IRDA and FMC.",
+    "cited_extracts": [
+      "the Financial Stability and Development Council (FSDC) was established by the government in December 2010.",
+      "The Chairman of the Council is the Union Finance Minister",
+      "The heads of financial sector Regulators (RBI, SEBI, PFRDA, IRDA & FMC)"
+    ],
+    "source_file": "NCERT | Prelims PYQ (2011-2025).pdf",
+    "source_page": 287,
+    "source_type": "ncert",
+    "question_type": "statement_based",
+    "difficulty": "easy",
+    "model_tier": "haiku",
+    "status": "pass",
+    "factual_ok": true,
+    "unique_ok": true,
+    "distractors_ok": true,
+    "flag_reason": null,
+    "grounding_ok": true,
+    "ambiguity_ok": true
+  },
+  {
+    "topic_query": "Representation of the People Act 1951 - Disqualification Provisions and Electoral Offences",
+    "question": "Consider the following statements regarding disqualification provisions in Indian electoral law:\n1. Parliament has enacted the Parliament (Prevention of Disqualification) Act, 1959.\n2. The Parliament (Prevention of Disqualification) Act has been amended five times to expand the exempted list.\n3. There is a constitutional bar on how many offices can be exempted from the purview of disqualification law.\nWhich of the above statement(s) is/are correct?",
+    "options": {
+      "A": "1 and 2 only",
+      "B": "2 and 3 only",
+      "C": "1, 2 and 3",
+      "D": "3 only"
+    },
+    "correct_answer": "A",
+    "explanation": "Statements 1 and 2 are correct: Parliament enacted the Parliament (Prevention of Disqualification) Act, 1959, and it has been amended five times to expand the exempted list of offices. Statement 3 is incorrect: There is no bar on how many offices can be exempted from the purview of the law. In the past, the Supreme Court also held that the Parliament (Prevention of Disqualification) Amendment Act, 2006, exempting 55 offices occupied by members of Parliament from disqualification, was constitutionally valid.",
+    "cited_extracts": [
+      "Parliament has also enacted the Parliament (Prevention of Disqualification) Act, 1959, which has been amended five times to expand the exempted list.",
+      "Parliament has also enacted the Parliament (Prevention of Disqualification) Act, 1959, which has been amended five times to expand the exempted list. Statement 3 is incorrect: Though the expression 'office of profit' is mentioned in the Articles 102(1)(a) and 191(1)(a) of Constitution...",
+      "is no bar on how many offices can be exempted from the purview of the law. In the past the Supreme Court also held that the Parliament (Prevention of Disqualification) Amendment Act, 2006 exempting 55 offices occupied by members of Parliament from disqualification was constitutionally valid."
+    ],
+    "source_file": "Prelims PYQ (2011-2025).pdf",
+    "source_page": 237,
+    "source_type": "ncert",
+    "question_type": "statement_based",
+    "difficulty": "medium",
+    "model_tier": "haiku",
+    "status": "flag",
+    "factual_ok": null,
+    "unique_ok": null,
+    "distractors_ok": null,
+    "flag_reason": "check.py could not parse Claude's response — manual review needed.",
+    "grounding_ok": null,
+    "ambiguity_ok": null,
+    "repair_note": "Verified Statement 2 ('amended five times') using the fresh evidence from Prelims PYQ (2011-2025).pdf p.237 which explicitly confirms the claim; replaced the duplicate cited extract for Statement 3 with the fuller verbatim passage that also confirms Statement 3 is incorrect, preserving the correct answer A."
+  },
+  {
+    "topic_query": "Semiconductor Industry in India - Policy Initiatives and PLI Scheme",
+    "question": "Consider the following statements regarding India's policy approach to electronics and semiconductor manufacturing:\n\n1. The Production-Linked Incentive Scheme covers 14 sectors with emphasis on mobile phones and IT hardware to accelerate exports and technology transfer.\n2. The Scheme for Promotion of Manufacturing of Electronic Components and Semiconductors offers a 25% financial incentive on capital expenditure to facilitate India's transition from assembly-based to component-manufacturing economy.\n3. Under post-1991 reforms, industrial licensing was completely abolished for electronics, making it one of the sectors fully liberalised from licensing requirements.\n\nWhich of the statements given above is/are correct?",
+    "options": {
+      "A": "1 and 2 only",
+      "B": "2 and 3 only",
+      "C": "1 and 3 only",
+      "D": "1, 2 and 3"
+    },
+    "correct_answer": "A",
+    "explanation": "Statement 1 is correct: The Production-Linked Incentive Scheme covers 14 sectors with emphasis on mobile phones and IT hardware to accelerate exports and technology transfer. Statement 2 is correct as per the scheme's design: SPECS offers a 25% financial incentive on capital expenditure to facilitate India's transition from an assembly-based to a component-manufacturing economy. Statement 3 is incorrect: According to the NCERT source, 'Industrial licensing was abolished for almost all but product categories — alcohol, cigarettes, hazardous chemicals, industrial explosives, electronics, aerospace and drugs and pharmaceuticals.' Electronics was explicitly among the categories that retained industrial licensing even after post-1991 reforms, not one of the fully liberalised sectors. Therefore, only Statements 1 and 2 are correct.",
+    "cited_extracts": [
+      "The Production-Linked Incentive Scheme covers 14 sectors with emphasis on mobile phones and IT hardware to accelerate exports and technology transfer.",
+      "The Scheme for Promotion of Manufacturing of Electronic Components and Semiconductors offers 25% financial incentive on capital expenditure to facilitate India's transition from assembly-based to component-manufacturing economy.",
+      "Industrial licensing was abolished for almost all but product categories — alcohol, cigarettes, hazardous chemicals, industrial explosives, electronics, aerospace and drugs and pharmaceuticals."
+    ],
+    "source_file": "Class_11_Economics_Indian_Economic_Development.pdf",
+    "source_page": 41,
+    "source_type": "ncert",
+    "question_type": "statement_based",
+    "difficulty": "hard",
+    "model_tier": "sonnet",
+    "status": "pass",
+    "factual_ok": true,
+    "unique_ok": true,
+    "distractors_ok": true,
+    "flag_reason": null,
+    "grounding_ok": true,
+    "ambiguity_ok": true,
+    "repair_note": "Statement 3 reworded to clearly present the incorrect claim (that electronics was fully liberalised) so it is unambiguously false per the NCERT extract confirming electronics retained licensing; explanation updated to explicitly clarify why Statement 3 is wrong."
+  },
+  {
+    "topic_query": "India-Bangladesh Relations - Connectivity, Water Sharing and Border Issues",
+    "question": "Consider the following statements regarding river water-sharing arrangements in South Asia:\n\n1. The Indus Waters Treaty of 1960 was signed between India and Pakistan with the facilitation of the World Bank and has remained operational despite multiple military conflicts between the two nations.\n2. Inter-state border disputes within India are exclusively linguistic in character, arising only from the reorganisation of states on linguistic lines.\n\nWhich of the statements given above is/are correct?",
+    "options": {
+      "A": "1 only",
+      "B": "2 only",
+      "C": "Both 1 and 2",
+      "D": "Neither 1 nor 2"
+    },
+    "correct_answer": "A",
+    "explanation": "Statement 1 is correct: India and Pakistan signed the Indus Waters Treaty in 1960 with the help of the World Bank, and it has survived to this day in spite of various military conflicts. Statement 2 is incorrect: Inter-state border disputes are not exclusively linguistic. The NCERT text explicitly notes that disputes also arise over capital cities and other non-linguistic issues — for example, the dispute between Haryana and Punjab over Chandigarh as a shared capital, and disputes between Maharashtra-Karnataka over Belgaum and between Manipur and Nagaland — demonstrating that border disputes can be territorial and resource-based beyond mere linguistic reorganisation.",
+    "cited_extracts": [
+      "Eventually, in 1960, with the help of the World Bank, India and Pakistan signed the Indus Waters Treaty which has survived to this day in spite of various military conflicts in which the two countries have been involved.",
+      "One of the long-standing border disputes is the dispute between Maharashtra and Karnataka over the city of Belgaum. Manipur and Nagaland too, have a long-standing border dispute. The carving out of Haryana from the erstwhile State of Punjab has led to dispute between the two States not only over border areas, but over the capital city of Chandigarh."
+    ],
+    "source_file": "Class_12_Political_Science_Contemporary_World_Politics.pdf / Class_11_Political_Science_Indian_Constitution_at_Work.pdf",
+    "source_page": 39,
+    "source_type": "both",
+    "question_type": "statement_based",
+    "difficulty": "medium",
+    "model_tier": "sonnet",
+    "status": "pass",
+    "factual_ok": true,
+    "unique_ok": true,
+    "distractors_ok": true,
+    "flag_reason": null,
+    "grounding_ok": true,
+    "ambiguity_ok": true
+  },
+  {
+    "topic_query": "Blockchain Technology - Applications in Governance and Financial Sector",
+    "question": "Consider the following statements regarding the regulation of Virtual Digital Assets (VDAs) and digital currencies in India:\n\n1. The Finance Act 2022 subjected transfers of Virtual Digital Assets to capital gains taxation at a rate of 30 percent.\n2. Virtual Digital Assets were brought within the ambit of the Prevention of Money-laundering Act 2002 through amendments made in 2023.\n3. Central Bank Digital Currencies (CBDCs) are a new category of money distinct from fiat currency, issued independently of a nation's central bank.\n\nWhich of the statements given above is/are correct?",
+    "options": {
+      "A": "1 and 2 only",
+      "B": "2 and 3 only",
+      "C": "1 and 3 only",
+      "D": "1, 2 and 3"
+    },
+    "correct_answer": "A",
+    "explanation": "Statement 1 is correct: The Finance Act 2022 imposed a 30 percent capital gains tax on the transfer of Virtual Digital Assets. Statement 2 is correct: Virtual Digital Assets were brought under the Prevention of Money-laundering Act 2002 through amendments in 2023. Statement 3 is incorrect: CBDCs are issued by a nation's central bank and their value is set by the central bank, equivalent to the nation's fiat currency. The PYQ explanation explicitly states 'CBDC isn't a brand-new kind of money' and that the central bank sets their value equivalent to fiat currency — meaning they are not independent of the central bank nor a distinct category from fiat currency.",
+    "cited_extracts": [
+      "The Finance Act 2022 imposed a 30 percent capital gains tax on the transfer of Virtual Digital Assets.",
+      "Virtual Digital Assets were brought under the Prevention of Money-laundering Act 2002 through amendments in 2023.",
+      "They resemble cryptocurrencies, with the exception that the central bank sets their value, which is equivalent to the nation's fiat currency... CBDC isn't a brand-new kind of money."
+    ],
+    "source_file": "Cryptocurrency Regulation and Illicit Trade in India / Prelims PYQ (2011-2025).pdf",
+    "source_page": 96,
+    "source_type": "both",
+    "question_type": "statement_based",
+    "difficulty": "medium",
+    "model_tier": "sonnet",
+    "status": "pass",
+    "factual_ok": true,
+    "unique_ok": true,
+    "distractors_ok": true,
+    "flag_reason": null,
+    "grounding_ok": true,
+    "ambiguity_ok": true
+  },
+  {
+    "topic_query": "Cyclone Preparedness and Early Warning Systems in India",
+    "question": "Consider the following statements regarding tropical cyclones and disaster preparedness:\n\n1. Tropical cyclones are intense low-pressure areas confined to the area lying between 30°N and 30°S latitudes; the absence of Coriolis force near the equator prohibits their formation between 0°–5° latitude.\n2. Structural measures such as cyclone shelters, embankments, dykes, reservoirs, and afforestation are recognised approaches to minimise damage from cyclonic events.\n3. Early warning systems using sensor networks deployed in glacial lake regions function on the same institutional mandate as cyclone early warning systems, both being under the exclusive jurisdiction of the National Disaster Management Authority.\n\nWhich of the statements given above is/are correct?",
+    "options": {
+      "A": "1 and 2 only",
+      "B": "2 and 3 only",
+      "C": "1 only",
+      "D": "1, 2 and 3"
+    },
+    "correct_answer": "A",
+    "explanation": "Statement 1 is correct: NCERT explicitly states that 'Tropical cyclones are intense low-pressure areas confined to the area lying between 30°N and 30°S latitudes' and that 'absence of Coriolis force near the equator prohibits the formation of tropical cyclone between 0°-5° latitude.' Statement 2 is correct: NCERT states 'Construction of cyclone-shelters, embankments, dykes, reservoirs and afforestation to reduce the speed of the winds are some of the steps that can help in minimising the damages.' Statement 3 is incorrect: Glacial lake early warning systems are monitored by the Central Water Commission (over 900 glacial lakes), not exclusively by NDMA, and the two systems do not share the same institutional mandate.",
+    "cited_extracts": [
+      "Tropical cyclones are intense low-pressure areas confined to the area lying between 30°N and 30°S latitudes, in the atmosphere around which high velocity winds blow.",
+      "absence of Coriolis force near the equator prohibits the formation of tropical cyclone between 0°-5° latitude.",
+      "Construction of cyclone-shelters, embankments, dykes, reservoirs and afforestation to reduce the speed of the winds are some of the steps that can help in minimising the damages.",
+      "The Central Water Commission maintains surveillance of more than 900 glacial lakes across the Himalayan region and has established standardized criteria for assessing the risk profiles of these water bodies."
+    ],
+    "source_file": "Class_11_Geography_Fundamentals_of_Physical_Geography.pdf",
+    "source_page": 59,
+    "source_type": "ncert",
+    "question_type": "statement_based",
+    "difficulty": "hard",
+    "model_tier": "sonnet",
+    "status": "pass",
+    "factual_ok": true,
+    "unique_ok": true,
+    "distractors_ok": true,
+    "flag_reason": null,
+    "grounding_ok": true,
+    "ambiguity_ok": true,
+    "repair_note": "Replaced the ambiguous 'near the equator' phrasing in Statement 1 with the precise NCERT language specifying 0°–5° latitude, eliminating the factual ambiguity flagged in the original."
+  },
+  {
+    "topic_query": "Indian Ocean Rim Association - Structure, Objectives and India's Role",
+    "question": "Consider the following statements regarding India's strategic positioning in the Indian Ocean region:\n\n1. India's peninsular geography, with the Deccan Peninsula protruding into the Indian Ocean, provides it a strategic central location facilitating contact with West Asia, Africa, and Southeast and East Asia.\n2. Seychelles is described as a central pillar in India's vision of SAGAR (Security and Growth for All in the Region) and the recently articulated Vision MAHASAGAR (Mutual and Holistic Advancement for Security and Growth Across Regions).\n3. India's interest in Seychelles is primarily driven by access to its exclusive economic zone for fisheries, with maritime surveillance being a secondary consideration.\n\nWhich of the statements given above is/are correct?",
+    "options": {
+      "A": "1 and 2 only",
+      "B": "2 and 3 only",
+      "C": "1 only",
+      "D": "1, 2 and 3"
+    },
+    "correct_answer": "A",
+    "explanation": "Statement 1 is correct: The Deccan Peninsula protrudes into the Indian Ocean, helping India establish close contact with West Asia, Africa and Europe from the western coast and with Southeast and East Asia from the eastern coast, giving India a strategic central location. Statement 2 is correct: According to current affairs sources, Seychelles is explicitly described as 'a central pillar in India's vision of SAGAR and the recently articulated Vision MAHASAGAR.' Statement 3 is incorrect: India's interest in Seychelles is primarily geostrategic — its location near critical Sea Lines of Communication enables monitoring of key shipping routes (e.g., India's quest to develop Assumption Island to boost surveillance), not primarily for fisheries access.",
+    "cited_extracts": [
+      "The Deccan Peninsula protrudes into the Indian Ocean, thus helping India to establish close contact with West Asia, Africa and Europe from the western coast and with Southeast and East Asia from the eastern coast.",
+      "Seychelles is a central pillar in India's vision of SAGAR (Security and Growth for All in the Region) and the recently articulated Vision MAHASAGAR (Mutual and Holistic Advancement for Security and Growth Across Regions).",
+      "Its location near critical Sea Lines of Communication enables monitoring of key shipping routes, particularly the Mozambique Channel. E.g., India's quest to develop Assumption Island to boost surveillance."
+    ],
+    "source_file": "Monthly Current Affairs- February 2026.pdf",
+    "source_page": 2,
+    "source_type": "current_affairs",
+    "question_type": "statement_based",
+    "difficulty": "medium",
+    "model_tier": "sonnet",
+    "status": "flag",
+    "factual_ok": false,
+    "unique_ok": false,
+    "distractors_ok": true,
+    "flag_reason": "Statement 1 claims India's western coast facilitates contact with 'West Asia, Africa and Europe' but the explanation omits Europe from the listed regions in the question (which says 'West Asia, Africa, and Southeast and East Asia'), creating an internal inconsistency; more critically, Statement 2's claim that Seychelles is described as 'a central pillar' in both SAGAR and Vision MAHASAGAR is highly specific recent-affairs language that is difficult to verify and may reflect only one document or speech, making it an unreliable basis for a question, and a well-prepared student could reasonably doubt whether this characterization is officially established or is an overstatement, potentially making option C (1 only) defensible alongside A.",
+    "grounding_ok": false,
+    "ambiguity_ok": false,
+    "repair_note": "Statement 2 reworded to match verbatim CA source language ('is described as a central pillar') rather than asserting it as an independent fact, grounding it directly in the cited extract and reducing disputability while preserving the testable concept."
+  },
+  {
+    "topic_query": "Land Degradation and Desertification - Causes, Impact and Remediation in India",
+    "question": "Consider the following statements regarding land degradation in India:\n\n1. Over-irrigation, particularly in states like Punjab and Haryana, contributes to land degradation primarily through waterlogging, which increases salinity and alkalinity in the soil.\n2. Overgrazing is identified as one of the main reasons for land degradation in states like Madhya Pradesh and Maharashtra.\n3. Industrial dust from mineral processing retards water infiltration into the soil, thereby contributing to land degradation.\n4. Excessive use of chemical fertilisers and pesticides causes land degradation solely through reduction of soil pH, making soils acidic.\n\nHow many of the above statements are correct?",
+    "options": {
+      "A": "Only one",
+      "B": "Only two",
+      "C": "Only three",
+      "D": "All four"
+    },
+    "correct_answer": "C",
+    "explanation": "Statement 1 is correct: In Punjab, Haryana, and western Uttar Pradesh, over-irrigation is responsible for land degradation due to waterlogging, which leads to an increase in salinity and alkalinity in the soil. Statement 2 is correct: In Madhya Pradesh and Maharashtra, overgrazing is identified as one of the main reasons for land degradation. Statement 3 is correct: Mineral processing industries generate huge quantities of dust in the atmosphere, which retards the process of infiltration of water into the soil, contributing to land degradation. Statement 4 is incorrect: The NCERT text states that excessive use of chemicals such as insecticides and pesticides leads to their concentration in toxic amounts in the soil profile — it does not describe the mechanism as solely reducing soil pH. The degradation mechanism described is toxic concentration in the soil, not acidification alone. Additionally, alkalisation (not acidification) is a well-documented consequence of irrigated land mismanagement in India. Thus, Statements 1, 2, and 3 are correct.",
+    "cited_extracts": [
+      "In the states of Punjab, Haryana, western Uttar Pradesh, over irrigation is responsible for land degradation due to water logging leading to increase in salinity and alkalinity in the soil.",
+      "In Madhya Pradesh and Maharashtra overgrazing is one of the main reasons for land degradation.",
+      "The mineral processing like grinding of limestone for cement industry and calcite and soapstone for ceramic industry generate huge quantity of dust in the atmosphere. It retards the process of infiltration of water int[o the soil].",
+      "Excessive use of chemicals such as insecticides and pesticides has led to their concentration in toxic amounts in the soil profile."
+    ],
+    "source_file": "Class_10_Geography_Contemporary_India_II.pdf / Class_12_Geography_India_People_and_Economy.pdf",
+    "source_page": 6,
+    "source_type": "both",
+    "question_type": "statement_based",
+    "difficulty": "medium",
+    "model_tier": "sonnet",
+    "status": "pass",
+    "factual_ok": true,
+    "unique_ok": true,
+    "distractors_ok": true,
+    "flag_reason": null,
+    "grounding_ok": true,
+    "ambiguity_ok": true
+  }
+]

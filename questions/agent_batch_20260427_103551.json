@@ -1,0 +1,154 @@
+[
+  {
+    "topic_query": "Money Bills vs Financial Bills - Constitutional Distinction under Articles 110 and 117",
+    "question": "Consider the following statements about Money Bills under the Indian Constitution:\n\n1. A Money Bill can be introduced in either the Lok Sabha or the Rajya Sabha.\n2. A bill shall be deemed to be a Money Bill if it contains only provisions relating to imposition, abolition, remission, alteration or regulation of any tax.\n3. The President has a fixed time limit within which to give assent to a Money Bill.\n\nWhich of the above statements is/are correct?",
+    "options": {
+      "A": "2 only",
+      "B": "1 and 2 only",
+      "C": "2 and 3 only",
+      "D": "1, 2 and 3"
+    },
+    "correct_answer": "A",
+    "explanation": "Statement 1 is incorrect: A Money Bill can be introduced only in the Lok Sabha, not in either House. Once passed there, it is sent to the Rajya Sabha. Statement 2 is correct: A bill shall be deemed to be a Money Bill if it contains only provisions relating to imposition, abolition, remission, alteration or regulation of any tax — this is one of the constitutional criteria for a Money Bill. Statement 3 is incorrect: No time limit has been fixed by the Constitution within which the President has to give his/her assent to a bill.",
+    "cited_extracts": [
+      "A money bill can be introduced only in Lok Sabha. Once passed there, it is sent to the Rajya Sabha.",
+      "Regarding Money Bill, which of the following statements is not correct? (a) A bill shall be deemed to be a Money Bill if it contains only provisions relating to imposition, abolition, remission, alteration or regulation of any tax.",
+      "No time limit has been fixed by the Constitution within which the President has to give his/her assent to the bill."
+    ],
+    "source_file": "Prelims PYQ (2011-2025).pdf",
+    "source_page": 113,
+    "source_type": "ncert",
+    "question_type": "statement_based",
+    "difficulty": "medium",
+    "model_tier": "haiku",
+    "status": "flag",
+    "factual_ok": false,
+    "unique_ok": false,
+    "distractors_ok": true,
+    "flag_reason": "Statement 2 is misleadingly incomplete: Article 110(1)(a) specifies that a Money Bill contains provisions relating to imposition, abolition, remission, alteration or regulation of 'any tax by the Government of India,' but more critically, the word 'only' in the statement misrepresents the constitutional provision — a bill is a Money Bill if it deals with ANY of the matters listed in Article 110(1)(a)-(g), not exclusively taxation; however, the deeper flaw is that the explanation calls Statement 2 correct while it imprecisely paraphrases Article 110, and Statement 3 is debatable because while no explicit time limit exists in the Constitution for Money Bills specifically, the question's framing creates ambiguity that could mislead prepared students, making the answer not clearly unique.",
+    "grounding_ok": false,
+    "ambiguity_ok": false,
+    "repair_note": "Replaced the factually incorrect Statement 2 (Finance Bill subjected to all Money Bill conditions) with a verifiable constitutional criterion for Money Bills drawn from the fresh evidence; corrected answer to A accordingly."
+  },
+  {
+    "topic_query": "Governor's Role and Powers under Indian Constitution - Articles 153 to 167",
+    "question": "Consider the following statements regarding the constitutional provisions for Scheduled Areas and tribal self-governance in India:\n\n1. PESA operationalizes Article 243M(4)(b) and extends Panchayati Raj provisions to Fifth Schedule Areas with tribal-specific modifications.\n2. Under PESA, Scheduled Tribes must constitute at least 50 percent of all Panchayat seats, and every Chairperson at all Panchayat levels must be an ST member.\n3. All ten states with Scheduled Areas covered under PESA have fully framed and notified their respective PESA rules.\n\nWhich of the statements given above is/are correct?",
+    "options": {
+      "A": "1 and 2 only",
+      "B": "2 and 3 only",
+      "C": "1 and 3 only",
+      "D": "1, 2 and 3"
+    },
+    "correct_answer": "A",
+    "explanation": "Statement 1 is correct: PESA (The Panchayats (Extension to Scheduled Areas) Act, 1996) operationalizes Article 243M(4)(b) of the Constitution and extends Part IX (Panchayati Raj) provisions to Fifth Schedule Areas with specific tribal-centric modifications. Statement 2 is correct: The Act mandates that Scheduled Tribes must comprise at least 50 percent of all Panchayat seats, and every Chairperson position at all Panchayat levels must be held by an ST member. Statement 3 is incorrect: PESA applies to ten states, but as of now only nine of these states have implemented their respective PESA rules, while Odisha remains at the draft stage — not all ten states have fully framed and notified their rules.",
+    "cited_extracts": [
+      "The Panchayats (Extension to Scheduled Areas) Act, 1996, operationalizes Article 243M(4)(b) of the Constitution and extends Part IX (Panchayati Raj) provisions to Fifth Schedule Areas with specific tribal-centric modifications.",
+      "The Act mandates that Scheduled Tribes must comprise at least 50 percent of all Panchayat seats, and every Chairperson position at all Panchayat levels must be held by an ST member.",
+      "PESA applies to ten states with Scheduled Areas: Andhra Pradesh, Chhattisgarh, Gujarat, Himachal Pradesh, Jharkhand, Madhya Pradesh, Maharashtra, Odisha, Rajasthan, and Telangana; nine states have framed rules while Odisha has draft rules."
+    ],
+    "source_file": "PESA Act, 1996 — 30 Years Milestone and Implementation Status",
+    "source_page": 0,
+    "source_type": "current_affairs",
+    "question_type": "statement_based",
+    "difficulty": "medium",
+    "model_tier": "sonnet",
+    "status": "flag",
+    "factual_ok": null,
+    "unique_ok": null,
+    "distractors_ok": null,
+    "flag_reason": "check.py could not parse Claude's response — manual review needed.",
+    "grounding_ok": null,
+    "ambiguity_ok": null,
+    "repair_note": "Reformatted as properly structured JSON to fix parse error; no content changes were required as all statements and extracts were substantively grounded."
+  },
+  {
+    "topic_query": "Right to Information Act 2005 - Exemptions, Appellate Mechanism and Amendments",
+    "question": "Consider the following statements about the constitutional and legal dimensions of the Right to Privacy and related data governance frameworks in India:\n\n1. In the KS Puttaswamy case (2017), the Supreme Court held that the right to privacy may be restricted only by state action that has a legislative mandate, pursues a legitimate state purpose, and satisfies a proportionality test.\n2. The Digital Personal Data Protection Act, 2023, requires data fiduciaries to comply with prior consent requirements, data protection measures, and adequate grievance redressal mechanisms.\n3. Non-compliance with due diligence requirements under IT Rules can result in loss of safe harbour protection available to platforms under Section 79 of the IT Act.\n\nWhich of the statements given above are correct?",
+    "options": {
+      "A": "1 and 2 only",
+      "B": "2 and 3 only",
+      "C": "1 and 3 only",
+      "D": "1, 2 and 3"
+    },
+    "correct_answer": "D",
+    "explanation": "All three statements are correct. Statement 1 is confirmed by the Supreme Court's ruling in KS Puttaswamy (2017): the right to privacy may be restricted only by state action that passes three tests — legislative mandate, legitimate state purpose, and proportionality. Statement 2 is confirmed by the Digital Personal Data Protection (DPDP) Act, 2023, which aims to ensure data fiduciaries comply with prior consent requirements, data protection measures, and adequate grievance redressal. Statement 3 is confirmed by the IT Rules framework: non-compliance with due diligence obligations (such as swiftly removing illegal content and maintaining grievance redressal) can lead to loss of safe harbour protection under Section 79 of the IT Act.",
+    "cited_extracts": [
+      "In the KS Puttaswamy Case (2017), the Supreme Court held that privacy is a natural right that inheres in all natural persons, and that the right may be restricted only by state action that passes each of the three tests: Such state action must have a legislative mandate. It must be pursuing a legitimate state purpose; and [proportionality].",
+      "Digital Personal Data Protection (DPDP) Act, 2023: It aims to ensure that data fiduciaries (including platforms which control the AI systems) comply with prior consent requirement, data protection measures, and adequate grievance redressal measures.",
+      "Non-compliance can lead to loss of safe harbour protection under Section 79 of the IT Act, which currently shields social platforms from liability for user posts."
+    ],
+    "source_file": "Monthly Current Affairs- January 2026.pdf",
+    "source_page": 0,
+    "source_type": "both",
+    "question_type": "statement_based",
+    "difficulty": "medium",
+    "model_tier": "sonnet",
+    "status": "pass",
+    "factual_ok": true,
+    "unique_ok": true,
+    "distractors_ok": true,
+    "flag_reason": null,
+    "grounding_ok": true,
+    "ambiguity_ok": true
+  },
+  {
+    "topic_query": "India-Middle East-Europe Economic Corridor (IMEC) - Strategic and Trade Significance",
+    "question": "Consider the following statements regarding India's recent trade and strategic partnerships:\n\n1. The India–EU Free Trade Agreement, concluded at the 16th India–EU Summit, makes the EU India's 22nd FTA partner, with negotiations having commenced in 2007 and been suspended from 2013 to 2022.\n2. Before the concluded FTA texts can come into force, they must undergo legal review and translation, followed by approval by the European Council and consent of the European Parliament.\n3. India and the UAE agreed to increase bilateral trade to over USD 200 billion by 2032, building on the Comprehensive Economic Partnership Agreement signed in 2022.\n\nWhich of the statements given above are correct?",
+    "options": {
+      "A": "1 and 2 only",
+      "B": "2 and 3 only",
+      "C": "1 and 3 only",
+      "D": "1, 2 and 3"
+    },
+    "correct_answer": "D",
+    "explanation": "All three statements are correct. Statement 1 is correct: India and the EU concluded FTA negotiations at the 16th India–EU Summit, making the EU India's 22nd FTA partner; negotiations began in 2007 and were suspended from 2013 to 2022 before being relaunched. Statement 2 is correct: the concluded texts must undergo legal review and translation before submission to the European Council for approval and the European Parliament for consent. Statement 3 is correct: India and UAE agreed to increase bilateral trade to over USD 200 billion by 2032, building on the CEPA signed in 2022 which helped grow trade to nearly USD 100 billion by FY 2024–25.",
+    "cited_extracts": [
+      "India and the European Union concluded negotiations on a Free Trade Agreement at the 16th India–EU Summit, making the EU India's 22nd FTA partner. Negotiations for this agreement commenced in 2007, experienced a suspension from 2013 to 2022, and were subsequently resumed.",
+      "Following the conclusion of negotiations, the agreed texts must undergo legal review and translation before submission to the European Council for approval and the European Parliament for consent.",
+      "India and UAE agreed to increase bilateral trade to over US$ 200 billion by 2032, building upon the Comprehensive Economic Partnership Agreement signed in 2022 which facilitated trade growth to nearly USD 100 billion by FY 2024–25."
+    ],
+    "source_file": "India–EU Free Trade Agreement Conclusion",
+    "source_page": 0,
+    "source_type": "current_affairs",
+    "question_type": "statement_based",
+    "difficulty": "medium",
+    "model_tier": "sonnet",
+    "status": "flag",
+    "factual_ok": null,
+    "unique_ok": null,
+    "distractors_ok": null,
+    "flag_reason": "check.py could not parse Claude's response — manual review needed.",
+    "grounding_ok": null,
+    "ambiguity_ok": null,
+    "repair_note": "Re-issued as clean JSON to fix parsing error; no content changes made as all statements were already well-grounded in the cited evidence."
+  },
+  {
+    "topic_query": "Genetics and Gene Editing - CRISPR Technology, Ethical Concerns and Regulatory Framework in India",
+    "question": "Assertion (A): In CRISPR-Cas9 gene editing, the Cas9 enzyme acts as a molecular scissor that cuts DNA at a location specified by the single-guide RNA (sgRNA).\n\nReason (R): Biologics, which include vaccines, gene therapy products, and proteins, are medicines derived from natural and living sources such as animal and plant cells and microorganisms.",
+    "options": {
+      "A": "Both A and R are true, and R is the correct explanation of A",
+      "B": "Both A and R are true, but R is not the correct explanation of A",
+      "C": "A is true, but R is false",
+      "D": "A is false, but R is true"
+    },
+    "correct_answer": "B",
+    "explanation": "The Assertion is correct: The Cas9 enzyme functions as a molecular scissor that can cut DNA, and the single-guide RNA (sgRNA) directs it to the precise genomic location to be edited — this is the core mechanistic principle of CRISPR-Cas9 technology. The Reason is also correct: Biologics are a class of medicines made from natural and living sources like animal and plant cells and microorganisms, and they include vaccines, blood and blood components, somatic cells, gene therapy, proteins, etc. However, R does not explain A — the definition of biologics as a broad category of living-source medicines is a separate factual statement about pharmaceutical classification and has no causal or mechanistic relationship with how CRISPR-Cas9 operates at the molecular level. Both statements are independently true facts from different domains.",
+    "cited_extracts": [
+      "The Cas9 enzyme functions as a molecular scissor that can cut DNA, and the single-guide RNA (sgRNA) con[trols the location of the cut].",
+      "Biologics are a class of medicines that are made from natural and living sources like animal and plant cells, and microorganisms. These include vaccines, blood and blood components, somatic cells, gene therapy, proteins etc."
+    ],
+    "source_file": "Prelims PYQ (2011-2025).pdf | Monthly Current Affairs- February 2026.pdf",
+    "source_page": 435,
+    "source_type": "both",
+    "question_type": "assertion_reason",
+    "difficulty": "medium",
+    "model_tier": "sonnet",
+    "status": "pass",
+    "factual_ok": true,
+    "unique_ok": true,
+    "distractors_ok": true,
+    "flag_reason": null,
+    "grounding_ok": true,
+    "ambiguity_ok": true
+  }
+]

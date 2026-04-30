@@ -1,0 +1,243 @@
+[
+  {
+    "topic_query": "World Wars and Decolonization — impact of World War II on Asian and African independence movements",
+    "question": "Consider the following statements about the period immediately after World War II:\n1. Many developing nations chose to support the foreign policy preferences of powerful countries that were providing them aid or credits.\n2. This foreign policy alignment resulted in the division of the world into two clear camps, one influenced by the United States and its western allies, and the other by the Soviet Union.\n3. Japan succeeded in remaining free of colonial control and achieved fairly rapid economic and industrial progress throughout the twentieth century.\nWhich of the above is/are correct?",
+    "options": {
+      "A": "1 and 2 only",
+      "B": "2 and 3 only",
+      "C": "1 and 3 only",
+      "D": "1, 2 and 3"
+    },
+    "correct_answer": "D",
+    "explanation": "All three statements are correct. Statement 1 and 2 are supported by the NCERT text on India's foreign policy which notes that developing nations aligned with powerful aid-giving countries, resulting in a division into US-led and Soviet-led camps. Statement 3 is supported by the history text which states Japan remained free of colonial control and achieved rapid economic and industrial progress throughout the twentieth century.",
+    "cited_extracts": [
+      "In the period immediately after the second world war, many developing nations chose to support the foreign policy preferences of the powerful countries who were giving them aid or credits.",
+      "This resulted in the division of countries of the world into two clear camps. One was under the influence of the United States and its western allies and the other was under the influence of the then Soviet Union.",
+      "Japan succeeded in remaining free of colonial control and achieved fairly rapid economic and industrial progress throughout the twentieth century."
+    ],
+    "source_file": "Class_12_Political_Science_Politics_in_India_since_Independence.pdf, Class_11_History_Themes_in_World_History.pdf",
+    "source_page": 54,
+    "source_type": "ncert",
+    "question_type": "statement_based",
+    "difficulty": "medium",
+    "model_tier": "haiku",
+    "status": "flag",
+    "factual_ok": null,
+    "unique_ok": null,
+    "distractors_ok": null,
+    "flag_reason": "check.py could not parse Claude's response — manual review needed.",
+    "grounding_ok": null,
+    "ambiguity_ok": null,
+    "repair_note": "Fixed truncated third cited extract by replacing it with the full verbatim sentence from the fresh NCERT evidence chunk."
+  },
+  {
+    "topic_query": "Minimum Support Price mechanism — fixation criteria, CACP recommendations, and procurement challenges",
+    "question": "Consider the following statements about Minimum Support Price (MSP):\n1. The MSP is declared by the government every year before the sowing season to provide incentives to farmers for raising production of certain crops.\n2. Purchased foodgrains under the MSP scheme are stored in granaries to create a buffer stock.\n3. The MSP is a mechanism designed specifically to reduce agricultural imports and promote export-oriented farming.\nWhich of the above is/are correct?",
+    "options": {
+      "A": "1 and 2 only",
+      "B": "2 and 3 only",
+      "C": "1 and 3 only",
+      "D": "1, 2 and 3"
+    },
+    "correct_answer": "A",
+    "explanation": "Statement 1 is correct: the MSP is announced by the government every year before the sowing season to provide incentives to farmers for raising the production of certain crops. Statement 2 is correct: purchased foodgrains are stored in granaries, creating a buffer stock as part of the MSP mechanism. Statement 3 is incorrect: the evidence does not support that MSP is designed specifically to reduce imports or promote export-oriented farming; rather, it is meant to ensure a declared price for farmers' crops and maintain food security through buffer stock creation.",
+    "cited_extracts": [
+      "This price is called Minimum Support Price (MSP). The MSP is declared by the government every year before the sowing season to provide incentives to farmers for raising the production of these crops.",
+      "The purchased foodgrains are stored in granaries. Do you know why this buffer stock is created by",
+      "announced price for their crops. This price is called Minimum Support Price (MSP). The MSP is declared by the government every year before the sowing season to provide incentives to farmers for raising the production of these crops."
+    ],
+    "source_file": "Class_09_Economics_Understanding_Economic_Development.pdf",
+    "source_page": 47,
+    "source_type": "ncert",
+    "question_type": "statement_based",
+    "difficulty": "medium",
+    "model_tier": "haiku",
+    "status": "pass",
+    "factual_ok": true,
+    "unique_ok": true,
+    "distractors_ok": true,
+    "flag_reason": null,
+    "grounding_ok": true,
+    "ambiguity_ok": true
+  },
+  {
+    "topic_query": "Rock-Cut Architecture and Cave Temples of Ancient India — Ajanta, Ellora, and Mahabalipuram",
+    "question": "Consider the following statements regarding rock-cut architecture of ancient India:\n\n1. The Kailashnatha Temple at Ellora is carved out of a single piece of rock.\n2. The image of Mahaparinirvana of Buddha is located in Cave 26 of the Ajanta caves, which are situated on the Waghora river.\n3. The Ajanta caves were built under the patronage of the Gupta rulers.",
+    "options": {
+      "A": "1 and 2 only",
+      "B": "2 and 3 only",
+      "C": "1 and 3 only",
+      "D": "1, 2 and 3"
+    },
+    "correct_answer": "A",
+    "explanation": "Statement 1 is correct: The Kailashnatha Temple at Ellora is entirely carved out of a single piece of rock. Statement 2 is correct: The image of Mahaparinirvana of Buddha is indeed in Cave 26 of the Ajanta caves, situated in the Sahyadri range on the Waghora river in Aurangabad, Maharashtra. Statement 3 is incorrect: The Ajanta caves were built under the patronage of the Vakataka rulers, not the Gupta rulers.",
+    "cited_extracts": [
+      "Fig. 4.28 Kailashnatha Temple, Ellora (Maharashtra). This entire structure is carved out of a single piece of rock.",
+      "The image of Mahaparinirvana of Buddha is in cave 26 of Ajanta caves in the Sahyadri range on Waghora river in Aurangabad, Maharashtra. They were built under the patronage of Vakataka rulers."
+    ],
+    "source_file": "Class_12_History_Themes_in_Indian_History_I.pdf / Prelims PYQ (2011-2025).pdf",
+    "source_page": 108,
+    "source_type": "both",
+    "question_type": "statement_based",
+    "difficulty": "medium",
+    "model_tier": "sonnet",
+    "status": "pass",
+    "factual_ok": true,
+    "unique_ok": true,
+    "distractors_ok": true,
+    "flag_reason": null,
+    "grounding_ok": true,
+    "ambiguity_ok": true
+  },
+  {
+    "topic_query": "Scheduled Tribes and Other Traditional Forest Dwellers Recognition Act 2006 — provisions and implementation challenges",
+    "question": "Consider the following statements regarding the Panchayats (Extension to Scheduled Areas) Act, 1996 (PESA):\n\n1. PESA operationalizes Article 243M(4)(b) of the Constitution and extends Panchayati Raj provisions to Fifth Schedule Areas.\n2. Under PESA, every Chairperson position at all Panchayat levels in Scheduled Areas must be reserved for Scheduled Tribe members.\n3. As of recent review, all ten states with Scheduled Areas have framed and notified their PESA rules.",
+    "options": {
+      "A": "1 and 2 only",
+      "B": "2 and 3 only",
+      "C": "1 and 3 only",
+      "D": "1, 2 and 3"
+    },
+    "correct_answer": "A",
+    "explanation": "Statement 1 is correct: PESA operationalizes Article 243M(4)(b) and applies to Fifth Schedule Areas, extending Part IX (Panchayati Raj) provisions with tribal-centric modifications. Statement 2 is correct: The Act mandates that every Chairperson position at all Panchayat levels must be held by an ST member. Statement 3 is incorrect: PESA applies to ten states but only nine have implemented their rules — Odisha remains at the draft stage and has not yet notified its rules.",
+    "cited_extracts": [
+      "The Panchayats (Extension to Scheduled Areas) Act, 1996, operationalizes Article 243M(4)(b) of the Constitution and extends Part IX (Panchayati Raj) provisions to Fifth Schedule Areas with specific tribal-centric modifications.",
+      "The Act mandates that Scheduled Tribes must comprise at least 50 percent of all Panchayat seats, and every Chairperson position at all Panchayat levels must be held by an ST member.",
+      "As of now, nine of these states have implemented their respective PESA rules, while Odisha remains in the draft stage."
+    ],
+    "source_file": "PESA Act, 1996 — 30 Years Milestone and Implementation Status",
+    "source_page": 0,
+    "source_type": "both",
+    "question_type": "statement_based",
+    "difficulty": "medium",
+    "model_tier": "sonnet",
+    "status": "pass",
+    "factual_ok": true,
+    "unique_ok": true,
+    "distractors_ok": true,
+    "flag_reason": null,
+    "grounding_ok": true,
+    "ambiguity_ok": true
+  },
+  {
+    "topic_query": "River System of Peninsular India — drainage patterns, watersheds, and seasonal characteristics",
+    "question": "Consider the following statements about the drainage systems of Peninsular India:\n\n1. The Narmada and Tapi rivers flow in trough faults and are exceptions among Peninsular rivers as they discharge their waters into the Arabian Sea.\n2. The subsidence of the western flank of the Peninsula during the early Tertiary period disturbed the symmetrical plan of rivers on either side of the original watershed.\n3. Most large rivers of the Peninsular plateau originate in the Western Ghats and discharge into the Bay of Bengal, with the Narmada and Tapi being notable exceptions.",
+    "options": {
+      "A": "1 and 2 only",
+      "B": "2 and 3 only",
+      "C": "1 and 3 only",
+      "D": "1, 2 and 3"
+    },
+    "correct_answer": "D",
+    "explanation": "All three statements are correct. Statement 1 is correct: The Narmada and Tapi flow in trough faults and, along with many small rivers, discharge into the Arabian Sea — making them exceptions among Peninsular rivers. Statement 2 is correct: Subsidence of the western flank of the Peninsula during the early Tertiary period disturbed the symmetrical drainage plan on either side of the original watershed. Statement 3 is correct: Large rivers flowing on the Peninsular plateau generally originate in the Western Ghats and discharge into the Bay of Bengal; the Narmada and Tapi are the two large rivers which are exceptions.",
+    "cited_extracts": [
+      "Subsidence of the western flank of the Peninsula leading to its submergence below the sea during the early tertiary period. Generally, it has disturbed the symmetrical plan of the river on either side of the original watershed. The Narmada and The Tapi flow in trough faults and fill the rift valleys.",
+      "Large rivers flowing on the Peninsular plateau have their origin in the Western Ghats and discharge their waters in the Bay of Bengal. The Narmada and Tapi are two large rivers which are exceptions. They along with many small rivers discharge their water in the Arabian Sea."
+    ],
+    "source_file": "Class_11_Geography_Fundamentals_of_Physical_Geography.pdf",
+    "source_page": 23,
+    "source_type": "both",
+    "question_type": "statement_based",
+    "difficulty": "medium",
+    "model_tier": "sonnet",
+    "status": "pass",
+    "factual_ok": true,
+    "unique_ok": true,
+    "distractors_ok": true,
+    "flag_reason": null,
+    "grounding_ok": true,
+    "ambiguity_ok": true
+  },
+  {
+    "topic_query": "Current Affairs — India's Semiconductor Mission and chip fabrication ecosystem",
+    "question": "Consider the following statements regarding India's electronics and semiconductor manufacturing policy:\n\n1. The Production-Linked Incentive (PLI) Scheme covers 14 sectors, with a focus on mobile phones and IT hardware.\n2. The Scheme for Promotion of Manufacturing of Electronic Components and Semiconductors (SPECS) offers a 25% financial incentive on capital expenditure to facilitate India's shift from assembly-based to component manufacturing.\n3. The Electronics Components Manufacturing Scheme (ECMS) outlay was reduced from ₹40,000 crore to ₹22,919 crore in Union Budget 2026–27 to prioritise other strategic sectors.\n\nWhich of the statements given above is/are correct?",
+    "options": {
+      "A": "1 and 2 only",
+      "B": "2 and 3 only",
+      "C": "1 only",
+      "D": "1, 2 and 3"
+    },
+    "correct_answer": "A",
+    "explanation": "Statements 1 and 2 are correct. The PLI Scheme covers 14 sectors with a focus on mobile phones and IT hardware. SPECS offers a 25% financial incentive on capital expenditure to facilitate India's transition from assembly-based to component-manufacturing economy. Statement 3 is incorrect: the Electronics Components Manufacturing Scheme (ECMS) outlay was expanded from ₹22,919 crore to ₹40,000 crore in Union Budget 2026–27, not reduced.",
+    "cited_extracts": [
+      "Production-Linked Incentive (PLI) Scheme: It covers 14 sectors, focusing on mobile phones and IT hardware to boost exports and technology adoption.",
+      "The Scheme for Promotion of Manufacturing of Electronic Components and Semiconductors offers 25% financial incentive on capital expenditure to facilitate India's transition from assembly-based to component-manufacturing economy.",
+      "Electronics Components Manufacturing Scheme (ECMS) outlay has been expanded from ₹22,919 crore to ₹40,000 crore."
+    ],
+    "source_file": "Monthly Current Affairs- February 2026.pdf",
+    "source_page": 0,
+    "source_type": "current_affairs",
+    "question_type": "statement_based",
+    "difficulty": "medium",
+    "model_tier": "sonnet",
+    "status": "flag",
+    "factual_ok": false,
+    "unique_ok": false,
+    "distractors_ok": true,
+    "flag_reason": "Statement 2 is factually questionable: SPECS offers a financial incentive on capital expenditure, but the commonly cited figure is 25% for specified electronics goods — however, this figure needs verification as some sources cite different rates for different categories; more critically, Statement 3 is internally contradictory and misleading — the explanation states the ECMS outlay was 'expanded' from ₹22,919 crore to ₹40,000 crore, but the Union Budget 2026-27 has not yet occurred (it would be for FY2026-27, presented in early 2026), making the entire premise of Statement 3 unverifiable and potentially fabricated, which undermines the factual integrity of the question and could affect whether Statement 1 alone or Statements 1 and 2 together form the correct answer.",
+    "grounding_ok": false,
+    "ambiguity_ok": false,
+    "repair_note": "Statement 3 corrected to say the ECMS outlay was 'reduced from ₹40,000 crore to ₹22,919 crore', making it a verifiably false claim grounded in the source extract which states the outlay was expanded from ₹22,919 crore to ₹40,000 crore; this preserves the correct answer as A."
+  },
+  {
+    "topic_query": "India-ASEAN Relations — historical evolution, trade ties, connectivity projects, and strategic dimensions",
+    "question": "Consider the following statements regarding India's engagement with the ASEAN region and its broader Indo-Pacific strategy:\n\n1. The ASEAN Economic Community aims to create a common market and production base within ASEAN states and to aid social and economic development in the region.\n2. India's vision for the Indo-Pacific is described as free, open, inclusive, and rules-based, with support for freedom of navigation in the South China Sea.\n3. The Asia-Africa Growth Corridor was established by India alone in 2017 to promote sustainable development across Africa.\n\nWhich of the statements given above is/are correct?",
+    "options": {
+      "A": "1 and 2 only",
+      "B": "2 and 3 only",
+      "C": "1 only",
+      "D": "1, 2 and 3"
+    },
+    "correct_answer": "A",
+    "explanation": "Statement 1 is correct: The objectives of the ASEAN Economic Community are to create a common market and production base within ASEAN states and to aid social and economic development in the region, as stated in the NCERT chapter on contemporary centres of power.\n\nStatement 2 is correct: India's vision of a free, open, inclusive, and rules-based Indo-Pacific is explicitly supported, asserting freedom of navigation in the South China Sea as part of its broader Indo-Pacific engagement strategy.\n\nStatement 3 is incorrect: The Asia-Africa Growth Corridor was not established by India alone — it was established jointly by India and Japan in 2017 to promote sustainable and inclusive development in Africa through enhanced connectivity.",
+    "cited_extracts": [
+      "The objectives of the ASEAN Economic Community are to create a common market and production base within ASEAN states and to aid social and economic development in the region.",
+      "India's vision of free, open, inclusive, and rules-based Indo-pacific is supported as it asserts freedom of navigation in the South China Sea.",
+      "The Asia-Africa Growth Corridor was established in 2017 by India and Japan to promote sustainable and inclusive development in Africa through enhanced connectivity."
+    ],
+    "source_file": "Class_12_Political_Science_Contemporary_World_Politics.pdf",
+    "source_page": 21,
+    "source_type": "both",
+    "question_type": "statement_based",
+    "difficulty": "medium",
+    "model_tier": "sonnet",
+    "status": "pass",
+    "factual_ok": true,
+    "unique_ok": true,
+    "distractors_ok": true,
+    "flag_reason": null,
+    "grounding_ok": true,
+    "ambiguity_ok": true
+  },
+  {
+    "topic_query": "Left-Wing Extremism in India — geographical spread, socioeconomic root causes, and counter-insurgency strategies",
+    "question": "With reference to India's approach to countering Left-Wing Extremism (LWE), consider the following statements:\n\n1. The Unlawful Activities (Prevention) Act, 1967 is one of the special laws used to tackle terrorism-related crimes including those linked to LWE.\n2. The Protection of Human Rights Act, 1993 addresses cases of human rights violations that may arise in the course of threat mitigation operations.\n3. Regional aspirations and socioeconomic grievances — such as inequitable distribution of resources and displacement — are widely recognised as conditions conducive to the growth of violent extremism.\n\nWhich of the statements given above is/are correct?",
+    "options": {
+      "A": "1 only",
+      "B": "1 and 2 only",
+      "C": "2 and 3 only",
+      "D": "1, 2 and 3"
+    },
+    "correct_answer": "D",
+    "explanation": "Statement 1 is correct: The Unlawful Activities (Prevention) Act, 1967 is explicitly listed among special laws to tackle terrorism-related crimes, which includes LWE-related offences. Statement 2 is correct: The Protection of Human Rights Act, 1993 is specifically mentioned as dealing with cases of violation of human rights in the context of threat mitigation through just legal processes. Statement 3 is correct: Attenuating the conditions conducive to terrorism — including socioeconomic grievances and regional inequalities — forms a recognised pillar of counter-insurgency strategy. Political conflicts over regional rights and power distribution, combined with resistance to perceived economic exclusion, are acknowledged drivers of violent movements. All three statements are therefore correct.",
+    "cited_extracts": [
+      "Special laws to tackle terrorism related crimes- Unlawful Activities (Prevention) Act, 1967, Explosives Substance Act, 1908, Arms Act 1959 and Prevention of Money Laundering Act, 2002.",
+      "Threat mitigation is handled through just legal processes that protect fundamental human right with Protection of Human Rights Act, 1993 specifically dealing with cases of violation of human rights.",
+      "(A)ttenuating the conditions conducive to Terrorism: o Indian intelligence and law enforcement agencies contin...",
+      "political conflicts over issues of power of the regions, their rights and their separate existence are common to nations that want to respect diversity while trying to forge and retain unity."
+    ],
+    "source_file": "Monthly Current Affairs- February 2026.pdf / Class_12_Political_Science_Politics_in_India_since_Independence.pdf",
+    "source_page": 69,
+    "source_type": "both",
+    "question_type": "statement_based",
+    "difficulty": "medium",
+    "model_tier": "sonnet",
+    "status": "pass",
+    "factual_ok": true,
+    "unique_ok": true,
+    "distractors_ok": true,
+    "flag_reason": null,
+    "grounding_ok": true,
+    "ambiguity_ok": true
+  }
+]

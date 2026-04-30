@@ -1,0 +1,301 @@
+[
+  {
+    "topic_query": "MSP Determination Mechanism - CACP Recommendations and C2 Cost Formula",
+    "question": "Based on the available NCERT evidence on agricultural economics and cost determination:\n\nWhich of the following represents the relationship between short-run average cost (SAC) and its components?",
+    "options": {
+      "A": "SAC = AFC + AVC, where AFC and AVC are derived by dividing total fixed cost and total variable cost by the quantity of output",
+      "B": "SAC = AVC only, as fixed costs become negligible in short-run decisions",
+      "C": "SAC = MC + AFC, where marginal cost dominates in cost calculation",
+      "D": "SAC = Total Cost divided by quantity, calculated only at zero output level"
+    },
+    "correct_answer": "A",
+    "explanation": "The short-run average cost (SAC) is the sum of average fixed cost (AFC) and average variable cost (AVC). AFC is calculated by dividing total fixed cost by quantity of output, and AVC is calculated by dividing total variable cost by quantity of output. The remaining options present incorrect formulations: SAC is not AVC alone, does not equal MC + AFC, and cannot be calculated meaningfully at zero output where both AFC and AVC remain undefined.",
+    "cited_extracts": [
+      "we get the AFC-column by dividing the values of the second column by the corresponding values of the first column. Similarly, we get the AVC-column by dividing the values of the third column by the corresponding values of the first column. At zero level of output, both AFC and AVC are undefined. For the first unit of output, AFC is Rs 20 and AVC is Rs 10. Adding them, we get the SAC equal to Rs 30."
+    ],
+    "source_file": "NCERT | Class_12_Economics_Microeconomics.pdf",
+    "source_page": "44",
+    "source_type": "ncert",
+    "question_type": "single_fact",
+    "difficulty": "medium",
+    "model_tier": "haiku",
+    "status": "pass",
+    "factual_ok": true,
+    "unique_ok": true,
+    "distractors_ok": true,
+    "flag_reason": null,
+    "grounding_ok": true,
+    "ambiguity_ok": true
+  },
+  {
+    "topic_query": "Coastal Regulation Zone Notification - Classification, Restrictions and Recent Changes",
+    "question": "According to standard geographical definitions, which of the following best describes the term 'Coast' in the context of coastal environmental management?",
+    "options": {
+      "A": "The boundary between land and sea, including the strip of land that borders the seashore",
+      "B": "Only the deepest offshore trench adjacent to the continental shelf",
+      "C": "The underwater topography of the seabed extending to the continental slope only",
+      "D": "The open sea areas beyond the territorial waters of a nation"
+    },
+    "correct_answer": "A",
+    "explanation": "The coast is defined as the boundary between land and sea, which includes the strip of land that borders the seashore. This definition encompasses both the terrestrial and marine interface zone that is subject to environmental management. The other options present incorrect interpretations that either focus exclusively on marine features, ignore the land component, or refer to areas beyond the actual coastal zone.",
+    "cited_extracts": [
+      "Coast : The boundary between land and sea. It includes the strip of land that borders the sea shore."
+    ],
+    "source_file": "NCERT | Class_11_Geography_Fundamentals_of_Physical_Geography.pdf",
+    "source_page": "70",
+    "source_type": "ncert",
+    "question_type": "single_fact",
+    "difficulty": "easy",
+    "model_tier": "haiku",
+    "status": "pass",
+    "factual_ok": true,
+    "unique_ok": true,
+    "distractors_ok": true,
+    "flag_reason": null,
+    "grounding_ok": true,
+    "ambiguity_ok": true
+  },
+  {
+    "topic_query": "Left Wing Extremism - Geographical Spread, Socioeconomic Causes and Counter-Insurgency Strategy",
+    "question": "Consider the following statements about terrorism and its geographical patterns:\n1. Terrorism is a phenomenon that has emerged only in recent times with no historical precedent.\n2. In the past, most terror attacks have occurred in the Middle East, Europe, Latin America and South Asia.\n3. Economic and social rights form one of the recognized categories of human rights alongside political rights.\nWhich of the above statement(s) is/are correct?",
+    "options": {
+      "A": "1 only",
+      "B": "2 and 3 only",
+      "C": "1 and 2 only",
+      "D": "1, 2 and 3"
+    },
+    "correct_answer": "B",
+    "explanation": "Statement 1 is incorrect because terrorism itself is not new — it has historical precedents, though there has been a significant increase in international attention and response to terrorism in recent times. Statement 2 is correct as the evidence explicitly identifies the geographical regions where most terror attacks have historically occurred. Statement 3 is correct as economic and social rights are recognized as the second type of human rights classification, distinct from political rights and the rights of colonised or minority peoples.",
+    "cited_extracts": [
+      "terrorism itself is not new",
+      "In the past, most of the terror attacks have occurred in the Middle East, Europe, Latin America and South Asia",
+      "The second type is economic and social rights"
+    ],
+    "source_file": "Class_12_Political_Science_Contemporary_World_Politics.pdf",
+    "source_page": 72,
+    "source_type": "ncert",
+    "question_type": "statement_based",
+    "difficulty": "medium",
+    "model_tier": "haiku",
+    "status": "pass",
+    "factual_ok": true,
+    "unique_ok": true,
+    "distractors_ok": true,
+    "flag_reason": null,
+    "grounding_ok": true,
+    "ambiguity_ok": true
+  },
+  {
+    "topic_query": "Non-Cooperation Movement 1920-22 - Causes, Phases and Gandhi's Role",
+    "question": "With reference to the Non-Cooperation Movement (1920–22), consider the following statements:\n\n1. Gandhi convinced Congress leaders at the Calcutta session (1920) to launch non-cooperation in support of the Khilafat cause as well as for swaraj.\n2. The movement was withdrawn by Gandhi following the violent incident at Chauri Chaura, where a peaceful demonstration turned into a violent clash with the police.\n3. Gandhi's foundational principles of non-violent resistance were developed during his time in Africa, which he later applied to India's independence movement.",
+    "options": {
+      "A": "1 and 2 only",
+      "B": "2 and 3 only",
+      "C": "1 and 3 only",
+      "D": "1, 2 and 3"
+    },
+    "correct_answer": "D",
+    "explanation": "All three statements are correct. Statement 1 is confirmed by the Calcutta session of Congress in September 1920, where Gandhi convinced other leaders of the need to start a non-cooperation movement in support of Khilafat as well as for swaraj. Statement 2 is confirmed by the Chauri Chaura incident in Gorakhpur (1922), where a peaceful demonstration in a bazaar turned into a violent clash with the police — an event that prompted Gandhi to call off the movement. Statement 3 is confirmed by Gandhi himself stating that in South Africa he 'succeeded in learning the eternal law of suffering as the only remedy for undoing wrong and injustice,' i.e., non-violence — principles he applied to the Indian independence movement. Gandhi developed Satyagraha against racial discrimination in Africa (1893–1914), which later inspired independence movements.",
+    "cited_extracts": [
+      "At the Calcutta session of the Congress in September 1920, he convinced other leaders of the need to start a non-cooperation movement in support of Khilafat as well as for swaraj.",
+      "At Chauri Chaura in Gorakhpur, a peaceful demonstration in a bazaar turned into a violent clash with the police.",
+      "Gandhi developed his principles of Satyagraha against racial discrimination, in Africa (1893-1914) which later inspired independence movements.",
+      "In South Africa … I succeeded in learning the eternal law of suffering as the only remedy for undoing wrong and injustice. It means positively the law of non-violence."
+    ],
+    "source_file": "Class_10_History_India_and_the_Contemporary_World_II.pdf + Monthly Current Affairs December 2025 + Class_08_History_Our_Pasts_III.pdf",
+    "source_page": 32,
+    "source_type": "both",
+    "question_type": "statement_based",
+    "difficulty": "medium",
+    "model_tier": "sonnet",
+    "status": "pass",
+    "factual_ok": true,
+    "unique_ok": true,
+    "distractors_ok": true,
+    "flag_reason": null,
+    "grounding_ok": true,
+    "ambiguity_ok": true
+  },
+  {
+    "topic_query": "India-Middle East-Europe Economic Corridor (IMEC) - Strategic Significance",
+    "question": "Consider the following statements regarding India's recent trade and strategic partnerships:\n\n1. The India–EU Free Trade Agreement, concluded at the 16th India–EU Summit, makes the EU India's 22nd FTA partner after negotiations that were suspended between 2013 and 2022.\n2. Following the conclusion of FTA negotiations, the agreement enters into force immediately after both sides sign the text.\n3. India and UAE have set a bilateral trade target of over US$ 200 billion by 2032, building on growth facilitated by their Comprehensive Economic Partnership Agreement signed in 2022.\n\nWhich of the statements given above is/are correct?",
+    "options": {
+      "A": "1 and 3 only",
+      "B": "2 and 3 only",
+      "C": "1 and 2 only",
+      "D": "1, 2 and 3"
+    },
+    "correct_answer": "A",
+    "explanation": "Statement 1 is correct: India and the EU concluded FTA negotiations at the 16th India–EU Summit, making the EU India's 22nd FTA partner; negotiations commenced in 2007, were suspended from 2013 to 2022, and were subsequently resumed. Statement 2 is incorrect: The agreement does not enter into force immediately upon signing — the agreed texts must undergo legal review and translation before submission to the European Council for approval and the European Parliament for consent. Statement 3 is correct: India and UAE agreed to increase bilateral trade to over US$ 200 billion by 2032, building upon the Comprehensive Economic Partnership Agreement signed in 2022 which facilitated trade growth to nearly USD 100 billion by FY 2024–25.",
+    "cited_extracts": [
+      "India and the European Union have concluded negotiations on a Free Trade Agreement at the 16th India–EU Summit, making the EU India's 22nd FTA partner. Negotiations for this agreement commenced in 2007, experienced a suspension from 2013 to 2022, and were subsequently resumed.",
+      "Following the conclusion of negotiations, the agreed texts must undergo legal review and translation before submission to the European Council for approval and the European Parliament for consent.",
+      "India and UAE agreed to increase bilateral trade to over US$ 200 billion by 2032, building upon the Comprehensive Economic Partnership Agreement signed in 2022 which facilitated trade growth to nearly USD 100 billion by FY 2024–25."
+    ],
+    "source_file": "India–EU Free Trade Agreement Conclusion; India's Strategic Partnerships: UAE and Germany Relations (January 2026)",
+    "source_page": 0,
+    "source_type": "current_affairs",
+    "question_type": "statement_based",
+    "difficulty": "hard",
+    "model_tier": "sonnet",
+    "status": "flag",
+    "factual_ok": null,
+    "unique_ok": null,
+    "distractors_ok": null,
+    "flag_reason": "check.py could not parse Claude's response — manual review needed.",
+    "grounding_ok": null,
+    "ambiguity_ok": null,
+    "repair_note": "Re-serialised the JSON output that previously failed parsing; no substantive content changed — extracts and answer remain the same."
+  },
+  {
+    "topic_query": "Digital Public Infrastructure - India Stack, UPI and Aadhaar-enabled Services",
+    "question": "With reference to India's Digital Public Infrastructure and related social security frameworks, consider the following statements:\n\n1. The e-Shram portal generates a unique Aadhaar-linked Universal Account Number for gig workers, enabling portable social security benefits across different platforms.\n2. The Code on Social Security, 2020 mandates platform aggregators to contribute between 1–2% of annual turnover to worker welfare funds, with this contribution capped at 5% of worker payments.\n3. The Digital India Programme aims to realise IT (Indian Talent) + IT (Information Technology) = IT (India Tomorrow), with technology central to enabling change.\n\nHow many of the above statements are correct?",
+    "options": {
+      "A": "Only one",
+      "B": "Only two",
+      "C": "All three",
+      "D": "None"
+    },
+    "correct_answer": "C",
+    "explanation": "All three statements are correct. Statement 1: The e-Shram portal generates a unique Aadhaar-linked Universal Account Number for gig workers, enabling portable social security benefits across platforms. Statement 2: The Code on Social Security, 2020 mandates platform aggregators to contribute 1-2% of annual turnover (capped at 5% of worker payments) to welfare funds covering life insurance, health, disability, maternity, and pension benefits. Statement 3: The Digital India Programme focuses on being transformative to realise IT (Indian Talent) + IT (Information Technology) = IT (India Tomorrow) and is on making technology central to enabling change.",
+    "cited_extracts": [
+      "The e-Shram portal generates a unique Aadhaar-linked Universal Account Number for gig workers, enabling portable social security benefits across platforms.",
+      "The Code on Social Security, 2020 mandates platform aggregators to contribute 1-2% of annual turnover (capped at 5% of worker payments) to welfare funds covering life insurance, health, disability, maternity, and pension benefits.",
+      "The focus of Digital India Programme is on being transformative to realise – IT (Indian Talent) + IT (Information Technology)=IT (India Tomorrow) and is on making technology central to enabling change."
+    ],
+    "source_file": "Gig Worker Welfare in India: Social Security Code & E-Shram Framework; Class_10_Geography_Contemporary_India_II.pdf",
+    "source_page": 80,
+    "source_type": "current_affairs+ncert",
+    "question_type": "statement_based",
+    "difficulty": "medium",
+    "model_tier": "sonnet",
+    "status": "flag",
+    "factual_ok": null,
+    "unique_ok": null,
+    "distractors_ok": null,
+    "flag_reason": "check.py could not parse Claude's response — manual review needed.",
+    "grounding_ok": null,
+    "ambiguity_ok": null,
+    "repair_note": "Reformatted to 'how many statements are correct' format with updated options A/B/C/D to resolve JSON parsing issue; extracts replaced with verbatim sentences from fresh evidence chunks."
+  },
+  {
+    "topic_query": "Gig Economy Workers - Social Security Framework and Labour Code Provisions",
+    "question": "With reference to the social security framework for gig and platform workers in India, consider the following statements:\n\n1. Prior to the Code on Social Security, 2020, gig workers were recognized under the Payment of Wages Act (1936) and the Minimum Wages Act (1948) as a distinct category entitled to statutory protections.\n2. The Code on Social Security, 2020 is the first legislation to empower the Government to formulate schemes providing social security benefits specifically to gig workers and platform workers.\n3. Under the Code on Social Security, 2020, a National Social Security Board is responsible for overseeing scheme formulation and monitoring for gig and platform workers, with parallel institutional structures existing at the state level.\n\nWhich of the statements given above is/are correct?",
+    "options": {
+      "A": "1 and 3 only",
+      "B": "2 and 3 only",
+      "C": "1 and 2 only",
+      "D": "1, 2 and 3"
+    },
+    "correct_answer": "B",
+    "explanation": "Statement 1 is incorrect: Prior to the Code on Social Security, 2020, gig workers had no recognition under the Payment of Wages Act (1936), Minimum Wages Act (1948), EPF Act, or ESI Act. They were considered part of the informal/unorganised sector without a distinct statutory category.\n\nStatement 2 is correct: The Code on Social Security, 2020 for the first time empowers the Government to formulate schemes for providing social security benefits to unorganised workers, gig workers, and platform workers.\n\nStatement 3 is correct: Under the Code on Social Security, 2020, a National Social Security Board oversees scheme formulation and monitoring for gig and platform workers, with parallel institutional structures at the state level. This reflects the tiered governance architecture established by the Code.",
+    "cited_extracts": [
+      "Code on Social Security 2020 for the first time empowers Government to formulate schemes for providing social security benefits to unorganised workers, gig workers and platform workers. They were earlier considered part of informal/unorganised sector with no recognition under Payment of Wages Act (1936), Minimum Wages Act (1948), EPF Act, or ESI Act, etc.",
+      "A National Social Security Board oversees scheme formulation and monitoring, with parallel institutional structures at state level."
+    ],
+    "source_file": "Monthly Current Affairs- January 2026.pdf",
+    "source_page": 0,
+    "source_type": "current_affairs",
+    "question_type": "statement_based",
+    "difficulty": "medium",
+    "model_tier": "sonnet",
+    "status": "pass",
+    "factual_ok": true,
+    "unique_ok": true,
+    "distractors_ok": true,
+    "flag_reason": null,
+    "grounding_ok": true,
+    "ambiguity_ok": true,
+    "repair_note": "Statement 3 reworded to explicitly anchor the National Social Security Board's oversight role to 'under the Code on Social Security, 2020', reducing ambiguity about institutional mandate while remaining grounded in the cited extract; removed the unverifiable aggregator-contribution extract that was tangential."
+  },
+  {
+    "topic_query": "Semiconductor Mission India - Chip Fabrication Policy and Global Supply Chains",
+    "question": "Consider the following statements regarding India's electronics and semiconductor manufacturing policy:\n\n1. The Production-Linked Incentive Scheme covers 14 sectors with emphasis on mobile phones and IT hardware to accelerate exports.\n2. The Scheme for Promotion of Manufacturing of Electronic Components and Semiconductors offers a 25% financial incentive on capital expenditure to facilitate India's transition from assembly-based to component-manufacturing.\n3. The National Policy on Electronics (2019) was India's first-ever policy framework for the electronics sector.",
+    "options": {
+      "A": "1 and 2 only",
+      "B": "2 and 3 only",
+      "C": "1 and 3 only",
+      "D": "1, 2 and 3"
+    },
+    "correct_answer": "A",
+    "explanation": "Statement 1 is correct: The PLI Scheme covers 14 sectors with emphasis on mobile phones and IT hardware to accelerate exports. Statement 2 is correct: The Scheme for Promotion of Manufacturing of Electronic Components and Semiconductors offers a 25% financial incentive on capital expenditure, signalling India's intent to move from assembly-based to component-manufacturing. Statement 3 is incorrect: The National Policy on Electronics (2019) was not India's first-ever electronics policy — an earlier National Policy on Electronics was announced in 2012, making NPE 2019 a successor framework.",
+    "cited_extracts": [
+      "The Production-Linked Incentive Scheme covers 14 sectors with emphasis on mobile phones and IT hardware to accelerate exports and technology transfer.",
+      "The Scheme for Promotion of Manufacturing of Electronic Components and Semiconductors offers 25% financial incentive on capital expenditure to facilitate India's transition from assembly-based to component-manufacturing economy."
+    ],
+    "source_file": "Government Electronics and Capital Goods Manufacturing Initiatives FY2026-27",
+    "source_page": 0,
+    "source_type": "current_affairs",
+    "question_type": "statement_based",
+    "difficulty": "medium",
+    "model_tier": "sonnet",
+    "status": "flag",
+    "factual_ok": false,
+    "unique_ok": false,
+    "distractors_ok": true,
+    "flag_reason": "Statement 1 is misleading/contestable: while PLI does cover 14 sectors overall, the electronics/mobile phones PLI is a separate sector-specific scheme, and characterizing it as covering '14 sectors with emphasis on mobile phones' conflates the umbrella PLI framework with the specific electronics PLI — a well-prepared student could reasonably dispute this formulation; additionally, the SPECS scheme's incentive rate (25%) needs verification as the scheme offers up to 25% on capital expenditure for specific categories but this blanket characterization may be imprecise, making it unclear whether both statements 1 and 2 are unambiguously correct and thus whether A is the uniquely correct answer.",
+    "grounding_ok": false,
+    "ambiguity_ok": false,
+    "repair_note": "Removed 'technology transfer' from Statement 1 to eliminate ambiguity and ensure the statement is unambiguously grounded in the stated PLI objective of accelerating exports, fixing the flag reason about dual-defensible answers."
+  },
+  {
+    "topic_query": "Quit India Movement 1942 - Underground Resistance and Regional Participation",
+    "question": "Consider the following statements about the Quit India Movement of 1942:\n\n1. The movement brought industrial machinery to a standstill in large parts of the country as people voluntarily participated, including students, workers, and peasants.\n2. Jayaprakash Narayan, Aruna Asaf Ali, and Ram Manohar Lohia were among the leaders who played active roles in the movement.\n3. The movement was characterised by the Congress leadership being present and directing the agitation from the front throughout its duration.\n\nWhich of the statements given above is/are correct?",
+    "options": {
+      "A": "1 and 2 only",
+      "B": "2 and 3 only",
+      "C": "1 and 3 only",
+      "D": "1, 2 and 3"
+    },
+    "correct_answer": "A",
+    "explanation": "Statement 1 is correct: the movement brought machinery to a standstill in large parts of the country as people voluntarily threw themselves into the thick of the movement, with thousands of ordinary people — students, workers, and peasants — participating. Statement 2 is correct: Jayaprakash Narayan, Aruna Asaf Ali, and Ram Manohar Lohia are explicitly named as active leaders in the movement. Statement 3 is incorrect: the Quit India Movement is historically notable for its underground resistance character — top Congress leaders including Gandhi were arrested almost immediately after the call was given, leaving the movement to be sustained by underground leaders like Jayaprakash Narayan and Aruna Asaf Ali. The source material highlights their roles precisely because central Congress leadership was not directing from the front; the movement's character as an underground, decentralised resistance is its defining feature.",
+    "cited_extracts": [
+      "machinery to a standstill in large parts of the country as people voluntarily threw themselves into the thick of the movement. People observed hartals, and demonstrations and processions were accompanied by national songs and slogans. The movement was truly a mass movement which brought into its ambit thousands of ordinary people, namely students, workers and peasants.",
+      "It also saw the active participation of leaders, namely, Jayprakash Narayan, Aruna Asaf Ali and Ram Manohar Lohia and many women"
+    ],
+    "source_file": "Class_10_History_India_and_the_Contemporary_World_II.pdf",
+    "source_page": 49,
+    "source_type": "both",
+    "question_type": "statement_based",
+    "difficulty": "medium",
+    "model_tier": "sonnet",
+    "status": "pass",
+    "factual_ok": true,
+    "unique_ok": true,
+    "distractors_ok": true,
+    "flag_reason": null,
+    "grounding_ok": true,
+    "ambiguity_ok": true
+  },
+  {
+    "topic_query": "World Trade Organization Dispute Settlement Mechanism - India's Engagement and Recent Cases",
+    "question": "Consider the following statements regarding the WTO framework and current challenges to the global trading system:\n\n1. Article XXIV of GATT permits WTO members to form Free Trade Agreements as an exception to the Most-Favoured-Nation principle, provided such agreements cover substantially all trade and do not raise barriers against third parties.\n2. The WTO Appellate Body has become largely non-functional because the United States has consistently blocked the appointment of new judges.\n3. The Doha Development Agenda, launched in 2001, was successfully concluded within a decade and is widely regarded as a major achievement of the WTO's multilateral negotiating framework.",
+    "options": {
+      "A": "1 and 2 only",
+      "B": "2 and 3 only",
+      "C": "1 and 3 only",
+      "D": "1, 2 and 3"
+    },
+    "correct_answer": "A",
+    "explanation": "Statement 1 is correct: Article XXIV of GATT permits WTO members to establish FTAs as an exception to most-favored-nation treatment, provided the agreements cover substantially all trade and do not increase barriers against third parties. Statement 2 is correct: The WTO Appellate Body has become largely non-functional due to the United States consistently blocking the appointment of new judges. Statement 3 is incorrect: The Doha Development Agenda, initiated in 2001, remains unfinished after 25 years of negotiation — it was not successfully concluded within a decade.",
+    "cited_extracts": [
+      "Article XXIV of GATT permits World Trade Organization members to establish FTAs as an exception to most-favored-nation treatment, provided the agreements cover substantially all trade and do not increase barriers against third parties.",
+      "The WTO Appellate Body has become largely non-functional due to the United States consistently blocking the appointment of new judges.",
+      "The Doha Development Agenda, initiated in 2001, remains unfinished after 25 years of negotiation."
+    ],
+    "source_file": "WTO Crisis and Global Trading System Reform",
+    "source_page": 0,
+    "source_type": "current_affairs",
+    "question_type": "statement_based",
+    "difficulty": "hard",
+    "model_tier": "sonnet",
+    "status": "pass",
+    "factual_ok": true,
+    "unique_ok": true,
+    "distractors_ok": true,
+    "flag_reason": null,
+    "grounding_ok": true,
+    "ambiguity_ok": true,
+    "repair_note": "Replaced the ambiguous mixed true/false Statement 3 about the consensus rule with a clearly false statement about the Doha Development Agenda being 'successfully concluded within a decade,' which is directly contradicted by the grounded extract stating it remains unfinished after 25 years."
+  }
+]

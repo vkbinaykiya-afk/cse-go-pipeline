@@ -1,0 +1,314 @@
+[
+  {
+    "topic_query": "Directive Principles of State Policy - classification, justiciability, and conflict with Fundamental Rights",
+    "question": "Consider the following statements about Directive Principles of State Policy (DPSP):\n1. DPSP are not enforceable by any court of law.\n2. DPSP are legally binding and citizens can approach courts to compel their implementation.\n3. DPSP are fundamental in the governance of the country and it is the duty of the State to apply these principles in making laws.\nWhich of the above statements is/are correct?",
+    "options": {
+      "A": "1 and 3 only",
+      "B": "2 and 3 only",
+      "C": "1 only",
+      "D": "1, 2 and 3"
+    },
+    "correct_answer": "A",
+    "explanation": "Statement 1 is correct: DPSP are non-justiciable, meaning they cannot be enforced by the judiciary. Statement 2 is incorrect: if a government does not implement a particular DPSP guideline, citizens cannot go to court asking the court to instruct the government to implement that policy. Statement 3 is correct: DPSP are fundamental in the governance of the country and it is the duty of the State to apply these principles in making laws.",
+    "cited_extracts": [
+      "though Directive Principles of State Policy (DPSP) are not enforceable by any court",
+      "if a government did not implement a particular guideline, we cannot go to the court asking the court to instruct the government to implement that policy",
+      "the principles therein laid down are nevertheless fundamental in the governance of the country and it shall be the duty of the State to apply these principles in making laws"
+    ],
+    "source_file": "Prelims PYQ (2011-2025).pdf; Class_11_Political_Science_Indian_Constitution_at_Work.pdf",
+    "source_page": [
+      225,
+      43
+    ],
+    "source_type": "ncert",
+    "question_type": "statement_based",
+    "difficulty": "medium",
+    "model_tier": "haiku",
+    "status": "pass",
+    "factual_ok": true,
+    "unique_ok": true,
+    "distractors_ok": true,
+    "flag_reason": null,
+    "grounding_ok": true,
+    "ambiguity_ok": true
+  },
+  {
+    "topic_query": "Cyclone formation mechanisms - Bay of Bengal vs Arabian Sea cyclone frequency and intensity",
+    "question": "Consider the following statements about tropical cyclone formation:\n1. Tropical cyclones can form in latitudes above 30°N and below 30°S.\n2. Strong Coriolis force is required to prevent the filling of low pressure at the centre, which is why tropical cyclones do not form between 0°–5° latitudes where Coriolis force is absent.\n3. A mature tropical cyclone is characterised by the strong spirally circulating wind around a central calm region called the eye.\nWhich of the above statements is/are correct?",
+    "options": {
+      "A": "2 and 3 only",
+      "B": "1 and 2 only",
+      "C": "3 only",
+      "D": "1, 2 and 3"
+    },
+    "correct_answer": "A",
+    "explanation": "Statement 1 is incorrect: Tropical cyclones are confined to the area lying between 30°N and 30°S latitudes, not above/below these latitudes. Statement 2 is correct: As per NCERT, 'Strong Coriolis force that can prevent filling of low pressure at the centre (absence of Coriolis force near the equator prohibits the formation of tropical cyclone between 0°–5° latitude)' is a necessary condition for tropical cyclone formation. The addition of the 0°–5° clause removes ambiguity about the role of Coriolis force. Statement 3 is correct: 'A mature tropical cyclone is characterised by the strong spirally circulating wind around the centre, called the eye. The eye is a region of calm with subsiding air.'",
+    "cited_extracts": [
+      "Tropical cyclones are intense low-pressure areas confined to the area lying between 30°N and 30°S latitudes, in the atmosphere around which high velocity winds blow.",
+      "Strong Coriolis force that can prevent filling of low pressure at the centre (absence of Coriolis force near the equator prohibits the formation of tropical cyclone between 0°-5° latitude).",
+      "A mature tropical cyclone is characterised by the strong spirally circulating wind around the centre, called the eye. The eye is a region of calm with subsiding air."
+    ],
+    "source_file": "Class_11_Geography_Fundamentals_of_Physical_Geography.pdf",
+    "source_page": [
+      60,
+      83
+    ],
+    "source_type": "ncert",
+    "question_type": "statement_based",
+    "difficulty": "medium",
+    "model_tier": "haiku",
+    "status": "pass",
+    "factual_ok": true,
+    "unique_ok": true,
+    "distractors_ok": true,
+    "flag_reason": null,
+    "grounding_ok": true,
+    "ambiguity_ok": true,
+    "repair_note": "Statement 2 reworded to include the 0°–5° latitude qualifier from the NCERT extract, making the Coriolis force role unambiguous and grounding it more precisely in the verbatim source text."
+  },
+  {
+    "topic_query": "Nano-technology applications in agriculture and medicine - India's research and development initiatives",
+    "question": "Based on available NCERT evidence, which historical tradition in India has explicitly discussed the concept of particle size reduction of materials?",
+    "options": {
+      "A": "Rigveda's description of metallurgical processes",
+      "B": "Charaka Samhita, described in NCERT Chemistry as the oldest Ayurvedic treatise of India, which describes the treatment of diseases and clearly discusses the concept of reduction of particle size of metals",
+      "C": "Manusmriti's guidelines on agricultural practices",
+      "D": "Arthashastra's classification of industrial techniques"
+    },
+    "correct_answer": "B",
+    "explanation": "According to NCERT Class 11 Chemistry, 'Charaka Samhita is the oldest Ayurvedic epic of India. It describes the treatment of diseases. The concept of reduction of particle size of metals is clearly discussed in Charaka Samhita.' The text further notes that Charaka Samhita describes the use of bhasma (calcined metals/minerals), which involves extreme reduction of particle size — a concept now associated with nanotechnology. No such claims are made in NCERT sources about the Rigveda, Manusmriti, or Arthashastra discussing particle size reduction.",
+    "cited_extracts": [
+      "Charaka Samhita is the oldest Ayurvedic epic of India. It describes the treatment of diseases. The concept of reduction of particle size of metals is clearly discussed in Charaka Samhita. Extreme reduction of particle size is termed as nanotechnology. Charaka Samhita describes the use of bhasm"
+    ],
+    "source_file": "Class_11_Chemistry_Part_I.pdf",
+    "source_page": 3,
+    "source_type": "ncert",
+    "question_type": "statement_based",
+    "difficulty": "medium",
+    "model_tier": "haiku",
+    "status": "pass",
+    "factual_ok": true,
+    "unique_ok": true,
+    "distractors_ok": true,
+    "flag_reason": null,
+    "grounding_ok": true,
+    "ambiguity_ok": true,
+    "repair_note": "Updated cited extract to use the fuller verbatim passage from Class_11_Chemistry_Part_I.pdf p.3 which explicitly confirms both the description of diseases and particle size reduction in Charaka Samhita; option B revised to note this is 'described in NCERT Chemistry' to clarify the sourcing context while preserving the NCERT-quoted terminology."
+  },
+  {
+    "topic_query": "Bhakti Movement - regional variations, saint poets, and socio-religious reform impact",
+    "question": "Consider the following statements about the Bhakti Movement and its exponents:\n1. Virashaiva saint poets composed vachanas (sayings) that rejected ritualistic worship and idol worship.\n2. Basavanna, a Virashaiva poet, advocated that temples and religious structures were essential for spiritual devotion.\n3. Bhakti thinkers and Sufi thinkers adopted a variety of languages to express their philosophical and religious ideas.\nWhich of the above statements is/are correct?",
+    "options": {
+      "A": "1 and 3 only",
+      "B": "2 and 3 only",
+      "C": "1 only",
+      "D": "1, 2 and 3"
+    },
+    "correct_answer": "A",
+    "explanation": "Statement 1 is correct: Virashaiva vachanas (sayings attributed to Basavanna and other Virashaiva poets) explicitly rejected ritual and idol worship as expressions of devotion. Statement 2 is incorrect: Basavanna's vachanas reveal a rejection of material temples; his famous saying illustrates that a poor man's body itself becomes the shrine and temple, rejecting the notion that formal religious structures are necessary for spiritual devotion. Statement 3 is correct: Both Bhakti and Sufi thinkers adopted various languages to communicate their religious and philosophical ideas, making their teachings accessible across different regions and communities.",
+    "cited_extracts": [
+      "They were also against all forms of ritual and idol worship.",
+      "The rich, Will make temples for Shiva. What shall I, A poor man, Do? My legs are pillars, The body the shrine, The head a cupola Of gold.",
+      "and sufi thinkers adopted a variety of languages in which to express their opinions."
+    ],
+    "source_file": "Class_07_History_Our_Pasts_II.pdf; Class_12_History_Themes_in_Indian_History_II.pdf",
+    "source_page": [
+      64,
+      54
+    ],
+    "source_type": "ncert",
+    "question_type": "statement_based",
+    "difficulty": "medium",
+    "model_tier": "haiku",
+    "status": "pass",
+    "factual_ok": true,
+    "unique_ok": true,
+    "distractors_ok": true,
+    "flag_reason": null,
+    "grounding_ok": true,
+    "ambiguity_ok": true
+  },
+  {
+    "topic_query": "Federal Finance - Finance Commission functions, devolution formula, and vertical-horizontal tax distribution",
+    "question": "With reference to the constitutional framework of the Finance Commission, consider the following statements:\n\n1. The Finance Commission determines both the vertical share of net tax receipts between the Centre and states, and the horizontal allocation of resources among states themselves.\n2. Recommendations of the Finance Commission are legally binding on the Union Government.\n3. The 16th Finance Commission uses weighted criteria that include only equity factors such as population and income distance for horizontal devolution among states.\n\nWhich of the statements given above is/are correct?",
+    "options": {
+      "A": "1 and 3 only",
+      "B": "1 only",
+      "C": "2 and 3 only",
+      "D": "1, 2 and 3"
+    },
+    "correct_answer": "B",
+    "explanation": "Statement 1 is correct: The Finance Commission's core responsibilities encompass determining how net tax receipts are distributed vertically between the central government and state governments, and allocating resources horizontally among states themselves. Statement 2 is incorrect: Recommendations of the Finance Commission are not legally binding, making implementation and oversight difficult. Statement 3 is incorrect: The 16th Finance Commission uses weighted criteria that combine both equity factors like population and income distance with efficiency metrics such as forest cover and fiscal discipline — not equity factors alone.",
+    "cited_extracts": [
+      "Its core responsibilities encompass determining how net tax receipts are distributed vertically between the central government and state governments, allocating resources horizontally among states themselves, recommending grants from the Consolidated Fund of India under constitutional authority.",
+      "Advisory Nature: Recommendations are not legally binding, making implementation and oversight difficult.",
+      "The Commission allocates resources through vertical devolution (center-to-states) and horizontal devolution (among states), using weighted criteria that combine equity factors like population and income with efficiency metrics such as forest cover and fiscal discipline."
+    ],
+    "source_file": "16th Finance Commission: Composition, Mandate, and Constitutional Framework",
+    "source_page": 0,
+    "source_type": "current_affairs",
+    "question_type": "statement_based",
+    "difficulty": "medium",
+    "model_tier": "sonnet",
+    "status": "pass",
+    "factual_ok": true,
+    "unique_ok": true,
+    "distractors_ok": true,
+    "flag_reason": null,
+    "grounding_ok": true,
+    "ambiguity_ok": true,
+    "repair_note": "Replaced the problematic Article 282 three-channel statement with a grounded, testable statement about 16th Finance Commission's horizontal devolution criteria, sourced directly from fresh evidence; correct answer updated from A to B accordingly."
+  },
+  {
+    "topic_query": "Indus Valley Civilization - town planning, trade networks, and decline theories",
+    "question": "A recent study on the decline of the Harappan civilisation challenges the idea of a single catastrophic event. In this context, consider the following statements about theories of Harappan decline:\n\n1. Recent research indicates that the Harappan decline resulted from a series of prolonged droughts rather than a singular catastrophic event.\n2. The disappearance of Harappan cities was accompanied by complete obliteration of Harappan culture, with no continuity into subsequent phases of Indian civilisation.\n3. The end of the Harappan state is evidenced by the disappearance of seals, the script, distinctive beads and pottery, and a shift from a standardised weight system.\n\nWhich of the statements given above is/are correct?",
+    "options": {
+      "A": "1 and 3 only",
+      "B": "2 and 3 only",
+      "C": "1 only",
+      "D": "1, 2 and 3"
+    },
+    "correct_answer": "A",
+    "explanation": "Statement 1 is correct: The study found that the downfall was due to a series of prolonged droughts — four major drought events each spanning over 85 years — rather than a single catastrophic reason. Statement 2 is incorrect: Although the cities disappeared, much of the Harappan culture and technology survived and was passed on to the next phase of Indian civilisation, indicating cultural continuity, not complete obliteration. Statement 3 is correct: The disappearance of seals, the script, distinctive beads and pottery, and the shift from a standardised weight system evidences the end of a strong unifying element, perhaps the Harappan state.",
+    "cited_extracts": [
+      "Beliefs suggest that the downfall was due to a single catastrophic reason, but it was actually due to a series of prolonged droughts that lasted for centuries. Four major drought events, each spanning over 85 years, occurring between 2425 and 1400 BCE impacted nearly the entirety of the region.",
+      "Although the cities disappeared, much of the Harappan culture and technology survived and was passed on to the next phase of Indian civilisation.",
+      "It appears that a strong unifying element, perhaps the Harappan state, came to an end. This is evidenced by the disappearance of seals, the script, distinctive beads and pottery, the shift from a standardised weight sy..."
+    ],
+    "source_file": "Monthly Current Affairs- December 2025.pdf / Class_12_History_Themes_in_Indian_History_I.pdf",
+    "source_page": 17,
+    "source_type": "both",
+    "question_type": "statement_based",
+    "difficulty": "medium",
+    "model_tier": "sonnet",
+    "status": "pass",
+    "factual_ok": true,
+    "unique_ok": true,
+    "distractors_ok": true,
+    "flag_reason": null,
+    "grounding_ok": true,
+    "ambiguity_ok": true
+  },
+  {
+    "topic_query": "India-Middle East-Europe Economic Corridor (IMEC) - strategic significance and current status",
+    "question": "With reference to India's recent trade and strategic partnerships in the context of connectivity and economic corridors, consider the following statements:\n\n1. India and the European Union concluded FTA negotiations at the 16th India–EU Summit, with the EU becoming India's 22nd FTA partner after negotiations that were suspended in 2013 and relaunched in 2022.\n2. Once FTA negotiations are concluded, the agreed texts can be implemented immediately without further institutional approval from the EU.\n3. India and UAE have agreed to increase bilateral trade to over US$ 200 billion by 2032, building on the Comprehensive Economic Partnership Agreement signed in 2022.\n\nWhich of the statements given above is/are correct?",
+    "options": {
+      "A": "1 and 3 only",
+      "B": "2 and 3 only",
+      "C": "1 only",
+      "D": "1, 2 and 3"
+    },
+    "correct_answer": "A",
+    "explanation": "Statement 1 is correct: India and the EU concluded FTA negotiations at the 16th India–EU Summit, making the EU India's 22nd FTA partner. Negotiations commenced in 2007, were suspended in 2013, and relaunched in 2022. Statement 2 is incorrect: Following the conclusion of negotiations, the agreed texts must undergo legal review and translation before submission to the European Council for approval and the European Parliament for consent — immediate implementation is not possible. Statement 3 is correct: India and UAE agreed to increase bilateral trade to over US$ 200 billion by 2032, building upon the Comprehensive Economic Partnership Agreement signed in 2022, which facilitated trade growth to nearly USD 100 billion by FY 2024–25.",
+    "cited_extracts": [
+      "India and the European Union concluded negotiations on a Free Trade Agreement at the 16th India–EU Summit, making the EU India's 22nd FTA partner. Negotiations for this agreement commenced in 2007, experienced a suspension from 2013 to 2022, and were subsequently resumed.",
+      "Following the conclusion of negotiations, the agreed texts must undergo legal review and translation before submission to the European Council for approval and the European Parliament for consent.",
+      "India and UAE agreed to increase bilateral trade to over US$ 200 billion by 2032, building upon the Comprehensive Economic Partnership Agreement signed in 2022 which facilitated trade growth to nearly USD 100 billion by FY 2024–25."
+    ],
+    "source_file": "India–EU Free Trade Agreement Conclusion; India's Strategic Partnerships: UAE and Germany Relations (January 2026)",
+    "source_page": 0,
+    "source_type": "current_affairs",
+    "question_type": "statement_based",
+    "difficulty": "hard",
+    "model_tier": "sonnet",
+    "status": "flag",
+    "factual_ok": null,
+    "unique_ok": null,
+    "distractors_ok": null,
+    "flag_reason": "check.py could not parse Claude's response — manual review needed.",
+    "grounding_ok": null,
+    "ambiguity_ok": null,
+    "repair_note": "Reconstructed valid JSON from original content; no factual changes were needed as all three cited extracts were grounded in fresh evidence chunks."
+  },
+  {
+    "topic_query": "Scheduled Tribes and Forest Rights Act 2006 - provisions, implementation challenges, and community forest rights",
+    "question": "With reference to PESA Act, 1996 and the rights of Scheduled Tribes in Scheduled Areas, consider the following statements:\n\n1. PESA operationalizes Article 243M(4)(b) of the Constitution and extends Part IX (Panchayati Raj) provisions to Fifth Schedule Areas with tribal-centric modifications.\n2. Under PESA, the Gram Sabha has the power to prevent alienation of land in Scheduled Areas, and its recommendation is required for granting prospecting licences or mining leases for any mineral in Scheduled Areas.\n3. PESA mandates that all Chairperson positions at all Panchayat levels in Scheduled Areas must be held by members belonging to Scheduled Castes.\n\nWhich of the statements given above is/are correct?",
+    "options": {
+      "A": "1 and 2 only",
+      "B": "2 and 3 only",
+      "C": "1 only",
+      "D": "1, 2 and 3"
+    },
+    "correct_answer": "A",
+    "explanation": "Statement 1 is correct: PESA operationalizes Article 243M(4)(b) of the Constitution and extends Part IX (Panchayati Raj) provisions to Fifth Schedule Areas with specific tribal-centric modifications. Statement 2 is correct: Under PESA, the Gram Sabha has the power to prevent alienation of land in Scheduled Areas, and recommendation of Gram Sabha is required for granting prospecting licence or mining lease for any mineral in the Scheduled Areas. Statement 3 is incorrect: PESA mandates that every Chairperson position at all Panchayat levels must be held by a Scheduled Tribe (ST) member, not Scheduled Castes.",
+    "cited_extracts": [
+      "The Panchayats (Extension to Scheduled Areas) Act, 1996, operationalizes Article 243M(4)(b) of the Constitution and extends Part IX (Panchayati Raj) provisions to Fifth Schedule Areas with specific tribal-centric modifications.",
+      "Gram Sabha has the power to prevent alienation of land in the Scheduled Areas... Recommendation of Gram Sabha is required for granting prospecting licence or mining lease for any mineral in the Scheduled Areas.",
+      "The Act mandates that Scheduled Tribes must comprise at least 50 percent of all Panchayat seats, and every Chairperson position at all Panchayat levels must be held by an ST member."
+    ],
+    "source_file": "PESA Act, 1996 — 30 Years Milestone and Implementation Status / Prelims PYQ (2011-2025).pdf",
+    "source_page": 213,
+    "source_type": "both",
+    "question_type": "statement_based",
+    "difficulty": "hard",
+    "model_tier": "sonnet",
+    "status": "pass",
+    "factual_ok": true,
+    "unique_ok": true,
+    "distractors_ok": true,
+    "flag_reason": null,
+    "grounding_ok": true,
+    "ambiguity_ok": true
+  },
+  {
+    "topic_query": "Civil Services reform in India - lateral entry, performance appraisal, and accountability mechanisms",
+    "question": "Consider the following statements regarding the Lokpal institution and anti-corruption mechanisms in India:\n\n1. The Lokpal and Lokayuktas Act, 2013 provides for inquiring into allegations of corruption against certain public functionaries including the Prime Minister.\n2. The Lokpal has successfully established fully staffed dedicated Prosecution and Inquiry Wings, making it operationally self-sufficient.\n3. The Whistle Blowers Protection Act, 2014 provides a framework to investigate alleged corruption and misuse of power by public servants and to protect persons who allege any wrongdoings.\n\nWhich of the statements given above is/are correct?",
+    "options": {
+      "A": "1 and 3 only",
+      "B": "2 and 3 only",
+      "C": "1 only",
+      "D": "1, 2 and 3"
+    },
+    "correct_answer": "A",
+    "explanation": "Statement 1 is correct: The Lokpal and Lokayuktas Act, 2013 covers inquiries into allegations of corruption against certain public functionaries including the Prime Minister. Statement 2 is incorrect: The Lokpal has NOT established dedicated Prosecution and Inquiry Wings — both remain incompletely staffed, which is a significant operational constraint limiting its investigative and prosecutorial capacity. Statement 3 is correct: The Whistle Blowers Protection Act, 2014 provides a framework to investigate alleged corruption and misuse of power by public servants and to protect persons who allege any wrongdoings. The Lokpal's institutional weakness — underfunded, understaffed wings, and pending Special Court — illustrates how statutory authority alone does not guarantee operational effectiveness in accountability architecture.",
+    "cited_extracts": [
+      "Lokpal and Lokayuktas Act, 2013: Inquire into allegations of corruption against certain public functionaries including Prime Minister.",
+      "The Lokpal institution, despite possessing strong statutory authority under the Lokpal and Lokayuktas Act 2013, faces significant operational constraints that limit its effectiveness as an anti-corruption mechanism. The institution encounters multiple challenges including non-establishment of dedicated Prosecution and Inquiry Wings that remain incompletely staffed.",
+      "Whistle Blowers Protection Act 2014: It provides a framework to investigate alleged corruption and misuse of power by public servants and to protect persons who allege any wrongdoings."
+    ],
+    "source_file": "Lokpal Institution—Operational Challenges and Institutional Strengthening Measures",
+    "source_page": 0,
+    "source_type": "both",
+    "question_type": "statement_based",
+    "difficulty": "medium",
+    "model_tier": "sonnet",
+    "status": "pass",
+    "factual_ok": true,
+    "unique_ok": true,
+    "distractors_ok": true,
+    "flag_reason": null,
+    "grounding_ok": true,
+    "ambiguity_ok": true
+  },
+  {
+    "topic_query": "Critical Minerals and India's supply chain strategy - lithium, cobalt, and rare earth elements",
+    "question": "Consider the following statements regarding India's critical and strategic minerals framework:\n\n1. India has identified 30 critical minerals, with 24 of them included in Part D of the First Schedule of the Mines and Minerals (Development and Regulation) Act.\n2. Coking coal has been included in Part D of the First Schedule of the Mines and Minerals (Development and Regulation) Act, designating it as a Critical and Strategic Mineral.\n3. Under the amended MMDR Act, even though auctions for atomic and strategic minerals are conducted by the Central Government, mining leases for these minerals are granted by the State Government, and auction premiums continue to be received by the State Government.\n\nWhich of the statements given above is/are correct?",
+    "options": {
+      "A": "1 and 2 only",
+      "B": "2 and 3 only",
+      "C": "1, 2 and 3",
+      "D": "3 only"
+    },
+    "correct_answer": "C",
+    "explanation": "All three statements are correct. Statement 1 is correct: India has identified 30 critical minerals, with 24 included in Part D of the First Schedule of the MMDR Act. Statement 2 is correct: Coking coal has been included in Part D of the First Schedule of the MMDR Act, designating it as a Critical and Strategic Mineral. Statement 3 is correct: Under the amended MMDR Act, even though auctions are conducted by the Central Government, the mining lease or composite licence for these minerals is granted by the State Government, and auction premiums and other statutory payments continue to be received by the State Government.",
+    "cited_extracts": [
+      "India has identified 30 critical minerals, with 24 included in Part D of the First Schedule of the Mines & Minerals (Development & Regulation) Act.",
+      "Coking coal has been included in Part D of the First Schedule of the Mines and Minerals (Development and Regulation) Act, designating it as a Critical and Strategic Mineral.",
+      "This amendment also mentions, even though auction would be conducted by the Central Government, the mining lease or composite licence for these minerals to the successful bidders will be granted by the State Government only and the auction premium and other statutory payments shall continue to be received by the State Government."
+    ],
+    "source_file": "Monthly Current Affairs- December 2025.pdf",
+    "source_page": 0,
+    "source_type": "current_affairs",
+    "question_type": "statement_based",
+    "difficulty": "hard",
+    "model_tier": "sonnet",
+    "status": "flag",
+    "factual_ok": null,
+    "unique_ok": null,
+    "distractors_ok": null,
+    "flag_reason": "check.py could not parse Claude's response — manual review needed.",
+    "grounding_ok": null,
+    "ambiguity_ok": null,
+    "repair_note": "Returned properly formatted JSON object to fix parsing error; no content changes were required as all statements were already grounded in evidence."
+  }
+]

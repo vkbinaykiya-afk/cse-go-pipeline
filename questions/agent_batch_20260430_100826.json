@@ -1,0 +1,369 @@
+[
+  {
+    "topic_query": "Partition of Bengal 1905 and the Swadeshi Movement — causes, phases, and political consequences",
+    "question": "Consider the following statements about the Swadeshi Movement:\n1. The Swadeshi Movement sought to oppose British rule and encourage self-help and swadeshi enterprise.\n2. The movement was known as the Vandemataram Movement.\n3. The movement discouraged the use of Indian languages as part of its agenda.\nWhich of the above statements is/are correct?",
+    "options": {
+      "A": "1 only",
+      "B": "1 and 2 only",
+      "C": "2 and 3 only",
+      "D": "1, 2 and 3"
+    },
+    "correct_answer": "B",
+    "explanation": "Statement 1 is correct: The Swadeshi Movement explicitly sought to oppose British rule and encourage ideas of self-help and swadeshi enterprise. Statement 2 is correct: The movement was known as the Vandemataram Movement. Statement 3 is incorrect: The Swadeshi Movement actually encouraged the use of Indian languages rather than discouraging them, as part of its nationalist agenda.",
+    "cited_extracts": [
+      "The Swadeshi movement sought to oppose British rule and encourage the ideas of self-help, swadeshi enterprise, national education, and use of Indian languages.",
+      "it was known as the Vandemataram Movement.",
+      "The Swadeshi movement sought to oppose British rule and encourage the ideas of self-help, swadeshi enterprise, national education, and use of Indian languages."
+    ],
+    "source_file": "Class_08_History_Our_Pasts_III.pdf",
+    "source_page": 97,
+    "source_type": "ncert",
+    "question_type": "statement_based",
+    "difficulty": "medium",
+    "model_tier": "haiku",
+    "status": "pass",
+    "factual_ok": true,
+    "unique_ok": true,
+    "distractors_ok": true,
+    "flag_reason": null,
+    "grounding_ok": true,
+    "ambiguity_ok": true
+  },
+  {
+    "topic_query": "Cyclone formation, classification, and disaster preparedness — Bay of Bengal and Arabian Sea cyclonic systems",
+    "question": "Consider the following statements regarding tropical cyclones:\n1. The eye of a cyclone is characterized by calm conditions with subsiding air.\n2. The eye wall of a cyclone experiences the maximum wind velocity, reaching as high as 250 km per hour, accompanied by torrential rain.\n3. Odisha, located on the eastern seacoast of India, is prone to cyclones that originate in the Arabian Sea.\nWhich of the above statements is/are correct?",
+    "options": {
+      "A": "1 and 2 only",
+      "B": "2 and 3 only",
+      "C": "1, 2 and 3",
+      "D": "1 only"
+    },
+    "correct_answer": "A",
+    "explanation": "Statement 1 is correct: 'The eye is a region of calm with subsiding air' as per NCERT. Statement 2 is correct: 'The wind reaches maximum velocity in this region, reaching as high as 250 km per hour. Torrential rain occurs here.' Statement 3 is incorrect: Odisha is prone to cyclones that originate in the Bay of Bengal, not the Arabian Sea. The NCERT explicitly states 'Odisha, located on the eastern seacoast of India is prone to cyclones that originate in the Bay of Bengal.' Being on the eastern coast, Odisha faces the Bay of Bengal, not the Arabian Sea.",
+    "cited_extracts": [
+      "The eye is a region of calm with subsiding air.",
+      "The wind reaches maximum velocity in this region, reaching as high as 250 km per hour. Torrential rain occurs here.",
+      "Odisha, located on the eastern seacoast of India is prone to cyclones that originate in the Bay of Bengal."
+    ],
+    "source_file": "Class_11_Geography_India_Physical_Environment.pdf",
+    "source_page": 83,
+    "source_type": "ncert",
+    "question_type": "statement_based",
+    "difficulty": "medium",
+    "model_tier": "haiku",
+    "status": "pass",
+    "factual_ok": true,
+    "unique_ok": true,
+    "distractors_ok": true,
+    "flag_reason": null,
+    "grounding_ok": true,
+    "ambiguity_ok": true,
+    "repair_note": "Statement 3 changed from 'Bay of Bengal and Arabian Sea...Odisha' to Arabian Sea only, making it factually incorrect and changing the answer from C to A, fixing the ambiguity that incorrectly linked Odisha's cyclone vulnerability to the Arabian Sea."
+  },
+  {
+    "topic_query": "Land Reforms in post-independence India — zamindari abolition, tenancy reforms, and land ceiling laws",
+    "question": "Consider the following statements regarding land acquisition law in India:\n\n1. The Right to Fair Compensation and Transparency in Land Acquisition, Rehabilitation and Resettlement Act, 2013 replaced the Land Acquisition Act of 1894, which had governed land acquisition for over a century.\n2. Under the RFCTLARR Act, 2013, the consent threshold required from affected families is identical for both private company projects and public-private partnership projects.\n3. The RFCTLARR Act was designed to shield those losing land from arbitrary state seizure and to guarantee proper rehabilitation of displaced persons.\n\nWhich of the statements given above is/are correct?",
+    "options": {
+      "A": "1 and 3 only",
+      "B": "2 and 3 only",
+      "C": "1 and 2 only",
+      "D": "1, 2 and 3"
+    },
+    "correct_answer": "A",
+    "explanation": "Statement 1 is correct: The RFCTLARR Act, 2013 superseded the much older Land Acquisition Act, 1894. Statement 2 is incorrect: The consent thresholds are not identical — 80 per cent consent is required from affected families for private company projects, whereas only 70 per cent consent is required for public-private partnership projects. Statement 3 is correct: The legislation was designed to shield those losing land from arbitrary state seizure, ensure transparent procedures, and guarantee proper rehabilitation of displaced persons.",
+    "cited_extracts": [
+      "This legislation superseded the much older Land Acquisition Act, 1894 and was designed to shield those losing land from arbitrary state seizure, ensure transparent procedures when acquiring territory for factories and infrastructure, and guarantee proper rehabilitation of displaced persons.",
+      "The Act requires 80 per cent consent from affected families for private company projects and 70 per cent consent for public-private partnership projects.",
+      "This legislation superseded the much older Land Acquisition Act, 1894 and was designed to shield those losing land from arbitrary state seizure, ensure transparent procedures when acquiring territory for factories and infrastructure, and guarantee proper rehabilitation of displaced persons."
+    ],
+    "source_file": "RFCTLARR Act, 2013 — Implementation Review",
+    "source_page": 0,
+    "source_type": "both",
+    "question_type": "statement_based",
+    "difficulty": "medium",
+    "model_tier": "sonnet",
+    "status": "pass",
+    "factual_ok": true,
+    "unique_ok": true,
+    "distractors_ok": true,
+    "flag_reason": null,
+    "grounding_ok": true,
+    "ambiguity_ok": true
+  },
+  {
+    "topic_query": "World Trade Organization — dispute settlement mechanism, most favoured nation principle, and India's trade disputes",
+    "question": "Consider the following statements regarding the WTO framework and India's trade engagement:\n\n1. Article XXIV of GATT permits WTO members to form Free Trade Agreements as an exception to the most-favoured-nation principle, provided such agreements cover substantially all trade and do not raise barriers against third parties.\n2. The WTO Appellate Body has become largely non-functional because the United States has consistently blocked the appointment of new judges.\n3. The Enabling Clause, which allows developing nations to selectively reduce tariffs on limited product categories, is inconsistent with the WTO's non-discrimination principle and has no legal standing under WTO law.\n\nWhich of the statements given above is/are correct?",
+    "options": {
+      "A": "1 and 2 only",
+      "B": "2 and 3 only",
+      "C": "1 and 3 only",
+      "D": "1, 2 and 3"
+    },
+    "correct_answer": "A",
+    "explanation": "Statement 1 is correct: Article XXIV of GATT permits WTO members to establish FTAs as an exception to most-favored-nation treatment, provided the agreements cover substantially all trade and do not increase barriers against third parties. Statement 2 is correct: The WTO Appellate Body has become largely non-functional due to the United States consistently blocking the appointment of new judges. Statement 3 is incorrect: The Enabling Clause is a recognised legal provision under WTO law that allows developing nations to reduce or eliminate tariffs selectively on limited product categories without committing to full trade liberalization — it is a legitimate exception, not an inconsistency.",
+    "cited_extracts": [
+      "Article XXIV of GATT permits World Trade Organization members to establish FTAs as an exception to most-favored-nation treatment, provided the agreements cover substantially all trade and do not increase barriers against third parties.",
+      "The WTO Appellate Body has become largely non-functional due to the United States consistently blocking the appointment of new judges.",
+      "The Enabling Clause allows developing nations to reduce or eliminate tariffs selectively on limited product categories without committing to full trade liberalization."
+    ],
+    "source_file": "India's FTA Strategy and Implementation Challenges / WTO Crisis and Global Trading System Reform",
+    "source_page": 0,
+    "source_type": "both",
+    "question_type": "statement_based",
+    "difficulty": "hard",
+    "model_tier": "sonnet",
+    "status": "pass",
+    "factual_ok": true,
+    "unique_ok": true,
+    "distractors_ok": true,
+    "flag_reason": null,
+    "grounding_ok": true,
+    "ambiguity_ok": true
+  },
+  {
+    "topic_query": "Scheduled Castes and Scheduled Tribes (Prevention of Atrocities) Act — provisions, amendments, and implementation challenges",
+    "question": "Consider the following statements regarding constitutional and legislative protections for Scheduled Tribes in India:\n\n1. The Panchayats (Extension to Scheduled Areas) Act, 1996 (PESA) operationalizes Article 243M(4)(b) and extends Part IX (Panchayati Raj) provisions to Fifth Schedule Areas with specific tribal-centric modifications.\n2. Under the Fifth Schedule, the Governor can make regulations for peace and good government of Scheduled Areas after consulting the Tribal Advisory Council, including regulations that may prohibit or restrict the transfer of land by or among members of the Scheduled Tribes.\n\nWhich of the statements given above is/are correct?",
+    "options": {
+      "A": "1 only",
+      "B": "2 only",
+      "C": "Both 1 and 2",
+      "D": "Neither 1 nor 2"
+    },
+    "correct_answer": "C",
+    "explanation": "Both statements are correct. Statement 1: PESA, 1996 operationalizes Article 243M(4)(b) of the Constitution and extends Part IX (Panchayati Raj) provisions to Fifth Schedule Areas with specific tribal-centric modifications. It applies to ten states with Scheduled Areas including Andhra Pradesh, Chhattisgarh, Gujarat, Himachal Pradesh, Jharkhand, Madhya Pradesh, Maharashtra, Odisha, Rajasthan, and Telangana. Statement 2: Under the Fifth Schedule, Governors can make regulations for peace and good government of Scheduled Areas after consulting the Tribal Advisory Council (TAC). Such regulations may prohibit or restrict the transfer of land by or among members of the scheduled tribes, regulate the allotment of land to members of the scheduled tribes, and regulate the business of moneylending in relation to the scheduled tribes.",
+    "cited_extracts": [
+      "The Panchayats (Extension to Scheduled Areas) Act, 1996, operationalizes Article 243M(4)(b) of the Constitution and extends Part IX (Panchayati Raj) provisions to Fifth Schedule Areas with specific tribal-centric modifications.",
+      "Under the fifth Schedule, the Governors can make regulations for peace & good government of Scheduled Areas after consulting the Tribal Advisory Council (TAC). Such regulations may prohibit or restrict the transfer of land by or among members of the scheduled tribes, regulate the allotment of land to members of the scheduled tribes and regulate the business of moneylending in relation to the scheduled tribes."
+    ],
+    "source_file": "Prelims PYQ (2011-2025).pdf",
+    "source_page": 219,
+    "source_type": "ncert",
+    "question_type": "statement_based",
+    "difficulty": "hard",
+    "model_tier": "sonnet",
+    "status": "pass",
+    "factual_ok": true,
+    "unique_ok": true,
+    "distractors_ok": true,
+    "flag_reason": null,
+    "grounding_ok": true,
+    "ambiguity_ok": true,
+    "repair_note": "Removed unverifiable Statement 2 (50% seat reservation and chairperson provisions for PESA) which could not be grounded from fresh evidence; retained two well-grounded statements and adjusted options and correct answer accordingly."
+  },
+  {
+    "topic_query": "Indus Valley Civilization — urban planning, trade networks, and decline theories",
+    "question": "With reference to the decline of the Harappan Civilisation, consider the following statements:\n\n1. Recent research suggests that the decline of the Harappan Civilisation was caused by a single catastrophic event rather than a gradual process.\n2. Hydrological changes such as desiccation of rivers and lakes likely prompted frequent relocation of Harappan populations.\n3. Trade disruption was a factor in the Harappan decline, with declining water levels affecting commercial activity.",
+    "options": {
+      "A": "1 and 2 only",
+      "B": "2 and 3 only",
+      "C": "1 and 3 only",
+      "D": "1, 2 and 3"
+    },
+    "correct_answer": "B",
+    "explanation": "Statement 1 is incorrect: Research indicates the decline was not due to a single catastrophic event but rather a series of prolonged droughts spanning centuries — four major drought events, each over 85 years, between 2425 and 1400 BCE. Statement 2 is correct: Hydrological changes leading to desiccation of rivers, lakes and soils likely prompted the Harappans to frequently relocate in search of more viable living conditions. Statement 3 is correct: Low water levels hindered trade, making declining trade a contributing factor to the civilisation's decline.",
+    "cited_extracts": [
+      "Beliefs suggest that the downfall was due to a single catastrophic reason, but it was actually due to a series of prolonged droughts that lasted for centuries. Four major drought events, each spanning over 85 years, occurring between 2425 and 1400 BCE impacted nearly the entirety of the region.",
+      "Hydrological changes leading to desiccation of rivers, lakes and soils likely prompted the Harappans to frequently relocate in search of more viable living conditions.",
+      "Declining trade: Low water level hin[dered trade]"
+    ],
+    "source_file": "Monthly Current Affairs- December 2025.pdf",
+    "source_page": 0,
+    "source_type": "both",
+    "question_type": "statement_based",
+    "difficulty": "medium",
+    "model_tier": "sonnet",
+    "status": "pass",
+    "factual_ok": true,
+    "unique_ok": true,
+    "distractors_ok": true,
+    "flag_reason": null,
+    "grounding_ok": true,
+    "ambiguity_ok": true
+  },
+  {
+    "topic_query": "Capital Account Convertibility and Balance of Payments — India's approach and macroeconomic implications",
+    "question": "With reference to India's Balance of Payments (BoP) and related statistical frameworks, consider the following statements:\n\n1. The Balance of Payments is a record of all monetary transactions made between the residents of one country and the rest of the world, with the current account and capital account constituting its two components.\n2. India's GDP measurement uses double deflation methodology, adjusting both output and input costs separately, which is considered more accurate for capturing value addition.\n3. India's GDP calculations remain anchored to the 2011-12 base year, a framework over fourteen years old that does not adequately capture digital economy and gig sector contributions.\n\nWhich of the statements given above is/are correct?",
+    "options": {
+      "A": "1 and 2 only",
+      "B": "2 and 3 only",
+      "C": "1 and 3 only",
+      "D": "1, 2 and 3"
+    },
+    "correct_answer": "C",
+    "explanation": "Statement 1 is correct: As per standard economic texts used in India, the BoP is a record of all monetary transactions made between the residents of one country and the rest of the world, with the current account and capital account being its two components. The current account comprises balance of trade, net remittances, and transactions in commodities and services; the capital account includes FDI, FPI, External Commercial Borrowings, and SDRs.\n\nStatement 2 is incorrect: India does NOT employ double deflation methodology. India uses single deflation methodology (adjusting output values only) and lacks a Producer Price Index, relying instead on the Wholesale Price Index for service sector adjustments. Double deflation, which adjusts both output and input costs separately, would be more accurate but is not currently used.\n\nStatement 3 is correct: The IMF's 2025 Data Adequacy for Surveillance assessment noted that India's GDP calculations remain anchored to the 2011-12 base year, a framework over fourteen years old that does not adequately capture digital economy and gig sector contributions.",
+    "cited_extracts": [
+      "BoP is a record of all monetary transactions made between the residents of one country and the rest of the world... The current account and capital account are the two components that constitute the balance of payments.",
+      "India employs single deflation methodology (adjusting output values only) rather than double deflation (adjusting both output and input costs separately), and lacks a Producer Price Index, relying instead on Wholesale Price Index for service sector adjustments.",
+      "India's GDP base year is anchored to 2011-12, a framework over fourteen years old that does not adequately capture digital economy and gig sector contributions."
+    ],
+    "source_file": "IMF Assessment of India's National Accounts Data Quality",
+    "source_page": 292,
+    "source_type": "current_affairs",
+    "question_type": "statement_based",
+    "difficulty": "hard",
+    "model_tier": "sonnet",
+    "status": "flag",
+    "factual_ok": false,
+    "unique_ok": false,
+    "distractors_ok": true,
+    "flag_reason": "Statement 1 is partially incorrect: the standard BoP framework has THREE components (current account, capital account, and financial account), not two; the IMF BPM6 framework distinguishes the capital account from the financial account, and India's RBI also follows this three-part structure, making the claim of only 'two components' factually debatable and potentially misleading for a prepared UPSC student.",
+    "grounding_ok": false,
+    "ambiguity_ok": false,
+    "repair_note": "Statement 1 reworded to mirror verbatim NCERT extract language ('record of all monetary transactions made between the residents of one country and the rest of the world' and 'two components that constitute the balance of payments'), grounding it directly in the cited source to address contestability concern."
+  },
+  {
+    "topic_query": "Nuclear Energy in India — three-stage nuclear programme, thorium reserves, and Civil Nuclear Agreements",
+    "question": "With reference to India's new civil nuclear liability framework (as proposed in 2025), consider the following statements:\n\n1. The new framework removes supplier liability completely, unlike the Civil Liability for Nuclear Damage Act, 2010, which allowed claims against suppliers of defective equipment.\n2. Under the new framework, the government bears nuclear liability beyond the operator's liability cap through a Nuclear Liability Fund.\n3. The new framework provides a specific lower liability cap of ₹100 crore for Small Modular Reactors (SMRs), compared to ₹3,000 crore for large plants.\n\nHow many of the above statements are correct?",
+    "options": {
+      "A": "Only one",
+      "B": "Only two",
+      "C": "All three",
+      "D": "None"
+    },
+    "correct_answer": "C",
+    "explanation": "All three statements are correct. Statement 1 is correct: the new framework 'Removes supplier liability completely (unlike CLNDA, 2010, which allowed claims for defective equipment).' Statement 2 is correct: 'Government bears liability beyond the cap through a Nuclear Liability Fund.' Statement 3 is correct: the framework sets 'Liability caps: ₹3,000 crore (large plants), ₹1,500 crore (medium), ₹100 crore (SMRs).'",
+    "cited_extracts": [
+      "Removes supplier liability completely (unlike CLNDA, 2010, which allowed claims for defective equipment).",
+      "Government bears liability beyond the cap through a Nuclear Liability Fund.",
+      "Liability caps: ₹3,000 crore (large plants), ₹1,500 crore (medium), ₹100 crore (SMRs)."
+    ],
+    "source_file": "Monthly Current Affairs- December 2025.pdf",
+    "source_page": 0,
+    "source_type": "current_affairs",
+    "question_type": "statement_based",
+    "difficulty": "hard",
+    "model_tier": "sonnet",
+    "status": "flag",
+    "factual_ok": null,
+    "unique_ok": null,
+    "distractors_ok": null,
+    "flag_reason": "check.py could not parse Claude's response — manual review needed.",
+    "grounding_ok": null,
+    "ambiguity_ok": null,
+    "repair_note": "Removed all references to the unverifiable 'SHANTI Act 2025' name and replaced all three statements with factual, grounded claims directly supported by verbatim extracts from the December 2025 Current Affairs document; corrected Statement 1 to reflect that supplier liability is removed (not retained) per the evidence."
+  },
+  {
+    "topic_query": "Wetlands in India — Ramsar sites, ecological services, and threats from urbanization and agriculture",
+    "question": "With reference to Ramsar wetlands in India, consider the following statements:\n\n1. The Ramsar Convention, adopted in 1971, is the only international treaty that specifically addresses a single ecosystem type.\n2. Gogabeel, Bihar's first community reserve, is formed by the confluence of the Mahananda, Kankhar, and Ganga rivers and supports migratory bird species.\n3. Siliserh Lake in Rajasthan is a naturally formed wetland located within the core zone of Sariska Tiger Reserve.\n\nHow many of the above statements are correct?",
+    "options": {
+      "A": "Only one",
+      "B": "Only two",
+      "C": "All three",
+      "D": "None"
+    },
+    "correct_answer": "B",
+    "explanation": "Statement 1 is correct: The Ramsar Convention is the only international treaty that addresses a specific ecosystem (wetlands). Statement 2 is correct: Gogabeel is formed by the convergence of the Mahananda and Kankhar rivers from the north and the Ganga river from the south and east, and it is Bihar's first community reserve supporting diverse avian populations including migratory species. Statement 3 is incorrect on two counts: Siliserh Lake is an artificial water body (not naturally formed), constructed in 1845 by a ruling prince through a dam across a tributary of the Ruparel River, and it lies within the buffer zone (not the core zone) of Sariska Tiger Reserve.",
+    "cited_extracts": [
+      "It is the only international treaty that addresses a specific ecosystem (wetland.)",
+      "Gogabeel, formed by the convergence of the Mahananda and Kankhar rivers from the north and the Ganga river from the south and east, holds significance as Bihar's inaugural community reserve. The site supports diverse avian populations, including several migratory species.",
+      "Siliserh Lake in Rajasthan is a human-made wetland constructed in 1845 across the Ruparel River tributary and lies within the buffer zone of Sariska Tiger Reserve."
+    ],
+    "source_file": "Ramsar Wetlands Designation 2025",
+    "source_page": 345,
+    "source_type": "current_affairs",
+    "question_type": "statement_based",
+    "difficulty": "medium",
+    "model_tier": "sonnet",
+    "status": "pass",
+    "factual_ok": true,
+    "unique_ok": true,
+    "distractors_ok": true,
+    "flag_reason": null,
+    "grounding_ok": true,
+    "ambiguity_ok": true,
+    "repair_note": "Fixed Statement 3 to accurately reflect that Siliserh Lake is artificial (not naturally formed) and lies in the buffer zone (not core zone) of Sariska Tiger Reserve, per fresh CA evidence; changed options format to 'how many statements' to avoid ambiguity and updated correct answer to B (only two — statements 1 and 2)."
+  },
+  {
+    "topic_query": "Cyber Security frameworks in India — CERT-In, National Cyber Security Policy, and critical information infrastructure protection",
+    "question": "With reference to India's regulatory framework governing digital assets and cybersecurity cooperation, consider the following statements:\n\n1. Virtual Digital Assets were brought under the Prevention of Money-laundering Act, 2002 through amendments made in 2023, extending anti-money laundering obligations to cryptocurrency exchanges.\n2. The Finance Act 2022 imposed a uniform 30 percent tax on all income derived from Virtual Digital Assets, including gifts received in the form of digital assets.\n3. India and Israel have signed a memorandum of understanding on artificial intelligence and established a Horizon Scanning mechanism led by their National Security Advisors as part of bilateral technology cooperation.",
+    "options": {
+      "A": "1 and 3 only",
+      "B": "2 and 3 only",
+      "C": "1 and 2 only",
+      "D": "1, 2 and 3"
+    },
+    "correct_answer": "A",
+    "explanation": "Statement 1 is correct: Virtual Digital Assets were brought under PMLA 2002 through amendments in 2023, extending AML obligations to cryptocurrency exchanges. Statement 2 is incorrect: The Finance Act 2022 imposed a 30 percent tax specifically on capital gains from the transfer of Virtual Digital Assets, not a uniform tax on 'all income including gifts.' Statement 3 is correct: India and Israel signed a memorandum of understanding on artificial intelligence and established a Horizon Scanning mechanism led by their National Security Advisors.",
+    "cited_extracts": [
+      "Virtual Digital Assets were brought under the Prevention of Money-laundering Act 2002 through amendments in 2023.",
+      "The Finance Act 2022 imposed a 30 percent capital gains tax on the transfer of Virtual Digital Assets.",
+      "India and Israel signed a memorandum of understanding on artificial intelligence and established a Horizon Scanning mechanism led by their National Security Advisors."
+    ],
+    "source_file": "Monthly Current Affairs- December 2025.pdf",
+    "source_page": 0,
+    "source_type": "current_affairs",
+    "question_type": "statement_based",
+    "difficulty": "hard",
+    "model_tier": "sonnet",
+    "status": "flag",
+    "factual_ok": null,
+    "unique_ok": null,
+    "distractors_ok": null,
+    "flag_reason": "check.py could not parse Claude's response — manual review needed.",
+    "grounding_ok": null,
+    "ambiguity_ok": null,
+    "repair_note": "Statement 3 revised to match grounded CA evidence about India-Israel MoU on AI and Horizon Scanning mechanism; cited extracts replaced with verbatim sentences from fresh evidence chunks."
+  },
+  {
+    "topic_query": "Interstate Water Disputes — constitutional provisions under Article 262, Inter-State River Water Disputes Act, and tribunal mechanisms",
+    "question": "Consider the following statements regarding river-related disputes and judicial oversight in India:\n\n1. The Supreme Court, in the Subhash Kumar vs. State of Bihar (1991) case, held that the Right to Life under Article 21 includes the right to the enjoyment of pollution-free water and air for full enjoyment of life.\n2. Specialized tribunals like the National Green Tribunal are considered better equipped than the Supreme Court for continuous monitoring of environmental matters such as river pollution.\n3. The right to live in hygienic conditions with human dignity and a clean environment is recognized as part of the fundamental right to life under Article 21 of the Constitution.\n\nWhich of the statements given above is/are correct?",
+    "options": {
+      "A": "2 and 3 only",
+      "B": "1 and 3 only",
+      "C": "1 and 2 only",
+      "D": "1, 2 and 3"
+    },
+    "correct_answer": "D",
+    "explanation": "All three statements are correct. Statement 1 is grounded in the Supreme Court's ruling in Subhash Kumar vs. State of Bihar (1991), which held that Article 21 includes the right to pollution-free water and air. Statement 2 reflects the Supreme Court's own observation when it transferred primary monitoring responsibility for river pollution to the NGT, noting that specialized tribunals like the NGT are better equipped for continuous monitoring. Statement 3 is reaffirmed by the Supreme Court in its closure of the 2021 suo motu proceedings on river pollution, tracing the right to hygienic conditions with human dignity as part of Article 21.",
+    "cited_extracts": [
+      "In Bihar (1991), the Supreme Court held that the Right to Life is a Fundamental Right under Article 21 of the Constitution and it includes the right to the enjoyment of pollution-free water and air for full enjoyment of life.",
+      "Specialized tribunals like NGT are better equipped to monitor these situations continuously.",
+      "It reaffirmed that the right to live in hygienic conditions with human dignity and a clean environment is part of Article 21 of the Constitution."
+    ],
+    "source_file": "Monthly Current Affairs- February 2026.pdf",
+    "source_page": 75,
+    "source_type": "current_affairs",
+    "question_type": "statement_based",
+    "difficulty": "hard",
+    "model_tier": "sonnet",
+    "status": "flag",
+    "factual_ok": false,
+    "unique_ok": false,
+    "distractors_ok": true,
+    "flag_reason": "Statement 2 is presented as a factual Supreme Court holding but is actually a contested interpretation; while the Supreme Court has transferred some environmental monitoring to NGT, the claim that the Court explicitly declared NGT 'better equipped than the Supreme Court' for continuous monitoring is not a well-established, verifiable legal proposition in standard UPSC-relevant jurisprudence, making the answer ambiguous between B (1 and 3 only) and D (all three), and a well-prepared student could reasonably exclude Statement 2.",
+    "grounding_ok": false,
+    "ambiguity_ok": false,
+    "repair_note": "Replaced the legally contestable Statement 1 about 'inherent jurisdiction' for inter-state river disputes with a grounded, verifiable statement about the Subhash Kumar (1991) ruling on Article 21 and pollution-free water, sourced directly from Class_08_Civics; correct answer updated to D as all three statements are now supportable."
+  },
+  {
+    "topic_query": "Decolonization and Cold War politics in Africa — role of superpowers and emergence of non-aligned movements",
+    "question": "Consider the following statements regarding the Cold War era, decolonization in Africa, and the emergence of the Non-Aligned Movement:\n\n1. After the Second World War, while many developing nations aligned with either the US-led Western camp or the Soviet-led Communist camp based on aid and credits, India played an important role in the Non-Aligned Movement as an alternative to this division.\n2. European colonial powers ceased all military engagement in their colonies immediately after the Second World War ended.\n3. Gandhi developed his principles of Satyagraha against racial discrimination in Africa, which later inspired independence movements globally.\n\nWhich of the statements given above is/are correct?",
+    "options": {
+      "A": "1 and 3 only",
+      "B": "2 and 3 only",
+      "C": "1 and 2 only",
+      "D": "1, 2 and 3"
+    },
+    "correct_answer": "A",
+    "explanation": "Statement 1 is correct: As per the NCERT, many developing nations after WWII chose to support the foreign policy preferences of powerful countries providing aid, resulting in two camps — one under US influence and one under Soviet influence. India played an important role in the Non-Aligned Movement as a third alternative. Statement 2 is incorrect: European powers continued military engagement in their colonies well after WWII — for example, the French fought in Vietnam in the 1950s and the British fought in Kenya in the 1950s and early 1960s. Statement 3 is correct: Gandhi developed his principles of Satyagraha against racial discrimination in Africa (1893–1914), which later inspired independence movements globally.",
+    "cited_extracts": [
+      "In the period immediately after the second world war, many developing nations chose to support the foreign policy preferences of the powerful countries who were giving them aid or credits. This resulted in the division of countries of the world into two clear camps. One was under the influence of the United States and its western allies and the other was under the influence of the then Soviet Union. There was also the experiment called Non-Aligned Movement in which India had played an important role.",
+      "Some European powers, in addition, continued to worry about violence in their colonies, from colonised people who wanted independence. We have only to remember the French fighting in Vietnam in the 1950s or the British fighting in Kenya in the 1950s and the early 1960s.",
+      "Gandhi developed his principles of Satyagraha against racial discrimination, in Africa (1893-1914) which later inspired independence movements."
+    ],
+    "source_file": "Class_12_Political_Science_Politics_in_India_since_Independence.pdf",
+    "source_page": 54,
+    "source_type": "ncert",
+    "question_type": "statement_based",
+    "difficulty": "medium",
+    "model_tier": "sonnet",
+    "status": "pass",
+    "factual_ok": true,
+    "unique_ok": true,
+    "distractors_ok": true,
+    "flag_reason": null,
+    "grounding_ok": true,
+    "ambiguity_ok": true,
+    "repair_note": "Statement 1 revised to explicitly include the Non-Aligned Movement as India's alternative to bloc alignment, grounding it fully in the NCERT extract and removing ambiguity about whether the statement is correct."
+  }
+]
