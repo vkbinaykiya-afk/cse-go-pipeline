@@ -226,8 +226,11 @@ def migrate_db():
         ("attempts", "marks_intuition",  "REAL DEFAULT 0"),
         ("attempts", "quiz_session_id",  "TEXT"),
     ]
-    conn = get_db()
+    # Each column needs its own connection — psycopg2 puts the connection into
+    # an aborted-transaction state on any error, blocking all subsequent commands
+    # until an explicit ROLLBACK. Using a fresh connection per column avoids this.
     for table, col, defn in new_cols:
+        conn = get_db()
         try:
             if USE_PG:
                 cur = conn.cursor()
@@ -237,17 +240,22 @@ def migrate_db():
                 conn.execute(f"ALTER TABLE {table} ADD COLUMN {col} {defn}")
                 conn.commit()
         except Exception:
-            pass
+            try:
+                conn.rollback()
+            except Exception:
+                pass
+        finally:
+            conn.close()
 
     # Repair legacy skip rows: Lovable sent chosen="" before was_skipped existed.
     # These rows have chosen='' + is_correct=0 but should be skips (0 marks, not -0.66).
+    conn = get_db()
     try:
-        ph = "%s" if USE_PG else "?"
         if USE_PG:
             cur = conn.cursor()
             cur.execute(
                 "UPDATE attempts SET was_skipped=1, marks_actual=0, marks_intuition=0 "
-                f"WHERE (chosen='' OR chosen IS NULL) AND is_correct=0 AND was_skipped=0"
+                "WHERE (chosen='' OR chosen IS NULL) AND is_correct=0 AND was_skipped=0"
             )
             conn.commit()
         else:
@@ -258,8 +266,12 @@ def migrate_db():
             conn.commit()
     except Exception as e:
         print(f"[MIGRATE] legacy skip repair: {e}")
-
-    conn.close()
+        try:
+            conn.rollback()
+        except Exception:
+            pass
+    finally:
+        conn.close()
 
 
 def _marks_actual(is_correct: bool, was_skipped: bool) -> float:
