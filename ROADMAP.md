@@ -58,6 +58,52 @@
 
 ---
 
+## 📖 Claude-Generated Wiki (assessed, not yet built)
+
+### Goal
+Replace raw NCERT chunk retrieval (RAG) with pre-distilled 500-word wiki articles per UPSC topic. Improves question groundedness, reduces drop rate from ~15% (post-full-coverage RAG) to ~8–12%.
+
+### Why wiki beats RAG for question quality
+- **Context fragmentation**: key facts sometimes span 2 chunks; generator only gets one → vague questions or unsupported answers
+- **Noise**: raw NCERT text includes figure captions, exercise questions, headers mixed in with content
+- **Retrieval unpredictability**: embedding similarity finds topically adjacent chunks, not always the factually relevant one
+- Wiki articles are pre-synthesised (e.g. "Mauryan Empire" article has Chandragupta + Ashoka + administration + decline in one coherent piece), clean prose, and topic-indexed — not embedding-indexed
+
+### Architecture
+
+**Two-tier wiki**
+
+| Tier | Content | Update frequency |
+|------|---------|-----------------|
+| Static | NCERT (Class 6–12), Old NCERTs, Environment, PYQs | Once — regenerate only if source books change |
+| Dynamic | CA monthly PDFs, Economic Survey, new uploads | Per upload — uploader triggers article generation after ingest |
+
+**Generation pipeline**
+1. Cluster existing chunks by topic (using `upsc_subject` + `upsc_topic` tags already on chunks)
+2. For each topic cluster: retrieve top-5 chunks → Haiku generates a 500-word structured article
+3. Store articles in a new ChromaDB collection `cse_wiki`
+4. Question generator queries `cse_wiki` instead of `cse_knowledge_base`
+
+**Uploader integration (dynamic tier)**
+After ingest → auto-generate wiki articles for newly added chunks → store in `cse_wiki` → R2 sync includes both collections
+
+### Cost & effort
+
+| Phase | Effort | Cost |
+|-------|--------|------|
+| Build generation script (`build_wiki.py`) | ~3–4 hrs | — |
+| One-time static wiki generation (~900 articles) | ~25 min runtime | ~$7 (Haiku) |
+| Per CA month upload (dynamic, ~50 articles) | ~2 min runtime | ~$0.35 |
+| Switch question generator to use `cse_wiki` | ~1 hr | — |
+| **Total setup** | **~1 afternoon** | **~$10** |
+
+### Trigger condition
+Build after full content coverage is reached (6 remaining CA months + bare acts). No point generating wiki over an incomplete corpus — static tier should be generated once over the final complete source set.
+
+**Estimated effort**: 1 day. Prerequisite: full content coverage.
+
+---
+
 ## 🗺 Map Questions (assessed, not yet built)
 
 ### Goal
