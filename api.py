@@ -217,7 +217,7 @@ def init_db():
 
 
 def migrate_db():
-    """Add new columns to existing DBs (idempotent)."""
+    """Add new columns and repair dirty data (idempotent)."""
     new_cols = [
         ("attempts", "was_skipped",     "INTEGER DEFAULT 0"),
         ("attempts", "best_guess",       "TEXT"),
@@ -238,6 +238,27 @@ def migrate_db():
                 conn.commit()
         except Exception:
             pass
+
+    # Repair legacy skip rows: Lovable sent chosen="" before was_skipped existed.
+    # These rows have chosen='' + is_correct=0 but should be skips (0 marks, not -0.66).
+    try:
+        ph = "%s" if USE_PG else "?"
+        if USE_PG:
+            cur = conn.cursor()
+            cur.execute(
+                "UPDATE attempts SET was_skipped=1, marks_actual=0, marks_intuition=0 "
+                f"WHERE (chosen='' OR chosen IS NULL) AND is_correct=0 AND was_skipped=0"
+            )
+            conn.commit()
+        else:
+            conn.execute(
+                "UPDATE attempts SET was_skipped=1, marks_actual=0, marks_intuition=0 "
+                "WHERE (chosen='' OR chosen IS NULL) AND is_correct=0 AND (was_skipped=0 OR was_skipped IS NULL)"
+            )
+            conn.commit()
+    except Exception as e:
+        print(f"[MIGRATE] legacy skip repair: {e}")
+
     conn.close()
 
 
@@ -640,17 +661,17 @@ def record_attempt(body: AttemptIn, x_session_token: Optional[str] = Header(defa
     is_correct: Optional[bool] = None
     guess_correct: Optional[bool] = None
 
-    if body.was_skipped:
+    # Treat chosen="" as a skip (Lovable backward-compat — sent "" before was_skipped existed)
+    is_skip = body.was_skipped or not (body.chosen or "").strip()
+
+    if is_skip:
         is_correct = None
-        if body.best_guess:
+        if body.best_guess and body.best_guess.strip():
             guess_correct = body.best_guess.upper() == q["correct"].upper()
     else:
-        if not body.chosen:
-            conn.close()
-            raise HTTPException(400, "chosen is required for non-skipped attempts")
         is_correct = body.chosen.upper() == q["correct"].upper()
 
-    marks_a = _marks_actual(bool(is_correct), body.was_skipped)
+    marks_a = _marks_actual(bool(is_correct), is_skip)
     marks_i = _marks_intuition(body.best_guess, guess_correct)
 
     attempt_id = str(uuid.uuid4())
@@ -666,10 +687,10 @@ def record_attempt(body: AttemptIn, x_session_token: Optional[str] = Header(defa
         "INSERT INTO attempts (id, question_id, chosen, is_correct, time_taken, attempted_at, "
         "user_id, is_daily, was_skipped, best_guess, guess_correct, marks_actual, marks_intuition, quiz_session_id) "
         "VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)",
-        (attempt_id, body.question_id, body.chosen,
+        (attempt_id, body.question_id, body.chosen if not is_skip else None,
          int(is_correct) if is_correct is not None else None,
          body.time_taken, now, user["id"] if user else None, is_daily,
-         int(body.was_skipped), body.best_guess,
+         int(is_skip), body.best_guess,
          int(guess_correct) if guess_correct is not None else None,
          marks_a, marks_i, body.quiz_session_id))
     _commit(conn)
@@ -677,9 +698,9 @@ def record_attempt(body: AttemptIn, x_session_token: Optional[str] = Header(defa
 
     return AttemptOut(
         id=attempt_id, question_id=body.question_id,
-        chosen=body.chosen, is_correct=is_correct,
+        chosen=body.chosen if not is_skip else None, is_correct=is_correct,
         correct_answer=q["correct"], explanation=q["explanation"] or "",
-        was_skipped=body.was_skipped, best_guess=body.best_guess,
+        was_skipped=is_skip, best_guess=body.best_guess,
         marks_actual=marks_a, marks_intuition=marks_i,
     )
 
@@ -753,9 +774,15 @@ def get_quiz_score(date: str, x_session_token: Optional[str] = Header(default=No
         mi = float(a.get("marks_intuition") or 0.0)
         subj = a.get("subject", "General")
 
-        # Back-fill marks for legacy rows (pre-migration attempts)
+        # Back-fill marks for legacy rows (pre-migration attempts).
+        # If chosen is empty and is_correct is falsy, it was a skip recorded before
+        # was_skipped existed — treat as 0, not -0.66.
         if ma is None:
-            ma = _marks_actual(bool(a.get("is_correct")), ws)
+            chosen_val = (a.get("chosen") or "").strip()
+            if not chosen_val and not a.get("is_correct"):
+                ma = 0.0   # legacy skip
+            else:
+                ma = _marks_actual(bool(a.get("is_correct")), ws)
 
         if ws:
             skipped += 1
@@ -1006,7 +1033,7 @@ def get_report(x_session_token: Optional[str] = Header(default=None)):
     conn.close()
     return {
         "total_attempts": total_attempts,
-        "overall_accuracy_pct": round(correct_attempts / total_attempts * 100, 1) if total_attempts else 0,
+        "overall_accuracy_pct": None,
         "streak_days": streak,
         "subject_breakdown": subject_breakdown,
         "weak_areas": weak_areas,
