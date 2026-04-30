@@ -31,7 +31,7 @@ PORT              = int(os.environ.get("PORT", 8000))
 PIPELINE_SECRET   = os.environ.get("PIPELINE_SECRET", "")
 DATABASE_URL      = os.environ.get("DATABASE_URL", "")   # set by Railway Postgres
 STATIC_SUBJECTS   = ["History", "Geography", "Polity", "Environment",
-                     "Science & Technology", "Economics", "Current Affairs"]
+                     "Science & Technology", "Economics", "Current Affairs", "Art & Culture"]
 
 DB_PATH       = Path(__file__).parent / "cse_go.db"
 QUESTIONS_DIR = Path(__file__).parent / "questions"
@@ -915,16 +915,13 @@ def get_report(x_session_token: Optional[str] = Header(default=None)):
         conn.close(); return empty
 
     try:
+        # Unified query — counts non-skipped attempts only for accuracy denominator
         cur = _execute(conn, """
             SELECT COALESCE(q.upsc_subject, q.subject, 'Unknown') AS subject,
-                   COUNT(a.id) AS total, SUM(a.is_correct) AS correct,
-                   ROUND((100.0 * SUM(a.is_correct) / COUNT(a.id))::numeric, 1) AS accuracy_pct
-            FROM attempts a JOIN questions q ON a.question_id = q.id
-            WHERE a.user_id = ? GROUP BY COALESCE(q.upsc_subject, q.subject, 'Unknown')
-        """ if USE_PG else """
-            SELECT COALESCE(q.upsc_subject, q.subject, 'Unknown') AS subject,
-                   COUNT(a.id) AS total, SUM(a.is_correct) AS correct,
-                   ROUND(AVG(a.is_correct)*100, 1) AS accuracy_pct
+                   COUNT(a.id) AS total,
+                   SUM(CASE WHEN a.is_correct = 1 THEN 1 ELSE 0 END) AS correct,
+                   SUM(CASE WHEN a.was_skipped = 1 THEN 1 ELSE 0 END) AS skipped_n,
+                   COALESCE(SUM(a.marks_actual), 0) AS marks_sum
             FROM attempts a JOIN questions q ON a.question_id = q.id
             WHERE a.user_id = ? GROUP BY COALESCE(q.upsc_subject, q.subject, 'Unknown')
         """, (uid,))
@@ -937,22 +934,22 @@ def get_report(x_session_token: Optional[str] = Header(default=None)):
         raw_rows = _fetchall(cur, conn)
         attempted_map = {}
         for r in raw_rows:
-            key = _SUBJ_NORM.get(r["subject"].lower(), r["subject"])
+            key = _SUBJ_NORM.get((r["subject"] or "").lower(), r["subject"] or "Unknown")
+            non_skip = int(r["total"] or 0) - int(r["skipped_n"] or 0)  # correct + wrong only
+            correct_n = int(r["correct"] or 0)
+            marks_n = float(r["marks_sum"] or 0)
             if key in attempted_map:
-                # merge if same normalized subject appears twice
-                attempted_map[key] = {
-                    "subject": key,
-                    "total": attempted_map[key]["total"] + r["total"],
-                    "correct": attempted_map[key]["correct"] + r["correct"],
-                    "accuracy_pct": None,
-                }
+                prev = attempted_map[key]
+                prev["total"] += non_skip
+                prev["correct"] += correct_n
+                prev["marks"] = round(prev["marks"] + marks_n, 2)
             else:
-                attempted_map[key] = dict(r)
-                attempted_map[key]["subject"] = key
-        # recalculate accuracy for merged rows
-        for k, v in attempted_map.items():
-            if v["total"]:
-                v["accuracy_pct"] = round(v["correct"] / v["total"] * 100, 1)
+                attempted_map[key] = {
+                    "subject": key, "total": non_skip,
+                    "correct": correct_n, "marks": round(marks_n, 2),
+                }
+        for v in attempted_map.values():
+            v["accuracy_pct"] = round(v["correct"] / v["total"] * 100, 1) if v["total"] > 0 else None
     except Exception as e:
         print(f"[REPORT ERROR - subject_breakdown] {e}")
         attempted_map = {}
@@ -963,17 +960,19 @@ def get_report(x_session_token: Optional[str] = Header(default=None)):
             r = attempted_map[subj]
             subject_breakdown.append({
                 "subject": subj, "total": r["total"], "correct": r["correct"],
-                "accuracy_pct": float(r["accuracy_pct"]) if r["accuracy_pct"] else 0,
-                "status": "attempted",
+                "accuracy_pct": r["accuracy_pct"],
+                "marks": r["marks"],
+                "status": "attempted" if r["total"] > 0 else "not_attempted",
             })
         else:
             subject_breakdown.append({
                 "subject": subj, "total": 0, "correct": 0,
-                "accuracy_pct": None, "status": "not_attempted",
+                "accuracy_pct": None, "marks": None, "status": "not_attempted",
             })
 
     weak_areas = sorted(
-        [s for s in subject_breakdown if s["status"] == "attempted" and s["total"] >= 2],
+        [s for s in subject_breakdown if s["status"] == "attempted" and s["total"] >= 2
+         and s["accuracy_pct"] is not None],
         key=lambda s: s["accuracy_pct"]
     )[:3]
 
@@ -1018,22 +1017,18 @@ def get_report(x_session_token: Optional[str] = Header(default=None)):
     except Exception as e:
         print(f"[STREAK ERROR] {e}")
 
-    # Cumulative UPSC marks + intuition
+    # Cumulative UPSC marks + intuition (all attempts — is_daily filter dropped, same bug as get_quiz_score)
     try:
         if USE_PG:
             cur = conn.cursor()
             cur.execute("SELECT COALESCE(SUM(marks_actual),0), COALESCE(SUM(marks_intuition),0) "
-                        "FROM attempts WHERE user_id=%s AND is_daily=1", (uid,))
+                        "FROM attempts WHERE user_id=%s", (uid,))
             r = cur.fetchone()
             total_marks_sum, total_intuition_sum = float(r[0]), float(r[1])
-            cur.execute("SELECT COUNT(*) FROM attempts WHERE user_id=%s AND is_daily=1 AND was_skipped=0", (uid,))
-            n_attempted = cur.fetchone()[0]
         else:
             cur = _execute(conn, "SELECT COALESCE(SUM(marks_actual),0), COALESCE(SUM(marks_intuition),0) "
-                           "FROM attempts WHERE user_id=? AND is_daily=1", (uid,))
+                           "FROM attempts WHERE user_id=?", (uid,))
             r = _fetchone(cur, conn); total_marks_sum = float(r[0]); total_intuition_sum = float(r[1])
-            cur = _execute(conn, "SELECT COUNT(*) FROM attempts WHERE user_id=? AND is_daily=1 AND was_skipped=0", (uid,))
-            n_attempted = _fetchone(cur, conn)[0]
         max_marks_possible = total_attempts * 2.0
         score_pct = round(total_marks_sum / max_marks_possible * 100, 1) if max_marks_possible else 0
         delta_pct = round(total_intuition_sum / max_marks_possible * 100, 1) if max_marks_possible else 0
