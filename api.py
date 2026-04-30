@@ -752,7 +752,7 @@ def get_quiz_score(date: str, x_session_token: Optional[str] = Header(default=No
                 COALESCE(q.upsc_subject, q.subject, 'General') AS subject
             FROM attempts a
             JOIN questions q ON a.question_id = q.id
-            WHERE a.question_id IN ({ph}) AND a.is_daily=1 {user_filter.replace('?','%s')}
+            WHERE a.question_id IN ({ph}) {user_filter.replace('?','%s')}
             ORDER BY a.question_id, a.attempted_at DESC
         """, tuple(q_ids) + tuple(user_p))
         cols = [d[0] for d in cur2.description]
@@ -764,7 +764,7 @@ def get_quiz_score(date: str, x_session_token: Optional[str] = Header(default=No
                    COALESCE(q.upsc_subject, q.subject, 'General') AS subject
             FROM attempts a
             JOIN questions q ON a.question_id = q.id
-            WHERE a.question_id IN ({placeholders}) AND a.is_daily=1 {user_filter}
+            WHERE a.question_id IN ({placeholders}) {user_filter}
             GROUP BY a.question_id HAVING a.attempted_at = MAX(a.attempted_at)
         """, q_ids + user_p)
         attempt_rows = _fetchall(cur, conn)
