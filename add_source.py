@@ -124,7 +124,7 @@ def infer_subject(name):
         return "Geography"
     if any(x in n for x in ("polity", "constitution", "governance", "civics", "political", "parliament")):
         return "Polity"
-    if any(x in n for x in ("economy", "economics", "finance", "budget", "gdp", "trade")):
+    if any(x in n for x in ("economy", "economics", "eco-survey", "economic", "finance", "budget", "gdp", "trade")):
         return "Economics"
     if any(x in n for x in ("science", "technology", "biology", "chemistry", "physics", "space")):
         return "Science & Technology"

@@ -22,7 +22,7 @@ from queue import Queue
 import fitz
 import chromadb
 from chromadb.utils.embedding_functions import SentenceTransformerEmbeddingFunction
-from flask import Flask, Response, jsonify, render_template_string, request
+from flask import Flask, Response, jsonify, render_template_string, request, stream_with_context
 
 CHROMA_DIR  = "./chroma-db"
 COLLECTION  = "cse_knowledge_base"
@@ -233,6 +233,14 @@ async function submitForm(e) {
 
   btn.disabled = false;
   btn.textContent = 'Add to Knowledge Pool';
+  // Reset subject dropdown and file selection for next upload
+  document.getElementById('subject-select').value = 'Auto-detect';
+  selectedFile = null;
+  document.getElementById('filename-display').textContent = '';
+  document.getElementById('pdf-input').value = '';
+  document.getElementById('url-input').value = '';
+  document.getElementById('start-page').value = '';
+  document.getElementById('end-page').value = '';
 }
 
 function appendLog(msg, cls) {
@@ -352,7 +360,7 @@ def ingest():
                 f.save(tmp.name)
                 tmp_path = tmp.name
 
-                pages, total_pages = extract_pdf_pages(tmp_path, start=start, end=end or total_pages)
+                pages, total_pages = extract_pdf_pages(tmp_path, start=start, end=end)
                 end_display = end or total_pages
                 page_info = f"pages {start}–{end_display} of {total_pages}" if (start > 1 or (end and end < total_pages)) else f"all {total_pages} pages"
                 yield f"data: Pages: {page_info}  ({len(pages)} with text)\n\n"
@@ -404,12 +412,14 @@ def ingest():
                                   "chunk_index": c["chunk_index"], "subject": subject})
                 ids.append(f"{source_hash}_p{c['start_page']}_c{c['chunk_index']}")
 
-            yield "data: Embedding and storing...\n\n"
-            batch = 100
+            yield "data: Embedding and storing (slow step — updates every 25 chunks)...\n\n"
+            batch = 25
             for i in range(0, len(chunks), batch):
-                collection.upsert(documents=documents[i:i+batch],
-                                  metadatas=metadatas[i:i+batch],
-                                  ids=ids[i:i+batch])
+                collection.upsert(
+                    documents=documents[i:i+batch],
+                    metadatas=metadatas[i:i+batch],
+                    ids=ids[i:i+batch],
+                )
                 done = min(i + batch, len(chunks))
                 yield f"data: Stored {done}/{len(chunks)} chunks...\n\n"
 
@@ -459,11 +469,12 @@ def ingest():
             if tmp_path and os.path.exists(tmp_path):
                 os.unlink(tmp_path)
 
-    return Response(stream(), mimetype="text/event-stream",
-                    headers={"X-Accel-Buffering": "no", "Cache-Control": "no-cache"})
+    return Response(stream_with_context(stream()), mimetype="text/event-stream",
+                    headers={"X-Accel-Buffering": "no", "Cache-Control": "no-cache",
+                             "Transfer-Encoding": "chunked"})
 
 
 if __name__ == "__main__":
     print("\nCSE-GO Knowledge Uploader")
     print("Open http://localhost:7860 in your browser\n")
-    app.run(host="0.0.0.0", port=7860, debug=False)
+    app.run(host="0.0.0.0", port=7860, debug=False, threaded=True)

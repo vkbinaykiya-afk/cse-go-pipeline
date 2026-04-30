@@ -141,14 +141,20 @@ def init_db():
                 suggested_reading TEXT
             );
             CREATE TABLE IF NOT EXISTS attempts (
-                id           TEXT PRIMARY KEY,
-                question_id  TEXT NOT NULL,
-                chosen       TEXT NOT NULL,
-                is_correct   INTEGER NOT NULL,
-                time_taken   INTEGER,
-                attempted_at TEXT NOT NULL,
-                user_id      TEXT,
-                is_daily     INTEGER NOT NULL DEFAULT 0
+                id               TEXT PRIMARY KEY,
+                question_id      TEXT NOT NULL,
+                chosen           TEXT,
+                is_correct       INTEGER,
+                time_taken       INTEGER,
+                attempted_at     TEXT NOT NULL,
+                user_id          TEXT,
+                is_daily         INTEGER NOT NULL DEFAULT 0,
+                was_skipped      INTEGER DEFAULT 0,
+                best_guess       TEXT,
+                guess_correct    INTEGER,
+                marks_actual     REAL,
+                marks_intuition  REAL DEFAULT 0,
+                quiz_session_id  TEXT
             );
             CREATE TABLE IF NOT EXISTS daily_sets (
                 date         TEXT PRIMARY KEY,
@@ -186,9 +192,11 @@ def init_db():
                 repaired_at TEXT, pipeline_version TEXT, topic_query TEXT, suggested_reading TEXT
             );
             CREATE TABLE IF NOT EXISTS attempts (
-                id TEXT PRIMARY KEY, question_id TEXT NOT NULL, chosen TEXT NOT NULL,
-                is_correct INTEGER NOT NULL, time_taken INTEGER, attempted_at TEXT NOT NULL,
-                user_id TEXT, is_daily INTEGER NOT NULL DEFAULT 0
+                id TEXT PRIMARY KEY, question_id TEXT NOT NULL, chosen TEXT,
+                is_correct INTEGER, time_taken INTEGER, attempted_at TEXT NOT NULL,
+                user_id TEXT, is_daily INTEGER NOT NULL DEFAULT 0,
+                was_skipped INTEGER DEFAULT 0, best_guess TEXT, guess_correct INTEGER,
+                marks_actual REAL, marks_intuition REAL DEFAULT 0, quiz_session_id TEXT
             );
             CREATE TABLE IF NOT EXISTS daily_sets (
                 date TEXT PRIMARY KEY, question_ids TEXT NOT NULL, created_at TEXT NOT NULL
@@ -206,6 +214,43 @@ def init_db():
         """)
         conn.commit()
     conn.close()
+
+
+def migrate_db():
+    """Add new columns to existing DBs (idempotent)."""
+    new_cols = [
+        ("attempts", "was_skipped",     "INTEGER DEFAULT 0"),
+        ("attempts", "best_guess",       "TEXT"),
+        ("attempts", "guess_correct",    "INTEGER"),
+        ("attempts", "marks_actual",     "REAL"),
+        ("attempts", "marks_intuition",  "REAL DEFAULT 0"),
+        ("attempts", "quiz_session_id",  "TEXT"),
+    ]
+    conn = get_db()
+    for table, col, defn in new_cols:
+        try:
+            if USE_PG:
+                cur = conn.cursor()
+                cur.execute(f"ALTER TABLE {table} ADD COLUMN {col} {defn}")
+                conn.commit()
+            else:
+                conn.execute(f"ALTER TABLE {table} ADD COLUMN {col} {defn}")
+                conn.commit()
+        except Exception:
+            pass
+    conn.close()
+
+
+def _marks_actual(is_correct: bool, was_skipped: bool) -> float:
+    if was_skipped:
+        return 0.0
+    return 2.0 if is_correct else -0.66
+
+
+def _marks_intuition(best_guess: Optional[str], guess_correct: Optional[bool]) -> float:
+    if not best_guess:
+        return 0.0
+    return 2.0 if guess_correct else -0.66
 
 
 def _upsert_otp(conn, email, code, expires_at):
@@ -336,16 +381,23 @@ def _infer_subject(q: dict) -> str:
 
 class AttemptIn(BaseModel):
     question_id: str
-    chosen: str
+    chosen: Optional[str] = None       # null when skipped
     time_taken: Optional[int] = None
+    was_skipped: bool = False
+    best_guess: Optional[str] = None   # A/B/C/D — only when was_skipped=True
+    quiz_session_id: Optional[str] = None
 
 class AttemptOut(BaseModel):
     id: str
     question_id: str
-    chosen: str
-    is_correct: bool
+    chosen: Optional[str]
+    is_correct: Optional[bool]
     correct_answer: str
     explanation: str
+    was_skipped: bool
+    best_guess: Optional[str]
+    marks_actual: float
+    marks_intuition: float
 
 class OTPRequest(BaseModel):
     email: str
@@ -444,6 +496,7 @@ def ping():
 @app.on_event("startup")
 def startup():
     init_db()
+    migrate_db()
     inserted, skipped = import_questions()
     updated = sync_statuses()
     print(f"DB ready ({'postgres' if USE_PG else 'sqlite'}). "
@@ -584,7 +637,22 @@ def record_attempt(body: AttemptIn, x_session_token: Optional[str] = Header(defa
         conn.close()
         raise HTTPException(404, "Question not found")
 
-    is_correct = body.chosen.upper() == q["correct"].upper()
+    is_correct: Optional[bool] = None
+    guess_correct: Optional[bool] = None
+
+    if body.was_skipped:
+        is_correct = None
+        if body.best_guess:
+            guess_correct = body.best_guess.upper() == q["correct"].upper()
+    else:
+        if not body.chosen:
+            conn.close()
+            raise HTTPException(400, "chosen is required for non-skipped attempts")
+        is_correct = body.chosen.upper() == q["correct"].upper()
+
+    marks_a = _marks_actual(bool(is_correct), body.was_skipped)
+    marks_i = _marks_intuition(body.best_guess, guess_correct)
+
     attempt_id = str(uuid.uuid4())
     now = datetime.now(timezone.utc).isoformat()
     today = datetime.now(timezone.utc).strftime("%Y-%m-%d")
@@ -595,17 +663,179 @@ def record_attempt(body: AttemptIn, x_session_token: Optional[str] = Header(defa
     is_daily = 1 if body.question_id in today_ids else 0
 
     _execute(conn,
-        "INSERT INTO attempts (id, question_id, chosen, is_correct, time_taken, attempted_at, user_id, is_daily) "
-        "VALUES (?,?,?,?,?,?,?,?)",
-        (attempt_id, body.question_id, body.chosen, int(is_correct), body.time_taken,
-         now, user["id"] if user else None, is_daily))
+        "INSERT INTO attempts (id, question_id, chosen, is_correct, time_taken, attempted_at, "
+        "user_id, is_daily, was_skipped, best_guess, guess_correct, marks_actual, marks_intuition, quiz_session_id) "
+        "VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)",
+        (attempt_id, body.question_id, body.chosen,
+         int(is_correct) if is_correct is not None else None,
+         body.time_taken, now, user["id"] if user else None, is_daily,
+         int(body.was_skipped), body.best_guess,
+         int(guess_correct) if guess_correct is not None else None,
+         marks_a, marks_i, body.quiz_session_id))
     _commit(conn)
     conn.close()
 
     return AttemptOut(
-        id=attempt_id, question_id=body.question_id, chosen=body.chosen,
-        is_correct=is_correct, correct_answer=q["correct"], explanation=q["explanation"] or "",
+        id=attempt_id, question_id=body.question_id,
+        chosen=body.chosen, is_correct=is_correct,
+        correct_answer=q["correct"], explanation=q["explanation"] or "",
+        was_skipped=body.was_skipped, best_guess=body.best_guess,
+        marks_actual=marks_a, marks_intuition=marks_i,
     )
+
+
+# ---------------------------------------------------------------------------
+# Routes — Quiz Score
+# ---------------------------------------------------------------------------
+
+@app.get("/quiz/score/{date}")
+def get_quiz_score(date: str, x_session_token: Optional[str] = Header(default=None)):
+    """UPSC-style score + intuition barometer for one quiz date."""
+    conn = get_db()
+    user = _get_user_from_token(x_session_token, conn)
+
+    cur = _execute(conn, "SELECT question_ids FROM daily_sets WHERE date=?", (date,))
+    row = _fetchone(cur, conn)
+    if not row:
+        conn.close()
+        raise HTTPException(404, f"No daily set for {date}")
+
+    q_ids = json.loads(row["question_ids"])
+    total_questions = len(q_ids)
+    max_marks = float(total_questions * 2)
+
+    uid = user["id"] if user else None
+    user_filter = "AND user_id = ?" if uid else ""
+    user_p = [uid] if uid else []
+    placeholders = ",".join(["?" if not USE_PG else "%s"] * len(q_ids))
+
+    if USE_PG:
+        cur2 = conn.cursor()
+        ph = ",".join(["%s"] * len(q_ids))
+        cur2.execute(f"""
+            SELECT DISTINCT ON (a.question_id)
+                a.question_id, a.chosen, a.is_correct, a.was_skipped,
+                a.best_guess, a.guess_correct, a.marks_actual, a.marks_intuition,
+                COALESCE(q.upsc_subject, q.subject, 'General') AS subject
+            FROM attempts a
+            JOIN questions q ON a.question_id = q.id
+            WHERE a.question_id IN ({ph}) AND a.is_daily=1 {user_filter.replace('?','%s')}
+            ORDER BY a.question_id, a.attempted_at DESC
+        """, tuple(q_ids) + tuple(user_p))
+        cols = [d[0] for d in cur2.description]
+        attempt_rows = [dict(zip(cols, r)) for r in cur2.fetchall()]
+    else:
+        cur = _execute(conn, f"""
+            SELECT a.question_id, a.chosen, a.is_correct, a.was_skipped,
+                   a.best_guess, a.guess_correct, a.marks_actual, a.marks_intuition,
+                   COALESCE(q.upsc_subject, q.subject, 'General') AS subject
+            FROM attempts a
+            JOIN questions q ON a.question_id = q.id
+            WHERE a.question_id IN ({placeholders}) AND a.is_daily=1 {user_filter}
+            GROUP BY a.question_id HAVING a.attempted_at = MAX(a.attempted_at)
+        """, q_ids + user_p)
+        attempt_rows = _fetchall(cur, conn)
+
+    amap = {r["question_id"]: r for r in attempt_rows}
+
+    attempted = correct = wrong = skipped = guessed = guess_correct_n = 0
+    total_marks = total_intuition = 0.0
+    subj_actual: dict = {}
+    subj_intuition: dict = {}
+
+    for q_id in q_ids:
+        a = amap.get(q_id)
+        if not a:
+            continue
+
+        ws = bool(a.get("was_skipped"))
+        ma = a.get("marks_actual")
+        mi = float(a.get("marks_intuition") or 0.0)
+        subj = a.get("subject", "General")
+
+        # Back-fill marks for legacy rows (pre-migration attempts)
+        if ma is None:
+            ma = _marks_actual(bool(a.get("is_correct")), ws)
+
+        if ws:
+            skipped += 1
+            if a.get("best_guess"):
+                guessed += 1
+                if a.get("guess_correct"):
+                    guess_correct_n += 1
+        else:
+            attempted += 1
+            if a.get("is_correct"):
+                correct += 1
+            else:
+                wrong += 1
+
+        total_marks += ma
+        total_intuition += mi
+
+        subj_actual.setdefault(subj, {"marks": 0.0, "attempted": 0, "wrong": 0, "skipped": 0})
+        subj_actual[subj]["marks"] += ma
+        if ws:
+            subj_actual[subj]["skipped"] += 1
+        elif a.get("is_correct"):
+            subj_actual[subj]["attempted"] += 1
+        else:
+            subj_actual[subj]["attempted"] += 1
+            subj_actual[subj]["wrong"] += 1
+
+        subj_intuition.setdefault(subj, {"skipped": 0, "guessed": 0, "guess_correct": 0, "intuition_marks": 0.0})
+        if ws:
+            subj_intuition[subj]["skipped"] += 1
+            if a.get("best_guess"):
+                subj_intuition[subj]["guessed"] += 1
+                if a.get("guess_correct"):
+                    subj_intuition[subj]["guess_correct"] += 1
+            subj_intuition[subj]["intuition_marks"] += mi
+
+    score_pct = round(total_marks / max_marks * 100, 1) if max_marks else 0
+    adjusted_pct = round((total_marks + total_intuition) / max_marks * 100, 1) if max_marks else 0
+    delta_pct = round(total_intuition / max_marks * 100, 1) if max_marks else 0
+
+    if total_intuition > 0.5:
+        intuition_msg = "You could take more risk — your gut would have lifted your score"
+    elif total_intuition < -0.5:
+        intuition_msg = "Smart skips — attempting those would have cost you marks"
+    else:
+        intuition_msg = "Coin-flip territory — skipping was the right call"
+
+    subj_breakdown = [
+        {"subject": s, "marks": round(v["marks"], 2),
+         "attempted": v["attempted"], "wrong": v["wrong"], "skipped": v["skipped"]}
+        for s, v in subj_actual.items()
+    ]
+    intuition_breakdown = [
+        {"subject": s, "skipped": v["skipped"], "guessed": v["guessed"],
+         "guess_correct": v["guess_correct"],
+         "intuition_marks": round(v["intuition_marks"], 2),
+         "intuition_accuracy_pct": round(v["guess_correct"] / v["guessed"] * 100, 1) if v["guessed"] else None}
+        for s, v in subj_intuition.items() if v["skipped"] > 0
+    ]
+
+    conn.close()
+    return {
+        "date": date,
+        "total_questions": total_questions,
+        "attempted": attempted, "correct": correct, "wrong": wrong,
+        "skipped": skipped, "unanswered": total_questions - attempted - skipped,
+        "marks_actual": round(total_marks, 2),
+        "marks_max": max_marks,
+        "score_pct": score_pct,
+        "guessed": guessed,
+        "guess_correct": guess_correct_n,
+        "guess_wrong": guessed - guess_correct_n,
+        "intuition_marks": round(total_intuition, 2),
+        "adjusted_marks": round(total_marks + total_intuition, 2),
+        "adjusted_pct": adjusted_pct,
+        "delta_pct": delta_pct,
+        "intuition_message": intuition_msg,
+        "subject_breakdown": subj_breakdown,
+        "intuition_breakdown": intuition_breakdown,
+    }
 
 
 # ---------------------------------------------------------------------------
@@ -749,6 +979,30 @@ def get_report(x_session_token: Optional[str] = Header(default=None)):
     except Exception as e:
         print(f"[STREAK ERROR] {e}")
 
+    # Cumulative UPSC marks + intuition
+    try:
+        if USE_PG:
+            cur = conn.cursor()
+            cur.execute("SELECT COALESCE(SUM(marks_actual),0), COALESCE(SUM(marks_intuition),0) "
+                        "FROM attempts WHERE user_id=%s AND is_daily=1", (uid,))
+            r = cur.fetchone()
+            total_marks_sum, total_intuition_sum = float(r[0]), float(r[1])
+            cur.execute("SELECT COUNT(*) FROM attempts WHERE user_id=%s AND is_daily=1 AND was_skipped=0", (uid,))
+            n_attempted = cur.fetchone()[0]
+        else:
+            cur = _execute(conn, "SELECT COALESCE(SUM(marks_actual),0), COALESCE(SUM(marks_intuition),0) "
+                           "FROM attempts WHERE user_id=? AND is_daily=1", (uid,))
+            r = _fetchone(cur, conn); total_marks_sum = float(r[0]); total_intuition_sum = float(r[1])
+            cur = _execute(conn, "SELECT COUNT(*) FROM attempts WHERE user_id=? AND is_daily=1 AND was_skipped=0", (uid,))
+            n_attempted = _fetchone(cur, conn)[0]
+        max_marks_possible = total_attempts * 2.0
+        score_pct = round(total_marks_sum / max_marks_possible * 100, 1) if max_marks_possible else 0
+        delta_pct = round(total_intuition_sum / max_marks_possible * 100, 1) if max_marks_possible else 0
+        adjusted_pct = round((total_marks_sum + total_intuition_sum) / max_marks_possible * 100, 1) if max_marks_possible else 0
+    except Exception as e:
+        print(f"[REPORT ERROR - marks] {e}")
+        total_marks_sum = total_intuition_sum = score_pct = delta_pct = adjusted_pct = 0
+
     conn.close()
     return {
         "total_attempts": total_attempts,
@@ -756,6 +1010,14 @@ def get_report(x_session_token: Optional[str] = Header(default=None)):
         "streak_days": streak,
         "subject_breakdown": subject_breakdown,
         "weak_areas": weak_areas,
+        "marks": {
+            "total_marks": round(total_marks_sum, 2),
+            "max_marks": round(total_attempts * 2.0, 2),
+            "score_pct": score_pct,
+            "intuition_marks": round(total_intuition_sum, 2),
+            "adjusted_pct": adjusted_pct,
+            "delta_pct": delta_pct,
+        },
     }
 
 

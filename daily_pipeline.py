@@ -54,6 +54,28 @@ GENERATE_N    = 20    # topics to generate (expect ~65% pass rate after repair)
 CHECK_WORKERS = 3     # parallel checker threads (conservative to avoid 529 overload)
 RECENT_TOPIC_LOOKBACK = 7  # days to look back for recently covered topics
 
+# Per-subject topic budget for planning (must sum to GENERATE_N)
+SUBJECT_QUOTAS = {
+    "History/Art & Culture":   4,
+    "Polity/Governance":       4,
+    "Geography/Environment":   3,
+    "Economy":                 3,
+    "Science & Technology":    2,
+    "Current Affairs":         4,
+}
+
+# Target distribution for the 10-question daily set
+DAILY_SET_TARGETS = {
+    "History":              2,
+    "Art & Culture":        1,
+    "Polity":               2,
+    "Geography":            1,
+    "Economics":            1,
+    "Environment":          1,
+    "Science & Technology": 1,
+    "Current Affairs":      1,
+}
+
 PLANNER_SYSTEM = """\
 You are a UPSC Civil Services Examination syllabus expert and question paper designer.
 Generate a JSON array of specific topic-queries for batch MCQ generation.
@@ -123,6 +145,47 @@ def get_recent_topics(days=RECENT_TOPIC_LOOKBACK):
     return list(dict.fromkeys(topics))  # deduplicated, order preserved
 
 
+def get_rolling_subject_counts(days=7):
+    """
+    Return how many topics each SUBJECT_QUOTA bucket got in the last N days' daily sets.
+    Used to nudge tomorrow's quota toward under-represented subjects.
+    """
+    # Map ChromaDB/tagger subject names → SUBJECT_QUOTAS bucket names
+    SUBJECT_MAP = {
+        "History":              "History/Art & Culture",
+        "Art & Culture":        "History/Art & Culture",
+        "Polity":               "Polity/Governance",
+        "Governance":           "Polity/Governance",
+        "Geography":            "Geography/Environment",
+        "Environment":          "Geography/Environment",
+        "Economics":            "Economy",
+        "Economy":              "Economy",
+        "Science & Technology": "Science & Technology",
+        "Current Affairs":      "Current Affairs",
+    }
+    counts = {k: 0 for k in SUBJECT_QUOTAS}
+    try:
+        conn = sqlite3.connect(DB_PATH)
+        conn.row_factory = sqlite3.Row
+        recent_sets = conn.execute(
+            "SELECT question_ids FROM daily_sets ORDER BY date DESC LIMIT ?", (days,)
+        ).fetchall()
+        for row in recent_sets:
+            ids = json.loads(row["question_ids"])
+            for qid in ids:
+                q = conn.execute(
+                    "SELECT upsc_subject FROM questions WHERE id=?", (qid,)
+                ).fetchone()
+                if q and q["upsc_subject"]:
+                    bucket = SUBJECT_MAP.get(q["upsc_subject"])
+                    if bucket:
+                        counts[bucket] = counts.get(bucket, 0) + 1
+        conn.close()
+    except Exception:
+        pass
+    return counts
+
+
 def plan_topics(client, n):
     """Generate n diverse topic queries grounded in the UPSC syllabus, avoiding recent topics."""
     recent = get_recent_topics()
@@ -133,6 +196,24 @@ def plan_topics(client, n):
 
     syllabus = get_syllabus_text()
 
+    # Build rolling balance adjustment
+    rolling = get_rolling_subject_counts(days=7)
+
+    # Build quota block with rolling nudges
+    quota_lines = []
+    for subj, base_count in SUBJECT_QUOTAS.items():
+        actual = rolling.get(subj, base_count)
+        # Nudge: if a subject is under-represented, +1; over-represented, -1 (min 1)
+        if actual < base_count * 0.7:
+            adjusted = min(base_count + 1, n)
+        elif actual > base_count * 1.3:
+            adjusted = max(base_count - 1, 1)
+        else:
+            adjusted = base_count
+        quota_lines.append(f"  - {subj}: exactly {adjusted} topics")
+
+    quota_block = "SUBJECT QUOTAS (strict — must match these exact counts):\n" + "\n".join(quota_lines)
+
     resp = client.messages.create(
         model=PLANNER_MODEL,
         max_tokens=1500,
@@ -142,16 +223,13 @@ def plan_topics(client, n):
             "content": (
                 f"Generate {n} specific topic-queries for UPSC MCQ generation today.\n"
                 f"{recent_block}\n"
+                f"{quota_block}\n\n"
                 f"UPSC SYLLABUS (ground all topics in this):\n{syllabus}\n\n"
                 f"Requirements:\n"
-                f"- Spread across Prelims GS, Mains GS-I, GS-II, and GS-III sections\n"
-                f"- At least 2 topics from Current Affairs / in-news topics\n"
-                f"- At least 2 topics from History or Culture\n"
-                f"- At least 2 topics from Polity or Governance\n"
-                f"- At least 2 topics from Economy or Science & Technology\n"
-                f"- At least 1 topic from Geography or Environment\n"
-                f"- Remaining: any underrepresented syllabus area\n"
-                f"- Each query should be a specific sub-topic, NOT a broad subject name\n\n"
+                f"- Follow the subject quotas EXACTLY — count topics per subject before returning\n"
+                f"- Each query must be a specific sub-topic (e.g. 'Directive Principles of State Policy'), NOT a broad subject name\n"
+                f"- For Current Affairs: use recent events from 2025–2026 in news\n"
+                f"- Do NOT repeat any topic from the RECENTLY COVERED list\n\n"
                 f"Return a JSON array of exactly {n} strings."
             )
         }]
@@ -405,6 +483,9 @@ def build_daily_set(records, date_str):
                     recent_topic_fps.add(fp)
 
     # ── Build candidate list from today's passing records ─────────────────────
+    # Fetch upsc_subject from SQLite (tagger writes there; in-memory records may lack it)
+    conn_tags = sqlite3.connect(DB_PATH)
+    conn_tags.row_factory = sqlite3.Row
     passing = [r for r in records if r.get("status") == "pass"]
     candidates = []
     for r in passing:
@@ -412,14 +493,54 @@ def build_daily_set(records, date_str):
         if q_id in recently_used_ids:
             continue
         topic_key = r.get("upsc_topic") or r.get("topic_query") or r.get("source_file", "")
-        candidates.append({"id": q_id, "topic_key": topic_key, "question": r.get("question", "")})
+        # Prefer upsc_subject from DB (tagged), fallback to record field
+        row = conn_tags.execute("SELECT upsc_subject FROM questions WHERE id=?", (q_id,)).fetchone()
+        subj = (row["upsc_subject"] if row and row["upsc_subject"] else r.get("upsc_subject") or "General")
+        candidates.append({"id": q_id, "topic_key": topic_key, "question": r.get("question", ""), "subject": subj})
+    conn_tags.close()
 
     logging.info(f"  {len(passing)} passing today → {len(candidates)} after 30-day topic filter")
 
-    # ── Select diverse set of up to 10 ────────────────────────────────────────
+    # ── Subject-balanced selection using DAILY_SET_TARGETS ────────────────────
+    # Group candidates by subject bucket
+    SUBJ_BUCKET = {
+        "History": "History", "Art & Culture": "Art & Culture",
+        "Polity": "Polity", "Geography": "Geography",
+        "Economics": "Economics", "Economy": "Economics",
+        "Environment": "Environment", "Science & Technology": "Science & Technology",
+        "Current Affairs": "Current Affairs",
+    }
+    buckets = {k: [] for k in DAILY_SET_TARGETS}
+    overflow = []
+    for c in candidates:
+        bucket = SUBJ_BUCKET.get(c["subject"])
+        if bucket and bucket in buckets:
+            buckets[bucket].append(c)
+        else:
+            overflow.append(c)
+
+    # Fill targets from each bucket first, then overflow
+    balanced = []
+    for subj, target in DAILY_SET_TARGETS.items():
+        balanced.extend(buckets.get(subj, [])[:target])
+    balanced.extend(overflow)
+    # Deduplicate IDs (preserve order)
+    seen_ids = set()
+    balanced_unique = []
+    for c in balanced:
+        if c["id"] not in seen_ids:
+            seen_ids.add(c["id"])
+            balanced_unique.append(c)
+
+    subj_summary = {s: sum(1 for c in balanced_unique[:10] if SUBJ_BUCKET.get(c["subject"]) == s)
+                    for s in DAILY_SET_TARGETS}
+    logging.info(f"  Subject distribution in candidates: { {k:len(v) for k,v in buckets.items()} }")
+
+    # ── Select diverse set of up to 10 from balanced pool ────────────────────
     selected, seen_t, seen_q, seen_ents = pick_diverse_set(
-        candidates, limit=10, recent_topic_fps=recent_topic_fps
+        balanced_unique, limit=10, recent_topic_fps=recent_topic_fps
     )
+    logging.info(f"  Subject balance in selected set: { {s: sum(1 for i in selected if SUBJ_BUCKET.get(next((c['subject'] for c in balanced_unique if c['id']==i), ''), '') == s) for s in DAILY_SET_TARGETS} }")
 
     # Log extras as pool candidates
     extras = [c for c in candidates if c["id"] not in set(selected)]
