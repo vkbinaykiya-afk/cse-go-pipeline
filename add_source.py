@@ -4,6 +4,7 @@ add_source.py — Add a PDF or URL to the CSE-GO knowledge pool.
 Usage:
     python3 add_source.py --pdf path/to/file.pdf
     python3 add_source.py --pdf path/to/file.pdf --subject "Economy"
+    python3 add_source.py --pdf path/to/file.pdf --start-page 5 --end-page 120
     python3 add_source.py --url https://example.com/article
     python3 add_source.py --url https://example.com/article --subject "Current Affairs"
 
@@ -145,6 +146,10 @@ def main():
     group.add_argument("--url", metavar="URL",  help="URL of a webpage to ingest")
     parser.add_argument("--subject", metavar="SUBJECT",
                         help="UPSC subject tag (e.g. 'Current Affairs', 'Economy')")
+    parser.add_argument("--start-page", metavar="N", type=int, default=None,
+                        help="First PDF page to ingest (1-indexed, default: 1)")
+    parser.add_argument("--end-page", metavar="N", type=int, default=None,
+                        help="Last PDF page to ingest (1-indexed, default: last page)")
     args = parser.parse_args()
 
     # ── Determine source name + extract pages ─────────────────────────────────
@@ -155,8 +160,22 @@ def main():
             sys.exit(1)
         source_name = os.path.basename(path)
         print(f"\nSource  : {source_name} (PDF)")
+
+        # Peek at total pages before slicing
+        _doc = fitz.open(path)
+        total_pages = len(_doc)
+        _doc.close()
+
+        start = max(1, args.start_page or 1)
+        end   = min(total_pages, args.end_page or total_pages)
+        if start > end:
+            print(f"ERROR: --start-page ({start}) is after --end-page ({end}).")
+            sys.exit(1)
+
+        page_range = f"pages {start}–{end}" if (start > 1 or end < total_pages) else "all pages"
+        print(f"Pages   : {total_pages} total  →  ingesting {page_range}")
         print("Extracting text ...")
-        pages = extract_pdf(path)
+        pages = [(pn, t) for pn, t in extract_pdf(path) if start <= pn <= end]
     else:
         source_name = args.url
         print(f"\nSource  : {source_name} (URL)")
@@ -172,7 +191,8 @@ def main():
         sys.exit(1)
 
     total_words = sum(len(p[1].split()) for p in pages)
-    print(f"Pages   : {len(pages)}")
+    if not args.pdf:
+        print(f"Pages   : {len(pages)}")
     print(f"Words   : {total_words:,}")
 
     # ── Subject ───────────────────────────────────────────────────────────────
@@ -236,9 +256,12 @@ def main():
     net      = after - before
     text_mb  = sum(len(d.encode()) for d in documents) / (1024 * 1024)
 
+    page_info = f"{page_range}" if args.pdf else f"{len(pages)} page(s)"
+
     print(f"\n\n{'═'*52}")
     print(f"  ✓ INGEST COMPLETE")
     print(f"  Source          : {source_name}")
+    print(f"  Pages ingested  : {page_info}")
     print(f"  Subject         : {subject}")
     print(f"  Words ingested  : {total_words:,}")
     print(f"  Text size       : {text_mb:.2f} MB")
