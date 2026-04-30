@@ -921,7 +921,15 @@ def get_report(x_session_token: Optional[str] = Header(default=None)):
                    COUNT(a.id) AS total,
                    SUM(CASE WHEN a.is_correct = 1 THEN 1 ELSE 0 END) AS correct,
                    SUM(CASE WHEN a.was_skipped = 1 THEN 1 ELSE 0 END) AS skipped_n,
-                   COALESCE(SUM(a.marks_actual), 0) AS marks_sum
+                   COALESCE(SUM(
+                       CASE
+                           WHEN a.marks_actual IS NOT NULL THEN a.marks_actual
+                           WHEN a.was_skipped = 1         THEN 0.0
+                           WHEN a.is_correct  = 1         THEN 2.0
+                           WHEN a.is_correct  = 0         THEN -0.66
+                           ELSE 0.0
+                       END
+                   ), 0) AS marks_sum
             FROM attempts a JOIN questions q ON a.question_id = q.id
             WHERE a.user_id = ? GROUP BY COALESCE(q.upsc_subject, q.subject, 'Unknown')
         """, (uid,))
@@ -1017,17 +1025,29 @@ def get_report(x_session_token: Optional[str] = Header(default=None)):
     except Exception as e:
         print(f"[STREAK ERROR] {e}")
 
-    # Cumulative UPSC marks + intuition (all attempts — is_daily filter dropped, same bug as get_quiz_score)
+    # Cumulative UPSC marks + intuition.
+    # Legacy attempts pre-date the marks_actual column and have NULL there —
+    # fall back to computing from is_correct / was_skipped.
+    _MARKS_EXPR = """
+        COALESCE(SUM(
+            CASE
+                WHEN marks_actual IS NOT NULL THEN marks_actual
+                WHEN was_skipped = 1          THEN 0.0
+                WHEN is_correct  = 1          THEN 2.0
+                WHEN is_correct  = 0          THEN -0.66
+                ELSE 0.0
+            END
+        ), 0)
+    """
+    _INTUITION_EXPR = "COALESCE(SUM(COALESCE(marks_intuition, 0)), 0)"
     try:
         if USE_PG:
             cur = conn.cursor()
-            cur.execute("SELECT COALESCE(SUM(marks_actual),0), COALESCE(SUM(marks_intuition),0) "
-                        "FROM attempts WHERE user_id=%s", (uid,))
+            cur.execute(f"SELECT {_MARKS_EXPR}, {_INTUITION_EXPR} FROM attempts WHERE user_id=%s", (uid,))
             r = cur.fetchone()
             total_marks_sum, total_intuition_sum = float(r[0]), float(r[1])
         else:
-            cur = _execute(conn, "SELECT COALESCE(SUM(marks_actual),0), COALESCE(SUM(marks_intuition),0) "
-                           "FROM attempts WHERE user_id=?", (uid,))
+            cur = _execute(conn, f"SELECT {_MARKS_EXPR}, {_INTUITION_EXPR} FROM attempts WHERE user_id=?", (uid,))
             r = _fetchone(cur, conn); total_marks_sum = float(r[0]); total_intuition_sum = float(r[1])
         max_marks_possible = total_attempts * 2.0
         score_pct = round(total_marks_sum / max_marks_possible * 100, 1) if max_marks_possible else 0
