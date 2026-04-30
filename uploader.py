@@ -11,6 +11,7 @@ import html as html_module
 import io
 import os
 import re
+import subprocess
 import sys
 import tempfile
 import threading
@@ -221,7 +222,7 @@ async function submitForm(e) {
       dec.decode(value).split('\\n').forEach(line => {
         if (line.startsWith('data:')) {
           const msg = line.slice(5).trim();
-          const cls = msg.startsWith('✓') ? 'done' : msg.startsWith('ERROR') || msg.startsWith('✗') ? 'err' : msg.startsWith('WARNING') ? 'warn' : '';
+          const cls = msg.startsWith('✓') ? 'done' : msg.startsWith('ERROR') || msg.startsWith('✗') ? 'err' : msg.startsWith('WARNING') || msg.startsWith('Compressing') || msg.startsWith('Uploading') || msg.startsWith('Syncing') ? 'warn' : '';
           appendLog(msg, cls);
         }
       });
@@ -417,7 +418,34 @@ def ingest():
             mb     = sum(len(d.encode()) for d in documents) / (1024 * 1024)
 
             yield f"data: ─────────────────────────────\n\n"
-            yield f"data: ✓ DONE\n\n"
+            yield f"data: Ingest complete. Syncing to cloud...\n\n"
+
+            # ── Push updated chroma-db to Cloudflare R2 ───────────────────────
+            try:
+                yield "data: Compressing chroma-db...\n\n"
+                tar_result = subprocess.run(
+                    ["tar", "-czf", "chroma-db.tar.gz", "chroma-db/"],
+                    capture_output=True, text=True
+                )
+                if tar_result.returncode != 0:
+                    raise RuntimeError(tar_result.stderr.strip())
+
+                yield "data: Uploading to Cloudflare R2...\n\n"
+                rclone_result = subprocess.run(
+                    ["rclone", "copy", "chroma-db.tar.gz", "r2:cse-go-pipeline/"],
+                    capture_output=True, text=True
+                )
+                if rclone_result.returncode != 0:
+                    raise RuntimeError(rclone_result.stderr.strip())
+
+                yield "data: ✓ Synced to R2 — source is now quiz-ready\n\n"
+            except FileNotFoundError:
+                yield "data: WARNING: rclone not found — skipping R2 sync. Run manually: rclone copy chroma-db.tar.gz r2:cse-go-pipeline/\n\n"
+            except Exception as sync_err:
+                yield f"data: WARNING: R2 sync failed: {sync_err}\n\n"
+
+            yield f"data: ─────────────────────────────\n\n"
+            yield f"data: ✓ QUIZ-READY\n\n"
             yield f"data: Subject         : {subject}\n\n"
             yield f"data: Pages ingested  : {page_info}\n\n"
             yield f"data: Words ingested  : {total_words:,}\n\n"
