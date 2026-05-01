@@ -30,8 +30,29 @@ OTP_EXPIRY_MINUTES= 10
 PORT              = int(os.environ.get("PORT", 8000))
 PIPELINE_SECRET   = os.environ.get("PIPELINE_SECRET", "")
 DATABASE_URL      = os.environ.get("DATABASE_URL", "")   # set by Railway Postgres
-STATIC_SUBJECTS   = ["History", "Geography", "Polity", "Environment",
-                     "Science & Technology", "Economics", "Current Affairs", "Art & Culture"]
+STATIC_SUBJECTS   = ["History", "Art & Culture", "Geography", "Polity", "Environment",
+                     "Science & Technology", "Economics", "Current Affairs"]
+
+# Canonical subject name lookup — applied everywhere subjects are read from the DB.
+_SUBJ_NORM_MAP = {
+    "economy":                  "Economics",
+    "science & tech":           "Science & Technology",
+    "science and technology":   "Science & Technology",
+    "s&t":                      "Science & Technology",
+    "indian polity":            "Polity",
+    "polity & governance":      "Polity",
+    "art & culture":            "Art & Culture",
+    "current affairs":          "Current Affairs",
+    "modern history":           "History",
+    "ancient history":          "History",
+    "medieval history":         "History",
+    "indian history":           "History",
+}
+
+def _norm_subject(s) -> str:
+    if not s:
+        return "General"
+    return _SUBJ_NORM_MAP.get(s.strip().lower(), s.strip())
 
 DB_PATH       = Path(__file__).parent / "cse_go.db"
 QUESTIONS_DIR = Path(__file__).parent / "questions"
@@ -784,7 +805,7 @@ def get_quiz_score(date: str, x_session_token: Optional[str] = Header(default=No
         ws = bool(a.get("was_skipped"))
         ma = a.get("marks_actual")
         mi = float(a.get("marks_intuition") or 0.0)
-        subj = a.get("subject", "General")
+        subj = _norm_subject(a.get("subject") or "General")
 
         # Back-fill marks for legacy rows (pre-migration attempts).
         # If chosen is empty and is_correct is falsy, it was a skip recorded before
@@ -933,16 +954,10 @@ def get_report(x_session_token: Optional[str] = Header(default=None)):
             FROM attempts a JOIN questions q ON a.question_id = q.id
             WHERE a.user_id = ? GROUP BY COALESCE(q.upsc_subject, q.subject, 'Unknown')
         """, (uid,))
-        _SUBJ_NORM = {
-            "economy": "Economics", "science & tech": "Science & Technology",
-            "science and technology": "Science & Technology", "indian polity": "Polity",
-            "polity & governance": "Polity", "art & culture": "Art & Culture",
-            "current affairs": "Current Affairs",
-        }
         raw_rows = _fetchall(cur, conn)
         attempted_map = {}
         for r in raw_rows:
-            key = _SUBJ_NORM.get((r["subject"] or "").lower(), r["subject"] or "Unknown")
+            key = _norm_subject(r["subject"] or "")
             non_skip = int(r["total"] or 0) - int(r["skipped_n"] or 0)  # correct + wrong only
             correct_n = int(r["correct"] or 0)
             marks_n = float(r["marks_sum"] or 0)

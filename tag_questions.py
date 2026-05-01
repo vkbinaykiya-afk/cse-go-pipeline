@@ -27,13 +27,14 @@ MODEL = "claude-haiku-4-5-20251001"
 BATCH = 5   # questions per API call
 
 STATIC_SUBJECTS = [
-    "History", "Geography", "Polity", "Environment",
+    "History", "Art & Culture", "Geography", "Polity", "Environment",
     "Science & Technology", "Economics", "Current Affairs"
 ]
 
 # Category options per subject
 SUBJECT_CATEGORIES = {
     "History":              ["Ancient", "Medieval", "Modern"],
+    "Art & Culture":        ["Classical Arts", "Architecture", "Literature", "Festivals & Traditions", "Heritage & UNESCO"],
     "Geography":            ["Physical", "Economic", "Social", "World Geography"],
     "Polity":               ["Constitution", "Governance", "Parliament", "Judiciary", "Local Government", "Constitutional Bodies"],
     "Environment":          ["Biodiversity", "Climate Change", "Pollution & Ecology", "Conservation", "Disaster Management"],
@@ -47,11 +48,14 @@ You are a UPSC (Union Public Service Commission) syllabus expert.
 Given a set of MCQ questions, classify each one with:
 
 1. upsc_subject — MUST be exactly one of:
-   History | Geography | Polity | Environment | Science & Technology | Economics | Current Affairs
-   Map "Art & Culture" questions to History. Map "Economy" to Economics. Map "Science & Tech" to Science & Technology.
+   History | Art & Culture | Geography | Polity | Environment | Science & Technology | Economics | Current Affairs
+   Map "Economy" to Economics. Map "Science & Tech" to Science & Technology.
+   Use "Art & Culture" for questions about music, dance, painting, sculpture, architecture, festivals, classical traditions, heritage sites.
+   Use "History" for ancient/medieval/modern political and social history.
 
 2. upsc_category — the sub-category within the subject. Use these options:
    History:              Ancient | Medieval | Modern
+   Art & Culture:        Classical Arts | Architecture | Literature | Festivals & Traditions | Heritage & UNESCO
    Geography:            Physical | Economic | Social | World Geography
    Polity:               Constitution | Governance | Parliament | Judiciary | Local Government | Constitutional Bodies
    Environment:          Biodiversity | Climate Change | Pollution & Ecology | Conservation | Disaster Management
