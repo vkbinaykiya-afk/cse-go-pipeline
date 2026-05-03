@@ -1942,6 +1942,21 @@ def publish_review(body: ReviewPublishIn):
             "auto_filled": max(0, len(selected) - min(len(accepted), 10)), "published_by": "human"}
 
 
+@app.get("/internal/review/last-notes")
+def get_last_review_notes(secret: str = ""):
+    """Return prompt_notes from the most recently published review batch."""
+    if PIPELINE_SECRET and secret != PIPELINE_SECRET:
+        raise HTTPException(403, "Forbidden")
+    conn = get_db()
+    cur = _execute(conn,
+        "SELECT prompt_notes FROM review_batches WHERE published_at IS NOT NULL "
+        "ORDER BY published_at DESC LIMIT 1")
+    row = _fetchone(cur, conn)
+    conn.close()
+    notes = row["prompt_notes"] if row else None
+    return {"prompt_notes": notes or ""}
+
+
 @app.get("/internal/otp/{email}")
 def get_otp(email: str):
     conn = get_db()

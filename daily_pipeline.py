@@ -186,6 +186,24 @@ def get_rolling_subject_counts(days=7):
     return counts
 
 
+def get_hitl_notes() -> str:
+    """Fetch prompt_notes from last published HITL review batch."""
+    railway_url = os.environ.get("RAILWAY_API_URL", "")
+    pipeline_secret = os.environ.get("PIPELINE_SECRET", "")
+    if not railway_url:
+        return ""
+    try:
+        resp = requests.get(
+            f"{railway_url}/internal/review/last-notes?secret={pipeline_secret}",
+            timeout=10,
+        )
+        if resp.ok:
+            return resp.json().get("prompt_notes", "") or ""
+    except Exception:
+        pass
+    return ""
+
+
 def plan_topics(client, n):
     """Generate n diverse topic queries grounded in the UPSC syllabus, avoiding recent topics."""
     recent = get_recent_topics()
@@ -195,6 +213,12 @@ def plan_topics(client, n):
                        "\n".join(f"- {t}" for t in recent[:30]) + "\n"
 
     syllabus = get_syllabus_text()
+
+    # Fetch HITL guidance notes from last review session
+    hitl_notes = get_hitl_notes()
+    notes_block = f"\nHITL GUIDANCE (from yesterday's reviewer — follow these instructions):\n{hitl_notes}\n" if hitl_notes else ""
+    if hitl_notes:
+        logging.info(f"  HITL notes loaded: {hitl_notes[:120]}")
 
     # Build rolling balance adjustment
     rolling = get_rolling_subject_counts(days=7)
@@ -222,7 +246,8 @@ def plan_topics(client, n):
             "role": "user",
             "content": (
                 f"Generate {n} specific topic-queries for UPSC MCQ generation today.\n"
-                f"{recent_block}\n"
+                f"{recent_block}"
+                f"{notes_block}\n"
                 f"{quota_block}\n\n"
                 f"UPSC SYLLABUS (ground all topics in this):\n{syllabus}\n\n"
                 f"Requirements:\n"
