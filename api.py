@@ -1129,17 +1129,18 @@ def get_daily(date: Optional[str] = None, x_session_token: Optional[str] = Heade
     attempts_map = {}
     if user:
         cur = _execute(conn,
-            f"SELECT DISTINCT ON (question_id) question_id, chosen, is_correct, attempted_at "
-            f"FROM attempts WHERE question_id IN ({placeholders}) AND is_daily=1 AND user_id=? "
+            f"SELECT DISTINCT ON (question_id) question_id, chosen, is_correct, was_skipped, attempted_at "
+            f"FROM attempts WHERE question_id IN ({placeholders}) AND user_id=? "
             f"ORDER BY question_id, attempted_at DESC"
             if USE_PG else
-            f"SELECT question_id, chosen, is_correct, attempted_at FROM attempts "
-            f"WHERE question_id IN ({placeholders}) AND is_daily=1 AND user_id=? "
+            f"SELECT question_id, chosen, is_correct, was_skipped, attempted_at FROM attempts "
+            f"WHERE question_id IN ({placeholders}) AND user_id=? "
             f"GROUP BY question_id HAVING attempted_at = MAX(attempted_at)",
             tuple(q_ids) + (user["id"],))
         for a in _fetchall(cur, conn):
             attempts_map[a["question_id"]] = {
                 "chosen": a["chosen"], "is_correct": bool(a["is_correct"]),
+                "was_skipped": bool(a["was_skipped"]) if a["was_skipped"] is not None else False,
                 "attempted_at": a["attempted_at"]
             }
 
