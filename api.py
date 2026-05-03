@@ -709,12 +709,19 @@ def record_attempt(body: AttemptIn, x_session_token: Optional[str] = Header(defa
 
     attempt_id = str(uuid.uuid4())
     now = datetime.now(timezone.utc).isoformat()
-    today = datetime.now(timezone.utc).strftime("%Y-%m-%d")
-
-    cur = _execute(conn, "SELECT question_ids FROM daily_sets WHERE date=?", (today,))
-    daily_row = _fetchone(cur, conn)
-    today_ids = set(json.loads(daily_row["question_ids"])) if daily_row else set()
-    is_daily = 1 if body.question_id in today_ids else 0
+    today_utc = datetime.now(timezone.utc).date()
+    # Check today AND yesterday to handle IST/UTC date boundary (IST = UTC+5:30,
+    # so a play at 11 PM IST may be "tomorrow" in UTC — yesterday covers that edge).
+    yesterday_utc = (today_utc - timedelta(days=1)).strftime("%Y-%m-%d")
+    today_str = today_utc.strftime("%Y-%m-%d")
+    ph2 = "%s,%s" if USE_PG else "?,?"
+    cur = _execute(conn, f"SELECT question_ids FROM daily_sets WHERE date IN ({ph2})",
+                   (today_str, yesterday_utc))
+    daily_ids: set = set()
+    for drow in _fetchall(cur, conn):
+        qids_raw = drow["question_ids"] if isinstance(drow, dict) else drow["question_ids"]
+        daily_ids.update(json.loads(qids_raw) if isinstance(qids_raw, str) else qids_raw)
+    is_daily = 1 if body.question_id in daily_ids else 0
 
     _execute(conn,
         "INSERT INTO attempts (id, question_id, chosen, is_correct, time_taken, attempted_at, "
@@ -1293,11 +1300,11 @@ def get_daily(date: Optional[str] = None, x_session_token: Optional[str] = Heade
     if user:
         cur = _execute(conn,
             f"SELECT DISTINCT ON (question_id) question_id, chosen, is_correct, was_skipped, attempted_at "
-            f"FROM attempts WHERE question_id IN ({placeholders}) AND user_id=? "
+            f"FROM attempts WHERE question_id IN ({placeholders}) AND is_daily=1 AND user_id=? "
             f"ORDER BY question_id, attempted_at DESC"
             if USE_PG else
             f"SELECT question_id, chosen, is_correct, was_skipped, attempted_at FROM attempts "
-            f"WHERE question_id IN ({placeholders}) AND user_id=? "
+            f"WHERE question_id IN ({placeholders}) AND is_daily=1 AND user_id=? "
             f"GROUP BY question_id HAVING attempted_at = MAX(attempted_at)",
             tuple(q_ids) + (user["id"],))
         for a in _fetchall(cur, conn):
