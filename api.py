@@ -1440,10 +1440,7 @@ def get_archive(detail: Optional[str] = None, x_session_token: Optional[str] = H
                         "completed": attempted_count == len(questions)},
         }
 
-    if signup_date:
-        cur = _execute(conn, "SELECT date, question_ids FROM daily_sets WHERE date >= ? ORDER BY date DESC", (signup_date,))
-    else:
-        cur = _execute(conn, "SELECT date, question_ids FROM daily_sets ORDER BY date DESC")
+    cur = _execute(conn, "SELECT date, question_ids FROM daily_sets ORDER BY date DESC")
     sets = _fetchall(cur, conn)
 
     result = []
