@@ -1746,6 +1746,56 @@ def internal_sync():
     return {"inserted": inserted, "skipped": skipped, "statuses_synced": updated}
 
 
+@app.post("/internal/backfill-missing-skips")
+def backfill_missing_skips(secret: str = ""):
+    """One-time backfill: insert skip records for questions with no attempt in each daily set.
+    Only runs on past sets (not today). Skips users who never touched that set."""
+    if PIPELINE_SECRET and secret != PIPELINE_SECRET:
+        raise HTTPException(403, "Forbidden")
+
+    conn = get_db()
+    today = datetime.now(timezone.utc).strftime("%Y-%m-%d")
+    cur = _execute(conn, "SELECT date, question_ids FROM daily_sets WHERE date < ? ORDER BY date", (today,))
+    sets = _fetchall(cur, conn)
+
+    total_inserted = 0
+    now_iso = datetime.now(timezone.utc).isoformat()
+
+    for ds in sets:
+        date = ds["date"]
+        q_ids = json.loads(ds["question_ids"]) if isinstance(ds["question_ids"], str) else ds["question_ids"]
+        if not q_ids:
+            continue
+
+        ph = ",".join(["%s" if USE_PG else "?"] * len(q_ids))
+
+        # Users who have at least one attempt on this set
+        cur = _execute(conn,
+            f"SELECT DISTINCT user_id FROM attempts WHERE question_id IN ({ph}) AND user_id IS NOT NULL",
+            tuple(q_ids))
+        users = [r["user_id"] for r in _fetchall(cur, conn)]
+
+        for uid in users:
+            cur = _execute(conn,
+                f"SELECT DISTINCT question_id FROM attempts WHERE question_id IN ({ph}) AND user_id = {'%s' if USE_PG else '?'}",
+                tuple(q_ids) + (uid,))
+            attempted_ids = {r["question_id"] for r in _fetchall(cur, conn)}
+
+            missing = [q_id for q_id in q_ids if q_id not in attempted_ids]
+            for q_id in missing:
+                _execute(conn,
+                    "INSERT INTO attempts (id, question_id, chosen, is_correct, time_taken, attempted_at, "
+                    "user_id, is_daily, was_skipped, best_guess, guess_correct, marks_actual, marks_intuition) "
+                    "VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)",
+                    (str(uuid.uuid4()), q_id, "", 0, 0, now_iso,
+                     uid, 1, 1, None, None, 0.0, 0.0))
+                total_inserted += 1
+
+    _commit(conn)
+    conn.close()
+    return {"sets_processed": len(sets), "skips_inserted": total_inserted}
+
+
 @app.post("/internal/push-daily-set")
 def push_daily_set(body: PushDailySetIn):
     if PIPELINE_SECRET and body.secret != PIPELINE_SECRET:
