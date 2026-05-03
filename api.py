@@ -204,6 +204,15 @@ def init_db():
                 user_id    TEXT NOT NULL,
                 created_at TEXT NOT NULL
             );
+            CREATE TABLE IF NOT EXISTS review_batches (
+                date TEXT PRIMARY KEY,
+                question_ids TEXT NOT NULL,
+                staged_at TEXT NOT NULL,
+                auto_publish_at TEXT NOT NULL,
+                published_at TEXT,
+                published_by TEXT,
+                prompt_notes TEXT
+            );
         """)
         conn.commit()
     else:
@@ -238,6 +247,15 @@ def init_db():
             CREATE TABLE IF NOT EXISTS sessions (
                 token TEXT PRIMARY KEY, user_id TEXT NOT NULL, created_at TEXT NOT NULL
             );
+            CREATE TABLE IF NOT EXISTS review_batches (
+                date TEXT PRIMARY KEY,
+                question_ids TEXT NOT NULL,
+                staged_at TEXT NOT NULL,
+                auto_publish_at TEXT NOT NULL,
+                published_at TEXT,
+                published_by TEXT,
+                prompt_notes TEXT
+            );
         """)
         conn.commit()
     conn.close()
@@ -252,6 +270,7 @@ def migrate_db():
         ("attempts", "marks_actual",     "REAL"),
         ("attempts", "marks_intuition",  "REAL DEFAULT 0"),
         ("attempts", "quiz_session_id",  "TEXT"),
+        ("questions", "review_decision", "TEXT DEFAULT 'accept'"),
     ]
     # Each column needs its own connection — psycopg2 puts the connection into
     # an aborted-transaction state on any error, blocking all subsequent commands
@@ -476,6 +495,24 @@ class PushQuestionsIn(BaseModel):
     secret: str
     update_status: bool = False
 
+class StageBatchIn(BaseModel):
+    date: str
+    question_ids: List[str]
+    secret: str
+
+class ReviewPublishIn(BaseModel):
+    date: str
+    prompt_notes: Optional[str] = None
+    secret: str
+
+class ReviewQuestionUpdateIn(BaseModel):
+    decision: Optional[str] = None
+    upsc_subject: Optional[str] = None
+    question: Optional[str] = None
+    options: Optional[dict] = None
+    explanation: Optional[str] = None
+    secret: str
+
 
 # ---------------------------------------------------------------------------
 # Auth helpers
@@ -561,6 +598,71 @@ def startup():
     updated = sync_statuses()
     print(f"DB ready ({'postgres' if USE_PG else 'sqlite'}). "
           f"Imported {inserted} new, {skipped} existing, {updated} statuses synced.")
+
+
+def _topup_from_pool(conn, selected_ids: list, date: str, target: int = 10) -> list:
+    needed = target - len(selected_ids)
+    if needed <= 0:
+        return selected_ids[:target]
+    exclude = list(set(selected_ids))
+    cur = _execute(conn, "SELECT question_ids FROM daily_sets ORDER BY date DESC LIMIT 7")
+    for row in _fetchall(cur, conn):
+        raw = row["question_ids"]
+        exclude.extend(json.loads(raw) if isinstance(raw, str) else raw)
+    exclude = list(set(exclude))
+
+    def _excl(excl):
+        if not excl:
+            return "", ()
+        ph = ",".join(["%s" if USE_PG else "?"] * len(excl))
+        return f"AND id NOT IN ({ph})", tuple(excl)
+
+    ec, ep = _excl(exclude)
+    cur = _execute(conn,
+        f"SELECT id FROM questions WHERE status='pass' "
+        f"AND (source_type='pyq' OR LOWER(COALESCE(source_file,'')) LIKE '%pyq%') "
+        f"{ec} LIMIT ?", ep + (needed,))
+    selected_ids = selected_ids + [r["id"] for r in _fetchall(cur, conn)]
+    if len(selected_ids) < target:
+        still = target - len(selected_ids)
+        ec2, ep2 = _excl(list(set(exclude + selected_ids)))
+        cur = _execute(conn,
+            f"SELECT id FROM questions WHERE status='pass' {ec2} ORDER BY RANDOM() LIMIT ?",
+            ep2 + (still,))
+        selected_ids += [r["id"] for r in _fetchall(cur, conn)]
+    return selected_ids[:target]
+
+
+def _check_and_auto_publish(conn):
+    now_iso = datetime.now(timezone.utc).isoformat()
+    today = datetime.now(timezone.utc).strftime("%Y-%m-%d")
+    cur = _execute(conn,
+        "SELECT date, question_ids FROM review_batches "
+        "WHERE published_at IS NULL AND auto_publish_at <= ? AND date <= ?",
+        (now_iso, today))
+    overdue = _fetchall(cur, conn)
+    for batch in overdue:
+        date = batch["date"]
+        raw = batch["question_ids"]
+        q_ids = json.loads(raw) if isinstance(raw, str) else raw
+        cur2 = _execute(conn, "SELECT date FROM daily_sets WHERE date=?", (date,))
+        if _fetchone(cur2, conn):
+            _execute(conn, "UPDATE review_batches SET published_at=?, published_by='auto' WHERE date=?",
+                     (now_iso, date))
+            continue
+        ph = ",".join(["%s" if USE_PG else "?"] * len(q_ids))
+        cur2 = _execute(conn,
+            f"SELECT id FROM questions WHERE id IN ({ph}) AND COALESCE(review_decision,'accept') != 'reject'",
+            tuple(q_ids))
+        accepted = [r["id"] for r in _fetchall(cur2, conn)]
+        selected = _topup_from_pool(conn, accepted[:10], date)
+        if selected:
+            _upsert_daily_set(conn, date, json.dumps(selected), now_iso)
+        _execute(conn, "UPDATE review_batches SET published_at=?, published_by='auto' WHERE date=?",
+                 (now_iso, date))
+        print(f"[AUTO-PUBLISH] {date}: {len(selected)} questions auto-published")
+    if overdue:
+        _commit(conn)
 
 
 # ---------------------------------------------------------------------------
@@ -1352,6 +1454,7 @@ def get_daily(date: Optional[str] = None, x_session_token: Optional[str] = Heade
     target_date = date or datetime.now(timezone.utc).strftime("%Y-%m-%d")
     is_today = (target_date == datetime.now(timezone.utc).strftime("%Y-%m-%d"))
     conn = get_db()
+    _check_and_auto_publish(conn)
 
     cur = _execute(conn, "SELECT question_ids FROM daily_sets WHERE date=?", (target_date,))
     row = _fetchone(cur, conn)
@@ -1712,6 +1815,130 @@ def admin_debug_user_state(email: str, secret: str = ""):
         "daily_attempts": daily_attempts,
         "recent_skips_last20": recent_skips,
     }
+
+
+@app.post("/internal/stage-batch")
+def stage_batch(body: StageBatchIn):
+    if PIPELINE_SECRET and body.secret != PIPELINE_SECRET:
+        raise HTTPException(403, "Forbidden")
+    conn = get_db()
+    staged_at = datetime.now(timezone.utc)
+    auto_publish_at = staged_at + timedelta(hours=1)
+    if USE_PG:
+        cur = conn.cursor()
+        cur.execute("""
+            INSERT INTO review_batches (date, question_ids, staged_at, auto_publish_at)
+            VALUES (%s, %s, %s, %s)
+            ON CONFLICT (date) DO UPDATE SET
+                question_ids=EXCLUDED.question_ids,
+                staged_at=EXCLUDED.staged_at,
+                auto_publish_at=EXCLUDED.auto_publish_at,
+                published_at=NULL, published_by=NULL
+        """, (body.date, json.dumps(body.question_ids), staged_at.isoformat(), auto_publish_at.isoformat()))
+    else:
+        conn.execute(
+            "INSERT OR REPLACE INTO review_batches (date, question_ids, staged_at, auto_publish_at) VALUES (?,?,?,?)",
+            (body.date, json.dumps(body.question_ids), staged_at.isoformat(), auto_publish_at.isoformat()))
+    ph = ",".join(["%s" if USE_PG else "?"] * len(body.question_ids))
+    _execute(conn, f"UPDATE questions SET review_decision='accept' WHERE id IN ({ph})", tuple(body.question_ids))
+    _commit(conn)
+    conn.close()
+    return {"date": body.date, "questions": len(body.question_ids),
+            "staged_at": staged_at.isoformat(), "auto_publish_at": auto_publish_at.isoformat()}
+
+
+@app.get("/internal/review/pending")
+def get_pending_review(secret: str = ""):
+    if PIPELINE_SECRET and secret != PIPELINE_SECRET:
+        raise HTTPException(403, "Forbidden")
+    conn = get_db()
+    _check_and_auto_publish(conn)
+    cur = _execute(conn,
+        "SELECT date, question_ids, staged_at, auto_publish_at, published_at, published_by, prompt_notes "
+        "FROM review_batches ORDER BY date DESC LIMIT 1")
+    batch = _fetchone(cur, conn)
+    if not batch:
+        conn.close()
+        return {"batch": None, "questions": []}
+    q_ids = json.loads(batch["question_ids"]) if isinstance(batch["question_ids"], str) else batch["question_ids"]
+    ph = ",".join(["%s" if USE_PG else "?"] * len(q_ids))
+    cur = _execute(conn, f"SELECT * FROM questions WHERE id IN ({ph})", tuple(q_ids))
+    qrows = _fetchall(cur, conn)
+    qmap = {r["id"]: r for r in qrows}
+    questions = []
+    for q_id in q_ids:
+        if q_id not in qmap:
+            continue
+        q = qmap[q_id]
+        fmt = _format_question(q)
+        fmt["review_decision"] = q.get("review_decision") or "accept"
+        fmt["flag_reason"] = q.get("flag_reason")
+        fmt["status"] = q.get("status")
+        questions.append(fmt)
+    conn.close()
+    return {
+        "batch": {
+            "date": batch["date"],
+            "staged_at": batch["staged_at"],
+            "auto_publish_at": batch["auto_publish_at"],
+            "published_at": batch["published_at"],
+            "published_by": batch["published_by"],
+            "prompt_notes": batch["prompt_notes"],
+        },
+        "questions": questions,
+    }
+
+
+@app.patch("/internal/review/question/{question_id}")
+def update_review_question(question_id: str, body: ReviewQuestionUpdateIn):
+    if PIPELINE_SECRET and body.secret != PIPELINE_SECRET:
+        raise HTTPException(403, "Forbidden")
+    conn = get_db()
+    updates, params = [], []
+    if body.decision is not None:
+        updates.append("review_decision = ?"); params.append(body.decision)
+    if body.upsc_subject is not None:
+        updates.append("upsc_subject = ?"); params.append(body.upsc_subject)
+    if body.question is not None:
+        updates.append("question = ?"); params.append(body.question)
+    if body.options is not None:
+        updates.append("options = ?"); params.append(json.dumps(body.options))
+    if body.explanation is not None:
+        updates.append("explanation = ?"); params.append(body.explanation)
+    if updates:
+        params.append(question_id)
+        _execute(conn, f"UPDATE questions SET {', '.join(updates)} WHERE id = ?", tuple(params))
+        _commit(conn)
+    conn.close()
+    return {"ok": True}
+
+
+@app.post("/internal/review/publish")
+def publish_review(body: ReviewPublishIn):
+    if PIPELINE_SECRET and body.secret != PIPELINE_SECRET:
+        raise HTTPException(403, "Forbidden")
+    conn = get_db()
+    cur = _execute(conn, "SELECT question_ids FROM review_batches WHERE date=?", (body.date,))
+    batch = _fetchone(cur, conn)
+    if not batch:
+        conn.close()
+        raise HTTPException(404, "No batch found for this date")
+    q_ids = json.loads(batch["question_ids"]) if isinstance(batch["question_ids"], str) else batch["question_ids"]
+    ph = ",".join(["%s" if USE_PG else "?"] * len(q_ids))
+    cur = _execute(conn,
+        f"SELECT id FROM questions WHERE id IN ({ph}) AND COALESCE(review_decision,'accept') != 'reject'",
+        tuple(q_ids))
+    accepted = [r["id"] for r in _fetchall(cur, conn)]
+    selected = _topup_from_pool(conn, accepted[:10], body.date)
+    now_iso = datetime.now(timezone.utc).isoformat()
+    _upsert_daily_set(conn, body.date, json.dumps(selected), now_iso)
+    _execute(conn,
+        "UPDATE review_batches SET published_at=?, published_by='human', prompt_notes=? WHERE date=?",
+        (now_iso, body.prompt_notes, body.date))
+    _commit(conn)
+    conn.close()
+    return {"date": body.date, "selected": len(selected), "accepted": len(accepted),
+            "auto_filled": max(0, len(selected) - min(len(accepted), 10)), "published_by": "human"}
 
 
 @app.get("/internal/otp/{email}")

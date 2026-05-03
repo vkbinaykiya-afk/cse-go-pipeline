@@ -698,6 +698,90 @@ def build_daily_set(records, date_str):
     return selected
 
 
+def stage_for_review(records, date_str):
+    """
+    Stage today's passing questions for HITL review instead of publishing directly.
+    Pushes all passing questions to Railway and calls /internal/stage-batch.
+    The human then reviews within 1 hour, or auto-publish kicks in.
+    """
+    railway_url = os.environ.get("RAILWAY_API_URL", "")
+    pipeline_secret = os.environ.get("PIPELINE_SECRET", "")
+
+    if not railway_url:
+        logging.warning("RAILWAY_API_URL not set — falling back to direct build_daily_set")
+        return build_daily_set(records, date_str)
+
+    # Push all passing questions to Railway DB first
+    passing = [r for r in records if r.get("status") == "pass"]
+    conn2 = sqlite3.connect(DB_PATH)
+    conn2.row_factory = sqlite3.Row
+
+    records_by_id = {}
+    for r in records:
+        r_id = str(uuid.uuid5(uuid.NAMESPACE_DNS, r.get("question", "") + r.get("source_file", "")))
+        records_by_id[r_id] = r
+
+    q_payload = []
+    q_ids_for_review = []
+    for r in passing:
+        q_id = str(uuid.uuid5(uuid.NAMESPACE_DNS, r.get("question", "") + r.get("source_file", "")))
+        q_ids_for_review.append(q_id)
+        q_payload.append({
+            "id": q_id,
+            "question": r.get("question", ""),
+            "options": r.get("options", {}),
+            "correct_answer": r.get("correct_answer", ""),
+            "explanation": r.get("explanation", ""),
+            "subject": r.get("subject", ""),
+            "difficulty": r.get("difficulty", ""),
+            "question_type": r.get("question_type", ""),
+            "source_type": r.get("source_type", ""),
+            "source_file": r.get("source_file", ""),
+            "source_page": r.get("source_page"),
+            "status": r.get("status", "pass"),
+            "flag_reason": r.get("flag_reason", ""),
+            "cited_extracts": r.get("cited_extracts", []),
+            "upsc_subject": r.get("upsc_subject"),
+            "upsc_topic": r.get("upsc_topic"),
+            "broad_category": r.get("broad_category"),
+            "question_category": r.get("question_category"),
+        })
+    conn2.close()
+
+    if q_payload:
+        try:
+            qresp = requests.post(
+                f"{railway_url}/internal/push-questions",
+                json={"questions": q_payload, "secret": pipeline_secret},
+                timeout=30,
+            )
+            logging.info(f"  Pushed {len(q_payload)} questions to Railway ({qresp.status_code})")
+        except Exception as e:
+            logging.warning(f"  Railway questions push error: {e}")
+
+    # Stage for HITL review
+    try:
+        resp = requests.post(
+            f"{railway_url}/internal/stage-batch",
+            json={"date": date_str, "question_ids": q_ids_for_review, "secret": pipeline_secret},
+            timeout=15,
+        )
+        if resp.ok:
+            data = resp.json()
+            logging.info(f"  Staged {len(q_ids_for_review)} questions for HITL review")
+            logging.info(f"  Auto-publish at: {data.get('auto_publish_at')}")
+            logging.info(f"  Review at: https://cse-go.pages.dev/admin")
+        else:
+            logging.warning(f"  Stage batch failed: {resp.status_code} {resp.text[:120]}")
+            logging.warning("  Falling back to direct publish ...")
+            return build_daily_set(records, date_str)
+    except Exception as e:
+        logging.warning(f"  Stage batch error: {e} — falling back to direct publish")
+        return build_daily_set(records, date_str)
+
+    return q_ids_for_review
+
+
 # ── MAIN ──────────────────────────────────────────────────────────────────────
 
 def main():
@@ -771,10 +855,10 @@ def main():
     logging.info(f"\n[6/7] Tagging new questions ...")
     tag_new_questions()
 
-    # Step 7: Build today's daily set
+    # Step 7: Stage for HITL review (auto-publishes in 1hr if not manually reviewed)
     today = datetime.date.today().isoformat()
-    logging.info(f"\n[7/7] Building daily set for {today} ...")
-    selected_ids = build_daily_set(records, today)
+    logging.info(f"\n[7/7] Staging questions for HITL review ({today}) ...")
+    selected_ids = stage_for_review(records, today)
 
     # Summary
     logging.info(f"\n{'='*60}")
@@ -782,7 +866,7 @@ def main():
     logging.info(f"  Topics planned    : {len(topics)}")
     logging.info(f"  Questions generated: {len(records)}")
     logging.info(f"  Passing           : {pass_count}")
-    logging.info(f"  Today's set       : {len(selected_ids)} questions")
+    logging.info(f"  Staged for review : {len(selected_ids)} questions")
     logging.info(f"  Log               : {log_file}")
     logging.info(f"{'='*60}")
 
