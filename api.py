@@ -1483,6 +1483,10 @@ def get_streak_calendar(x_session_token: Optional[str] = Header(default=None)):
     today = datetime.now(timezone.utc).date()
     dates = [today + timedelta(days=i) for i in range(-3, 4)]
 
+    completed_dates: set = set()   # all questions answered on publish date → streak tick
+    partial_dates: set = set()     # some questions answered on publish date
+    attempted_any_dates: set = set()  # any attempt exists (any date) → archive green
+
     if USE_PG:
         uid_param = (user["id"],) if user else None
         uid_check = "AND a.user_id = %s" if user else ""
@@ -1507,6 +1511,17 @@ def get_streak_calendar(x_session_token: Optional[str] = Header(default=None)):
             ) > 0
         """, uid_param or ())
         partial_dates = {str(r[0]) for r in cur.fetchall()} - completed_dates
+
+        if user:
+            cur.execute("""
+                SELECT ds.date FROM daily_sets ds
+                WHERE (
+                    SELECT COUNT(DISTINCT a.question_id) FROM attempts a
+                    WHERE a.question_id = ANY(ARRAY(SELECT json_array_elements_text(ds.question_ids::json)))
+                    AND a.user_id = %s
+                ) > 0
+            """, (user["id"],))
+            attempted_any_dates = {str(r[0]) for r in cur.fetchall()}
     else:
         uid_check = "AND a.user_id = ?" if user else ""
         uid_p = [user["id"]] if user else []
@@ -1531,13 +1546,45 @@ def get_streak_calendar(x_session_token: Optional[str] = Header(default=None)):
         """, uid_p)
         partial_dates = {r["date"] for r in _fetchall(cur, conn)} - completed_dates
 
+        if user:
+            cur = _execute(conn, """
+                SELECT ds.date FROM daily_sets ds
+                WHERE (
+                    SELECT COUNT(DISTINCT a.question_id) FROM attempts a
+                    WHERE a.question_id IN (SELECT value FROM json_each(ds.question_ids))
+                    AND a.user_id = ?
+                ) > 0
+            """, [user["id"]])
+            attempted_any_dates = {r["date"] for r in _fetchall(cur, conn)}
+
+    # Current streak: consecutive completed days going back from today (today counts if complete)
+    streak = 0
+    try:
+        check = today if str(today) in completed_dates else today - timedelta(days=1)
+        while str(check) in completed_dates:
+            streak += 1
+            check -= timedelta(days=1)
+    except Exception as e:
+        print(f"[STREAK ERROR] {e}")
+
     conn.close()
     return {
         "today": today.isoformat(),
+        "streak": streak,
         "days": [
-            {"date": d.isoformat(), "completed": d.isoformat() in completed_dates,
-             "partial": d.isoformat() in partial_dates,
-             "is_today": d == today, "is_future": d > today}
+            {
+                "date": d.isoformat(),
+                "completed": d.isoformat() in completed_dates,
+                "partial": d.isoformat() in partial_dates,
+                # attempted on a different day than publish date (archive practice)
+                "attempted_archive": (
+                    d.isoformat() in attempted_any_dates
+                    and d.isoformat() not in completed_dates
+                    and d.isoformat() not in partial_dates
+                ),
+                "is_today": d == today,
+                "is_future": d > today,
+            }
             for d in dates
         ],
     }
