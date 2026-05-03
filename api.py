@@ -7,6 +7,7 @@ Uses PostgreSQL on Railway (DATABASE_URL env var), SQLite locally.
 import json
 import glob
 import os
+import random
 import uuid
 import secrets
 import string
@@ -655,6 +656,7 @@ def _check_and_auto_publish(conn):
             f"SELECT id FROM questions WHERE id IN ({ph}) AND COALESCE(review_decision,'accept') != 'reject'",
             tuple(q_ids))
         accepted = [r["id"] for r in _fetchall(cur2, conn)]
+        random.shuffle(accepted)
         selected = _topup_from_pool(conn, accepted[:10], date)
         if selected:
             _upsert_daily_set(conn, date, json.dumps(selected), now_iso)
@@ -1935,6 +1937,7 @@ def publish_review(body: ReviewPublishIn):
         f"SELECT id FROM questions WHERE id IN ({ph}) AND COALESCE(review_decision,'accept') != 'reject'",
         tuple(q_ids))
     accepted = [r["id"] for r in _fetchall(cur, conn)]
+    random.shuffle(accepted)
     selected = _topup_from_pool(conn, accepted[:10], body.date)
     now_iso = datetime.now(timezone.utc).isoformat()
     _upsert_daily_set(conn, body.date, json.dumps(selected), now_iso)
