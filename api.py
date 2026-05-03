@@ -689,6 +689,7 @@ def get_me(x_session_token: Optional[str] = Header(default=None)):
 
 @app.post("/attempts", response_model=AttemptOut)
 def record_attempt(body: AttemptIn, x_session_token: Optional[str] = Header(default=None)):
+    import traceback as _tb
     conn = get_db()
     user = _get_user_from_token(x_session_token, conn)
     cur = _execute(conn, "SELECT * FROM questions WHERE id=?", (body.question_id,))
@@ -701,54 +702,62 @@ def record_attempt(body: AttemptIn, x_session_token: Optional[str] = Header(defa
     guess_correct: Optional[bool] = None
 
     # Treat chosen="" as a skip (Lovable backward-compat — sent "" before was_skipped existed)
-    is_skip = body.was_skipped or not (body.chosen or "").strip()
+    try:
+        is_skip = body.was_skipped or not (body.chosen or "").strip()
 
-    if is_skip:
-        is_correct = None
-        if body.best_guess and body.best_guess.strip():
-            guess_correct = body.best_guess.upper() == q["correct"].upper()
-    else:
-        is_correct = body.chosen.upper() == q["correct"].upper()
+        if is_skip:
+            is_correct = None
+            if body.best_guess and body.best_guess.strip():
+                guess_correct = body.best_guess.upper() == q["correct"].upper()
+        else:
+            is_correct = body.chosen.upper() == q["correct"].upper()
 
-    marks_a = _marks_actual(bool(is_correct), is_skip)
-    marks_i = _marks_intuition(body.best_guess, guess_correct)
+        marks_a = _marks_actual(bool(is_correct), is_skip)
+        marks_i = _marks_intuition(body.best_guess, guess_correct)
 
-    attempt_id = str(uuid.uuid4())
-    now = datetime.now(timezone.utc).isoformat()
-    today_utc = datetime.now(timezone.utc).date()
-    # Check today AND yesterday to handle IST/UTC date boundary (IST = UTC+5:30,
-    # so a play at 11 PM IST may be "tomorrow" in UTC — yesterday covers that edge).
-    yesterday_utc = (today_utc - timedelta(days=1)).strftime("%Y-%m-%d")
-    today_str = today_utc.strftime("%Y-%m-%d")
-    ph2 = "%s,%s" if USE_PG else "?,?"
-    cur = _execute(conn, f"SELECT question_ids FROM daily_sets WHERE date IN ({ph2})",
-                   (today_str, yesterday_utc))
-    daily_ids: set = set()
-    for drow in _fetchall(cur, conn):
-        qids_raw = drow["question_ids"] if isinstance(drow, dict) else drow["question_ids"]
-        daily_ids.update(json.loads(qids_raw) if isinstance(qids_raw, str) else qids_raw)
-    is_daily = 1 if body.question_id in daily_ids else 0
+        attempt_id = str(uuid.uuid4())
+        now = datetime.now(timezone.utc).isoformat()
+        today_utc = datetime.now(timezone.utc).date()
+        yesterday_utc = (today_utc - timedelta(days=1)).strftime("%Y-%m-%d")
+        today_str = today_utc.strftime("%Y-%m-%d")
+        ph2 = "%s,%s" if USE_PG else "?,?"
+        cur = _execute(conn, f"SELECT question_ids FROM daily_sets WHERE date IN ({ph2})",
+                       (today_str, yesterday_utc))
+        daily_ids: set = set()
+        for drow in _fetchall(cur, conn):
+            qids_raw = drow["question_ids"] if isinstance(drow, dict) else drow["question_ids"]
+            daily_ids.update(json.loads(qids_raw) if isinstance(qids_raw, str) else qids_raw)
+        is_daily = 1 if body.question_id in daily_ids else 0
 
-    _execute(conn,
-        "INSERT INTO attempts (id, question_id, chosen, is_correct, time_taken, attempted_at, "
-        "user_id, is_daily, was_skipped, best_guess, guess_correct, marks_actual, marks_intuition, quiz_session_id) "
-        "VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)",
-        (attempt_id, body.question_id, body.chosen if not is_skip else None,
-         int(is_correct) if is_correct is not None else None,
-         body.time_taken, now, user["id"] if user else None, is_daily,
-         int(is_skip), body.best_guess,
-         int(guess_correct) if guess_correct is not None else None,
-         marks_a, marks_i, body.quiz_session_id))
-    _commit(conn)
-    conn.close()
+        _execute(conn,
+            "INSERT INTO attempts (id, question_id, chosen, is_correct, time_taken, attempted_at, "
+            "user_id, is_daily, was_skipped, best_guess, guess_correct, marks_actual, marks_intuition, quiz_session_id) "
+            "VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)",
+            (attempt_id, body.question_id, body.chosen if not is_skip else None,
+             int(is_correct) if is_correct is not None else None,
+             body.time_taken, now, user["id"] if user else None, is_daily,
+             int(is_skip), body.best_guess,
+             int(guess_correct) if guess_correct is not None else None,
+             marks_a, marks_i, body.quiz_session_id))
+        _commit(conn)
+        conn.close()
 
-    return AttemptOut(
-        id=attempt_id, question_id=body.question_id,
-        chosen=body.chosen if not is_skip else None, is_correct=is_correct,
-        correct_answer=q["correct"], explanation=q["explanation"] or "",
-        was_skipped=is_skip, best_guess=body.best_guess,
-        marks_actual=marks_a, marks_intuition=marks_i,
-    )
+        return AttemptOut(
+            id=attempt_id, question_id=body.question_id,
+            chosen=body.chosen if not is_skip else None, is_correct=is_correct,
+            correct_answer=q["correct"], explanation=q["explanation"] or "",
+            was_skipped=is_skip, best_guess=body.best_guess,
+            marks_actual=marks_a, marks_intuition=marks_i,
+        )
+    except HTTPException:
+        raise
+    except Exception as exc:
+        try:
+            conn.close()
+        except Exception:
+            pass
+        print(f"[ATTEMPT ERROR] body={body!r} exc={exc!r}\n{_tb.format_exc()}")
+        raise HTTPException(500, detail=f"{type(exc).__name__}: {exc}")
 
 
 # ---------------------------------------------------------------------------
