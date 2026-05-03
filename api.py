@@ -999,9 +999,12 @@ def get_report(x_session_token: Optional[str] = Header(default=None)):
         key=lambda s: s["accuracy_pct"]
     )[:3]
 
-    # Streak — completed days (all questions answered on that day)
+    # Streak — consecutive completed days ending at yesterday (today excluded).
+    # A "completed" day = all questions in that day's set were attempted.
+    # Today is excluded so missing yesterday always shows 0, not 1.
     streak = 0
     try:
+        today_utc = datetime.now(timezone.utc).date()
         if USE_PG:
             cur = conn.cursor()
             cur.execute("""
@@ -1014,29 +1017,30 @@ def get_report(x_session_token: Optional[str] = Header(default=None)):
                 GROUP BY ds.date, ds.question_ids
                 ORDER BY ds.date DESC
             """, (uid,))
-            completed_days = [
-                r[0] for r in cur.fetchall()
+            completed_set = {
+                str(r[0]) for r in cur.fetchall()
                 if r[2] >= len(json.loads(r[1]))
-            ]
+                   and str(r[0]) != str(today_utc)
+            }
         else:
             cur = _execute(conn, """
-                SELECT ds.date FROM daily_sets ds
-                WHERE (
-                    SELECT COUNT(DISTINCT a.question_id) FROM attempts a
-                    WHERE a.question_id IN (SELECT value FROM json_each(ds.question_ids))
-                    AND DATE(a.attempted_at) = ds.date AND a.user_id = ?
-                ) >= json_array_length(ds.question_ids)
-                ORDER BY ds.date DESC
+                SELECT ds.date,
+                       (SELECT COUNT(DISTINCT a.question_id) FROM attempts a
+                        WHERE a.question_id IN (SELECT value FROM json_each(ds.question_ids))
+                        AND DATE(a.attempted_at) = ds.date AND a.user_id = ?) AS answered,
+                       json_array_length(ds.question_ids) AS total
+                FROM daily_sets ds ORDER BY ds.date DESC
             """, (uid,))
-            completed_days = [str(r["date"]) for r in _fetchall(cur, conn)]
+            completed_set = {
+                str(r["date"]) for r in _fetchall(cur, conn)
+                if (r["answered"] or 0) >= (r["total"] or 1)
+                   and str(r["date"]) != str(today_utc)
+            }
 
-        prev = None
-        for d in completed_days:
-            d = str(d)
-            if prev is None or (datetime.fromisoformat(prev) - datetime.fromisoformat(d)).days == 1:
-                streak += 1; prev = d
-            else:
-                break
+        check = today_utc - timedelta(days=1)
+        while str(check) in completed_set:
+            streak += 1
+            check -= timedelta(days=1)
     except Exception as e:
         print(f"[STREAK ERROR] {e}")
 
