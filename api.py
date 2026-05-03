@@ -1640,6 +1640,71 @@ def stats():
 # Internal / admin routes
 # ---------------------------------------------------------------------------
 
+@app.get("/internal/debug/user-state")
+def admin_debug_user_state(email: str, secret: str = ""):
+    """Admin diagnostic: full quiz state for a user by email. Requires PIPELINE_SECRET."""
+    if PIPELINE_SECRET and secret != PIPELINE_SECRET:
+        raise HTTPException(403, "Forbidden")
+    conn = get_db()
+    cur = _execute(conn, "SELECT id FROM users WHERE email=?", (email.lower(),))
+    user_row = _fetchone(cur, conn)
+    if not user_row:
+        conn.close()
+        return {"error": f"no user found for {email}"}
+    uid = user_row["id"] if isinstance(user_row, dict) else user_row[0]
+
+    today = datetime.now(timezone.utc).strftime("%Y-%m-%d")
+    cur = _execute(conn, "SELECT question_ids FROM daily_sets WHERE date=?", (today,))
+    ds_row = _fetchone(cur, conn)
+    if not ds_row:
+        conn.close()
+        return {"error": "no daily set for today", "today": today}
+    q_ids = json.loads(ds_row["question_ids"]) if isinstance(ds_row["question_ids"], str) else ds_row["question_ids"]
+
+    ph = ",".join(["%s" if USE_PG else "?"] * len(q_ids))
+    if USE_PG:
+        cur = conn.cursor()
+        cur.execute(
+            f"SELECT question_id, chosen, is_correct, was_skipped, is_daily, best_guess, "
+            f"marks_actual, marks_intuition, attempted_at "
+            f"FROM attempts WHERE question_id IN ({ph}) AND user_id = %s ORDER BY attempted_at DESC",
+            tuple(q_ids) + (uid,)
+        )
+        cols = [d[0] for d in cur.description]
+        daily_attempts = [dict(zip(cols, r)) for r in cur.fetchall()]
+
+        cur.execute(
+            "SELECT question_id, was_skipped, best_guess, guess_correct, marks_intuition, is_daily, attempted_at "
+            "FROM attempts WHERE user_id = %s AND was_skipped = 1 ORDER BY attempted_at DESC LIMIT 20",
+            (uid,)
+        )
+        cols = [d[0] for d in cur.description]
+        recent_skips = [dict(zip(cols, r)) for r in cur.fetchall()]
+    else:
+        cur = _execute(conn,
+            f"SELECT question_id, chosen, is_correct, was_skipped, is_daily, best_guess, "
+            f"marks_actual, marks_intuition, attempted_at "
+            f"FROM attempts WHERE question_id IN ({ph}) AND user_id=? ORDER BY attempted_at DESC",
+            tuple(q_ids) + (uid,))
+        daily_attempts = [dict(r) for r in _fetchall(cur, conn)]
+        cur = _execute(conn,
+            "SELECT question_id, was_skipped, best_guess, guess_correct, marks_intuition, is_daily, attempted_at "
+            "FROM attempts WHERE user_id=? AND was_skipped=1 ORDER BY attempted_at DESC LIMIT 20",
+            (uid,))
+        recent_skips = [dict(r) for r in _fetchall(cur, conn)]
+
+    conn.close()
+    answered = {a["question_id"] for a in daily_attempts}
+    return {
+        "user_id": uid, "email": email, "today": today,
+        "daily_set_size": len(q_ids),
+        "daily_attempts_count": len(answered),
+        "completed": len(answered) == len(q_ids),
+        "daily_attempts": daily_attempts,
+        "recent_skips_last20": recent_skips,
+    }
+
+
 @app.get("/internal/otp/{email}")
 def get_otp(email: str):
     conn = get_db()
