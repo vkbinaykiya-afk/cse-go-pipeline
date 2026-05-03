@@ -38,15 +38,21 @@ _SUBJ_NORM_MAP = {
     "economy":                  "Economics",
     "science & tech":           "Science & Technology",
     "science and technology":   "Science & Technology",
+    "sci & tech":               "Science & Technology",
     "s&t":                      "Science & Technology",
     "indian polity":            "Polity",
     "polity & governance":      "Polity",
+    "polity and governance":    "Polity",
     "art & culture":            "Art & Culture",
+    "arts & culture":           "Art & Culture",
     "current affairs":          "Current Affairs",
     "modern history":           "History",
     "ancient history":          "History",
     "medieval history":         "History",
     "indian history":           "History",
+    "general studies":          "General",
+    "gs":                       "General",
+    "general knowledge":        "General",
 }
 
 def _norm_subject(s) -> str:
