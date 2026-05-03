@@ -1076,6 +1076,167 @@ def get_report(x_session_token: Optional[str] = Header(default=None)):
         print(f"[REPORT ERROR - marks] {e}")
         total_marks_sum = total_intuition_sum = score_pct = delta_pct = adjusted_pct = 0
 
+    # ---- quiz_history: per-quiz scores for last 15 attempted daily sets ----
+    quiz_history = []
+    try:
+        if USE_PG:
+            cur2 = conn.cursor()
+            cur2.execute("""
+                SELECT ds.date, ds.question_ids
+                FROM daily_sets ds
+                WHERE EXISTS (
+                    SELECT 1 FROM attempts a
+                    WHERE a.user_id = %s
+                    AND a.question_id = ANY(
+                        SELECT json_array_elements_text(ds.question_ids::json)
+                    )
+                )
+                ORDER BY ds.date DESC LIMIT 15
+            """, (uid,))
+            date_rows = [{"date": str(r[0]), "question_ids": r[1]} for r in cur2.fetchall()]
+        else:
+            cur = _execute(conn, """
+                SELECT ds.date, ds.question_ids FROM daily_sets ds
+                WHERE EXISTS (
+                    SELECT 1 FROM attempts a WHERE a.user_id = ?
+                    AND a.question_id IN (SELECT value FROM json_each(ds.question_ids))
+                )
+                ORDER BY ds.date DESC LIMIT 15
+            """, (uid,))
+            date_rows = _fetchall(cur, conn)
+
+        for drow in date_rows:
+            d_date = drow["date"]
+            q_ids_raw = drow["question_ids"]
+            q_ids_d = json.loads(q_ids_raw) if isinstance(q_ids_raw, str) else q_ids_raw
+            if not q_ids_d:
+                continue
+            ph = ",".join(["%s" if USE_PG else "?"] * len(q_ids_d))
+            if USE_PG:
+                cur3 = conn.cursor()
+                cur3.execute(f"""
+                    SELECT DISTINCT ON (a.question_id)
+                        a.is_correct, a.was_skipped, a.marks_actual, a.marks_intuition,
+                        a.best_guess, a.guess_correct,
+                        COALESCE(q.upsc_subject, q.subject, 'General') AS subject
+                    FROM attempts a JOIN questions q ON a.question_id = q.id
+                    WHERE a.question_id IN ({ph}) AND a.user_id = %s
+                    ORDER BY a.question_id, a.attempted_at DESC
+                """, tuple(q_ids_d) + (uid,))
+                cols3 = [desc[0] for desc in cur3.description]
+                att_rows = [dict(zip(cols3, r)) for r in cur3.fetchall()]
+            else:
+                cur = _execute(conn, f"""
+                    SELECT a.is_correct, a.was_skipped, a.marks_actual, a.marks_intuition,
+                           a.best_guess, a.guess_correct,
+                           COALESCE(q.upsc_subject, q.subject, 'General') AS subject
+                    FROM attempts a JOIN questions q ON a.question_id = q.id
+                    WHERE a.question_id IN ({ph}) AND a.user_id = ?
+                    GROUP BY a.question_id HAVING a.attempted_at = MAX(a.attempted_at)
+                """, q_ids_d + [uid])
+                att_rows = _fetchall(cur, conn)
+
+            max_m = len(q_ids_d) * 2.0
+            q_correct = q_wrong = q_skipped = q_guessed = q_gc = 0
+            q_marks = q_intuition = 0.0
+            subj_m: dict = {}
+
+            for a in att_rows:
+                ws = bool(a["was_skipped"] if isinstance(a, dict) else a["was_skipped"])
+                ma = a["marks_actual"] if isinstance(a, dict) else a["marks_actual"]
+                mi = float((a["marks_intuition"] if isinstance(a, dict) else a["marks_intuition"]) or 0)
+                subj = _norm_subject((a["subject"] if isinstance(a, dict) else a["subject"]) or "General")
+                if ma is None:
+                    ma = 0.0 if ws else _marks_actual(bool(a["is_correct"] if isinstance(a, dict) else a["is_correct"]), False)
+                if ws:
+                    q_skipped += 1
+                    bg = a["best_guess"] if isinstance(a, dict) else a["best_guess"]
+                    gc = a["guess_correct"] if isinstance(a, dict) else a["guess_correct"]
+                    if bg:
+                        q_guessed += 1
+                        if gc:
+                            q_gc += 1
+                elif a["is_correct"] if isinstance(a, dict) else a["is_correct"]:
+                    q_correct += 1
+                else:
+                    q_wrong += 1
+                q_marks += ma
+                q_intuition += mi
+                subj_m[subj] = round(subj_m.get(subj, 0.0) + ma, 2)
+
+            quiz_history.append({
+                "date": d_date,
+                "marks": round(q_marks, 2),
+                "marks_max": max_m,
+                "score_pct": round(q_marks / max_m * 100, 1) if max_m else 0,
+                "correct": q_correct, "wrong": q_wrong, "skipped": q_skipped,
+                "guessed": q_guessed, "guess_correct": q_gc,
+                "intuition_marks": round(q_intuition, 2),
+                "delta_pct": round(q_intuition / max_m * 100, 1) if max_m else 0,
+                "subjects": {s: {"marks": v} for s, v in subj_m.items()},
+            })
+    except Exception as e:
+        print(f"[REPORT ERROR - quiz_history] {e}")
+
+    # ---- suggested_reading: wrong topics from last 5 attempted sets ----
+    suggested_reading = []
+    try:
+        last5_dates = [h["date"] for h in quiz_history[:5]]
+        if last5_dates:
+            ph5 = ",".join(["%s" if USE_PG else "?"] * len(last5_dates))
+            if USE_PG:
+                cur4 = conn.cursor()
+                cur4.execute(f"""
+                    SELECT json_array_elements_text(question_ids::json) AS q_id
+                    FROM daily_sets WHERE date::text IN ({ph5})
+                """, tuple(last5_dates))
+                last5_qids = list(set(r[0] for r in cur4.fetchall()))
+            else:
+                cur = _execute(conn, f"""
+                    SELECT value FROM daily_sets, json_each(question_ids)
+                    WHERE date IN ({ph5})
+                """, last5_dates)
+                last5_qids = list(set(r[0] if USE_PG else r["value"] for r in _fetchall(cur, conn)))
+
+            if last5_qids:
+                phq = ",".join(["%s" if USE_PG else "?"] * len(last5_qids))
+                if USE_PG:
+                    cur5 = conn.cursor()
+                    cur5.execute(f"""
+                        SELECT DISTINCT ON (a.question_id)
+                            q.upsc_topic, COALESCE(q.upsc_subject, q.subject, 'General') AS subject
+                        FROM attempts a JOIN questions q ON a.question_id = q.id
+                        WHERE a.question_id IN ({phq}) AND a.user_id = %s
+                        AND a.is_correct = 0 AND (a.was_skipped IS NULL OR a.was_skipped = 0)
+                        AND q.upsc_topic IS NOT NULL AND q.upsc_topic != ''
+                        ORDER BY a.question_id, a.attempted_at DESC
+                    """, tuple(last5_qids) + (uid,))
+                    wrong_rows = [{"upsc_topic": r[0], "subject": r[1]} for r in cur5.fetchall()]
+                else:
+                    cur = _execute(conn, f"""
+                        SELECT q.upsc_topic, COALESCE(q.upsc_subject, q.subject, 'General') AS subject
+                        FROM attempts a JOIN questions q ON a.question_id = q.id
+                        WHERE a.question_id IN ({phq}) AND a.user_id = ?
+                        AND a.is_correct = 0 AND (a.was_skipped IS NULL OR a.was_skipped = 0)
+                        AND q.upsc_topic IS NOT NULL AND q.upsc_topic != ''
+                        GROUP BY a.question_id HAVING a.attempted_at = MAX(a.attempted_at)
+                    """, last5_qids + [uid])
+                    wrong_rows = _fetchall(cur, conn)
+
+                topic_count: dict = {}
+                for r in wrong_rows:
+                    t = r["upsc_topic"] if isinstance(r, dict) else r["upsc_topic"]
+                    s = _norm_subject((r["subject"] if isinstance(r, dict) else r["subject"]) or "")
+                    key = (t, s)
+                    topic_count[key] = topic_count.get(key, 0) + 1
+
+                suggested_reading = [
+                    {"topic": t, "subject": s, "wrong_count": c}
+                    for (t, s), c in sorted(topic_count.items(), key=lambda x: -x[1])
+                ][:8]
+    except Exception as e:
+        print(f"[REPORT ERROR - suggested_reading] {e}")
+
     conn.close()
     return {
         "total_attempts": total_attempts,
@@ -1091,6 +1252,8 @@ def get_report(x_session_token: Optional[str] = Header(default=None)):
             "adjusted_pct": adjusted_pct,
             "delta_pct": delta_pct,
         },
+        "quiz_history": quiz_history,
+        "suggested_reading": suggested_reading,
     }
 
 
