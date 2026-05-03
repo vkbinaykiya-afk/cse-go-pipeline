@@ -733,7 +733,7 @@ def record_attempt(body: AttemptIn, x_session_token: Optional[str] = Header(defa
             "INSERT INTO attempts (id, question_id, chosen, is_correct, time_taken, attempted_at, "
             "user_id, is_daily, was_skipped, best_guess, guess_correct, marks_actual, marks_intuition, quiz_session_id) "
             "VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)",
-            (attempt_id, body.question_id, body.chosen if not is_skip else None,
+            (attempt_id, body.question_id, body.chosen if not is_skip else "",
              int(is_correct) if is_correct is not None else None,
              body.time_taken, now, user["id"] if user else None, is_daily,
              int(is_skip), body.best_guess,
