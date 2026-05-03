@@ -746,6 +746,42 @@ def record_attempt(body: AttemptIn, x_session_token: Optional[str] = Header(defa
 
 
 # ---------------------------------------------------------------------------
+# Routes — Debug
+# ---------------------------------------------------------------------------
+
+@app.get("/debug/skips")
+def debug_skips(x_session_token: Optional[str] = Header(default=None)):
+    """Return last 20 skip attempts with best_guess data — diagnostic only."""
+    conn = get_db()
+    user = _get_user_from_token(x_session_token, conn)
+    if not user:
+        conn.close()
+        return {"error": "not authenticated"}
+    uid = user["id"]
+    if USE_PG:
+        cur = conn.cursor()
+        cur.execute("""
+            SELECT a.question_id, a.was_skipped, a.best_guess, a.guess_correct,
+                   a.marks_intuition, a.marks_actual, a.is_daily, a.attempted_at
+            FROM attempts a
+            WHERE a.user_id = %s AND a.was_skipped = 1
+            ORDER BY a.attempted_at DESC LIMIT 20
+        """, (uid,))
+        cols = [d[0] for d in cur.description]
+        rows = [dict(zip(cols, r)) for r in cur.fetchall()]
+    else:
+        cur = _execute(conn, """
+            SELECT question_id, was_skipped, best_guess, guess_correct,
+                   marks_intuition, marks_actual, is_daily, attempted_at
+            FROM attempts WHERE user_id = ? AND was_skipped = 1
+            ORDER BY attempted_at DESC LIMIT 20
+        """, (uid,))
+        rows = [dict(r) for r in _fetchall(cur, conn)]
+    conn.close()
+    return {"user_id": uid, "skip_attempts": rows}
+
+
+# ---------------------------------------------------------------------------
 # Routes — Quiz Score
 # ---------------------------------------------------------------------------
 
