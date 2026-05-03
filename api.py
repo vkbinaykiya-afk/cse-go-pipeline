@@ -1874,6 +1874,7 @@ def get_pending_review(secret: str = ""):
         fmt["review_decision"] = q.get("review_decision") or "accept"
         fmt["flag_reason"] = q.get("flag_reason")
         fmt["status"] = q.get("status")
+        fmt["subject"] = q.get("subject")  # inferred subject fallback when upsc_subject is null
         questions.append(fmt)
     conn.close()
     return {
