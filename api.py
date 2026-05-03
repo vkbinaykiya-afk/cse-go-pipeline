@@ -787,6 +787,34 @@ def debug_skips(x_session_token: Optional[str] = Header(default=None)):
     return {"user_id": uid, "skip_attempts": rows}
 
 
+@app.get("/debug/daily-attempts")
+def debug_daily_attempts(x_session_token: Optional[str] = Header(default=None)):
+    """Show all attempts for today's daily set questions — no is_daily filter — diagnostic only."""
+    conn = get_db()
+    user = _get_user_from_token(x_session_token, conn)
+    if not user:
+        conn.close()
+        return {"error": "not authenticated"}
+    today = datetime.now(timezone.utc).strftime("%Y-%m-%d")
+    cur = _execute(conn, "SELECT question_ids FROM daily_sets WHERE date=?", (today,))
+    row = _fetchone(cur, conn)
+    if not row:
+        conn.close()
+        return {"error": "no daily set for today", "today": today}
+    q_ids = json.loads(row["question_ids"]) if isinstance(row["question_ids"], str) else row["question_ids"]
+    ph = ",".join(["%s" if USE_PG else "?"] * len(q_ids))
+    if USE_PG:
+        cur = conn.cursor()
+        cur.execute(f"SELECT question_id, chosen, is_correct, was_skipped, is_daily, best_guess, marks_intuition, attempted_at FROM attempts WHERE question_id IN ({ph}) AND user_id = %s ORDER BY attempted_at DESC", tuple(q_ids) + (user["id"],))
+        cols = [d[0] for d in cur.description]
+        rows = [dict(zip(cols, r)) for r in cur.fetchall()]
+    else:
+        cur = _execute(conn, f"SELECT question_id, chosen, is_correct, was_skipped, is_daily, best_guess, marks_intuition, attempted_at FROM attempts WHERE question_id IN ({ph}) AND user_id=? ORDER BY attempted_at DESC", tuple(q_ids) + (user["id"],))
+        rows = [dict(r) for r in _fetchall(cur, conn)]
+    conn.close()
+    return {"user_id": user["id"], "daily_set_date": today, "total_q_ids": len(q_ids), "attempts": rows}
+
+
 # ---------------------------------------------------------------------------
 # Routes — Quiz Score
 # ---------------------------------------------------------------------------
@@ -1337,16 +1365,19 @@ def get_daily(date: Optional[str] = None, x_session_token: Optional[str] = Heade
     qmap = {r["id"]: r for r in qrows}
     questions = [_format_question(qmap[q_id]) for q_id in q_ids if q_id in qmap]
 
-    # Fetch all attempts in one query
+    # Fetch all attempts in one query.
+    # NOTE: No is_daily filter — question_id IN (q_ids) already scopes to this set.
+    # Filtering by is_daily=1 caused skip attempts (which sometimes saved with is_daily=0
+    # due to UTC/IST boundary edge cases) to be silently excluded, breaking completion detection.
     attempts_map = {}
     if user:
         cur = _execute(conn,
             f"SELECT DISTINCT ON (question_id) question_id, chosen, is_correct, was_skipped, attempted_at "
-            f"FROM attempts WHERE question_id IN ({placeholders}) AND is_daily=1 AND user_id=? "
+            f"FROM attempts WHERE question_id IN ({placeholders}) AND user_id=? "
             f"ORDER BY question_id, attempted_at DESC"
             if USE_PG else
             f"SELECT question_id, chosen, is_correct, was_skipped, attempted_at FROM attempts "
-            f"WHERE question_id IN ({placeholders}) AND is_daily=1 AND user_id=? "
+            f"WHERE question_id IN ({placeholders}) AND user_id=? "
             f"GROUP BY question_id HAVING attempted_at = MAX(attempted_at)",
             tuple(q_ids) + (user["id"],))
         for a in _fetchall(cur, conn):
@@ -1529,9 +1560,10 @@ def list_subjects():
 
 
 @app.post("/daily/restart")
-def restart_daily(date: Optional[str] = None):
+def restart_daily(date: Optional[str] = None, x_session_token: Optional[str] = Header(default=None)):
     target_date = date or datetime.now(timezone.utc).strftime("%Y-%m-%d")
     conn = get_db()
+    user = _get_user_from_token(x_session_token, conn)
     cur = _execute(conn, "SELECT question_ids FROM daily_sets WHERE date=?", (target_date,))
     row = _fetchone(cur, conn)
     if not row:
@@ -1539,7 +1571,11 @@ def restart_daily(date: Optional[str] = None):
         raise HTTPException(404, "No daily set found for this date")
     q_ids = json.loads(row["question_ids"])
     placeholders = ",".join(["?"] * len(q_ids))
-    cur = _execute(conn, f"DELETE FROM attempts WHERE question_id IN ({placeholders})", q_ids)
+    if user:
+        cur = _execute(conn, f"DELETE FROM attempts WHERE question_id IN ({placeholders}) AND user_id=?",
+                       tuple(q_ids) + (user["id"],))
+    else:
+        cur = _execute(conn, f"DELETE FROM attempts WHERE question_id IN ({placeholders})", q_ids)
     deleted = cur.rowcount
     _commit(conn)
     conn.close()
