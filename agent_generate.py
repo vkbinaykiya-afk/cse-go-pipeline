@@ -56,8 +56,8 @@ TOP_K_CA        = 5
 # Batch mode: CA distance threshold — below this = CA hit → use Sonnet
 CA_HIT_THRESHOLD = 0.55
 # Batch mode: chunks retrieved per topic
-BATCH_NCERT_K = 5
-BATCH_CA_K    = 3
+BATCH_NCERT_K = 8
+BATCH_CA_K    = 5
 
 
 # ── TOOL DEFINITIONS ──────────────────────────────────────────────────────────
@@ -630,7 +630,7 @@ def _format_topic_block(item):
         lines.append("\nCURRENT AFFAIRS EVIDENCE:")
         for c in item["ca_chunks"]:
             lines.append(f"  [CA | {c['topic']} | {c['category']}]")
-            lines.append(f"  {c['text'][:600]}")
+            lines.append(f"  {c['text'][:800]}")
             if c["upsc_facts"]:
                 lines.append("  UPSC Facts:")
                 for f in c["upsc_facts"][:3]:
@@ -640,9 +640,9 @@ def _format_topic_block(item):
                         lines.append(f"    • {f}")
 
     lines.append("\nNCERT EVIDENCE:")
-    for c in item["ncert_chunks"][:3]:
+    for c in item["ncert_chunks"][:4]:
         lines.append(f"  [NCERT | {c['source']} | p.{c['page']}]")
-        lines.append(f"  {c['text'][:500]}")
+        lines.append(f"  {c['text'][:700]}")
 
     return "\n".join(lines)
 
@@ -743,7 +743,7 @@ Return ONLY the JSON array, no markdown.
 """
 
 def _self_verify(client, questions, model):
-    """Drop questions whose extracts don't support their statements."""
+    """Flag questions whose extracts don't support their statements. Returns all questions."""
     if not questions:
         return questions
 
@@ -772,15 +772,21 @@ def _self_verify(client, questions, model):
         print(f"\n  [self-verify] skipped ({e})")
         return questions
 
-    valid_topics = {v["topic_query"] for v in verdicts if v.get("valid", True)}
+    verdict_map = {v["topic_query"]: v for v in verdicts}
     invalid = [v for v in verdicts if not v.get("valid", True)]
 
     if invalid:
-        print(f"\n  [self-verify] dropped {len(invalid)} question(s) with mismatched extracts:")
+        print(f"\n  [self-verify] flagged {len(invalid)} question(s) with mismatched extracts:")
         for v in invalid:
             print(f"    ✗ {v['topic_query']}: {v.get('reason','')}")
 
-    return [q for q in questions if q.get("topic_query", "") in valid_topics]
+    for q in questions:
+        v = verdict_map.get(q.get("topic_query", ""))
+        if v and not v.get("valid", True):
+            q["status"] = "flag"
+            q["flag_reason"] = f"Self-verify: {v.get('reason', 'extract does not support statements')}"
+
+    return questions
 
 
 # ── QUESTION SET PLANNER ──────────────────────────────────────────────────────

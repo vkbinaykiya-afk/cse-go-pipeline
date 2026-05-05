@@ -1842,7 +1842,9 @@ def stage_batch(body: StageBatchIn):
             "INSERT OR REPLACE INTO review_batches (date, question_ids, staged_at, auto_publish_at) VALUES (?,?,?,?)",
             (body.date, json.dumps(body.question_ids), staged_at.isoformat(), auto_publish_at.isoformat()))
     ph = ",".join(["%s" if USE_PG else "?"] * len(body.question_ids))
-    _execute(conn, f"UPDATE questions SET review_decision='accept' WHERE id IN ({ph})", tuple(body.question_ids))
+    _execute(conn,
+        f"UPDATE questions SET review_decision = CASE WHEN flag_reason IS NOT NULL AND flag_reason != '' THEN 'reject' ELSE 'accept' END WHERE id IN ({ph})",
+        tuple(body.question_ids))
     _commit(conn)
     conn.close()
     return {"date": body.date, "questions": len(body.question_ids),
@@ -2070,10 +2072,8 @@ def push_questions(body: PushQuestionsIn):
         if _fetchone(cur, conn):
             if body.update_status and q.get("status"):
                 _execute(conn, "UPDATE questions SET status=?, flag_reason=? WHERE id=?",
-                         (q.get("status"), q.get("flag_reason"), q_id))
-                skipped += 1
-            else:
-                skipped += 1
+                         (q.get("status"), q.get("flag_reason") or None, q_id))
+            skipped += 1
             continue
         extracts = q.get("cited_extracts") or ([q["cited_extract"]] if q.get("cited_extract") else [])
         _execute(conn, """

@@ -736,8 +736,8 @@ def stage_for_review(records, date_str):
         logging.warning("RAILWAY_API_URL not set — falling back to direct build_daily_set")
         return build_daily_set(records, date_str)
 
-    # Push all passing questions to Railway DB first
-    passing = [r for r in records if r.get("status") == "pass"]
+    # Push all passing + flagged questions to Railway DB for HITL review
+    to_stage = [r for r in records if r.get("status") in ("pass", "flag")]
     conn2 = sqlite3.connect(DB_PATH)
     conn2.row_factory = sqlite3.Row
 
@@ -748,7 +748,7 @@ def stage_for_review(records, date_str):
 
     q_payload = []
     q_ids_for_review = []
-    for r in passing:
+    for r in to_stage:
         q_id = str(uuid.uuid5(uuid.NAMESPACE_DNS, r.get("question", "") + r.get("source_file", "")))
         q_ids_for_review.append(q_id)
         q_payload.append({
@@ -777,7 +777,7 @@ def stage_for_review(records, date_str):
         try:
             qresp = requests.post(
                 f"{railway_url}/internal/push-questions",
-                json={"questions": q_payload, "secret": pipeline_secret},
+                json={"questions": q_payload, "secret": pipeline_secret, "update_status": True},
                 timeout=30,
             )
             logging.info(f"  Pushed {len(q_payload)} questions to Railway ({qresp.status_code})")
