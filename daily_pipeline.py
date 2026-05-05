@@ -880,6 +880,22 @@ def main():
     logging.info(f"\n[6/7] Tagging new questions ...")
     tag_new_questions()
 
+    # Refresh upsc_subject/topic/category in records from local DB after tagging
+    conn_local = sqlite3.connect(DB_PATH)
+    conn_local.row_factory = sqlite3.Row
+    for r in records:
+        q_id = str(uuid.uuid5(uuid.NAMESPACE_DNS, r.get("question", "") + r.get("source_file", "")))
+        row = conn_local.execute(
+            "SELECT upsc_subject, upsc_topic, broad_category, question_category FROM questions WHERE id=?",
+            (q_id,)
+        ).fetchone()
+        if row and row["upsc_subject"]:
+            r["upsc_subject"]      = row["upsc_subject"]
+            r["upsc_topic"]        = row["upsc_topic"]
+            r["broad_category"]    = row["broad_category"]
+            r["question_category"] = row["question_category"]
+    conn_local.close()
+
     # Step 7: Stage for HITL review (auto-publishes in 1hr if not manually reviewed)
     today = datetime.date.today().isoformat()
     logging.info(f"\n[7/7] Staging questions for HITL review ({today}) ...")

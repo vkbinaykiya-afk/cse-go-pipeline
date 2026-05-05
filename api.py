@@ -2071,8 +2071,9 @@ def push_questions(body: PushQuestionsIn):
         cur = _execute(conn, "SELECT id FROM questions WHERE id=?", (q_id,))
         if _fetchone(cur, conn):
             if body.update_status and q.get("status"):
-                _execute(conn, "UPDATE questions SET status=?, flag_reason=? WHERE id=?",
-                         (q.get("status"), q.get("flag_reason") or None, q_id))
+                _execute(conn,
+                    "UPDATE questions SET status=?, flag_reason=?, upsc_subject=COALESCE(?, upsc_subject) WHERE id=?",
+                    (q.get("status"), q.get("flag_reason") or None, q.get("upsc_subject") or None, q_id))
             skipped += 1
             continue
         extracts = q.get("cited_extracts") or ([q["cited_extract"]] if q.get("cited_extract") else [])
